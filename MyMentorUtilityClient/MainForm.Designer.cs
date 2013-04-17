@@ -49,6 +49,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.durationTimer = new ECN.SchoolSoundSystem.TimePicker();
+            this.startTimer = new ECN.SchoolSoundSystem.TimePicker();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -67,6 +69,8 @@
             this.cbScanText = new System.Windows.Forms.CheckBox();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.clipDurationTimer = new ECN.SchoolSoundSystem.TimePicker();
             this.label12 = new System.Windows.Forms.Label();
             this.tbShemShiur = new System.Windows.Forms.TextBox();
             this.mtbVersion = new System.Windows.Forms.MaskedTextBox();
@@ -81,10 +85,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.paragraphsGrid = new System.Windows.Forms.DataGridView();
             this.richTextBox1 = new Tarro.Windows.Forms.RichTextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.clipDurationTimer = new ECN.SchoolSoundSystem.TimePicker();
-            this.durationTimer = new ECN.SchoolSoundSystem.TimePicker();
-            this.startTimer = new ECN.SchoolSoundSystem.TimePicker();
             this.groupBox1.SuspendLayout();
             this.sectionGroup.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -281,7 +281,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(84, 23);
             this.button4.TabIndex = 18;
-            this.button4.Text = "עדכן שורה";
+            this.button4.Text = "עדכן";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -303,6 +303,30 @@
             this.label10.TabIndex = 16;
             this.label10.Text = "זמן התחלה";
             this.label10.Click += new System.EventHandler(this.label10_Click);
+            // 
+            // durationTimer
+            // 
+            this.durationTimer.Hours = 0;
+            this.durationTimer.Location = new System.Drawing.Point(138, 101);
+            this.durationTimer.Milliseconds = 0;
+            this.durationTimer.Minutes = 0;
+            this.durationTimer.Name = "durationTimer";
+            this.durationTimer.Seconds = 0;
+            this.durationTimer.Size = new System.Drawing.Size(75, 20);
+            this.durationTimer.TabIndex = 15;
+            this.durationTimer.Value = System.TimeSpan.Parse("00:00:00");
+            // 
+            // startTimer
+            // 
+            this.startTimer.Hours = 0;
+            this.startTimer.Location = new System.Drawing.Point(138, 67);
+            this.startTimer.Milliseconds = 0;
+            this.startTimer.Minutes = 0;
+            this.startTimer.Name = "startTimer";
+            this.startTimer.Seconds = 0;
+            this.startTimer.Size = new System.Drawing.Size(75, 20);
+            this.startTimer.TabIndex = 14;
+            this.startTimer.Value = System.TimeSpan.Parse("00:00:00");
             // 
             // toolStrip1
             // 
@@ -466,6 +490,27 @@
             this.groupBox3.Text = "מאפייני שיעור";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(230, 78);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(30, 13);
+            this.label15.TabIndex = 19;
+            this.label15.Text = "משך";
+            // 
+            // clipDurationTimer
+            // 
+            this.clipDurationTimer.Hours = 0;
+            this.clipDurationTimer.Location = new System.Drawing.Point(138, 76);
+            this.clipDurationTimer.Milliseconds = 0;
+            this.clipDurationTimer.Minutes = 0;
+            this.clipDurationTimer.Name = "clipDurationTimer";
+            this.clipDurationTimer.Seconds = 0;
+            this.clipDurationTimer.Size = new System.Drawing.Size(75, 20);
+            this.clipDurationTimer.TabIndex = 18;
+            this.clipDurationTimer.Value = System.TimeSpan.Parse("00:00:00");
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -533,6 +578,7 @@
             this.sectionsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.sectionsGrid.Size = new System.Drawing.Size(207, 144);
             this.sectionsGrid.TabIndex = 12;
+            this.sectionsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.sectionsGrid_CellMouseClick);
             // 
             // groupBox6
             // 
@@ -556,6 +602,7 @@
             this.sentencesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.sentencesGrid.Size = new System.Drawing.Size(200, 144);
             this.sentencesGrid.TabIndex = 12;
+            this.sentencesGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.sentencesGrid_CellMouseClick);
             // 
             // button8
             // 
@@ -599,7 +646,7 @@
             this.paragraphsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.paragraphsGrid.Size = new System.Drawing.Size(198, 144);
             this.paragraphsGrid.TabIndex = 12;
-            this.paragraphsGrid.SelectionChanged += new System.EventHandler(this.paragraphsGrid_SelectionChanged);
+            this.paragraphsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.paragraphsGrid_CellMouseClick);
             // 
             // richTextBox1
             // 
@@ -610,51 +657,6 @@
             this.richTextBox1.Text = "";
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(230, 78);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(30, 13);
-            this.label15.TabIndex = 19;
-            this.label15.Text = "משך";
-            // 
-            // clipDurationTimer
-            // 
-            this.clipDurationTimer.Hours = 0;
-            this.clipDurationTimer.Location = new System.Drawing.Point(138, 76);
-            this.clipDurationTimer.Milliseconds = 0;
-            this.clipDurationTimer.Minutes = 0;
-            this.clipDurationTimer.Name = "clipDurationTimer";
-            this.clipDurationTimer.Seconds = 0;
-            this.clipDurationTimer.Size = new System.Drawing.Size(75, 20);
-            this.clipDurationTimer.TabIndex = 18;
-            this.clipDurationTimer.Value = System.TimeSpan.Parse("00:00:00");
-            // 
-            // durationTimer
-            // 
-            this.durationTimer.Hours = 0;
-            this.durationTimer.Location = new System.Drawing.Point(138, 101);
-            this.durationTimer.Milliseconds = 0;
-            this.durationTimer.Minutes = 0;
-            this.durationTimer.Name = "durationTimer";
-            this.durationTimer.Seconds = 0;
-            this.durationTimer.Size = new System.Drawing.Size(75, 20);
-            this.durationTimer.TabIndex = 15;
-            this.durationTimer.Value = System.TimeSpan.Parse("00:00:00");
-            // 
-            // startTimer
-            // 
-            this.startTimer.Hours = 0;
-            this.startTimer.Location = new System.Drawing.Point(138, 67);
-            this.startTimer.Milliseconds = 0;
-            this.startTimer.Minutes = 0;
-            this.startTimer.Name = "startTimer";
-            this.startTimer.Seconds = 0;
-            this.startTimer.Size = new System.Drawing.Size(75, 20);
-            this.startTimer.TabIndex = 14;
-            this.startTimer.Value = System.TimeSpan.Parse("00:00:00");
             // 
             // MainForm
             // 

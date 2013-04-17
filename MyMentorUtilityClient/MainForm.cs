@@ -28,7 +28,7 @@ namespace MyMentorUtilityClient
 
         private Word m_selected = null;
         private bool m_disableScanningText;
-        private bool m_skipSelectionEvent;
+        private AnchorType m_selectedAnchorType = AnchorType.None;
 
         public MainForm()
         {
@@ -325,34 +325,35 @@ namespace MyMentorUtilityClient
 
                 m_paragraphs = paragraphs_local;
 
-                paragraphsGrid.DataSource = m_paragraphs.Select(p => new
+                paragraphsGrid.DataSource = m_paragraphs.Select(p => new SectionCellData
                 {
                     Index = p.Index,
                     StartTime = p.StartTime,
-                    Duration = p.Duration
+                    Duration = p.Duration,
+                    Text = p.Sentences.SelectMany(s => s.Sections).SelectMany(w => w.Words).Select( w => w.Text).Aggregate((a, b) => a + " " + b)
                 }).ToList();
 
-                sentencesGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).Select(s => new
+                sentencesGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).Select(s => new SectionCellData
                 {
                     Index = s.Index,
                     StartTime = s.StartTime,
-                    Duration = s.Duration
-
+                    Duration = s.Duration,
+                    Text = s.Sections.SelectMany(w => w.Words).Select( w => w.Text).Aggregate((a, b) => a + " " + b)
                 }).ToList();
 
 
-                sectionsGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).SelectMany( se => se.Sections).Select(s => new
+                sectionsGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).Select(s => new SectionCellData
                 {
                     Index = s.Index,
                     StartTime = s.StartTime,
-                    Duration = s.Duration
-
+                    Duration = s.Duration,
+                    Text = s.Words.Select( w => w.Text).Aggregate((a, b) => a + " " + b)
                 }).ToList();
 
             }
-            catch
+            catch(Exception ex)
             {
-
+                Debug.WriteLine(ex.ToString());
             }
         }
 
@@ -920,6 +921,10 @@ namespace MyMentorUtilityClient
                         durationTimer.Value = m_selected.Duration;
                         button4.Enabled = true;
 
+                        m_selectedAnchorType = AnchorType.Word;
+                        sectionGroup.Text = "תזמון מילה";
+                        lblSectionText.Text = "מילה";
+
                     }
                 }
             }
@@ -942,8 +947,73 @@ namespace MyMentorUtilityClient
 
         private void paragraphsGrid_SelectionChanged(object sender, EventArgs e)
         {
-            var f = paragraphsGrid.SelectedRows[0].DataBoundItem;
         }
+
+        private void paragraphsGrid_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (paragraphsGrid.SelectedRows.Count > 0)
+            {
+                var row = paragraphsGrid.SelectedRows[0].DataBoundItem as SectionCellData;
+
+                if (row != null)
+                {
+                    m_selectedAnchorType = AnchorType.Paragraph;
+                    sectionGroup.Text = "תזמון פסקה";
+                    lblSectionText.Text = "פסקה";
+                    tbSectionText.Text = row.Text;
+                    startTimer.Value = row.StartTime;
+                    durationTimer.Value = row.Duration;
+                    button4.Enabled = true;
+                }
+            }
+
+        }
+
+        private void sentencesGrid_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (sentencesGrid.SelectedRows.Count > 0)
+            {
+                var row = sentencesGrid.SelectedRows[0].DataBoundItem as SectionCellData;
+
+                if (row != null)
+                {
+                    m_selectedAnchorType = AnchorType.Sentence;
+                    sectionGroup.Text = "תזמון משפט";
+                    lblSectionText.Text = "משפט";
+                    tbSectionText.Text = row.Text;
+                    startTimer.Value = row.StartTime;
+                    durationTimer.Value = row.Duration;
+                    button4.Enabled = true;
+                }
+            }
+        }
+
+        private void sectionsGrid_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (sectionsGrid.SelectedRows.Count > 0)
+            {
+                var row = sectionsGrid.SelectedRows[0].DataBoundItem as SectionCellData;
+
+                if (row != null)
+                {
+                    m_selectedAnchorType = AnchorType.Section;
+                    sectionGroup.Text = "תזמון קטע";
+                    lblSectionText.Text = "קטע";
+                    tbSectionText.Text = row.Text;
+                    startTimer.Value = row.StartTime;
+                    durationTimer.Value = row.Duration;
+                    button4.Enabled = true;
+                }
+            }
+        }
+    }
+
+    public class SectionCellData
+    {
+        public int Index { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan Duration { get; set; }
+        public string Text { get; set; }
     }
 
     public abstract class BaseSection
@@ -1031,7 +1101,8 @@ namespace MyMentorUtilityClient
         Paragraph,
         Sentence,
         Section,
-        Word
+        Word,
+        None
     }
 
     public enum AnchorDirection

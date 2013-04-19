@@ -735,19 +735,24 @@ namespace MyMentorUtilityClient
                 ClipDetails frm = new ClipDetails();
                 frm.ShowDialog();
 
-                m_disableScanningText = true;
-                richTextBox1.Rtf = Clip.Current.RtfText;
-                m_disableScanningText = false;
-
-                if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
+                if (string.IsNullOrEmpty(Clip.Current.Directory))
                 {
-                    m_paragraphs = Clip.Current.Paragraphs;
-                    Recalculate();
+                    Application.Exit();
                 }
+                else
+                {
+                    this.Text = "MyMentor - " + Clip.Current.Title;
 
-                tbShemShiur.Text = Clip.Current.Title;
-                mtbVersion.Text = Clip.Current.Version;
-                clipDurationTimer.Value = Clip.Current.Duration;
+                    m_disableScanningText = true;
+                    richTextBox1.Rtf = Clip.Current.RtfText;
+                    m_disableScanningText = false;
+
+                    if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
+                    {
+                        m_paragraphs = Clip.Current.Paragraphs;
+                        Recalculate();
+                    }
+                }
             }
         }
 
@@ -834,10 +839,6 @@ namespace MyMentorUtilityClient
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Clip.Current.Title = tbShemShiur.Text;
-            Clip.Current.Version = mtbVersion.Text;
-            Clip.Current.Duration = clipDurationTimer.Value;
-
             Clip.Current.Paragraphs = m_paragraphs;
             Clip.Current.RtfText = richTextBox1.Rtf;
             Clip.Current.Save();
@@ -877,28 +878,14 @@ namespace MyMentorUtilityClient
             Recalculate();
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private void button7_Click(object sender, EventArgs e)
         {
-            Clip.Current.Title = tbShemShiur.Text;
-            Clip.Current.Version = mtbVersion.Text;
-        }
-
-        private async void button7_Click(object sender, EventArgs e)
-        {
-            Clip.Current.Title = tbShemShiur.Text;
-            Clip.Current.Version = mtbVersion.Text;
-            Clip.Current.Duration = clipDurationTimer.Value;
             Clip.Current.Paragraphs = m_paragraphs;
             Clip.Current.RtfText = richTextBox1.Rtf;
             Clip.Current.Save();
 
-            if (Clip.Current.ExtractJson())
-            {
-                if (Clip.Current.Publish())
-                {
-                     await Clip.Current.UploadAsync();
-                }
-            }
+            PublishForm frm = new PublishForm();
+            frm.ShowDialog();
         }
 
         private void richTextBox1_CursorChanged(object sender, EventArgs e)
@@ -1030,6 +1017,17 @@ namespace MyMentorUtilityClient
 
             LoginForm form = new LoginForm(this);
             form.ShowDialog();
+        }
+
+        private void menuClipProperties_Click(object sender, EventArgs e)
+        {
+            ClipPropertiesForm frm = new ClipPropertiesForm(this);
+            frm.ShowDialog();
+        }
+
+        private void exitMenuStrip_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 

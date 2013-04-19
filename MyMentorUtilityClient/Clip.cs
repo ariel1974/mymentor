@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -43,6 +44,9 @@ namespace MyMentorUtilityClient
         public string SubCategory { get; set; }
         public string Tags { get; set; }
         public string Status { get; set; }
+ 
+        [XmlIgnore]
+        public bool IsNew { get; set; }
 
         [JsonProperty("paragraphs")]
         [XmlArrayItem("Paragraphs")]
@@ -75,7 +79,7 @@ namespace MyMentorUtilityClient
         /// 
         /// </summary>
         /// <param name="path"></param>
-        public static void Load(string path)
+        public async static void Load(string path)
         {
             XmlSerializer serializer = new XmlSerializer(new Clip().GetType());
 
@@ -85,6 +89,17 @@ namespace MyMentorUtilityClient
 
                 instance = (Clip)deserialized;
             }
+
+            //check in the cloud if exists
+            //var query = ParseObject.GetQuery("Clips").WhereEqualTo("clipId", instance.ID.ToString());
+
+            //ParseObject obj = await query.FirstOrDefaultAsync();
+
+            //if (obj == null)
+            //{
+            //    instance = null;
+            //    throw new ApplicationException("סרט זה אינו קיים בענן");
+            //}
         }
 
         /// <summary>
@@ -105,6 +120,12 @@ namespace MyMentorUtilityClient
             {
                 zip.AddFile(Path.Combine(this.Directory, "schema.json"), string.Empty);
                 //zip.AddFile(Path.Combine(this.Directory, "clip.mp3"), string.Empty);
+
+                if (File.Exists(Path.Combine(this.Directory, "clip.mp3")))
+                {
+                    zip.AddFile(Path.Combine(this.Directory, "clip.mp3"), string.Empty);
+                }
+
                 zip.AddFile(Path.Combine(this.Directory, "clip.txt"), string.Empty);
                 zip.Save(Path.Combine(this.Directory, string.Format("{0}.mmn", this.ID.ToString() ) ) );
             }
@@ -112,15 +133,25 @@ namespace MyMentorUtilityClient
             return true;
         }
 
-        public async Task<bool> UploadAsync()
+        public async Task<bool> UploadAsync(IProgress<ParseUploadProgressEventArgs> progress)
         {
+            //read file content
             byte[] bytes = File.ReadAllBytes(Path.Combine(this.Directory, string.Format("{0}.mmn", this.ID.ToString() ) ) );
             ParseFile file = new ParseFile(string.Format("{0}.mmn", this.ID.ToString()), bytes);
-            await file.SaveAsync();
-            
-            var user = await ParseUser.LogInAsync("natan", "123456");
+            await file.SaveAsync(progress);
 
-            var clip = new ParseObject("Clips");
+            var user = ParseUser.CurrentUser;
+
+            //check if exists clip
+            var query = ParseObject.GetQuery("Clips").WhereEqualTo("clipId", this.ID.ToString());
+
+            ParseObject clip = await query.FirstOrDefaultAsync();
+
+            if (clip == null)
+            {
+                clip = new ParseObject("Clips");
+            }
+
             clip["clipId"] = this.ID.ToString();
             clip["clipVersion"] = this.Version;
             clip["status"] = this.Status;
@@ -128,10 +159,9 @@ namespace MyMentorUtilityClient
             clip["subCategory"] = this.SubCategory;
             clip["keywords"] = this.Tags;
             clip["clipFile"] = file;
-            clip.ACL = new ParseACL(user);
+            clip["createdByUser"] = user.Username;
+            //clip.ACL = new ParseACL(user);
             await clip.SaveAsync();
-
-            ParseUser.LogOut();
 
             return true;
         }

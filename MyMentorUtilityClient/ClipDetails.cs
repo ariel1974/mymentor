@@ -32,10 +32,30 @@ namespace MyMentorUtilityClient
         {
             if (radioButton1.Checked)
             {
+                if ( 
+                    string.IsNullOrEmpty( textBox1.Text.Trim() ) ||
+                    string.IsNullOrEmpty( textBox2.Text.Trim() ) ||
+                    string.IsNullOrEmpty( textBox4.Text.Trim() ) ||
+                    string.IsNullOrEmpty( textBox5.Text.Trim() ) ||
+                    string.IsNullOrEmpty( textBox6.Text.Trim() ) ||
+                    string.IsNullOrEmpty( comboBox1.Text.Trim() ) ||
+                    string.IsNullOrEmpty( maskedTextBox1.Text.Trim() )
+                    )
+                {
+                    MessageBox.Show("יש להזין את כל שדות מאפייני השיעור");
+                    return;
+                }
+
                 Clip.Current.Directory = textBox2.Text;
                 Clip.Current.Title = textBox1.Text;
                 Clip.Current.Version = maskedTextBox1.Text;
+                Clip.Current.Category = textBox4.Text;
+                Clip.Current.SubCategory = textBox5.Text;
+                Clip.Current.Duration = new TimeSpan(0, 0, 0);
+                Clip.Current.Tags = textBox6.Text;
+                Clip.Current.Status = comboBox1.Text;
                 Clip.Current.ID = Guid.NewGuid();
+                Clip.Current.IsNew = true;
                 Clip.Current.Save();
 
                 Settings.Default.LastDirectory = textBox2.Text;
@@ -45,7 +65,20 @@ namespace MyMentorUtilityClient
             }
             else
             {
-                Clip.Load(textBox3.Text);
+                try
+                {
+                    Clip.Load(textBox3.Text);
+                }
+                catch (ApplicationException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("קובץ שיעור אינו תקין");
+                    return;
+                }
 
                 Settings.Default.LastDirectory = textBox3.Text;
                 Settings.Default.Save();

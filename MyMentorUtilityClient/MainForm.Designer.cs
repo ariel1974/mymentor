@@ -49,6 +49,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.durationTimer = new ECN.SchoolSoundSystem.TimePicker();
+            this.startTimer = new ECN.SchoolSoundSystem.TimePicker();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -63,15 +65,12 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.עזרהToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuConnectAsDifferentUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuClipProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.button5 = new System.Windows.Forms.Button();
             this.cbScanText = new System.Windows.Forms.CheckBox();
             this.button6 = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.tbShemShiur = new System.Windows.Forms.TextBox();
-            this.mtbVersion = new System.Windows.Forms.MaskedTextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.sectionsGrid = new System.Windows.Forms.DataGridView();
@@ -85,17 +84,10 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblLoginUser = new System.Windows.Forms.Label();
-            this.menuConnectAsDifferentUser = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuClipProperties = new System.Windows.Forms.ToolStripMenuItem();
-            this.durationTimer = new ECN.SchoolSoundSystem.TimePicker();
-            this.startTimer = new ECN.SchoolSoundSystem.TimePicker();
-            this.clipDurationTimer = new ECN.SchoolSoundSystem.TimePicker();
             this.groupBox1.SuspendLayout();
             this.sectionGroup.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sectionsGrid)).BeginInit();
             this.groupBox6.SuspendLayout();
@@ -109,7 +101,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(0, 303);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 32);
             this.button1.TabIndex = 0;
@@ -120,7 +112,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(0, 343);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(112, 32);
             this.button2.TabIndex = 1;
@@ -139,10 +131,10 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(117, 294);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(117, 41);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(332, 165);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
@@ -247,7 +239,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(549, 3);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(168, 32);
             this.button3.TabIndex = 10;
@@ -257,7 +249,7 @@
             // richTextBox2
             // 
             this.richTextBox2.Location = new System.Drawing.Point(411, 687);
-            this.richTextBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.richTextBox2.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(38, 29);
             this.richTextBox2.TabIndex = 13;
@@ -274,9 +266,9 @@
             this.sectionGroup.Controls.Add(this.durationTimer);
             this.sectionGroup.Controls.Add(this.startTimer);
             this.sectionGroup.Location = new System.Drawing.Point(7, 488);
-            this.sectionGroup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sectionGroup.Margin = new System.Windows.Forms.Padding(4);
             this.sectionGroup.Name = "sectionGroup";
-            this.sectionGroup.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sectionGroup.Padding = new System.Windows.Forms.Padding(4);
             this.sectionGroup.Size = new System.Drawing.Size(442, 191);
             this.sectionGroup.TabIndex = 15;
             this.sectionGroup.TabStop = false;
@@ -295,7 +287,7 @@
             // tbSectionText
             // 
             this.tbSectionText.Location = new System.Drawing.Point(21, 44);
-            this.tbSectionText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbSectionText.Margin = new System.Windows.Forms.Padding(4);
             this.tbSectionText.Name = "tbSectionText";
             this.tbSectionText.ReadOnly = true;
             this.tbSectionText.Size = new System.Drawing.Size(296, 26);
@@ -305,7 +297,7 @@
             // 
             this.button4.Enabled = false;
             this.button4.Location = new System.Drawing.Point(21, 136);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(126, 32);
             this.button4.TabIndex = 18;
@@ -333,6 +325,32 @@
             this.label10.TabIndex = 16;
             this.label10.Text = "זמן התחלה";
             this.label10.Click += new System.EventHandler(this.label10_Click);
+            // 
+            // durationTimer
+            // 
+            this.durationTimer.Hours = 0;
+            this.durationTimer.Location = new System.Drawing.Point(207, 140);
+            this.durationTimer.Margin = new System.Windows.Forms.Padding(4);
+            this.durationTimer.Milliseconds = 0;
+            this.durationTimer.Minutes = 0;
+            this.durationTimer.Name = "durationTimer";
+            this.durationTimer.Seconds = 0;
+            this.durationTimer.Size = new System.Drawing.Size(112, 28);
+            this.durationTimer.TabIndex = 15;
+            this.durationTimer.Value = System.TimeSpan.Parse("00:00:00");
+            // 
+            // startTimer
+            // 
+            this.startTimer.Hours = 0;
+            this.startTimer.Location = new System.Drawing.Point(207, 93);
+            this.startTimer.Margin = new System.Windows.Forms.Padding(4);
+            this.startTimer.Milliseconds = 0;
+            this.startTimer.Minutes = 0;
+            this.startTimer.Name = "startTimer";
+            this.startTimer.Seconds = 0;
+            this.startTimer.Size = new System.Drawing.Size(112, 28);
+            this.startTimer.TabIndex = 14;
+            this.startTimer.Value = System.TimeSpan.Parse("00:00:00");
             // 
             // toolStrip1
             // 
@@ -414,36 +432,37 @@
             // saveMenuStrip
             // 
             this.saveMenuStrip.Name = "saveMenuStrip";
-            this.saveMenuStrip.Size = new System.Drawing.Size(145, 22);
+            this.saveMenuStrip.Size = new System.Drawing.Size(152, 22);
             this.saveMenuStrip.Text = "שמור שיעור";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(142, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // validateMenuStrip
             // 
             this.validateMenuStrip.Name = "validateMenuStrip";
-            this.validateMenuStrip.Size = new System.Drawing.Size(145, 22);
+            this.validateMenuStrip.Size = new System.Drawing.Size(152, 22);
             this.validateMenuStrip.Text = "בדוק תקינות";
             // 
             // publishMenuStrip
             // 
             this.publishMenuStrip.Name = "publishMenuStrip";
-            this.publishMenuStrip.Size = new System.Drawing.Size(145, 22);
+            this.publishMenuStrip.Size = new System.Drawing.Size(152, 22);
             this.publishMenuStrip.Text = "פרסם שיעור";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(142, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // exitMenuStrip
             // 
             this.exitMenuStrip.Name = "exitMenuStrip";
-            this.exitMenuStrip.Size = new System.Drawing.Size(145, 22);
+            this.exitMenuStrip.Size = new System.Drawing.Size(152, 22);
             this.exitMenuStrip.Text = "יציאה";
+            this.exitMenuStrip.Click += new System.EventHandler(this.exitMenuStrip_Click);
             // 
             // עזרהToolStripMenuItem
             // 
@@ -455,10 +474,29 @@
             this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(44, 19);
             this.עזרהToolStripMenuItem.Text = "כלים";
             // 
+            // menuConnectAsDifferentUser
+            // 
+            this.menuConnectAsDifferentUser.Name = "menuConnectAsDifferentUser";
+            this.menuConnectAsDifferentUser.Size = new System.Drawing.Size(200, 22);
+            this.menuConnectAsDifferentUser.Text = "התחבר כמשתמש אחר";
+            this.menuConnectAsDifferentUser.Click += new System.EventHandler(this.menuConnectAsDifferentUser_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(197, 6);
+            // 
+            // menuClipProperties
+            // 
+            this.menuClipProperties.Name = "menuClipProperties";
+            this.menuClipProperties.Size = new System.Drawing.Size(200, 22);
+            this.menuClipProperties.Text = "מאפייני שיעור";
+            this.menuClipProperties.Click += new System.EventHandler(this.menuClipProperties_Click);
+            // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(388, 3);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(152, 32);
             this.button5.TabIndex = 18;
@@ -472,7 +510,7 @@
             this.cbScanText.Checked = true;
             this.cbScanText.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbScanText.Location = new System.Drawing.Point(51, 4);
-            this.cbScanText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbScanText.Margin = new System.Windows.Forms.Padding(4);
             this.cbScanText.Name = "cbScanText";
             this.cbScanText.Size = new System.Drawing.Size(126, 22);
             this.cbScanText.TabIndex = 19;
@@ -482,7 +520,7 @@
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(726, 3);
-            this.button6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(168, 32);
             this.button6.TabIndex = 20;
@@ -490,77 +528,10 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.clipDurationTimer);
-            this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.tbShemShiur);
-            this.groupBox3.Controls.Add(this.mtbVersion);
-            this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Location = new System.Drawing.Point(7, 41);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox3.Size = new System.Drawing.Size(442, 235);
-            this.groupBox3.TabIndex = 21;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "מאפייני שיעור";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(345, 108);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(37, 18);
-            this.label15.TabIndex = 19;
-            this.label15.Text = "משך";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(342, 37);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(58, 13);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "שם שיעור";
-            // 
-            // tbShemShiur
-            // 
-            this.tbShemShiur.Location = new System.Drawing.Point(21, 33);
-            this.tbShemShiur.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tbShemShiur.Name = "tbShemShiur";
-            this.tbShemShiur.Size = new System.Drawing.Size(296, 26);
-            this.tbShemShiur.TabIndex = 6;
-            // 
-            // mtbVersion
-            // 
-            this.mtbVersion.Location = new System.Drawing.Point(262, 69);
-            this.mtbVersion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.mtbVersion.Mask = "0.00";
-            this.mtbVersion.Name = "mtbVersion";
-            this.mtbVersion.Size = new System.Drawing.Size(55, 26);
-            this.mtbVersion.TabIndex = 7;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(342, 73);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(33, 13);
-            this.label13.TabIndex = 8;
-            this.label13.Text = "גרסה";
-            // 
             // button7
             // 
             this.button7.Location = new System.Drawing.Point(228, 3);
-            this.button7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(152, 32);
             this.button7.TabIndex = 22;
@@ -573,9 +544,9 @@
             this.groupBox5.Controls.Add(this.sectionsGrid);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Location = new System.Drawing.Point(457, 488);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(350, 191);
             this.groupBox5.TabIndex = 24;
             this.groupBox5.TabStop = false;
@@ -589,7 +560,7 @@
             this.sectionsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sectionsGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.sectionsGrid.Location = new System.Drawing.Point(4, 23);
-            this.sectionsGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sectionsGrid.Margin = new System.Windows.Forms.Padding(4);
             this.sectionsGrid.Name = "sectionsGrid";
             this.sectionsGrid.ReadOnly = true;
             this.sectionsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -602,9 +573,9 @@
             this.groupBox6.Controls.Add(this.sentencesGrid);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox6.Location = new System.Drawing.Point(815, 488);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox6.Size = new System.Drawing.Size(350, 191);
             this.groupBox6.TabIndex = 25;
             this.groupBox6.TabStop = false;
@@ -618,7 +589,7 @@
             this.sentencesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sentencesGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.sentencesGrid.Location = new System.Drawing.Point(4, 23);
-            this.sentencesGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sentencesGrid.Margin = new System.Windows.Forms.Padding(4);
             this.sentencesGrid.Name = "sentencesGrid";
             this.sentencesGrid.ReadOnly = true;
             this.sentencesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -629,7 +600,7 @@
             // button8
             // 
             this.button8.Location = new System.Drawing.Point(0, 263);
-            this.button8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button8.Margin = new System.Windows.Forms.Padding(4);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(112, 32);
             this.button8.TabIndex = 26;
@@ -642,9 +613,9 @@
             this.groupBox4.Controls.Add(this.paragraphsGrid);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(1173, 488);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(350, 191);
             this.groupBox4.TabIndex = 26;
             this.groupBox4.TabStop = false;
@@ -658,7 +629,7 @@
             this.paragraphsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.paragraphsGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.paragraphsGrid.Location = new System.Drawing.Point(4, 23);
-            this.paragraphsGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.paragraphsGrid.Margin = new System.Windows.Forms.Padding(4);
             this.paragraphsGrid.Name = "paragraphsGrid";
             this.paragraphsGrid.ReadOnly = true;
             this.paragraphsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -676,17 +647,16 @@
             this.tableLayoutPanel1.Controls.Add(this.toolStrip1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox6, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.sectionGroup, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox5, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.richTextBox2, 3, 4);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox3, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.richTextBox1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.sectionGroup, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 3, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
@@ -707,7 +677,7 @@
             this.panel1.Controls.Add(this.button7);
             this.panel1.Controls.Add(this.cbScanText);
             this.panel1.Location = new System.Drawing.Point(625, 687);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(898, 43);
             this.panel1.TabIndex = 29;
@@ -717,7 +687,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.richTextBox1, 3);
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Location = new System.Drawing.Point(457, 41);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox1.Name = "richTextBox1";
             this.tableLayoutPanel1.SetRowSpan(this.richTextBox1, 2);
             this.richTextBox1.Size = new System.Drawing.Size(1066, 439);
@@ -730,7 +700,7 @@
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel2.Location = new System.Drawing.Point(7, 4);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(442, 29);
             this.panel2.TabIndex = 31;
@@ -747,63 +717,6 @@
             this.lblLoginUser.Size = new System.Drawing.Size(322, 24);
             this.lblLoginUser.TabIndex = 0;
             // 
-            // menuConnectAsDifferentUser
-            // 
-            this.menuConnectAsDifferentUser.Name = "menuConnectAsDifferentUser";
-            this.menuConnectAsDifferentUser.Size = new System.Drawing.Size(200, 22);
-            this.menuConnectAsDifferentUser.Text = "התחבר כמשתמש אחר";
-            this.menuConnectAsDifferentUser.Click += new System.EventHandler(this.menuConnectAsDifferentUser_Click);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(197, 6);
-            // 
-            // menuClipProperties
-            // 
-            this.menuClipProperties.Name = "menuClipProperties";
-            this.menuClipProperties.Size = new System.Drawing.Size(200, 22);
-            this.menuClipProperties.Text = "מאפייני שיעור";
-            // 
-            // durationTimer
-            // 
-            this.durationTimer.Hours = 0;
-            this.durationTimer.Location = new System.Drawing.Point(207, 140);
-            this.durationTimer.Margin = new System.Windows.Forms.Padding(4);
-            this.durationTimer.Milliseconds = 0;
-            this.durationTimer.Minutes = 0;
-            this.durationTimer.Name = "durationTimer";
-            this.durationTimer.Seconds = 0;
-            this.durationTimer.Size = new System.Drawing.Size(112, 28);
-            this.durationTimer.TabIndex = 15;
-            this.durationTimer.Value = System.TimeSpan.Parse("00:00:00");
-            // 
-            // startTimer
-            // 
-            this.startTimer.Hours = 0;
-            this.startTimer.Location = new System.Drawing.Point(207, 93);
-            this.startTimer.Margin = new System.Windows.Forms.Padding(4);
-            this.startTimer.Milliseconds = 0;
-            this.startTimer.Minutes = 0;
-            this.startTimer.Name = "startTimer";
-            this.startTimer.Seconds = 0;
-            this.startTimer.Size = new System.Drawing.Size(112, 28);
-            this.startTimer.TabIndex = 14;
-            this.startTimer.Value = System.TimeSpan.Parse("00:00:00");
-            // 
-            // clipDurationTimer
-            // 
-            this.clipDurationTimer.Hours = 0;
-            this.clipDurationTimer.Location = new System.Drawing.Point(207, 105);
-            this.clipDurationTimer.Margin = new System.Windows.Forms.Padding(4);
-            this.clipDurationTimer.Milliseconds = 0;
-            this.clipDurationTimer.Minutes = 0;
-            this.clipDurationTimer.Name = "clipDurationTimer";
-            this.clipDurationTimer.Seconds = 0;
-            this.clipDurationTimer.Size = new System.Drawing.Size(112, 28);
-            this.clipDurationTimer.TabIndex = 18;
-            this.clipDurationTimer.Value = System.TimeSpan.Parse("00:00:00");
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -817,7 +730,7 @@
             this.Controls.Add(this.button1);
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -833,8 +746,6 @@
             this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.sectionsGrid)).EndInit();
             this.groupBox6.ResumeLayout(false);
@@ -889,11 +800,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.CheckBox cbScanText;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox tbShemShiur;
-        private System.Windows.Forms.MaskedTextBox mtbVersion;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.DataGridView sectionsGrid;
@@ -904,8 +810,6 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView paragraphsGrid;
-        private System.Windows.Forms.Label label15;
-        private ECN.SchoolSoundSystem.TimePicker clipDurationTimer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RichTextBox richTextBox1;

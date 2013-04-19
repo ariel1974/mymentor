@@ -397,7 +397,7 @@ namespace MyMentorUtilityClient
             ParseFile file = new ParseFile("test.zip", bytes);
             await file.SaveAsync();
 
-            var jobApplication = new ParseObject("JobApplication");
+            var jobApplication = new ParseObject("Clips");
             jobApplication["applicantName"] = "Joe Smith";
             jobApplication["applicantResumeFile"] = file;
             await jobApplication.SaveAsync();
@@ -716,22 +716,39 @@ namespace MyMentorUtilityClient
         {
             richTextBox1.Focus();
 
-            ClipDetails frm = new ClipDetails();
-            frm.ShowDialog();
-
-            m_disableScanningText = true;
-            richTextBox1.Rtf = Clip.Current.RtfText;
-            m_disableScanningText = false;
-
-            if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
+            if (ParseUser.CurrentUser == null)
             {
-                m_paragraphs = Clip.Current.Paragraphs;
-                Recalculate();
+                LoginForm frmLogin = new LoginForm(this);
+                frmLogin.ShowDialog();
+            }
+            else
+            {
+                lblLoginUser.Text = "מחובר כ-" + ParseUser.CurrentUser.Username;
             }
 
-            tbShemShiur.Text = Clip.Current.Title;
-            mtbVersion.Text = Clip.Current.Version;
-            clipDurationTimer.Value = Clip.Current.Duration;
+            if (ParseUser.CurrentUser == null)
+            {
+                Application.Exit();
+            }
+            else
+            {
+                ClipDetails frm = new ClipDetails();
+                frm.ShowDialog();
+
+                m_disableScanningText = true;
+                richTextBox1.Rtf = Clip.Current.RtfText;
+                m_disableScanningText = false;
+
+                if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
+                {
+                    m_paragraphs = Clip.Current.Paragraphs;
+                    Recalculate();
+                }
+
+                tbShemShiur.Text = Clip.Current.Title;
+                mtbVersion.Text = Clip.Current.Version;
+                clipDurationTimer.Value = Clip.Current.Duration;
+            }
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -866,7 +883,7 @@ namespace MyMentorUtilityClient
             Clip.Current.Version = mtbVersion.Text;
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private async void button7_Click(object sender, EventArgs e)
         {
             Clip.Current.Title = tbShemShiur.Text;
             Clip.Current.Version = mtbVersion.Text;
@@ -879,7 +896,7 @@ namespace MyMentorUtilityClient
             {
                 if (Clip.Current.Publish())
                 {
-
+                     await Clip.Current.UploadAsync();
                 }
             }
         }
@@ -1005,6 +1022,14 @@ namespace MyMentorUtilityClient
                     button4.Enabled = true;
                 }
             }
+        }
+
+        private void menuConnectAsDifferentUser_Click(object sender, EventArgs e)
+        {
+            //ParseUser.LogOut();
+
+            LoginForm form = new LoginForm(this);
+            form.ShowDialog();
         }
     }
 

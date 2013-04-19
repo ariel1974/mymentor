@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 using Ionic.Zip;
 using MyMentorUtilityClient.Json;
 using Newtonsoft.Json;
+using Parse;
 
 namespace MyMentorUtilityClient
 {
@@ -38,6 +39,10 @@ namespace MyMentorUtilityClient
         public Guid ID { get; set; }
         public string Title { get; set; }
         public string Version { get; set; }
+        public string Category { get; set; }
+        public string SubCategory { get; set; }
+        public string Tags { get; set; }
+        public string Status { get; set; }
 
         [JsonProperty("paragraphs")]
         [XmlArrayItem("Paragraphs")]
@@ -103,6 +108,30 @@ namespace MyMentorUtilityClient
                 zip.AddFile(Path.Combine(this.Directory, "clip.txt"), string.Empty);
                 zip.Save(Path.Combine(this.Directory, string.Format("{0}.mmn", this.ID.ToString() ) ) );
             }
+
+            return true;
+        }
+
+        public async Task<bool> UploadAsync()
+        {
+            byte[] bytes = File.ReadAllBytes(Path.Combine(this.Directory, string.Format("{0}.mmn", this.ID.ToString() ) ) );
+            ParseFile file = new ParseFile(string.Format("{0}.mmn", this.ID.ToString()), bytes);
+            await file.SaveAsync();
+            
+            var user = await ParseUser.LogInAsync("natan", "123456");
+
+            var clip = new ParseObject("Clips");
+            clip["clipId"] = this.ID.ToString();
+            clip["clipVersion"] = this.Version;
+            clip["status"] = this.Status;
+            clip["category"] = this.Category;
+            clip["subCategory"] = this.SubCategory;
+            clip["keywords"] = this.Tags;
+            clip["clipFile"] = file;
+            clip.ACL = new ParseACL(user);
+            await clip.SaveAsync();
+
+            ParseUser.LogOut();
 
             return true;
         }

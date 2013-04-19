@@ -13,6 +13,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using ECN.SchoolSoundSystem;
 using Ionic.Zip;
+using MyMentorUtilityClient.Properties;
 using Newtonsoft.Json;
 using Parse;
 
@@ -37,6 +38,8 @@ namespace MyMentorUtilityClient
 
         private void Recalculate()
         {
+            bool blError = false;
+
             try
             {
                 int charIndex = 0;
@@ -351,9 +354,20 @@ namespace MyMentorUtilityClient
                 }).ToList();
 
             }
+            catch(ApplicationException ex)
+            {
+                LogTextBox.AppendText(Environment.NewLine + DateTime.Now.ToLongTimeString() + " : " + ex.Message);
+                blError = true;
+            }
             catch(Exception ex)
             {
-                Debug.WriteLine(ex.ToString());
+                LogTextBox.AppendText(Environment.NewLine + DateTime.Now.ToLongTimeString() + " : העוגנים בטקסט אינם חוקים");
+                blError = true;
+            }
+
+            if (!blError)
+            {
+                LogTextBox.AppendText(Environment.NewLine + DateTime.Now.ToLongTimeString() + " : לא נמצאו שגיאות תקינות בטקסט השיעור");
             }
         }
 
@@ -502,6 +516,11 @@ namespace MyMentorUtilityClient
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
+            if (!m_disableScanningText)
+            {
+                Clip.Current.IsDirty = true;
+            }
+
             if (!m_disableScanningText && cbScanText.Checked)
             {
                 Recalculate();
@@ -839,11 +858,7 @@ namespace MyMentorUtilityClient
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Clip.Current.Paragraphs = m_paragraphs;
-            Clip.Current.RtfText = richTextBox1.Rtf;
-            Clip.Current.Save();
-
-            MessageBox.Show("השיעור נשמר בהצלחה !");
+            Save();
         }
 
         private void toolStripButton4_Click(object sender, EventArgs e)
@@ -1027,7 +1042,179 @@ namespace MyMentorUtilityClient
 
         private void exitMenuStrip_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            if (Clip.Current.IsDirty)
+            {
+                if (MessageBox.Show("השיעור לא נשמר מהשינויים האחרונים.\n\nהאם אתה בטוח לצאת?", "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Application.Exit();
+                }
+            }
+            else
+            {
+                Application.Exit();
+            }
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            Recalculate();
+        }
+
+        private void saveMenuStrip_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        private void Save()
+        {
+            Clip.Current.Paragraphs = m_paragraphs;
+            Clip.Current.RtfText = richTextBox1.Rtf;
+            Clip.Current.Save();
+
+            MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            if (Clip.Current.IsDirty)
+            {
+                if (Clip.Current.IsDirty && 
+                    MessageBox.Show("השיעור לא נשמר מהשינויים האחרונים.\n\nהאם אתה בטוח להמשיך?", "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    ClipDetails frm = new ClipDetails(FormMode.New);
+                    frm.ShowDialog();
+
+                    if ( frm.Result != System.Windows.Forms.DialogResult.Cancel )
+                    {
+                        this.Text = "MyMentor - " + Clip.Current.Title;
+
+                        m_disableScanningText = true;
+                        richTextBox1.Rtf = Clip.Current.RtfText;
+                        m_disableScanningText = false;
+
+                        if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
+                        {
+                            m_paragraphs = Clip.Current.Paragraphs;
+                            Recalculate();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ClipDetails frm = new ClipDetails(FormMode.New);
+                frm.ShowDialog();
+
+                if (frm.Result != System.Windows.Forms.DialogResult.Cancel)
+                {
+                    this.Text = "MyMentor - " + Clip.Current.Title;
+
+                    m_disableScanningText = true;
+                    richTextBox1.Rtf = Clip.Current.RtfText;
+                    m_disableScanningText = false;
+
+                    if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
+                    {
+                        m_paragraphs = Clip.Current.Paragraphs;
+                        Recalculate();
+                    }
+                }
+            }
+        }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            if (Clip.Current.IsDirty)
+            {
+                if (MessageBox.Show("השיעור לא נשמר מהשינויים האחרונים.\n\nהאם אתה בטוח להמשיך?", "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    ClipDetails frm = new ClipDetails(FormMode.Exists);
+                    frm.ShowDialog();
+
+                    if (frm.Result != System.Windows.Forms.DialogResult.Cancel)
+                    {
+                        this.Text = "MyMentor - " + Clip.Current.Title;
+
+                        m_disableScanningText = true;
+                        richTextBox1.Rtf = Clip.Current.RtfText;
+                        m_disableScanningText = false;
+
+                        if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
+                        {
+                            m_paragraphs = Clip.Current.Paragraphs;
+                            Recalculate();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ClipDetails frm = new ClipDetails(FormMode.Exists);
+                frm.ShowDialog();
+
+                if (frm.Result != System.Windows.Forms.DialogResult.Cancel)
+                {
+                    this.Text = "MyMentor - " + Clip.Current.Title;
+
+                    m_disableScanningText = true;
+                    richTextBox1.Rtf = Clip.Current.RtfText;
+                    m_disableScanningText = false;
+
+                    if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
+                    {
+                        m_paragraphs = Clip.Current.Paragraphs;
+                        Recalculate();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="selectedPath"></param>
+        private void OpenClip(string selectedPath)
+        {
+            try
+            {
+                Clip.Load(selectedPath);
+            }
+            catch (ApplicationException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("קובץ שיעור אינו תקין");
+                return;
+            }
+
+            Settings.Default.LastDirectory = selectedPath;
+            Settings.Default.Save();
+
+            this.Text = "MyMentor - " + Clip.Current.Title;
+
+            m_disableScanningText = true;
+            richTextBox1.Rtf = Clip.Current.RtfText;
+            m_disableScanningText = false;
+
+            if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
+            {
+                m_paragraphs = Clip.Current.Paragraphs;
+                Recalculate();
+            }
+
+        }
+
+        private void publishMenuStrip_Click(object sender, EventArgs e)
+        {
+            Clip.Current.Paragraphs = m_paragraphs;
+            Clip.Current.RtfText = richTextBox1.Rtf;
+            Clip.Current.Save();
+
+            PublishForm frm = new PublishForm();
+            frm.ShowDialog();
         }
     }
 

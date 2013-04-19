@@ -43,6 +43,7 @@ namespace MyMentorUtilityClient
             Clip.Current.Tags = textBox6.Text;
             Clip.Current.Status = comboBox1.Text;
             Clip.Current.Duration = clipDurationTimer.Value;
+            Clip.Current.AutoIncrementVersion = checkBox1.Checked;
             Clip.Current.Save();
 
             m_mainForm.Text = "MyMentor - " + textBox1.Text;
@@ -58,12 +59,14 @@ namespace MyMentorUtilityClient
         private void ClipPropertiesForm_Load(object sender, EventArgs e)
         {
             textBox1.Text = Clip.Current.Title;
+            textBox2.Text = Clip.Current.Directory;
             maskedTextBox1.Text = Clip.Current.Version;
             textBox4.Text = Clip.Current.Category;
             textBox5.Text = Clip.Current.SubCategory;
             textBox6.Text = Clip.Current.Tags;
             comboBox1.Text = Clip.Current.Status;
             clipDurationTimer.Value = Clip.Current.Duration;
+            checkBox1.Checked = Clip.Current.AutoIncrementVersion;
         }
     }
 }

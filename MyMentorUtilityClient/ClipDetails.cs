@@ -13,9 +13,26 @@ namespace MyMentorUtilityClient
 {
     public partial class ClipDetails : Form
     {
+        private FormMode m_mode;
+        private System.Windows.Forms.DialogResult result;
+
+        public System.Windows.Forms.DialogResult Result
+        {
+            get { return result; }
+            set { result = value; }
+        }
+
+
         public ClipDetails()
         {
             InitializeComponent();
+        }
+
+        public ClipDetails(FormMode mode)
+        {
+            InitializeComponent();
+
+            m_mode = mode;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -38,17 +55,18 @@ namespace MyMentorUtilityClient
                     string.IsNullOrEmpty( textBox4.Text.Trim() ) ||
                     string.IsNullOrEmpty( textBox5.Text.Trim() ) ||
                     string.IsNullOrEmpty( textBox6.Text.Trim() ) ||
-                    string.IsNullOrEmpty( comboBox1.Text.Trim() ) ||
-                    string.IsNullOrEmpty( maskedTextBox1.Text.Trim() )
+                    string.IsNullOrEmpty( comboBox1.Text.Trim() ) 
                     )
                 {
-                    MessageBox.Show("יש להזין את כל שדות מאפייני השיעור");
+                    MessageBox.Show("יש להזין את כל שדות מאפייני השיעור", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     return;
                 }
 
+                Clip.Current = null;
+                Clip.Current.AutoIncrementVersion = true;
                 Clip.Current.Directory = textBox2.Text;
                 Clip.Current.Title = textBox1.Text;
-                Clip.Current.Version = maskedTextBox1.Text;
+                Clip.Current.Version = "1.00";
                 Clip.Current.Category = textBox4.Text;
                 Clip.Current.SubCategory = textBox5.Text;
                 Clip.Current.Duration = new TimeSpan(0, 0, 0);
@@ -65,6 +83,16 @@ namespace MyMentorUtilityClient
             }
             else
             {
+                if (
+                    string.IsNullOrEmpty(textBox3.Text.Trim())
+                    )
+                {
+                    MessageBox.Show("יש לבחור תקייה", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    return;
+                }
+
+                Clip.Current = null;
+
                 try
                 {
                     Clip.Load(textBox3.Text);
@@ -76,7 +104,7 @@ namespace MyMentorUtilityClient
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show("קובץ שיעור אינו תקין");
+                    MessageBox.Show("קובץ שיעור אינו תקין", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     return;
                 }
 
@@ -90,11 +118,24 @@ namespace MyMentorUtilityClient
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             radioButton1.Checked = !radioButton2.Checked;
+
+            FixLayout();
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             radioButton2.Checked = !radioButton1.Checked;
+
+            FixLayout();
+        }
+
+        private void FixLayout()
+        {
+            groupBox1.Enabled = radioButton1.Checked;
+            groupBox2.Enabled = radioButton2.Checked;
+
+            radioButton1.Enabled = true;
+            radioButton2.Enabled = true;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -109,9 +150,34 @@ namespace MyMentorUtilityClient
 
         private void ClipDetails_Load(object sender, EventArgs e)
         {
-            radioButton2.Checked = !Settings.Default.IsNewClipOption;
+            if (m_mode == FormMode.New)
+            {
+                radioButton1.Checked = true;
+            }
+            else if (m_mode == FormMode.Exists)
+            {
+                radioButton2.Checked = true;
+                textBox3.Text = Settings.Default.LastDirectory;
+            }
+            else
+            {
+                radioButton2.Checked = !Settings.Default.IsNewClipOption;
 
-            textBox3.Text = Settings.Default.LastDirectory;
+                textBox3.Text = Settings.Default.LastDirectory;
+            }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            result = System.Windows.Forms.DialogResult.Cancel;
+            this.Close();
+        }
+    }
+
+    public enum FormMode
+    {
+        NA,
+        New,
+        Exists
     }
 }

@@ -45,9 +45,15 @@ namespace MyMentorUtilityClient
 
                     if (result)
                     {
+                        if (Clip.Current.AutoIncrementVersion)
+                        {
+                            Clip.Current.Version = Convert.ToString( Convert.ToDouble(Clip.Current.Version) + 0.01);
+                            Clip.Current.Save();
+                        }
+
                         label12.Text = "הסתיים בהצלחה!";
                         panelWait.Visible = false;
-                        MessageBox.Show("הסרטון פורסם בהצלחה ");
+                        MessageBox.Show("הסרטון פורסם בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                         this.Close();
                     }
                 }

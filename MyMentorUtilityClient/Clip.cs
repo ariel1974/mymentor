@@ -34,6 +34,10 @@ namespace MyMentorUtilityClient
 
                 return instance;
             }
+            set
+            {
+                instance = value;
+            }
         }
 
         public string Directory { get; set; }
@@ -44,9 +48,12 @@ namespace MyMentorUtilityClient
         public string SubCategory { get; set; }
         public string Tags { get; set; }
         public string Status { get; set; }
+        public bool AutoIncrementVersion { get; set; }
  
         [XmlIgnore]
         public bool IsNew { get; set; }
+        [XmlIgnore]
+        public bool IsDirty { get; set; }
 
         [JsonProperty("paragraphs")]
         [XmlArrayItem("Paragraphs")]
@@ -112,6 +119,8 @@ namespace MyMentorUtilityClient
             {
                 serializer.Serialize(writer.BaseStream, this);
             }
+
+            this.IsDirty = false;
         }
 
         public bool Publish()
@@ -187,5 +196,6 @@ namespace MyMentorUtilityClient
 
             return true;
         }
+
     }
 }

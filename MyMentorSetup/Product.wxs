@@ -3,11 +3,21 @@
   <Product Id="{C0E70D44-65DE-4596-A060-D6864EA55099}" Name="MyMentor Studio" Language="1033" Version="1.0.0.3" Manufacturer="MyMentor" UpgradeCode="ed5d63d1-e5ab-4234-b6e8-55145768e85f">
     <Package Id="{95DF566E-8075-47EB-B42B-0A55D94178BC}" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
-    <UIRef Id="WixUI_InstallDir" />
-    <UIRef Id="WixUI_ErrorProgressText" />
+    <UI>
+      <UIRef Id="WixUI_Minimal" />
+      <!--<UIRef Id="WixUI_ErrorProgressText" />-->
+      <Publish Dialog="ExitDialog"
+        Control="Finish"
+        Event="DoAction"
+        Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+    </UI>
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch MyMentor Studio" />
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <PropertyRef Id="NETFRAMEWORK45"/>
+
+    <Property Id="WixShellExecTarget" Value="[INSTALLFOLDER]MyMentorUtilityClient.exe" />
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes"/>
@@ -29,7 +39,6 @@
       <![CDATA[Installed OR NETFRAMEWORK45]]>
     </Condition>
 
-    <!-- Step 2: Add the shortcut to your installer package -->
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcut" Guid="{C5396555-AC50-4635-8BA1-148AAF3DBE2B}">
         <Shortcut Id="ApplicationStartMenuShortcut"
@@ -41,7 +50,7 @@
         <RegistryValue Root="HKCU" Key="Software\Microsoft\MyMentorStudio" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
     </DirectoryRef>
-    
+
   </Product>
 
   <Fragment>
@@ -50,7 +59,6 @@
         <Directory Id="INSTALLFOLDER" Name="MyMentor" />
       </Directory>
       <Directory Id="DesktopFolder"  SourceName="Desktop"/>
-      <!-- Step 1: Define the directory structure -->
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="MyMentor Studio"/>
       </Directory>

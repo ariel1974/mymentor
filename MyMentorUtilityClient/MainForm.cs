@@ -27,7 +27,7 @@ namespace MyMentorUtilityClient
 
         private List<Paragraph> m_paragraphs = null;
 
-        private Word m_selected = null;
+        private object m_selected = null;
         private bool m_disableScanningText;
         private AnchorType m_selectedAnchorType = AnchorType.None;
 
@@ -132,7 +132,7 @@ namespace MyMentorUtilityClient
                         Sentence ex_sentence = null;
 
                         //check for this word
-                        if (ex_sentence != null)
+                        if (m_paragraphs != null)
                         {
                             ex_sentence = m_paragraphs.SelectMany(s => s.Sentences).Where(p => p.Index == sentenceIndex).FirstOrDefault();
                         }
@@ -177,7 +177,7 @@ namespace MyMentorUtilityClient
                         Section ex_section = null;
 
                         //check for this word
-                        if (ex_section != null)
+                        if (m_paragraphs != null)
                         {
                             ex_section = m_paragraphs.SelectMany(s => s.Sentences).SelectMany(se => se.Sections).
                                 Where(p => p.Index == sectionIndex).FirstOrDefault();
@@ -328,30 +328,9 @@ namespace MyMentorUtilityClient
 
                 m_paragraphs = paragraphs_local;
 
-                paragraphsGrid.DataSource = m_paragraphs.Select(p => new SectionCellData
-                {
-                    Index = p.Index,
-                    StartTime = p.StartTime,
-                    Duration = p.Duration,
-                    Text = p.Sentences.SelectMany(s => s.Sections).SelectMany(w => w.Words).Select( w => w.Text).Aggregate((a, b) => a + " " + b)
-                }).ToList();
-
-                sentencesGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).Select(s => new SectionCellData
-                {
-                    Index = s.Index,
-                    StartTime = s.StartTime,
-                    Duration = s.Duration,
-                    Text = s.Sections.SelectMany(w => w.Words).Select( w => w.Text).Aggregate((a, b) => a + " " + b)
-                }).ToList();
-
-
-                sectionsGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).Select(s => new SectionCellData
-                {
-                    Index = s.Index,
-                    StartTime = s.StartTime,
-                    Duration = s.Duration,
-                    Text = s.Words.Select( w => w.Text).Aggregate((a, b) => a + " " + b)
-                }).ToList();
+                paragraphsGrid.DataSource = m_paragraphs.ToList();
+                sentencesGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).ToList();
+                sectionsGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).ToList();
 
             }
             catch(ApplicationException ex)
@@ -551,7 +530,7 @@ namespace MyMentorUtilityClient
         {
             if (m_selected != null)
             {
-                m_selected.StartTime = ((TimePicker)sender).Value;
+                ((BaseSection)m_selected).StartTime = ((TimePicker)sender).Value;
             }
 
 
@@ -563,12 +542,24 @@ namespace MyMentorUtilityClient
 
             if (m_selected != null)
             {
-                m_selected.StartTime = startTimer.Value;
-                m_selected.Duration = durationTimer.Value;
+                switch (m_selectedAnchorType)
+                {
+                    case AnchorType.Paragraph:
+                        break;
+                    case AnchorType.Sentence:
+                        break;
+                    case AnchorType.Section:
+                        break;
+                    case AnchorType.Word:
+                        break;
+                    default:
+                        break;
+                }
+
+                ((BaseSection)m_selected).StartTime = startTimer.Value;
+                ((BaseSection)m_selected).Duration = durationTimer.Value;
 
                 Recalculate();
-                //richTextBox1.SelectionStart = selectedIndex;
-                //richTextBox1.SelectionLength = 0;
                 richTextBox1.Focus();
 
                 richTextBox1_SelectionChanged(null, new EventArgs());
@@ -936,8 +927,8 @@ namespace MyMentorUtilityClient
                         m_selected = word;
 
                         tbSectionText.Text = word.Text;
-                        startTimer.Value = m_selected.StartTime;
-                        durationTimer.Value = m_selected.Duration;
+                        startTimer.Value = ((BaseSection)m_selected).StartTime;
+                        durationTimer.Value = ((BaseSection)m_selected).Duration;
                         button4.Enabled = true;
 
                         m_selectedAnchorType = AnchorType.Word;
@@ -972,16 +963,16 @@ namespace MyMentorUtilityClient
         {
             if (paragraphsGrid.SelectedRows.Count > 0)
             {
-                var row = paragraphsGrid.SelectedRows[0].DataBoundItem as SectionCellData;
+                m_selected = paragraphsGrid.SelectedRows[0].DataBoundItem as Paragraph;
 
-                if (row != null)
+                if (m_selected != null)
                 {
                     m_selectedAnchorType = AnchorType.Paragraph;
                     sectionGroup.Text = "תזמון פסקה";
                     lblSectionText.Text = "פסקה";
-                    tbSectionText.Text = row.Text;
-                    startTimer.Value = row.StartTime;
-                    durationTimer.Value = row.Duration;
+                    tbSectionText.Text = ((Paragraph)m_selected).Content;
+                    startTimer.Value = ((Paragraph)m_selected).StartTime;
+                    durationTimer.Value = ((Paragraph)m_selected).Duration;
                     button4.Enabled = true;
                 }
             }
@@ -992,16 +983,16 @@ namespace MyMentorUtilityClient
         {
             if (sentencesGrid.SelectedRows.Count > 0)
             {
-                var row = sentencesGrid.SelectedRows[0].DataBoundItem as SectionCellData;
+                m_selected = sentencesGrid.SelectedRows[0].DataBoundItem as Sentence;
 
-                if (row != null)
+                if (m_selected != null)
                 {
                     m_selectedAnchorType = AnchorType.Sentence;
                     sectionGroup.Text = "תזמון משפט";
                     lblSectionText.Text = "משפט";
-                    tbSectionText.Text = row.Text;
-                    startTimer.Value = row.StartTime;
-                    durationTimer.Value = row.Duration;
+                    tbSectionText.Text = ((Sentence)m_selected).Content;
+                    startTimer.Value = ((Sentence)m_selected).StartTime;
+                    durationTimer.Value = ((Sentence)m_selected).Duration;
                     button4.Enabled = true;
                 }
             }
@@ -1011,16 +1002,16 @@ namespace MyMentorUtilityClient
         {
             if (sectionsGrid.SelectedRows.Count > 0)
             {
-                var row = sectionsGrid.SelectedRows[0].DataBoundItem as SectionCellData;
+                m_selected = sectionsGrid.SelectedRows[0].DataBoundItem as Section;
 
-                if (row != null)
+                if (m_selected != null)
                 {
                     m_selectedAnchorType = AnchorType.Section;
                     sectionGroup.Text = "תזמון קטע";
                     lblSectionText.Text = "קטע";
-                    tbSectionText.Text = row.Text;
-                    startTimer.Value = row.StartTime;
-                    durationTimer.Value = row.Duration;
+                    tbSectionText.Text = ((Section)m_selected).Content;
+                    startTimer.Value = ((Section)m_selected).StartTime;
+                    durationTimer.Value = ((Section)m_selected).Duration;
                     button4.Enabled = true;
                 }
             }
@@ -1290,6 +1281,24 @@ namespace MyMentorUtilityClient
         [JsonProperty(PropertyName = "words", Order = 5)]
         [XmlArrayItem("Words")]
         public List<Word> Words { get; set; }
+
+        [JsonIgnore]
+        [XmlIgnore]
+        public string Content
+        {
+            get
+            {
+                try
+                {
+
+                    return this.Words.Select(w => w.Text).Aggregate((a, b) => a + " " + b);
+                }
+                catch
+                {
+                    return string.Empty;
+                }
+            }
+        }
     }
 
     public class Sentence : BaseSection
@@ -1297,6 +1306,23 @@ namespace MyMentorUtilityClient
         [JsonProperty(PropertyName = "sections", Order = 5)]
         [XmlArrayItem("Sections")]
         public List<Section> Sections { get; set; }
+
+        [JsonIgnore]
+        [XmlIgnore]
+        public string Content
+        {
+            get
+            {
+                try
+                {
+                    return this.Sections.SelectMany(w => w.Words).Select(w => w.Text).Aggregate((a, b) => a + " " + b);
+                }
+                catch
+                {
+                    return string.Empty;
+                }
+            }
+        }
     }
 
     public class Paragraph : BaseSection
@@ -1304,6 +1330,24 @@ namespace MyMentorUtilityClient
         [JsonProperty(PropertyName = "sentences", Order = 5)]
         [XmlArrayItem("Sentences")]
         public List<Sentence> Sentences { get; set; }
+
+        [JsonIgnore]
+        [XmlIgnore]
+        public string Content
+        {
+            get
+            {
+                try
+                {
+                    return this.Sentences.SelectMany(s => s.Sections).SelectMany(s => s.Words).Select(w => w.Text).Aggregate((a, b) => a + " " + b);
+                }
+                catch
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
     }
 
     public enum AnchorType

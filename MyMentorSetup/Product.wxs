@@ -1,30 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="MyMentorSetup" Language="1033" Version="1.0.0.0" Manufacturer="MyMentor" UpgradeCode="ed5d63d1-e5ab-4234-b6e8-55145768e85f">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="{C0E70D44-65DE-4596-A060-D6864EA55099}" Name="MyMentor Studio" Language="1033" Version="1.0.0.3" Manufacturer="MyMentor" UpgradeCode="ed5d63d1-e5ab-4234-b6e8-55145768e85f">
+    <Package Id="{95DF566E-8075-47EB-B42B-0A55D94178BC}" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
+    <UIRef Id="WixUI_InstallDir" />
+    <UIRef Id="WixUI_ErrorProgressText" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <PropertyRef Id="NETFRAMEWORK45"/>
+    
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes"/>
 
-		<Feature Id="ProductFeature" Title="MyMentorSetup" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-		</Feature>
-	</Product>
+    <Feature Id="ProductFeature" Title="MyMentorSetup" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
 
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="MyMentorSetup" />
-			</Directory>
-		</Directory>
-	</Fragment>
+    <Feature Id='Complete' Title='MyMentor Studio' Description='The complete package.'
+        Display='expand' Level='1' ConfigurableDirectory='INSTALLFOLDER'>
+      <Feature Id='MainProgram' Title='Program' Description='The main executable.' Level='1'>
+        <ComponentRef Id='MainExecutable' />
+      </Feature>
+    </Feature>
+    <Icon Id="MyMentorUtilityClient.exe" SourceFile="..\MyMentorUtilityClient\bin\debug\MyMentorUtilityClient.exe" />
+  
+    <Condition Message="This application requires .NET Framework 4.5. Please install the .NET Framework then run this installer again.">
+    <![CDATA[Installed OR NETFRAMEWORK45]]>
+</Condition>
+  
+  </Product>
 
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-			<!-- <Component Id="ProductComponent"> -->
-				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->
-		</ComponentGroup>
-	</Fragment>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="MyMentor" />
+      </Directory>
+      <Directory Id="DesktopFolder"  SourceName="Desktop"/>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="MainExecutable" Guid='{E03D0738-530B-4405-AD8A-10B5E2243B72}'>
+        <File Id='MyMentorUtilityClientexe' Name='MyMentorUtilityClient.exe' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentorUtilityClient.exe' KeyPath='yes'>
+          <Shortcut Id="desktop" Directory="DesktopFolder" Name="MyMentor Studio" WorkingDirectory="TARGETDIR" Icon="MyMentorUtilityClient.exe" IconIndex="0" Advertise="yes" />
+        </File>
+        <File Id='MyMentorUtilityClientexeconfig' Name='MyMentorUtilityClient.exe.config' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentorUtilityClient.exe.config' KeyPath='no'/>
+        <File Id='MyMentorUtilityClientpdb' Name='MyMentorUtilityClient.pdb' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentorUtilityClient.pdb' KeyPath='no'/>
+        <File Id='IonicZipdll' Name='Ionic.Zip.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Ionic.Zip.dll' KeyPath='no'/>
+        <File Id='NewtonsoftJsondll' Name='Newtonsoft.Json.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Newtonsoft.Json.dll' KeyPath='no'/>
+        <File Id='Parsedll' Name='Parse.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.dll' KeyPath='no'/>
+        <File Id='ParseNetFx45dll' Name='Parse.NetFx45.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.NetFx45.dll' KeyPath='no'/>
+
+      </Component>
+    </ComponentGroup>
+  </Fragment>
 </Wix>

@@ -8,7 +8,7 @@
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <PropertyRef Id="NETFRAMEWORK45"/>
-    
+
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes"/>
 
@@ -20,14 +20,28 @@
         Display='expand' Level='1' ConfigurableDirectory='INSTALLFOLDER'>
       <Feature Id='MainProgram' Title='Program' Description='The main executable.' Level='1'>
         <ComponentRef Id='MainExecutable' />
+        <ComponentRef Id="ApplicationShortcut" />
       </Feature>
     </Feature>
     <Icon Id="MyMentorUtilityClient.exe" SourceFile="..\MyMentorUtilityClient\bin\debug\MyMentorUtilityClient.exe" />
-  
+
     <Condition Message="This application requires .NET Framework 4.5. Please install the .NET Framework then run this installer again.">
-    <![CDATA[Installed OR NETFRAMEWORK45]]>
-</Condition>
-  
+      <![CDATA[Installed OR NETFRAMEWORK45]]>
+    </Condition>
+
+    <!-- Step 2: Add the shortcut to your installer package -->
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="{C5396555-AC50-4635-8BA1-148AAF3DBE2B}">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+             Name="MyMentor Studio"
+           Description="MyMentor Studio"
+            Target="[INSTALLFOLDER]MyMentorUtilityClient.exe"
+                  WorkingDirectory="INSTALLFOLDER"/>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\MyMentorStudio" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    
   </Product>
 
   <Fragment>
@@ -36,6 +50,10 @@
         <Directory Id="INSTALLFOLDER" Name="MyMentor" />
       </Directory>
       <Directory Id="DesktopFolder"  SourceName="Desktop"/>
+      <!-- Step 1: Define the directory structure -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="MyMentor Studio"/>
+      </Directory>
     </Directory>
   </Fragment>
 

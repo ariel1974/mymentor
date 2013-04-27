@@ -63,12 +63,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Clip.cs" />
-    <Compile Include="ClipDetails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ClipDetails.Designer.cs">
-      <DependentUpon>ClipDetails.cs</DependentUpon>
-    </Compile>
     <Compile Include="ClipPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,9 +102,6 @@
       <DependentUpon>TimePicker.cs</DependentUpon>
     </Compile>
     <Compile Include="TimeSpanFormatter.cs" />
-    <EmbeddedResource Include="ClipDetails.resx">
-      <DependentUpon>ClipDetails.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ClipPropertiesForm.resx">
       <DependentUpon>ClipPropertiesForm.cs</DependentUpon>
     </EmbeddedResource>

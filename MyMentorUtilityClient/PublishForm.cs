@@ -32,7 +32,7 @@ namespace MyMentorUtilityClient
 
             label12.Text = "מכין קובץ...";
 
-            if (Clip.Current.ExtractJson())
+            if (Clip.Current.ExtractJson() && Clip.Current.ExtractText())
             {
                 if (Clip.Current.Publish())
                 {

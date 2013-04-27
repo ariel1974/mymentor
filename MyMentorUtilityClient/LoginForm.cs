@@ -33,7 +33,7 @@ namespace MyMentorUtilityClient
             {
                 await ParseUser.LogInAsync(textBox1.Text, textBox2.Text);
 
-                m_mainForm.lblLoginUser.Text = "מחובר כ-" + ParseUser.CurrentUser.Username;
+                //m_mainForm.lblLoginUser.Text = "מחובר כ-" + ParseUser.CurrentUser.Username;
 
                 this.Close();
             }

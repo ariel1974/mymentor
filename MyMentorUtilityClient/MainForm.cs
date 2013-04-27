@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -21,9 +22,17 @@ namespace MyMentorUtilityClient
 {
     public partial class MainForm : Form
     {
-        private MultiKeyGesture m_ShortcutPiska = new MultiKeyGesture(new List<Keys> { Keys.M, Keys.P }, Keys.Control);
-        private MultiKeyGesture m_ShortcutKeta = new MultiKeyGesture(new List<Keys> { Keys.M, Keys.K }, Keys.Control);
-        private MultiKeyGesture m_ShortcutMishpat = new MultiKeyGesture(new List<Keys> { Keys.M, Keys.M }, Keys.Control);
+        private const string PAR_SIGN_OPEN = "{{";
+        private const string PAR_SIGN_CLOSE = "}}";
+
+        private const string SEN_SIGN_OPEN = "((";
+        private const string SEN_SIGN_CLOSE = "))";
+
+        private const string SEC_SIGN_OPEN = "<<";
+        private const string SEC_SIGN_CLOSE = ">>";
+
+        private const string WOR_SIGN_OPEN = "[[";
+        private const string WOR_SIGN_CLOSE = "]]";
 
         private List<Paragraph> m_paragraphs = null;
 
@@ -34,6 +43,88 @@ namespace MyMentorUtilityClient
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void ScanText()
+        {
+            var paragraphs_local = new List<Paragraph>();
+            int paragraphIndex = -1;
+            int sectionIndex = -1;
+            int sentenceIndex = -1;
+            int wordIndex = -1;
+
+            int innerSentenceIndex = -1;
+            int innerSectionIndex = -1;
+
+            /// Paragraphs
+
+            MatchCollection matchesParagraphs = Regex.Matches(richTextBox1.Text, @"(?<=\{\{)(.*?)(?=\}\})");
+
+            foreach (Match matchParagraph in matchesParagraphs)
+            {
+                paragraphIndex++;
+                innerSentenceIndex = -1;
+
+                TimeSpan start = new TimeSpan(0, 0, 0);
+                TimeSpan duration = new TimeSpan(0, 0, 0);
+
+                paragraphs_local.Add(new Paragraph
+                {
+                    CharIndex = matchParagraph.Index,
+                    Index = paragraphIndex,
+                    Sentences = new List<Sentence>(),
+                    StartTime = start,
+                    Duration = duration,
+                });
+
+                /// Sentenses 
+                /// 
+                MatchCollection matchesSentenses = Regex.Matches(matchParagraph.Value, @"(?<=\(\()(.*?)(?=\)\))");
+
+                foreach (Match matchSentense in matchesSentenses)
+                {
+                    sentenceIndex++;
+                    innerSentenceIndex++;
+                    innerSectionIndex = -1;
+
+                    paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
+                    {
+                        CharIndex = matchSentense.Index + matchParagraph.Index,
+                        Index = sentenceIndex,
+                        Sections = new List<Section>(),
+                        StartTime = start,
+                        Duration = duration
+                    });
+
+                    /// Sections 
+                    /// 
+                    MatchCollection matchesSections = Regex.Matches(matchSentense.Value, @"(?<=\<\<)(.*?)(?=\>\>)");
+
+                    foreach (Match matchSection in matchesSections)
+                    {
+                        sectionIndex++;
+                        innerSectionIndex++;
+
+                        paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
+                        {
+                            CharIndex = matchSection.Index + matchSentense.Index + matchParagraph.Index,
+                            Index = sectionIndex,
+                            Words = new List<Word>(),
+                            StartTime = start,
+                            Duration = duration
+                        });
+                    }
+
+                }
+
+            }
+
+            m_paragraphs = paragraphs_local;
+
+            paragraphsGrid.DataSource = m_paragraphs.ToList();
+            sentencesGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).ToList();
+            sectionsGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).ToList();
+
         }
 
         private void Recalculate()
@@ -253,7 +344,7 @@ namespace MyMentorUtilityClient
                             paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Duration = nextSectionDuration;
                             nextSectionDuration = new TimeSpan(0, 0, 0);
                         }
-                    
+
 
                         if (!string.IsNullOrEmpty(word.Trim()))
                         {
@@ -333,20 +424,20 @@ namespace MyMentorUtilityClient
                 sectionsGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).ToList();
 
             }
-            catch(ApplicationException ex)
+            catch (ApplicationException ex)
             {
-                LogTextBox.AppendText(Environment.NewLine + DateTime.Now.ToLongTimeString() + " : " + ex.Message);
+                //LogTextBox.AppendText(Environment.NewLine + DateTime.Now.ToLongTimeString() + " : " + ex.Message);
                 blError = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                LogTextBox.AppendText(Environment.NewLine + DateTime.Now.ToLongTimeString() + " : העוגנים בטקסט אינם חוקים");
+                //LogTextBox.AppendText(Environment.NewLine + DateTime.Now.ToLongTimeString() + " : העוגנים בטקסט אינם חוקים");
                 blError = true;
             }
 
             if (!blError)
             {
-                LogTextBox.AppendText(Environment.NewLine + DateTime.Now.ToLongTimeString() + " : לא נמצאו שגיאות תקינות בטקסט השיעור");
+                //LogTextBox.AppendText(Environment.NewLine + DateTime.Now.ToLongTimeString() + " : לא נמצאו שגיאות תקינות בטקסט השיעור");
             }
         }
 
@@ -428,70 +519,219 @@ namespace MyMentorUtilityClient
             }
         }
 
-        private void richTextBox1_KeyDown(object sender, KeyEventArgs e)
+        private void AddAnchor(AnchorType type, AnchorDirection direction)
         {
-            base.OnKeyDown(e);
+            //remember state
+            string remember = richTextBox1.Text;
+            var selectionIndex = richTextBox1.SelectionStart;
+
+            while (selectionIndex < remember.Length &&
+                !remember.Substring(selectionIndex, 1).IsPartOfAnchor() &&
+                remember.Substring(selectionIndex, 1) != " ")
+            {
+                selectionIndex++;
+            }
+
+            richTextBox1.SelectionStart = selectionIndex;
+
             try
             {
-                if (m_ShortcutKeta.Matches(e))
-                {
-                    if (GetNextDirection(AnchorType.Section) == AnchorDirection.Open)
-                    {
-                        richTextBox1.AppendText("[");
-                    }
-                    else
-                    {
-                        richTextBox1.AppendText("]");
 
-                    }
-                    richTextBox1.Select(richTextBox1.TextLength - 1, 1);
-                    richTextBox1.SelectionColor = Color.Green;
-                    richTextBox1.Select(richTextBox1.TextLength, 0);
-                    richTextBox1.SelectionColor = Color.Black;
+                switch (type)
+                {
+                    case AnchorType.Paragraph:
+                        if (direction == AnchorDirection.Open)
+                        {
+                            richTextBox2.Text = PAR_SIGN_OPEN;
+                        }
+                        else
+                        {
+                            richTextBox2.Text = PAR_SIGN_CLOSE;
+                        }
+
+                        break;
+                    case AnchorType.Sentence:
+                        if (direction == AnchorDirection.Open)
+                        {
+                            richTextBox2.Text = SEC_SIGN_OPEN;
+                        }
+                        else
+                        {
+                            richTextBox2.Text = SEN_SIGN_CLOSE;
+                        }
+
+                        break;
+                    case AnchorType.Section:
+                        if (direction == AnchorDirection.Open)
+                        {
+                            richTextBox2.Text = SEC_SIGN_OPEN;
+                        }
+                        else
+                        {
+                            richTextBox2.Text = SEC_SIGN_CLOSE;
+                        }
+
+                        break;
+                    case AnchorType.Word:
+                        if (direction == AnchorDirection.Open)
+                        {
+                            richTextBox2.Text = WOR_SIGN_OPEN;
+                        }
+                        else
+                        {
+                            richTextBox2.Text = WOR_SIGN_CLOSE;
+                        }
+
+                        break;
                 }
-                if (m_ShortcutMishpat.Matches(e))
+
+                richTextBox2.Select(0, 2);
+                //richTextBox2.SelectionColor = Color.Green;
+
+                richTextBox1.SelectedRtf = richTextBox2.SelectedRtf;
+                richTextBox1.Select(selectionIndex + 1, 0);
+                richTextBox1.SelectionStart = selectionIndex + 2;
+                //richTextBox1.SelectionColor = Color.Black;
+
+                //auto open logic
+                if (direction == AnchorDirection.Close)
                 {
-                    if (GetNextDirection(AnchorType.Sentence) == AnchorDirection.Open)
+                    int charIndex = selectionIndex - 2;
+
+                    richTextBox2.Rtf = richTextBox1.Rtf;
+                    bool blFoundAnchor = false;
+
+                    while (charIndex >= 0 && !blFoundAnchor)
                     {
-                        richTextBox1.AppendText("[");
+                        richTextBox2.Select(charIndex, 2);
+
+                        switch (type)
+                        {
+                            case AnchorType.Paragraph:
+
+                                if (
+                                    richTextBox2.SelectedText == SEC_SIGN_OPEN ||
+                                    richTextBox2.SelectedText == SEC_SIGN_CLOSE ||
+                                    richTextBox2.SelectedText == SEN_SIGN_CLOSE ||
+                                    richTextBox2.SelectedText == SEN_SIGN_OPEN
+                                    )
+                                {
+                                    throw new ApplicationException();
+                                }
+
+                                //if this is opening paragraph tag
+                                if (richTextBox2.SelectedText == PAR_SIGN_OPEN)
+                                {
+                                    blFoundAnchor = true;
+                                    break;
+                                }
+                                //if this is closing paragraph tag
+                                else if (richTextBox2.SelectedText == PAR_SIGN_CLOSE)
+                                {
+                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, PAR_SIGN_OPEN);
+                                    blFoundAnchor = true;
+                                    break;
+                                }
+
+                                break;
+
+                            case AnchorType.Sentence:
+
+                                //if this is opening paragraph tag
+                                if (richTextBox2.SelectedText == PAR_SIGN_OPEN ||
+                                    richTextBox2.SelectedText == SEN_SIGN_CLOSE)
+                                {
+                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, SEN_SIGN_OPEN);
+                                    blFoundAnchor = true;
+                                    break;
+                                }
+
+                                break;
+
+                            case AnchorType.Section:
+
+                                if (
+                                    richTextBox2.SelectedText == PAR_SIGN_CLOSE ||
+                                    richTextBox2.SelectedText == PAR_SIGN_OPEN ||
+                                    richTextBox2.SelectedText == SEC_SIGN_OPEN
+                                    )
+                                {
+                                    throw new ApplicationException();
+                                }
+
+                                //if this is opening paragraph tag
+                                if (
+                                    richTextBox2.SelectedText == SEN_SIGN_OPEN ||
+                                    richTextBox2.SelectedText == SEC_SIGN_CLOSE)
+                                {
+                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, SEC_SIGN_OPEN);
+                                    blFoundAnchor = true;
+                                    break;
+                                }
+
+                                break;
+
+                            case AnchorType.Word:
+
+                                if (
+                                    //richTextBox2.SelectedText == PAR_SIGN_CLOSE ||
+                                    //richTextBox2.SelectedText == PAR_SIGN_OPEN ||
+                                    richTextBox2.SelectedText == SEN_SIGN_OPEN
+                                    )
+                                {
+                                    throw new ApplicationException();
+                                }
+
+                                //if this is opening paragraph tag
+                                if (
+                                    richTextBox2.SelectedText == SEC_SIGN_OPEN ||
+                                    richTextBox2.SelectedText == WOR_SIGN_CLOSE ||
+                                    richTextBox2.SelectedText.Substring(1, 1) == " " ||
+                                    richTextBox2.SelectedText.Substring(1, 1) == ".")
+                                {
+                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, WOR_SIGN_OPEN);
+                                    blFoundAnchor = true;
+                                    break;
+                                }
+
+                                break;
+                        }
+
+                        charIndex -= 1;
                     }
-                    else
+
+                    //inacse not find any opening anchor and reach the start of file
+                    if (!blFoundAnchor)
                     {
-                        richTextBox1.AppendText("]");
+                        switch (type)
+                        {
+                            case AnchorType.Paragraph:
+                                richTextBox1.Text = string.Concat(PAR_SIGN_OPEN, richTextBox1.Text);
+                                break;
+                            case AnchorType.Sentence:
+                                richTextBox1.Text = string.Concat(SEN_SIGN_OPEN, richTextBox1.Text);
+                                break;
+                            case AnchorType.Section:
+                                richTextBox1.Text = string.Concat(SEC_SIGN_OPEN, richTextBox1.Text);
+                                break;
+                            case AnchorType.Word:
+                                richTextBox1.Text = string.Concat(WOR_SIGN_OPEN, richTextBox1.Text);
+                                break;
+                        }
 
                     }
-                    richTextBox1.Select(richTextBox1.TextLength - 1, 1);
-                    richTextBox1.SelectionColor = Color.Blue;
-                    richTextBox1.Select(richTextBox1.TextLength, 0);
-                    richTextBox1.SelectionColor = Color.Black;
-                }
-                if (m_ShortcutPiska.Matches(e))
-                {
-                    if (GetNextDirection(AnchorType.Paragraph) == AnchorDirection.Open)
-                    {
-                        richTextBox1.AppendText("[");
-                    }
-                    else
-                    {
-                        richTextBox1.AppendText("]");
 
-                    }
-                    richTextBox1.Select(richTextBox1.TextLength - 1, 1);
-                    richTextBox1.SelectionColor = Color.Red;
-                    richTextBox1.Select(richTextBox1.TextLength, 0);
-                    richTextBox1.SelectionColor = Color.Black;
+                    richTextBox1.SelectionStart = selectionIndex + 4;
                 }
             }
-            catch(ApplicationException ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                richTextBox1.Text = remember;
+                richTextBox1.SelectionStart = selectionIndex;
+                MessageBox.Show("בחירה לא חוקית\n\nשים לב שרמת העוגנים מתאימה ברמה שהנך נמצא", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
@@ -502,7 +742,8 @@ namespace MyMentorUtilityClient
 
             if (!m_disableScanningText && cbScanText.Checked)
             {
-                Recalculate();
+                //Recalculate();
+                ScanText();
             }
         }
 
@@ -726,43 +967,27 @@ namespace MyMentorUtilityClient
         {
             richTextBox1.Focus();
 
-            if (ParseUser.CurrentUser == null)
-            {
-                LoginForm frmLogin = new LoginForm(this);
-                frmLogin.ShowDialog();
-            }
-            else
-            {
-                lblLoginUser.Text = "מחובר כ-" + ParseUser.CurrentUser.Username;
-            }
+            //if (ParseUser.CurrentUser == null)
+            //{
+            //    LoginForm frmLogin = new LoginForm(this);
+            //    frmLogin.ShowDialog();
+            //}
+            //else
+            //{
+            //    lblLoginUser.Text = "מחובר כ-" + ParseUser.CurrentUser.Username;
+            //}
 
-            if (ParseUser.CurrentUser == null)
+            Clip.Current.Title = "שיעור 1";
+            Clip.Current.IsDirty = false;
+            Clip.Current.IsNew = true;
+            Clip.Current.Title = "שיעור 1";
+            Clip.Current.ID = Guid.NewGuid();
+            this.Text = "MyMentor - " + Clip.Current.Title;
+
+            if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
             {
-                Application.Exit();
-            }
-            else
-            {
-                ClipDetails frm = new ClipDetails();
-                frm.ShowDialog();
-
-                if (string.IsNullOrEmpty(Clip.Current.Directory))
-                {
-                    Application.Exit();
-                }
-                else
-                {
-                    this.Text = "MyMentor - " + Clip.Current.Title;
-
-                    m_disableScanningText = true;
-                    richTextBox1.Rtf = Clip.Current.RtfText;
-                    m_disableScanningText = false;
-
-                    if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
-                    {
-                        m_paragraphs = Clip.Current.Paragraphs;
-                        Recalculate();
-                    }
-                }
+                m_paragraphs = Clip.Current.Paragraphs;
+                Recalculate();
             }
         }
 
@@ -896,7 +1121,7 @@ namespace MyMentorUtilityClient
 
         private void richTextBox1_CursorChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void richTextBox1_SelectionChanged(object sender, EventArgs e)
@@ -1058,57 +1283,136 @@ namespace MyMentorUtilityClient
 
         private void Save()
         {
-            Clip.Current.Paragraphs = m_paragraphs;
-            Clip.Current.RtfText = richTextBox1.Rtf;
-            Clip.Current.Save();
+            Save(false);
+        }
 
-            MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+        private void Save(bool isSaveAs)
+        {
+            if (Clip.Current.IsNew || (!Clip.Current.IsNew && isSaveAs))
+            {
+                if (isSaveAs)
+                {
+                    FileInfo fi = new FileInfo(Clip.Current.FileName);
+                    saveFileDialog1.InitialDirectory = fi.DirectoryName;
+                    saveFileDialog1.FileName = fi.Name;//  .FullName;
+                }
+                else
+                {
+                    DirectoryInfo di = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MyMentor Clips"));
+
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+
+                    saveFileDialog1.InitialDirectory = di.FullName;
+                    saveFileDialog1.FileName = Clip.Current.Title.ToValidFileName();
+                }
+                saveFileDialog1.DefaultExt = "mmnx";
+                saveFileDialog1.Filter = "MyMentor Source Files|*.mmnx";
+
+                DialogResult result = saveFileDialog1.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    Clip.Current.FileName = saveFileDialog1.FileName;
+                    Clip.Current.RtfText = richTextBox1.Rtf;
+                    Clip.Current.Save();
+
+                    MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    toolStripMenuItem8.Enabled = true;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                Clip.Current.RtfText = richTextBox1.Rtf;
+                Clip.Current.Save();
+
+                MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            }
+        }
+
+        private void NewClip()
+        {
+            Clip.Current = null;
+            Clip.Current.AutoIncrementVersion = true;
+            Clip.Current.Title = "שיעור 1";
+            Clip.Current.Version = "1.00";
+            Clip.Current.Status = "PENDING";
+            Clip.Current.ID = Guid.NewGuid();
+            Clip.Current.IsNew = true;
+
+            this.Text = "MyMentor - " + Clip.Current.Title;
+
+            m_disableScanningText = true;
+            richTextBox1.Rtf = Clip.Current.RtfText;
+            m_disableScanningText = false;
+
         }
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
             if (Clip.Current.IsDirty)
             {
-                if (Clip.Current.IsDirty && 
+                if (Clip.Current.IsDirty &&
                     MessageBox.Show("השיעור לא נשמר מהשינויים האחרונים.\n\nהאם אתה בטוח להמשיך?", "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    ClipDetails frm = new ClipDetails(FormMode.New);
-                    frm.ShowDialog();
-
-                    if ( frm.Result != System.Windows.Forms.DialogResult.Cancel )
-                    {
-                        this.Text = "MyMentor - " + Clip.Current.Title;
-
-                        m_disableScanningText = true;
-                        richTextBox1.Rtf = Clip.Current.RtfText;
-                        m_disableScanningText = false;
-
-                        if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
-                        {
-                            m_paragraphs = Clip.Current.Paragraphs;
-                            Recalculate();
-                        }
-                    }
+                    NewClip();
                 }
             }
             else
             {
-                ClipDetails frm = new ClipDetails(FormMode.New);
-                frm.ShowDialog();
+                NewClip();
+            }
+        }
 
-                if (frm.Result != System.Windows.Forms.DialogResult.Cancel)
+        private void OpenClip()
+        {
+            DirectoryInfo di = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MyMentor Clips"));
+
+            if (!di.Exists)
+            {
+                di.Create();
+            }
+
+            openFileDialog1.InitialDirectory = di.FullName;
+            openFileDialog1.DefaultExt = "mmnx";
+            openFileDialog1.Filter = "MyMentor Source Files|*.mmnx";
+            openFileDialog1.FileName = "";
+
+            DialogResult result = openFileDialog1.ShowDialog();
+
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                try
                 {
-                    this.Text = "MyMentor - " + Clip.Current.Title;
+                    Clip.Load(openFileDialog1.FileName);
+                }
+                catch (ApplicationException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("קובץ שיעור אינו תקין", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    return;
+                }
 
-                    m_disableScanningText = true;
-                    richTextBox1.Rtf = Clip.Current.RtfText;
-                    m_disableScanningText = false;
+                this.Text = "MyMentor - " + Clip.Current.Title;
 
-                    if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
-                    {
-                        m_paragraphs = Clip.Current.Paragraphs;
-                        Recalculate();
-                    }
+                m_disableScanningText = true;
+                richTextBox1.Rtf = Clip.Current.RtfText;
+                m_disableScanningText = false;
+
+                if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
+                {
+                    m_paragraphs = Clip.Current.Paragraphs;
+                    Recalculate();
                 }
             }
         }
@@ -1119,83 +1423,15 @@ namespace MyMentorUtilityClient
             {
                 if (MessageBox.Show("השיעור לא נשמר מהשינויים האחרונים.\n\nהאם אתה בטוח להמשיך?", "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    ClipDetails frm = new ClipDetails(FormMode.Exists);
-                    frm.ShowDialog();
-
-                    if (frm.Result != System.Windows.Forms.DialogResult.Cancel)
-                    {
-                        this.Text = "MyMentor - " + Clip.Current.Title;
-
-                        m_disableScanningText = true;
-                        richTextBox1.Rtf = Clip.Current.RtfText;
-                        m_disableScanningText = false;
-
-                        if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
-                        {
-                            m_paragraphs = Clip.Current.Paragraphs;
-                            Recalculate();
-                        }
-                    }
+                    OpenClip();
+                    toolStripMenuItem8.Enabled = true;
                 }
             }
             else
             {
-                ClipDetails frm = new ClipDetails(FormMode.Exists);
-                frm.ShowDialog();
-
-                if (frm.Result != System.Windows.Forms.DialogResult.Cancel)
-                {
-                    this.Text = "MyMentor - " + Clip.Current.Title;
-
-                    m_disableScanningText = true;
-                    richTextBox1.Rtf = Clip.Current.RtfText;
-                    m_disableScanningText = false;
-
-                    if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
-                    {
-                        m_paragraphs = Clip.Current.Paragraphs;
-                        Recalculate();
-                    }
-                }
+                OpenClip();
+                toolStripMenuItem8.Enabled = true;
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="selectedPath"></param>
-        private void OpenClip(string selectedPath)
-        {
-            try
-            {
-                Clip.Load(selectedPath);
-            }
-            catch (ApplicationException ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("קובץ שיעור אינו תקין");
-                return;
-            }
-
-            Settings.Default.LastDirectory = selectedPath;
-            Settings.Default.Save();
-
-            this.Text = "MyMentor - " + Clip.Current.Title;
-
-            m_disableScanningText = true;
-            richTextBox1.Rtf = Clip.Current.RtfText;
-            m_disableScanningText = false;
-
-            if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
-            {
-                m_paragraphs = Clip.Current.Paragraphs;
-                Recalculate();
-            }
-
         }
 
         private void publishMenuStrip_Click(object sender, EventArgs e)
@@ -1206,6 +1442,216 @@ namespace MyMentorUtilityClient
 
             PublishForm frm = new PublishForm();
             frm.ShowDialog();
+        }
+
+        private void toolStripMenuItem8_Click(object sender, EventArgs e)
+        {
+            Save(true);
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbrNew_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItem5_Click(null, new EventArgs());
+        }
+
+        private void tbrOpen_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItem6_Click(null, new EventArgs());
+        }
+
+        private void tbrSave_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        private void tbrFont_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!(richTextBox1.SelectionFont == null))
+                {
+                    fontDialog1.Font = richTextBox1.SelectionFont;
+                }
+                else
+                {
+                    fontDialog1.Font = null;
+                }
+                fontDialog1.ShowApply = true;
+                if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    richTextBox1.SelectionFont = fontDialog1.Font;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Error");
+            }
+        }
+
+        private void tbrLeft_Click(object sender, EventArgs e)
+        {
+            richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+        }
+
+        private void tbrCenter_Click(object sender, EventArgs e)
+        {
+            richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+        }
+
+        private void tbrRight_Click(object sender, EventArgs e)
+        {
+            richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
+        }
+
+        private void tbrBold_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!(richTextBox1.SelectionFont == null))
+                {
+                    System.Drawing.Font currentFont = richTextBox1.SelectionFont;
+                    System.Drawing.FontStyle newFontStyle;
+
+                    newFontStyle = richTextBox1.SelectionFont.Style ^ FontStyle.Bold;
+
+                    richTextBox1.SelectionFont = new Font(currentFont.FontFamily, currentFont.Size, newFontStyle);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Error");
+            }
+        }
+
+        private void tbrItalic_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!(richTextBox1.SelectionFont == null))
+                {
+                    System.Drawing.Font currentFont = richTextBox1.SelectionFont;
+                    System.Drawing.FontStyle newFontStyle;
+
+                    newFontStyle = richTextBox1.SelectionFont.Style ^ FontStyle.Italic;
+
+                    richTextBox1.SelectionFont = new Font(currentFont.FontFamily, currentFont.Size, newFontStyle);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Error");
+            }
+        }
+
+        private void tbrUnderline_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!(richTextBox1.SelectionFont == null))
+                {
+                    System.Drawing.Font currentFont = richTextBox1.SelectionFont;
+                    System.Drawing.FontStyle newFontStyle;
+
+                    newFontStyle = richTextBox1.SelectionFont.Style ^ FontStyle.Underline;
+
+                    richTextBox1.SelectionFont = new Font(currentFont.FontFamily, currentFont.Size, newFontStyle);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Error");
+            }
+        }
+
+        private void toolStripButton2_Click_1(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Paragraph, AnchorDirection.Close);
+        }
+
+        private void toolStripButton1_Click_1(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Paragraph, AnchorDirection.Open);
+        }
+
+        private void toolStripButton3_Click_1(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Sentence, AnchorDirection.Open);
+        }
+
+        private void toolStripButton4_Click_1(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Sentence, AnchorDirection.Close);
+        }
+
+        private void toolStripButton5_Click_1(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Section, AnchorDirection.Open);
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Section, AnchorDirection.Close);
+        }
+
+        private void toolStripButton7_Click(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Word, AnchorDirection.Open);
+        }
+
+        private void toolStripButton8_Click(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Word, AnchorDirection.Close);
+        }
+
+        private void פתחפסקהToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Paragraph, AnchorDirection.Open);
+        }
+
+        private void סגורפסקהToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Paragraph, AnchorDirection.Close);
+        }
+
+        private void פתחמשפטToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Sentence, AnchorDirection.Open);
+        }
+
+        private void סגורמשפטToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Sentence, AnchorDirection.Close);
+        }
+
+        private void פתחקטעToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Section, AnchorDirection.Open);
+        }
+
+        private void סגורקטעToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Section, AnchorDirection.Close);
+        }
+
+        private void פתחמילהToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Word, AnchorDirection.Open);
+        }
+
+        private void סגורמילהToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddAnchor(AnchorType.Word, AnchorDirection.Close);
         }
     }
 
@@ -1219,7 +1665,7 @@ namespace MyMentorUtilityClient
 
     public abstract class BaseSection
     {
-        [JsonProperty(PropertyName= "index", Order = 1)]
+        [JsonProperty(PropertyName = "index", Order = 1)]
         public int Index { get; set; }
 
         [JsonProperty(PropertyName = "charIndex", Order = 2)]

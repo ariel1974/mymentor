@@ -30,6 +30,9 @@ namespace MyMentorUtilityClient
                 if (instance == null)
                 {
                     instance = new Clip();
+                    instance.DefaultSections = new sections();
+                    instance.LockedSections = new sections();
+                    instance.LearningOptions = new learningOptions();
                 }
 
                 return instance;
@@ -40,7 +43,7 @@ namespace MyMentorUtilityClient
             }
         }
 
-        public string Directory { get; set; }
+        public string FileName { get; set; }
         public Guid ID { get; set; }
         public string Title { get; set; }
         public string Version { get; set; }
@@ -48,6 +51,14 @@ namespace MyMentorUtilityClient
         public string SubCategory { get; set; }
         public string Tags { get; set; }
         public string Status { get; set; }
+        public string AudioFileName { get; set; }
+        public sections DefaultSections { get; set; }
+        public sections LockedSections { get; set; }
+        public learningOptions LearningOptions { get; set; }
+        public string JsonSchemaFileName { get; set; }
+        public string HtmlFileName { get; set; }
+        public string MmnFileName { get; set; }
+
         public bool AutoIncrementVersion { get; set; }
  
         [XmlIgnore]
@@ -86,11 +97,11 @@ namespace MyMentorUtilityClient
         /// 
         /// </summary>
         /// <param name="path"></param>
-        public async static void Load(string path)
+        public async static void Load(string fileName)
         {
             XmlSerializer serializer = new XmlSerializer(new Clip().GetType());
 
-            using (StreamReader reader = new StreamReader(Path.Combine(path, "clip.mmt")))
+            using (StreamReader reader = new StreamReader(fileName))
             {
                 object deserialized = serializer.Deserialize(reader.BaseStream);
 
@@ -115,28 +126,35 @@ namespace MyMentorUtilityClient
         public void Save()
         {
             XmlSerializer serializer = new XmlSerializer(this.GetType());
-            using (StreamWriter writer = new StreamWriter(Path.Combine(this.Directory, "clip.mmt")))
+            using (StreamWriter writer = new StreamWriter(this.FileName))
             {
                 serializer.Serialize(writer.BaseStream, this);
             }
 
             this.IsDirty = false;
+            this.IsNew = false;
         }
 
         public bool Publish()
         {
+            FileInfo info = new FileInfo(this.FileName);
+
+            string tempPath = System.IO.Path.GetTempPath();
+
+            this.MmnFileName = Path.Combine(tempPath, string.Format("{0}.mmn", this.ID.ToString()));
+
             using (ZipFile zip = new ZipFile())
             {
-                zip.AddFile(Path.Combine(this.Directory, "schema.json"), string.Empty);
-                //zip.AddFile(Path.Combine(this.Directory, "clip.mp3"), string.Empty);
+                zip.AddFile(this.JsonSchemaFileName, string.Empty);
 
-                if (File.Exists(Path.Combine(this.Directory, "clip.mp3")))
+                if ( !string.IsNullOrEmpty(this.AudioFileName) && File.Exists(this.AudioFileName))
                 {
-                    zip.AddFile(Path.Combine(this.Directory, "clip.mp3"), string.Empty);
+                    File.Copy(this.AudioFileName, Path.Combine(tempPath, string.Format("{0}.mp3", this.ID.ToString())),true);
+                    zip.AddFile(Path.Combine(tempPath, string.Format("{0}.mp3", this.ID.ToString())), string.Empty);
                 }
 
-                zip.AddFile(Path.Combine(this.Directory, "clip.txt"), string.Empty);
-                zip.Save(Path.Combine(this.Directory, string.Format("{0}.mmn", this.ID.ToString() ) ) );
+                zip.AddFile(this.HtmlFileName, string.Empty);
+                zip.Save(this.MmnFileName);
             }
 
             return true;
@@ -145,7 +163,7 @@ namespace MyMentorUtilityClient
         public async Task<bool> UploadAsync(IProgress<ParseUploadProgressEventArgs> progress)
         {
             //read file content
-            byte[] bytes = File.ReadAllBytes(Path.Combine(this.Directory, string.Format("{0}.mmn", this.ID.ToString() ) ) );
+            byte[] bytes = File.ReadAllBytes(this.MmnFileName );
             ParseFile file = new ParseFile(string.Format("{0}.mmn", this.ID.ToString()), bytes);
             await file.SaveAsync(progress);
 
@@ -162,6 +180,7 @@ namespace MyMentorUtilityClient
             }
 
             clip["clipId"] = this.ID.ToString();
+            clip["clipTitle"] = this.Title;
             clip["clipVersion"] = this.Version;
             clip["status"] = this.Status;
             clip["category"] = this.Category;
@@ -175,24 +194,43 @@ namespace MyMentorUtilityClient
             return true;
         }
 
-        public bool ExtractJson()
+        public bool ExtractText()
         {
-            jsonClip clip = new jsonClip();
-            clip.id = this.ID.ToString();
-            clip.title = this.Title;
-            clip.clipVersion = this.Version;
-            clip.schemaVersion = "1.01";
-            clip.duration = this.Duration;
+            string tempPath = System.IO.Path.GetTempPath();
 
-            clip.paragraphs = this.Paragraphs;
-            string json = JsonConvert.SerializeObject(clip,Formatting.Indented);
-
-            System.IO.File.WriteAllText(Path.Combine(this.Directory, "schema.json"), json);
+            this.HtmlFileName = Path.Combine(tempPath, string.Format("{0}.txt", this.ID.ToString()));
 
             RichTextBox rtb = new RichTextBox();
             rtb.Rtf = this.RtfText;
 
-            System.IO.File.WriteAllText(Path.Combine(this.Directory, "clip.txt"), rtb.Text.Replace("[",string.Empty).Replace("]",string.Empty));
+            System.IO.File.WriteAllText(this.HtmlFileName, rtb.Text.Replace("[", string.Empty).Replace("]", string.Empty));
+
+            return true;
+        }
+
+        public bool ExtractJson()
+        {
+            string tempPath = System.IO.Path.GetTempPath();
+
+            this.JsonSchemaFileName = Path.Combine(tempPath, string.Format("{0}.json", this.ID.ToString()));
+
+            jsonClip clip = new jsonClip();
+            clip.id = this.ID.ToString();
+            clip.title = this.Title;
+            clip.clipVersion = this.Version;
+            clip.schemaVersion = "1.02";
+            clip.duration = this.Duration;
+            clip.defaultSections = this.DefaultSections;
+            clip.lockedSections = this.LockedSections;
+            clip.learningOptions = this.LearningOptions;
+            clip.category = this.Category;
+            clip.subCategory = this.SubCategory;
+            clip.tags = this.Tags;
+
+            clip.paragraphs = this.Paragraphs;
+            string json = JsonConvert.SerializeObject(clip,Formatting.Indented);
+
+            System.IO.File.WriteAllText(this.JsonSchemaFileName, json);
 
             return true;
         }

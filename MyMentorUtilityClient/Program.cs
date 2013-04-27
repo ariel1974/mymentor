@@ -15,7 +15,7 @@ namespace MyMentorUtilityClient
         [STAThread]
         static void Main()
         {
-            ParseClient.Initialize("02MGXhihNwW8TJGbCH2wyD2nQZ4ZFSiVNec2AkHQ", "WWnFNF7Gxizq7lzAI38MEBobco6yqhywR9baFtls");
+            ParseClient.Initialize("qvC0Pgq7QGSqntpqnA75vGnNUBewQ08DplQcJtMI", "65j2W36stF0GXUhJwAEuTwJp6geDEWeaUSSFyHKg");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

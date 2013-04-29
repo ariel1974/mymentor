@@ -28,6 +28,9 @@ namespace MyMentorUtilityClient.Json
     {
         public string id { get; set; }
         public string title { get; set; }
+        public string fontName { get; set; }
+        public string fontFileName { get; set; }
+        public string description { get; set; }
         public string schemaVersion { get; set; }
         public string clipVersion { get; set; }
         public int MyProperty { get; set; }

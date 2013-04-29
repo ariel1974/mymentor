@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using Ionic.Zip;
+using Microsoft.Win32;
 using MyMentorUtilityClient.Json;
 using Newtonsoft.Json;
 using Parse;
@@ -46,6 +47,9 @@ namespace MyMentorUtilityClient
         public string FileName { get; set; }
         public Guid ID { get; set; }
         public string Title { get; set; }
+        public string FontName { get; set; }
+        public string FontFileName { get; set; }
+        public string Description { get; set; }
         public string Version { get; set; }
         public string Category { get; set; }
         public string SubCategory { get; set; }
@@ -137,14 +141,21 @@ namespace MyMentorUtilityClient
 
         public bool Publish()
         {
+            string tempPath = System.IO.Path.GetTempPath();
+
+            string fontsPath = Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
+
+            File.Copy(Path.Combine(fontsPath, this.FontFileName), Path.Combine(tempPath, this.FontFileName), true);
+
+            //
             FileInfo info = new FileInfo(this.FileName);
 
-            string tempPath = System.IO.Path.GetTempPath();
 
             this.MmnFileName = Path.Combine(tempPath, string.Format("{0}.mmn", this.ID.ToString()));
 
             using (ZipFile zip = new ZipFile())
             {
+                zip.AddFile(Path.Combine(tempPath, this.FontFileName), string.Empty);
                 zip.AddFile(this.JsonSchemaFileName, string.Empty);
 
                 if ( !string.IsNullOrEmpty(this.AudioFileName) && File.Exists(this.AudioFileName))
@@ -181,20 +192,42 @@ namespace MyMentorUtilityClient
 
             clip["clipId"] = this.ID.ToString();
             clip["clipTitle"] = this.Title;
+            clip["clipDescription"] = this.Description;
             clip["clipVersion"] = this.Version;
+            clip["fontName"] = this.FontName;
+            clip["fontFileName"] = this.FontFileName;
             clip["status"] = this.Status;
             clip["category"] = this.Category;
             clip["subCategory"] = this.SubCategory;
             clip["keywords"] = this.Tags;
             clip["clipFile"] = file;
-            clip["createdByUser"] = user.Username;
+
+            //TODO change real user
+            clip["createdByUser"] = "natan";// user.Username;
             //clip.ACL = new ParseACL(user);
             await clip.SaveAsync();
 
             return true;
         }
+        
+        static RegistryKey fontsKey =
+    Registry.LocalMachine.OpenSubKey(
+        @"Software\Microsoft\Windows NT\CurrentVersion\Fonts");
 
-        public bool ExtractText()
+        private string GetFontFile(string fontName)
+        {
+            foreach (string key in fontsKey.GetValueNames())
+            {
+                if (key.IndexOf(fontName) >= 0)
+                {
+                    return fontsKey.GetValue(key, string.Empty) as string;
+                }
+            }
+
+            return string.Empty;
+        }
+
+        public bool ExtractHtml()
         {
             string tempPath = System.IO.Path.GetTempPath();
 
@@ -210,6 +243,8 @@ namespace MyMentorUtilityClient
 
         public bool ExtractJson()
         {
+            this.FontFileName = GetFontFile(this.FontName);
+
             string tempPath = System.IO.Path.GetTempPath();
 
             this.JsonSchemaFileName = Path.Combine(tempPath, string.Format("{0}.json", this.ID.ToString()));
@@ -217,6 +252,9 @@ namespace MyMentorUtilityClient
             jsonClip clip = new jsonClip();
             clip.id = this.ID.ToString();
             clip.title = this.Title;
+            clip.fontName = this.FontName;
+            clip.fontFileName = this.FontFileName;
+            clip.description = this.Description;
             clip.clipVersion = this.Version;
             clip.schemaVersion = "1.02";
             clip.duration = this.Duration;

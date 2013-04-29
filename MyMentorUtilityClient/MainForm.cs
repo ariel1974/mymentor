@@ -45,86 +45,126 @@ namespace MyMentorUtilityClient
             InitializeComponent();
         }
 
+        private static Regex m_regexParagraphs = new Regex(@"(?<=\{\{)(.*?)(?=\}\})", RegexOptions.Compiled);
+        private static Regex m_regexFreeParagraphs = new Regex(@"({{|}})", RegexOptions.Compiled);
+        
+        private static Regex m_regexSentenses = new Regex(@"(?<=\(\()(.*?)(?=\)\))", RegexOptions.Compiled);
+        private static Regex m_regexFreeSentenses = new Regex(@"(\(\(|\)\))", RegexOptions.Compiled);
+
+        private static Regex m_regexSections = new Regex(@"(?<=\<\<)(.*?)(?=\>\>)", RegexOptions.Compiled);
+        private static Regex m_regexFreeSections = new Regex(@"(\<\<|\>\>)", RegexOptions.Compiled);
+
         private void ScanText()
         {
-            var paragraphs_local = new List<Paragraph>();
-            int paragraphIndex = -1;
-            int sectionIndex = -1;
-            int sentenceIndex = -1;
-            int wordIndex = -1;
-
-            int innerSentenceIndex = -1;
-            int innerSectionIndex = -1;
-
-            /// Paragraphs
-
-            MatchCollection matchesParagraphs = Regex.Matches(richTextBox1.Text, @"(?<=\{\{)(.*?)(?=\}\})");
-
-            foreach (Match matchParagraph in matchesParagraphs)
+            try
             {
-                paragraphIndex++;
-                innerSentenceIndex = -1;
+                var paragraphs_local = new List<Paragraph>();
+                int paragraphIndex = -1;
+                int sectionIndex = -1;
+                int sentenceIndex = -1;
+                int wordIndex = -1;
 
-                TimeSpan start = new TimeSpan(0, 0, 0);
-                TimeSpan duration = new TimeSpan(0, 0, 0);
+                int innerSentenceIndex = -1;
+                int innerSectionIndex = -1;
 
-                paragraphs_local.Add(new Paragraph
+                /// Paragraphs
+
+                MatchCollection matchesParagraphs = m_regexParagraphs.Matches(richTextBox1.Text);
+
+                foreach (Match matchParagraph in matchesParagraphs)
                 {
-                    CharIndex = matchParagraph.Index,
-                    Index = paragraphIndex,
-                    Sentences = new List<Sentence>(),
-                    StartTime = start,
-                    Duration = duration,
-                });
-
-                /// Sentenses 
-                /// 
-                MatchCollection matchesSentenses = Regex.Matches(matchParagraph.Value, @"(?<=\(\()(.*?)(?=\)\))");
-
-                foreach (Match matchSentense in matchesSentenses)
-                {
-                    sentenceIndex++;
-                    innerSentenceIndex++;
-                    innerSectionIndex = -1;
-
-                    paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
+                    // test for more paragraph sections
+                    Match testPar = m_regexFreeParagraphs.Match(matchParagraph.Value);
+                    if (testPar.Success)
                     {
-                        CharIndex = matchSentense.Index + matchParagraph.Index,
-                        Index = sentenceIndex,
-                        Sections = new List<Section>(),
+                        throw new ApplicationException(string.Format("עוגן פסקה מיותר"));
+                    }
+
+                    paragraphIndex++;
+                    innerSentenceIndex = -1;
+
+                    TimeSpan start = new TimeSpan(0, 0, 0);
+                    TimeSpan duration = new TimeSpan(0, 0, 0);
+
+                    paragraphs_local.Add(new Paragraph
+                    {
+                        CharIndex = matchParagraph.Index,
+                        Index = paragraphIndex,
+                        Sentences = new List<Sentence>(),
                         StartTime = start,
-                        Duration = duration
+                        Duration = duration,
                     });
 
-                    /// Sections 
+                    /// Sentenses 
                     /// 
-                    MatchCollection matchesSections = Regex.Matches(matchSentense.Value, @"(?<=\<\<)(.*?)(?=\>\>)");
+                    MatchCollection matchesSentenses = m_regexSentenses.Matches(matchParagraph.Value);
 
-                    foreach (Match matchSection in matchesSections)
+                    foreach (Match matchSentense in matchesSentenses)
                     {
-                        sectionIndex++;
-                        innerSectionIndex++;
-
-                        paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
+                        // test for more paragraph sections
+                        testPar = m_regexFreeSentenses.Match(matchSentense.Value);
+                        if (testPar.Success)
                         {
-                            CharIndex = matchSection.Index + matchSentense.Index + matchParagraph.Index,
-                            Index = sectionIndex,
-                            Words = new List<Word>(),
+                            throw new ApplicationException(string.Format("עוגן משפט מיותר בטקסט"));
+                        }
+
+                        sentenceIndex++;
+                        innerSentenceIndex++;
+                        innerSectionIndex = -1;
+
+                        paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
+                        {
+                            CharIndex = matchSentense.Index + matchParagraph.Index,
+                            Index = sentenceIndex,
+                            Sections = new List<Section>(),
                             StartTime = start,
                             Duration = duration
                         });
+
+                        /// Sections 
+                        /// 
+                        MatchCollection matchesSections = m_regexSections.Matches(matchSentense.Value);
+
+                        foreach (Match matchSection in matchesSections)
+                        {
+                            // test for more paragraph sections
+                            testPar = m_regexFreeSections.Match(matchSection.Value);
+                            if (testPar.Success)
+                            {
+                                throw new ApplicationException(string.Format("עוגן קטע מיותר"));
+                            }
+
+                            sectionIndex++;
+                            innerSectionIndex++;
+
+                            paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
+                            {
+                                CharIndex = matchSection.Index + matchSentense.Index + matchParagraph.Index,
+                                Index = sectionIndex,
+                                Words = new List<Word>(),
+                                StartTime = start,
+                                Duration = duration
+                            });
+                        }
+
                     }
 
                 }
 
+                m_paragraphs = paragraphs_local;
+
+                paragraphsGrid.DataSource = m_paragraphs.ToList();
+                sentencesGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).ToList();
+                sectionsGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).ToList();
             }
+            catch (ApplicationException ex)
+            {
+                MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            }
+            catch (Exception ex)
+            {
 
-            m_paragraphs = paragraphs_local;
-
-            paragraphsGrid.DataSource = m_paragraphs.ToList();
-            sentencesGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).ToList();
-            sectionsGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).ToList();
-
+            }
         }
 
         private void Recalculate()
@@ -525,11 +565,23 @@ namespace MyMentorUtilityClient
             string remember = richTextBox1.Text;
             var selectionIndex = richTextBox1.SelectionStart;
 
-            while (selectionIndex < remember.Length &&
+            if (direction == AnchorDirection.Close)
+            {
+                while (selectionIndex < remember.Length &&
                 !remember.Substring(selectionIndex, 1).IsPartOfAnchor() &&
                 remember.Substring(selectionIndex, 1) != " ")
+                {
+                    selectionIndex++;
+                }
+            }
+            else
             {
-                selectionIndex++;
+                while (selectionIndex > 0 &&
+                !remember.Substring(selectionIndex - 1, 1).IsPartOfAnchor() &&
+                remember.Substring(selectionIndex - 1, 1) != " ")
+                {
+                    selectionIndex--;
+                }
             }
 
             richTextBox1.SelectionStart = selectionIndex;
@@ -553,7 +605,7 @@ namespace MyMentorUtilityClient
                     case AnchorType.Sentence:
                         if (direction == AnchorDirection.Open)
                         {
-                            richTextBox2.Text = SEC_SIGN_OPEN;
+                            richTextBox2.Text = SEN_SIGN_OPEN;
                         }
                         else
                         {
@@ -589,11 +641,11 @@ namespace MyMentorUtilityClient
                 //richTextBox2.SelectionColor = Color.Green;
 
                 richTextBox1.SelectedRtf = richTextBox2.SelectedRtf;
-                richTextBox1.Select(selectionIndex + 1, 0);
-                richTextBox1.SelectionStart = selectionIndex + 2;
+                //richTextBox1.Select(selectionIndex + 1 , 0);
+                richTextBox1.SelectionStart = selectionIndex + (direction == AnchorDirection.Close ? -2 : 0);
                 //richTextBox1.SelectionColor = Color.Black;
 
-                //auto open logic
+                /// FIND AUTO OPEN LOGIC
                 if (direction == AnchorDirection.Close)
                 {
                     int charIndex = selectionIndex - 2;
@@ -645,24 +697,30 @@ namespace MyMentorUtilityClient
                                     blFoundAnchor = true;
                                     break;
                                 }
-
+                                else if (richTextBox2.SelectedText == SEN_SIGN_OPEN)
+                                {
+                                    blFoundAnchor = true;
+                                    break;
+                                }
                                 break;
 
                             case AnchorType.Section:
 
                                 if (
                                     richTextBox2.SelectedText == PAR_SIGN_CLOSE ||
-                                    richTextBox2.SelectedText == PAR_SIGN_OPEN ||
-                                    richTextBox2.SelectedText == SEC_SIGN_OPEN
+                                    richTextBox2.SelectedText == PAR_SIGN_OPEN
                                     )
                                 {
                                     throw new ApplicationException();
                                 }
-
+                                else if (richTextBox2.SelectedText == SEC_SIGN_OPEN)
+                                {
+                                    blFoundAnchor = true;
+                                    break;
+                                }
                                 //if this is opening paragraph tag
-                                if (
-                                    richTextBox2.SelectedText == SEN_SIGN_OPEN ||
-                                    richTextBox2.SelectedText == SEC_SIGN_CLOSE)
+                                else if (
+                                    richTextBox2.SelectedText == SEN_SIGN_OPEN)
                                 {
                                     richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, SEC_SIGN_OPEN);
                                     blFoundAnchor = true;
@@ -723,6 +781,12 @@ namespace MyMentorUtilityClient
 
                     richTextBox1.SelectionStart = selectionIndex + 4;
                 }
+                else
+                {
+                    ///OPEN LOGIC
+                    ///
+
+                }
             }
             catch
             {
@@ -738,12 +802,6 @@ namespace MyMentorUtilityClient
             if (!m_disableScanningText)
             {
                 Clip.Current.IsDirty = true;
-            }
-
-            if (!m_disableScanningText && cbScanText.Checked)
-            {
-                //Recalculate();
-                ScanText();
             }
         }
 
@@ -980,7 +1038,6 @@ namespace MyMentorUtilityClient
             Clip.Current.Title = "שיעור 1";
             Clip.Current.IsDirty = false;
             Clip.Current.IsNew = true;
-            Clip.Current.Title = "שיעור 1";
             Clip.Current.ID = Guid.NewGuid();
             this.Text = "MyMentor - " + Clip.Current.Title;
 
@@ -1102,11 +1159,6 @@ namespace MyMentorUtilityClient
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            Recalculate();
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -1478,9 +1530,9 @@ namespace MyMentorUtilityClient
         {
             try
             {
-                if (!(richTextBox1.SelectionFont == null))
+                if (!(richTextBox1.Font == null))
                 {
-                    fontDialog1.Font = richTextBox1.SelectionFont;
+                    fontDialog1.Font = richTextBox1.Font;
                 }
                 else
                 {
@@ -1489,7 +1541,9 @@ namespace MyMentorUtilityClient
                 fontDialog1.ShowApply = true;
                 if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    richTextBox1.SelectionFont = fontDialog1.Font;
+                    richTextBox1.Font = fontDialog1.Font;
+
+                    Clip.Current.FontName = fontDialog1.Font.Name;
                 }
             }
             catch (Exception ex)
@@ -1652,6 +1706,17 @@ namespace MyMentorUtilityClient
         private void סגורמילהToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddAnchor(AnchorType.Word, AnchorDirection.Close);
+        }
+
+        private void אודותToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox frm = new AboutBox();
+            frm.ShowDialog();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ScanText();
         }
     }
 

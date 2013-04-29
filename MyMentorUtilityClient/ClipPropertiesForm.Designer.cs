@@ -66,12 +66,16 @@
             this.button2 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.textBox3);
             this.groupBox1.Controls.Add(this.sop_teacherAndStudent);
             this.groupBox1.Controls.Add(this.sop_teacher2);
             this.groupBox1.Controls.Add(this.sop_student);
@@ -311,7 +315,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(836, 272);
+            this.label15.Location = new System.Drawing.Point(836, 348);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(37, 18);
@@ -321,7 +325,7 @@
             // clipDurationTimer
             // 
             this.clipDurationTimer.Hours = 0;
-            this.clipDurationTimer.Location = new System.Drawing.Point(691, 273);
+            this.clipDurationTimer.Location = new System.Drawing.Point(691, 349);
             this.clipDurationTimer.Margin = new System.Windows.Forms.Padding(6);
             this.clipDurationTimer.Milliseconds = 0;
             this.clipDurationTimer.Minutes = 0;
@@ -338,7 +342,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "PENDING",
             "PUBLISHED"});
-            this.comboBox1.Location = new System.Drawing.Point(618, 237);
+            this.comboBox1.Location = new System.Drawing.Point(618, 313);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(180, 26);
@@ -349,7 +353,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Arial", 12F);
-            this.label9.Location = new System.Drawing.Point(837, 239);
+            this.label9.Location = new System.Drawing.Point(837, 315);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(56, 18);
@@ -360,7 +364,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial", 12F);
-            this.label8.Location = new System.Drawing.Point(838, 206);
+            this.label8.Location = new System.Drawing.Point(838, 282);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(37, 18);
@@ -370,7 +374,7 @@
             // textBox6
             // 
             this.textBox6.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox6.Location = new System.Drawing.Point(502, 203);
+            this.textBox6.Location = new System.Drawing.Point(502, 279);
             this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(296, 26);
@@ -380,7 +384,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial", 12F);
-            this.label7.Location = new System.Drawing.Point(838, 170);
+            this.label7.Location = new System.Drawing.Point(838, 246);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(80, 18);
@@ -390,7 +394,7 @@
             // textBox5
             // 
             this.textBox5.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox5.Location = new System.Drawing.Point(502, 167);
+            this.textBox5.Location = new System.Drawing.Point(502, 243);
             this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(296, 26);
@@ -400,7 +404,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial", 12F);
-            this.label6.Location = new System.Drawing.Point(838, 134);
+            this.label6.Location = new System.Drawing.Point(838, 210);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 18);
@@ -410,7 +414,7 @@
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox4.Location = new System.Drawing.Point(502, 131);
+            this.textBox4.Location = new System.Drawing.Point(502, 207);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(296, 26);
@@ -484,6 +488,27 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Arial", 12F);
+            this.label11.Location = new System.Drawing.Point(837, 132);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(41, 18);
+            this.label11.TabIndex = 43;
+            this.label11.Text = "תיאור";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBox3.Location = new System.Drawing.Point(500, 129);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(297, 70);
+            this.textBox3.TabIndex = 44;
+            // 
             // ClipPropertiesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -545,5 +570,7 @@
         private System.Windows.Forms.CheckBox sop_teacher1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

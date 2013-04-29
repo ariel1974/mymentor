@@ -26,6 +26,7 @@ namespace MyMentorUtilityClient
         {
             if (
                 string.IsNullOrEmpty(textBox1.Text.Trim()) ||
+                string.IsNullOrEmpty(textBox3.Text.Trim()) ||
                 string.IsNullOrEmpty(textBox4.Text.Trim()) ||
                 string.IsNullOrEmpty(textBox5.Text.Trim()) ||
                 string.IsNullOrEmpty(textBox6.Text.Trim()) ||
@@ -38,6 +39,7 @@ namespace MyMentorUtilityClient
             }
 
             Clip.Current.Title = textBox1.Text;
+            Clip.Current.Description = textBox3.Text;
             Clip.Current.Version = maskedTextBox1.Text;
             Clip.Current.Category = textBox4.Text;
             Clip.Current.SubCategory = textBox5.Text;
@@ -110,6 +112,7 @@ namespace MyMentorUtilityClient
         private void ClipPropertiesForm_Load(object sender, EventArgs e)
         {
             textBox1.Text = Clip.Current.Title;
+            textBox3.Text = Clip.Current.Description;
             maskedTextBox1.Text = Clip.Current.Version;
             textBox4.Text = Clip.Current.Category;
             textBox2.Text = Clip.Current.AudioFileName;

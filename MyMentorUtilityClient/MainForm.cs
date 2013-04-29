@@ -22,18 +22,6 @@ namespace MyMentorUtilityClient
 {
     public partial class MainForm : Form
     {
-        private const string PAR_SIGN_OPEN = "{{";
-        private const string PAR_SIGN_CLOSE = "}}";
-
-        private const string SEN_SIGN_OPEN = "((";
-        private const string SEN_SIGN_CLOSE = "))";
-
-        private const string SEC_SIGN_OPEN = "<<";
-        private const string SEC_SIGN_CLOSE = ">>";
-
-        private const string WOR_SIGN_OPEN = "[[";
-        private const string WOR_SIGN_CLOSE = "]]";
-
         private List<Paragraph> m_paragraphs = null;
 
         private object m_selected = null;
@@ -53,6 +41,9 @@ namespace MyMentorUtilityClient
 
         private static Regex m_regexSections = new Regex(@"(?<=\<\<)(.*?)(?=\>\>)", RegexOptions.Compiled);
         private static Regex m_regexFreeSections = new Regex(@"(\<\<|\>\>)", RegexOptions.Compiled);
+
+        private static Regex m_regexWords = new Regex(@"(?<=\[\[)(.*?)(?=\]\])|(\w+)", RegexOptions.Compiled);
+        private static Regex m_regexFreeWords = new Regex(@"(\[\[|\]\])", RegexOptions.Compiled);
 
         private void ScanText()
         {
@@ -91,6 +82,7 @@ namespace MyMentorUtilityClient
                         CharIndex = matchParagraph.Index,
                         Index = paragraphIndex,
                         Sentences = new List<Sentence>(),
+                        Words = new List<Word>(),
                         StartTime = start,
                         Duration = duration,
                     });
@@ -99,56 +91,148 @@ namespace MyMentorUtilityClient
                     /// 
                     MatchCollection matchesSentenses = m_regexSentenses.Matches(matchParagraph.Value);
 
-                    foreach (Match matchSentense in matchesSentenses)
+                    //in case exists sentences 
+                    if (matchesSentenses.Count > 0)
                     {
-                        // test for more paragraph sections
-                        testPar = m_regexFreeSentenses.Match(matchSentense.Value);
-                        if (testPar.Success)
-                        {
-                            throw new ApplicationException(string.Format("עוגן משפט מיותר בטקסט"));
-                        }
-
-                        sentenceIndex++;
-                        innerSentenceIndex++;
-                        innerSectionIndex = -1;
-
-                        paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
-                        {
-                            CharIndex = matchSentense.Index + matchParagraph.Index,
-                            Index = sentenceIndex,
-                            Sections = new List<Section>(),
-                            StartTime = start,
-                            Duration = duration
-                        });
-
-                        /// Sections 
-                        /// 
-                        MatchCollection matchesSections = m_regexSections.Matches(matchSentense.Value);
-
-                        foreach (Match matchSection in matchesSections)
+                        foreach (Match matchSentense in matchesSentenses)
                         {
                             // test for more paragraph sections
-                            testPar = m_regexFreeSections.Match(matchSection.Value);
+                            testPar = m_regexFreeSentenses.Match(matchSentense.Value);
                             if (testPar.Success)
                             {
-                                throw new ApplicationException(string.Format("עוגן קטע מיותר"));
+                                throw new ApplicationException(string.Format("עוגן משפט מיותר בטקסט"));
                             }
 
-                            sectionIndex++;
-                            innerSectionIndex++;
+                            sentenceIndex++;
+                            innerSentenceIndex++;
+                            innerSectionIndex = -1;
 
-                            paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
+                            paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
                             {
-                                CharIndex = matchSection.Index + matchSentense.Index + matchParagraph.Index,
-                                Index = sectionIndex,
+                                CharIndex = matchSentense.Index + matchParagraph.Index,
+                                Index = sentenceIndex,
+                                Sections = new List<Section>(),
                                 Words = new List<Word>(),
+                                StartTime = start,
+                                Duration = duration
+                            });
+
+                            /// Sections 
+                            /// 
+                            MatchCollection matchesSections = m_regexSections.Matches(matchSentense.Value);
+
+                            if (matchesSections.Count > 0)
+                            {
+
+                                foreach (Match matchSection in matchesSections)
+                                {
+                                    // test for more paragraph sections
+                                    testPar = m_regexFreeSections.Match(matchSection.Value);
+                                    if (testPar.Success)
+                                    {
+                                        throw new ApplicationException(string.Format("עוגן קטע מיותר"));
+                                    }
+
+                                    sectionIndex++;
+                                    innerSectionIndex++;
+
+                                    paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
+                                    {
+                                        CharIndex = matchSection.Index + matchSentense.Index + matchParagraph.Index,
+                                        Index = sectionIndex,
+                                        Words = new List<Word>(),
+                                        StartTime = start,
+                                        Duration = duration
+                                    });
+
+                                    /// Sections 
+                                    /// 
+                                    MatchCollection matchesWords = m_regexWords.Matches(matchSection.Value);
+
+                                    foreach (Match matchWord in matchesWords)
+                                    {
+                                        // test for more paragraph sections
+                                        testPar = m_regexFreeWords.Match(matchWord.Value);
+                                        if (testPar.Success)
+                                        {
+                                            throw new ApplicationException(string.Format("עוגן מילה מיותר"));
+                                        }
+
+                                        wordIndex++;
+
+                                        paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Add(new Word
+                                        {
+                                            CharIndex = matchWord.Index + matchSection.Index + matchSentense.Index + matchParagraph.Index,
+                                            Index = wordIndex,
+                                            Text = matchWord.Value,
+                                            StartTime = start,
+                                            Duration = duration
+                                        });
+                                    }
+
+
+                                }
+                            }
+                            else
+                            {
+                                //no sections for this sentense
+                                /// 
+                                MatchCollection matchesWords = m_regexWords.Matches(matchSentense.Value);
+
+                                foreach (Match matchWord in matchesWords)
+                                {
+                                    // test for more paragraph sections
+                                    testPar = m_regexFreeWords.Match(matchWord.Value);
+                                    if (testPar.Success)
+                                    {
+                                        throw new ApplicationException(string.Format("עוגן מילה מיותר"));
+                                    }
+
+                                    wordIndex++;
+
+                                    paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Words.Add(new Word
+                                    {
+                                        CharIndex = matchWord.Index + matchSentense.Index + matchParagraph.Index,
+                                        Index = wordIndex,
+                                        Text = matchWord.Value,
+                                        StartTime = start,
+                                        Duration = duration
+                                    });
+                                }
+
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        //no sentense for this paragraph
+                        /// Sections 
+                        /// 
+                        MatchCollection matchesWords = m_regexWords.Matches(matchParagraph.Value);
+
+                        foreach (Match matchWord in matchesWords)
+                        {
+                            // test for more paragraph sections
+                            testPar = m_regexFreeWords.Match(matchWord.Value);
+                            if (testPar.Success)
+                            {
+                                throw new ApplicationException(string.Format("עוגן מילה מיותר"));
+                            }
+
+                            wordIndex++;
+
+                            paragraphs_local[paragraphIndex].Words.Add(new Word
+                            {
+                                CharIndex = matchWord.Index + matchParagraph.Index,
+                                Index = wordIndex,
+                                Text = matchWord.Value,
                                 StartTime = start,
                                 Duration = duration
                             });
                         }
 
                     }
-
                 }
 
                 m_paragraphs = paragraphs_local;
@@ -594,44 +678,44 @@ namespace MyMentorUtilityClient
                     case AnchorType.Paragraph:
                         if (direction == AnchorDirection.Open)
                         {
-                            richTextBox2.Text = PAR_SIGN_OPEN;
+                            richTextBox2.Text = Clip.PAR_SIGN_OPEN;
                         }
                         else
                         {
-                            richTextBox2.Text = PAR_SIGN_CLOSE;
+                            richTextBox2.Text = Clip.PAR_SIGN_CLOSE;
                         }
 
                         break;
                     case AnchorType.Sentence:
                         if (direction == AnchorDirection.Open)
                         {
-                            richTextBox2.Text = SEN_SIGN_OPEN;
+                            richTextBox2.Text = Clip.SEN_SIGN_OPEN;
                         }
                         else
                         {
-                            richTextBox2.Text = SEN_SIGN_CLOSE;
+                            richTextBox2.Text = Clip.SEN_SIGN_CLOSE;
                         }
 
                         break;
                     case AnchorType.Section:
                         if (direction == AnchorDirection.Open)
                         {
-                            richTextBox2.Text = SEC_SIGN_OPEN;
+                            richTextBox2.Text = Clip.SEC_SIGN_OPEN;
                         }
                         else
                         {
-                            richTextBox2.Text = SEC_SIGN_CLOSE;
+                            richTextBox2.Text = Clip.SEC_SIGN_CLOSE;
                         }
 
                         break;
                     case AnchorType.Word:
                         if (direction == AnchorDirection.Open)
                         {
-                            richTextBox2.Text = WOR_SIGN_OPEN;
+                            richTextBox2.Text = Clip.WOR_SIGN_OPEN;
                         }
                         else
                         {
-                            richTextBox2.Text = WOR_SIGN_CLOSE;
+                            richTextBox2.Text = Clip.WOR_SIGN_CLOSE;
                         }
 
                         break;
@@ -662,25 +746,25 @@ namespace MyMentorUtilityClient
                             case AnchorType.Paragraph:
 
                                 if (
-                                    richTextBox2.SelectedText == SEC_SIGN_OPEN ||
-                                    richTextBox2.SelectedText == SEC_SIGN_CLOSE ||
-                                    richTextBox2.SelectedText == SEN_SIGN_CLOSE ||
-                                    richTextBox2.SelectedText == SEN_SIGN_OPEN
+                                    richTextBox2.SelectedText == Clip.SEC_SIGN_OPEN ||
+                                    richTextBox2.SelectedText == Clip.SEC_SIGN_CLOSE ||
+                                    richTextBox2.SelectedText == Clip.SEN_SIGN_CLOSE ||
+                                    richTextBox2.SelectedText == Clip.SEN_SIGN_OPEN
                                     )
                                 {
                                     throw new ApplicationException();
                                 }
 
                                 //if this is opening paragraph tag
-                                if (richTextBox2.SelectedText == PAR_SIGN_OPEN)
+                                if (richTextBox2.SelectedText == Clip.PAR_SIGN_OPEN)
                                 {
                                     blFoundAnchor = true;
                                     break;
                                 }
                                 //if this is closing paragraph tag
-                                else if (richTextBox2.SelectedText == PAR_SIGN_CLOSE)
+                                else if (richTextBox2.SelectedText == Clip.PAR_SIGN_CLOSE)
                                 {
-                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, PAR_SIGN_OPEN);
+                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, Clip.PAR_SIGN_OPEN);
                                     blFoundAnchor = true;
                                     break;
                                 }
@@ -690,14 +774,14 @@ namespace MyMentorUtilityClient
                             case AnchorType.Sentence:
 
                                 //if this is opening paragraph tag
-                                if (richTextBox2.SelectedText == PAR_SIGN_OPEN ||
-                                    richTextBox2.SelectedText == SEN_SIGN_CLOSE)
+                                if (richTextBox2.SelectedText == Clip.PAR_SIGN_OPEN ||
+                                    richTextBox2.SelectedText == Clip.SEN_SIGN_CLOSE)
                                 {
-                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, SEN_SIGN_OPEN);
+                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, Clip.SEN_SIGN_OPEN);
                                     blFoundAnchor = true;
                                     break;
                                 }
-                                else if (richTextBox2.SelectedText == SEN_SIGN_OPEN)
+                                else if (richTextBox2.SelectedText == Clip.SEN_SIGN_OPEN)
                                 {
                                     blFoundAnchor = true;
                                     break;
@@ -707,22 +791,22 @@ namespace MyMentorUtilityClient
                             case AnchorType.Section:
 
                                 if (
-                                    richTextBox2.SelectedText == PAR_SIGN_CLOSE ||
-                                    richTextBox2.SelectedText == PAR_SIGN_OPEN
+                                    richTextBox2.SelectedText == Clip.PAR_SIGN_CLOSE ||
+                                    richTextBox2.SelectedText == Clip.PAR_SIGN_OPEN
                                     )
                                 {
                                     throw new ApplicationException();
                                 }
-                                else if (richTextBox2.SelectedText == SEC_SIGN_OPEN)
+                                else if (richTextBox2.SelectedText == Clip.SEC_SIGN_OPEN)
                                 {
                                     blFoundAnchor = true;
                                     break;
                                 }
                                 //if this is opening paragraph tag
                                 else if (
-                                    richTextBox2.SelectedText == SEN_SIGN_OPEN)
+                                    richTextBox2.SelectedText == Clip.SEN_SIGN_OPEN)
                                 {
-                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, SEC_SIGN_OPEN);
+                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, Clip.SEC_SIGN_OPEN);
                                     blFoundAnchor = true;
                                     break;
                                 }
@@ -734,7 +818,7 @@ namespace MyMentorUtilityClient
                                 if (
                                     //richTextBox2.SelectedText == PAR_SIGN_CLOSE ||
                                     //richTextBox2.SelectedText == PAR_SIGN_OPEN ||
-                                    richTextBox2.SelectedText == SEN_SIGN_OPEN
+                                    richTextBox2.SelectedText == Clip.SEN_SIGN_OPEN
                                     )
                                 {
                                     throw new ApplicationException();
@@ -742,12 +826,12 @@ namespace MyMentorUtilityClient
 
                                 //if this is opening paragraph tag
                                 if (
-                                    richTextBox2.SelectedText == SEC_SIGN_OPEN ||
-                                    richTextBox2.SelectedText == WOR_SIGN_CLOSE ||
+                                    richTextBox2.SelectedText == Clip.SEC_SIGN_OPEN ||
+                                    richTextBox2.SelectedText == Clip.WOR_SIGN_CLOSE ||
                                     richTextBox2.SelectedText.Substring(1, 1) == " " ||
                                     richTextBox2.SelectedText.Substring(1, 1) == ".")
                                 {
-                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, WOR_SIGN_OPEN);
+                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, Clip.WOR_SIGN_OPEN);
                                     blFoundAnchor = true;
                                     break;
                                 }
@@ -764,16 +848,16 @@ namespace MyMentorUtilityClient
                         switch (type)
                         {
                             case AnchorType.Paragraph:
-                                richTextBox1.Text = string.Concat(PAR_SIGN_OPEN, richTextBox1.Text);
+                                richTextBox1.Text = string.Concat(Clip.PAR_SIGN_OPEN, richTextBox1.Text);
                                 break;
                             case AnchorType.Sentence:
-                                richTextBox1.Text = string.Concat(SEN_SIGN_OPEN, richTextBox1.Text);
+                                richTextBox1.Text = string.Concat(Clip.SEN_SIGN_OPEN, richTextBox1.Text);
                                 break;
                             case AnchorType.Section:
-                                richTextBox1.Text = string.Concat(SEC_SIGN_OPEN, richTextBox1.Text);
+                                richTextBox1.Text = string.Concat(Clip.SEC_SIGN_OPEN, richTextBox1.Text);
                                 break;
                             case AnchorType.Word:
-                                richTextBox1.Text = string.Concat(WOR_SIGN_OPEN, richTextBox1.Text);
+                                richTextBox1.Text = string.Concat(Clip.WOR_SIGN_OPEN, richTextBox1.Text);
                                 break;
                         }
 
@@ -1163,11 +1247,23 @@ namespace MyMentorUtilityClient
 
         private void button7_Click(object sender, EventArgs e)
         {
+            if (Clip.Current.IsNew)
+            {
+                Save();
+
+                if ( string.IsNullOrEmpty( Clip.Current.FileName ))
+                {
+                    return;
+                }
+            }
+
+            ScanText();
+
             Clip.Current.Paragraphs = m_paragraphs;
             Clip.Current.RtfText = richTextBox1.Rtf;
             Clip.Current.Save();
 
-            PublishForm frm = new PublishForm();
+            PublishForm frm = new PublishForm(this);
             frm.ShowDialog();
         }
 
@@ -1396,6 +1492,7 @@ namespace MyMentorUtilityClient
             Clip.Current.Version = "1.00";
             Clip.Current.Status = "PENDING";
             Clip.Current.ID = Guid.NewGuid();
+            Clip.Current.FontName = "Arial";
             Clip.Current.IsNew = true;
 
             this.Text = "MyMentor - " + Clip.Current.Title;
@@ -1464,7 +1561,7 @@ namespace MyMentorUtilityClient
                 if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
                 {
                     m_paragraphs = Clip.Current.Paragraphs;
-                    Recalculate();
+                    ScanText();
                 }
             }
         }
@@ -1488,11 +1585,23 @@ namespace MyMentorUtilityClient
 
         private void publishMenuStrip_Click(object sender, EventArgs e)
         {
+            if (Clip.Current.IsNew)
+            {
+                Save();
+
+                if (string.IsNullOrEmpty(Clip.Current.FileName))
+                {
+                    return;
+                }
+            }
+
+            ScanText();
+
             Clip.Current.Paragraphs = m_paragraphs;
             Clip.Current.RtfText = richTextBox1.Rtf;
             Clip.Current.Save();
 
-            PublishForm frm = new PublishForm();
+            PublishForm frm = new PublishForm(this);
             frm.ShowDialog();
         }
 
@@ -1718,6 +1827,40 @@ namespace MyMentorUtilityClient
         {
             ScanText();
         }
+
+        private void toolStripMenuItem12_Click(object sender, EventArgs e)
+        {
+            ScanText();
+        }
+
+        private void toolStripButton9_Click(object sender, EventArgs e)
+        {
+            if (Clip.Current.IsNew)
+            {
+                Save();
+
+                if (string.IsNullOrEmpty(Clip.Current.FileName))
+                {
+                    return;
+                }
+            }
+
+            ScanText();
+
+            Clip.Current.Paragraphs = m_paragraphs;
+            Clip.Current.RtfText = richTextBox1.Rtf;
+            Clip.Current.Save();
+
+            PublishForm frm = new PublishForm(this);
+            frm.ShowDialog();
+
+        }
+
+        private void toolStripButton10_Click(object sender, EventArgs e)
+        {
+            ScanText();
+
+        }
     }
 
     public class SectionCellData
@@ -1779,19 +1922,10 @@ namespace MyMentorUtilityClient
             get { return Duration.Ticks; }
             set { Duration = new TimeSpan(value); }
         }
-    }
 
-    public class Word : BaseSection
-    {
-        [JsonProperty(PropertyName = "text", Order = 5)]
-        public string Text { get; set; }
-    }
-
-    public class Section : BaseSection
-    {
-        [JsonProperty(PropertyName = "words", Order = 5)]
+        [JsonProperty(PropertyName = "words", Order = 8)]
         [XmlArrayItem("Words")]
-        public List<Word> Words { get; set; }
+        public virtual List<Word> Words { get; set; }
 
         [JsonIgnore]
         [XmlIgnore]
@@ -1801,7 +1935,6 @@ namespace MyMentorUtilityClient
             {
                 try
                 {
-
                     return this.Words.Select(w => w.Text).Aggregate((a, b) => a + " " + b);
                 }
                 catch
@@ -1810,6 +1943,32 @@ namespace MyMentorUtilityClient
                 }
             }
         }
+
+    }
+
+    public class Word : BaseSection
+    {
+        [JsonProperty(PropertyName = "text", Order = 5)]
+        public string Text { get; set; }
+
+        [XmlIgnore]
+        [JsonIgnore]
+        public override List<Word> Words
+        {
+            get
+            {
+                return base.Words;
+            }
+            set
+            {
+                base.Words = value;
+            }
+        }
+
+    }
+
+    public class Section : BaseSection
+    {
     }
 
     public class Sentence : BaseSection
@@ -1817,23 +1976,6 @@ namespace MyMentorUtilityClient
         [JsonProperty(PropertyName = "sections", Order = 5)]
         [XmlArrayItem("Sections")]
         public List<Section> Sections { get; set; }
-
-        [JsonIgnore]
-        [XmlIgnore]
-        public string Content
-        {
-            get
-            {
-                try
-                {
-                    return this.Sections.SelectMany(w => w.Words).Select(w => w.Text).Aggregate((a, b) => a + " " + b);
-                }
-                catch
-                {
-                    return string.Empty;
-                }
-            }
-        }
     }
 
     public class Paragraph : BaseSection
@@ -1841,24 +1983,6 @@ namespace MyMentorUtilityClient
         [JsonProperty(PropertyName = "sentences", Order = 5)]
         [XmlArrayItem("Sentences")]
         public List<Sentence> Sentences { get; set; }
-
-        [JsonIgnore]
-        [XmlIgnore]
-        public string Content
-        {
-            get
-            {
-                try
-                {
-                    return this.Sentences.SelectMany(s => s.Sections).SelectMany(s => s.Words).Select(w => w.Text).Aggregate((a, b) => a + " " + b);
-                }
-                catch
-                {
-                    return string.Empty;
-                }
-            }
-        }
-
     }
 
     public enum AnchorType

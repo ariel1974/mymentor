@@ -13,7 +13,7 @@ namespace MyMentorUtilityClient.Json
         public int paragraph { get; set; }
         public int sentence { get; set; }
         public int section { get; set; }
-        public int word { get; set; }
+        public int chapter { get; set; }
     }
 
     public class learningOptions
@@ -33,10 +33,10 @@ namespace MyMentorUtilityClient.Json
         public string description { get; set; }
         public string schemaVersion { get; set; }
         public string clipVersion { get; set; }
-        public int MyProperty { get; set; }
         public sections defaultSections { get; set; }
         public sections lockedSections { get; set; }
-        public learningOptions learningOptions { get; set; }
+        public learningOptions defaultLearningOptions { get; set; }
+        public learningOptions lockedLearningOptions { get; set; }
         public string category { get; set; }
         public string subCategory { get; set; }
         public string tags { get; set; }

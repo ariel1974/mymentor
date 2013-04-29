@@ -13,8 +13,11 @@ namespace MyMentorUtilityClient
 {
     public partial class PublishForm : Form
     {
-        public PublishForm()
+        private MainForm m_mainForm = null;
+
+        public PublishForm(MainForm mainForm)
         {
+            m_mainForm = mainForm;
             InitializeComponent();
         }
 
@@ -25,8 +28,24 @@ namespace MyMentorUtilityClient
 
         private async void button1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(Clip.Current.Title)
+                || string.IsNullOrEmpty(Clip.Current.Description)
+                || string.IsNullOrEmpty(Clip.Current.Category)
+                || string.IsNullOrEmpty(Clip.Current.SubCategory)
+                || string.IsNullOrEmpty(Clip.Current.Tags)
+                || string.IsNullOrEmpty(Clip.Current.Status))
+            {
+                MessageBox.Show("אנא השלם את מאפייני השיעור", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+
+                ClipPropertiesForm frm = new ClipPropertiesForm(m_mainForm);
+                frm.ShowDialog();
+
+                return;
+            }
+
             button1.Enabled = false;
             button2.Enabled = false;
+            button3.Enabled = false;
 
             panelWait.Visible = true;
 
@@ -59,6 +78,12 @@ namespace MyMentorUtilityClient
                 }
             }
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ClipPropertiesForm frm = new ClipPropertiesForm(m_mainForm);
+            frm.ShowDialog();
         }
     }
 }

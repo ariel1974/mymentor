@@ -29,21 +29,20 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.sop_teacherAndStudent = new System.Windows.Forms.CheckBox();
             this.sop_teacher2 = new System.Windows.Forms.CheckBox();
             this.sop_student = new System.Windows.Forms.CheckBox();
             this.sop_teacher1 = new System.Windows.Forms.CheckBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.loc_sen = new System.Windows.Forms.CheckBox();
             this.loc_sec = new System.Windows.Forms.CheckBox();
             this.loc_wor = new System.Windows.Forms.CheckBox();
             this.loc_par = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.def_sen = new System.Windows.Forms.CheckBox();
             this.def_sec = new System.Windows.Forms.CheckBox();
             this.def_wor = new System.Windows.Forms.CheckBox();
             this.def_par = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -66,31 +65,30 @@
             this.button2 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.label11 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.sop_teacherAndStudentl = new System.Windows.Forms.CheckBox();
+            this.sop_teacher2l = new System.Windows.Forms.CheckBox();
+            this.sop_studentl = new System.Windows.Forms.CheckBox();
+            this.sop_teacher1l = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.groupBox5);
+            this.groupBox1.Controls.Add(this.groupBox4);
+            this.groupBox1.Controls.Add(this.groupBox3);
+            this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.sop_teacherAndStudent);
-            this.groupBox1.Controls.Add(this.sop_teacher2);
-            this.groupBox1.Controls.Add(this.sop_student);
-            this.groupBox1.Controls.Add(this.sop_teacher1);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.loc_sen);
-            this.groupBox1.Controls.Add(this.loc_sec);
-            this.groupBox1.Controls.Add(this.loc_wor);
-            this.groupBox1.Controls.Add(this.loc_par);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.def_sen);
-            this.groupBox1.Controls.Add(this.def_sec);
-            this.groupBox1.Controls.Add(this.def_wor);
-            this.groupBox1.Controls.Add(this.def_par);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.textBox2);
@@ -114,14 +112,35 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(925, 418);
+            this.groupBox1.Size = new System.Drawing.Size(925, 403);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Arial", 12F);
+            this.label11.Location = new System.Drawing.Point(837, 132);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(41, 18);
+            this.label11.TabIndex = 43;
+            this.label11.Text = "תיאור";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBox3.Location = new System.Drawing.Point(465, 129);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(332, 70);
+            this.textBox3.TabIndex = 44;
             // 
             // sop_teacherAndStudent
             // 
             this.sop_teacherAndStudent.AutoSize = true;
-            this.sop_teacherAndStudent.Location = new System.Drawing.Point(67, 315);
+            this.sop_teacherAndStudent.Location = new System.Drawing.Point(30, 63);
             this.sop_teacherAndStudent.Name = "sop_teacherAndStudent";
             this.sop_teacherAndStudent.Size = new System.Drawing.Size(103, 22);
             this.sop_teacherAndStudent.TabIndex = 42;
@@ -131,7 +150,7 @@
             // sop_teacher2
             // 
             this.sop_teacher2.AutoSize = true;
-            this.sop_teacher2.Location = new System.Drawing.Point(99, 343);
+            this.sop_teacher2.Location = new System.Drawing.Point(62, 91);
             this.sop_teacher2.Name = "sop_teacher2";
             this.sop_teacher2.Size = new System.Drawing.Size(71, 22);
             this.sop_teacher2.TabIndex = 41;
@@ -141,7 +160,7 @@
             // sop_student
             // 
             this.sop_student.AutoSize = true;
-            this.sop_student.Location = new System.Drawing.Point(105, 371);
+            this.sop_student.Location = new System.Drawing.Point(68, 119);
             this.sop_student.Name = "sop_student";
             this.sop_student.Size = new System.Drawing.Size(65, 22);
             this.sop_student.TabIndex = 40;
@@ -151,28 +170,17 @@
             // sop_teacher1
             // 
             this.sop_teacher1.AutoSize = true;
-            this.sop_teacher1.Location = new System.Drawing.Point(99, 287);
+            this.sop_teacher1.Location = new System.Drawing.Point(62, 35);
             this.sop_teacher1.Name = "sop_teacher1";
             this.sop_teacher1.Size = new System.Drawing.Size(71, 22);
             this.sop_teacher1.TabIndex = 39;
             this.sop_teacher1.Text = "מורה 1";
             this.sop_teacher1.UseVisualStyleBackColor = true;
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Arial", 12F);
-            this.label10.Location = new System.Drawing.Point(209, 291);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(99, 18);
-            this.label10.TabIndex = 38;
-            this.label10.Text = "אפשרויות לימוד";
-            // 
             // loc_sen
             // 
             this.loc_sen.AutoSize = true;
-            this.loc_sen.Location = new System.Drawing.Point(104, 184);
+            this.loc_sen.Location = new System.Drawing.Point(50, 56);
             this.loc_sen.Name = "loc_sen";
             this.loc_sen.Size = new System.Drawing.Size(66, 22);
             this.loc_sen.TabIndex = 37;
@@ -182,7 +190,7 @@
             // loc_sec
             // 
             this.loc_sec.AutoSize = true;
-            this.loc_sec.Location = new System.Drawing.Point(117, 212);
+            this.loc_sec.Location = new System.Drawing.Point(63, 84);
             this.loc_sec.Name = "loc_sec";
             this.loc_sec.Size = new System.Drawing.Size(53, 22);
             this.loc_sec.TabIndex = 36;
@@ -192,7 +200,7 @@
             // loc_wor
             // 
             this.loc_wor.AutoSize = true;
-            this.loc_wor.Location = new System.Drawing.Point(110, 240);
+            this.loc_wor.Location = new System.Drawing.Point(56, 112);
             this.loc_wor.Name = "loc_wor";
             this.loc_wor.Size = new System.Drawing.Size(60, 22);
             this.loc_wor.TabIndex = 35;
@@ -202,28 +210,17 @@
             // loc_par
             // 
             this.loc_par.AutoSize = true;
-            this.loc_par.Location = new System.Drawing.Point(106, 156);
+            this.loc_par.Location = new System.Drawing.Point(52, 28);
             this.loc_par.Name = "loc_par";
             this.loc_par.Size = new System.Drawing.Size(64, 22);
             this.loc_par.TabIndex = 34;
             this.loc_par.Text = "פסקה";
             this.loc_par.UseVisualStyleBackColor = true;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial", 12F);
-            this.label5.Location = new System.Drawing.Point(209, 157);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 18);
-            this.label5.TabIndex = 33;
-            this.label5.Text = "נעילות מקטעים";
-            // 
             // def_sen
             // 
             this.def_sen.AutoSize = true;
-            this.def_sen.Location = new System.Drawing.Point(104, 57);
+            this.def_sen.Location = new System.Drawing.Point(50, 60);
             this.def_sen.Name = "def_sen";
             this.def_sen.Size = new System.Drawing.Size(66, 22);
             this.def_sen.TabIndex = 32;
@@ -233,7 +230,7 @@
             // def_sec
             // 
             this.def_sec.AutoSize = true;
-            this.def_sec.Location = new System.Drawing.Point(117, 85);
+            this.def_sec.Location = new System.Drawing.Point(63, 88);
             this.def_sec.Name = "def_sec";
             this.def_sec.Size = new System.Drawing.Size(53, 22);
             this.def_sec.TabIndex = 31;
@@ -243,7 +240,7 @@
             // def_wor
             // 
             this.def_wor.AutoSize = true;
-            this.def_wor.Location = new System.Drawing.Point(110, 113);
+            this.def_wor.Location = new System.Drawing.Point(56, 116);
             this.def_wor.Name = "def_wor";
             this.def_wor.Size = new System.Drawing.Size(60, 22);
             this.def_wor.TabIndex = 30;
@@ -253,23 +250,12 @@
             // def_par
             // 
             this.def_par.AutoSize = true;
-            this.def_par.Location = new System.Drawing.Point(106, 29);
+            this.def_par.Location = new System.Drawing.Point(52, 32);
             this.def_par.Name = "def_par";
             this.def_par.Size = new System.Drawing.Size(64, 22);
             this.def_par.TabIndex = 29;
             this.def_par.Text = "פסקה";
             this.def_par.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial", 12F);
-            this.label4.Location = new System.Drawing.Point(209, 30);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(128, 18);
-            this.label4.TabIndex = 28;
-            this.label4.Text = "מקטעי ברירת מחדל";
             // 
             // label3
             // 
@@ -284,7 +270,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(460, 100);
+            this.button3.Location = new System.Drawing.Point(465, 100);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(33, 25);
             this.button3.TabIndex = 26;
@@ -295,11 +281,11 @@
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox2.Location = new System.Drawing.Point(500, 97);
+            this.textBox2.Location = new System.Drawing.Point(505, 97);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(297, 26);
+            this.textBox2.Size = new System.Drawing.Size(292, 26);
             this.textBox2.TabIndex = 25;
             // 
             // checkBox1
@@ -374,10 +360,10 @@
             // textBox6
             // 
             this.textBox6.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox6.Location = new System.Drawing.Point(502, 279);
+            this.textBox6.Location = new System.Drawing.Point(520, 279);
             this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(296, 26);
+            this.textBox6.Size = new System.Drawing.Size(278, 26);
             this.textBox6.TabIndex = 15;
             // 
             // label7
@@ -394,10 +380,10 @@
             // textBox5
             // 
             this.textBox5.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox5.Location = new System.Drawing.Point(502, 243);
+            this.textBox5.Location = new System.Drawing.Point(520, 243);
             this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(296, 26);
+            this.textBox5.Size = new System.Drawing.Size(278, 26);
             this.textBox5.TabIndex = 13;
             // 
             // label6
@@ -414,10 +400,10 @@
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox4.Location = new System.Drawing.Point(502, 207);
+            this.textBox4.Location = new System.Drawing.Point(520, 207);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(296, 26);
+            this.textBox4.Size = new System.Drawing.Size(278, 26);
             this.textBox4.TabIndex = 11;
             // 
             // label1
@@ -434,10 +420,10 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox1.Location = new System.Drawing.Point(500, 27);
+            this.textBox1.Location = new System.Drawing.Point(560, 27);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(296, 26);
+            this.textBox1.Size = new System.Drawing.Size(236, 26);
             this.textBox1.TabIndex = 2;
             // 
             // maskedTextBox1
@@ -465,7 +451,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(25, 438);
+            this.button1.Location = new System.Drawing.Point(23, 423);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 33);
             this.button1.TabIndex = 10;
@@ -476,7 +462,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(105, 438);
+            this.button2.Location = new System.Drawing.Point(103, 423);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 33);
             this.button2.TabIndex = 11;
@@ -488,32 +474,103 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // label11
+            // sop_teacherAndStudentl
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Arial", 12F);
-            this.label11.Location = new System.Drawing.Point(837, 132);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(41, 18);
-            this.label11.TabIndex = 43;
-            this.label11.Text = "תיאור";
+            this.sop_teacherAndStudentl.AutoSize = true;
+            this.sop_teacherAndStudentl.Location = new System.Drawing.Point(30, 63);
+            this.sop_teacherAndStudentl.Name = "sop_teacherAndStudentl";
+            this.sop_teacherAndStudentl.Size = new System.Drawing.Size(103, 22);
+            this.sop_teacherAndStudentl.TabIndex = 49;
+            this.sop_teacherAndStudentl.Text = "מורה ותלמיד";
+            this.sop_teacherAndStudentl.UseVisualStyleBackColor = true;
             // 
-            // textBox3
+            // sop_teacher2l
             // 
-            this.textBox3.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox3.Location = new System.Drawing.Point(500, 129);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(297, 70);
-            this.textBox3.TabIndex = 44;
+            this.sop_teacher2l.AutoSize = true;
+            this.sop_teacher2l.Location = new System.Drawing.Point(62, 91);
+            this.sop_teacher2l.Name = "sop_teacher2l";
+            this.sop_teacher2l.Size = new System.Drawing.Size(71, 22);
+            this.sop_teacher2l.TabIndex = 48;
+            this.sop_teacher2l.Text = "מורה 2";
+            this.sop_teacher2l.UseVisualStyleBackColor = true;
+            // 
+            // sop_studentl
+            // 
+            this.sop_studentl.AutoSize = true;
+            this.sop_studentl.Location = new System.Drawing.Point(68, 119);
+            this.sop_studentl.Name = "sop_studentl";
+            this.sop_studentl.Size = new System.Drawing.Size(65, 22);
+            this.sop_studentl.TabIndex = 47;
+            this.sop_studentl.Text = "תלמיד";
+            this.sop_studentl.UseVisualStyleBackColor = true;
+            // 
+            // sop_teacher1l
+            // 
+            this.sop_teacher1l.AutoSize = true;
+            this.sop_teacher1l.Location = new System.Drawing.Point(62, 35);
+            this.sop_teacher1l.Name = "sop_teacher1l";
+            this.sop_teacher1l.Size = new System.Drawing.Size(71, 22);
+            this.sop_teacher1l.TabIndex = 46;
+            this.sop_teacher1l.Text = "מורה 1";
+            this.sop_teacher1l.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.def_sen);
+            this.groupBox2.Controls.Add(this.def_par);
+            this.groupBox2.Controls.Add(this.def_wor);
+            this.groupBox2.Controls.Add(this.def_sec);
+            this.groupBox2.Location = new System.Drawing.Point(244, 207);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(164, 151);
+            this.groupBox2.TabIndex = 50;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "מקטעי ברירת מחדל";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.loc_par);
+            this.groupBox3.Controls.Add(this.loc_wor);
+            this.groupBox3.Controls.Add(this.loc_sec);
+            this.groupBox3.Controls.Add(this.loc_sen);
+            this.groupBox3.Location = new System.Drawing.Point(244, 25);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(164, 161);
+            this.groupBox3.TabIndex = 51;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "נעילות מקטעים";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.sop_teacher1);
+            this.groupBox4.Controls.Add(this.sop_student);
+            this.groupBox4.Controls.Add(this.sop_teacher2);
+            this.groupBox4.Controls.Add(this.sop_teacherAndStudent);
+            this.groupBox4.Location = new System.Drawing.Point(47, 207);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(169, 154);
+            this.groupBox4.TabIndex = 52;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "אפשרויות לימוד";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.sop_teacher1l);
+            this.groupBox5.Controls.Add(this.sop_studentl);
+            this.groupBox5.Controls.Add(this.sop_teacher2l);
+            this.groupBox5.Controls.Add(this.sop_teacherAndStudentl);
+            this.groupBox5.Location = new System.Drawing.Point(47, 25);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(169, 161);
+            this.groupBox5.TabIndex = 53;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "נעילות לימוד";
             // 
             // ClipPropertiesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(961, 485);
+            this.ClientSize = new System.Drawing.Size(961, 470);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
@@ -526,6 +583,14 @@
             this.Load += new System.EventHandler(this.ClipPropertiesForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -554,7 +619,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox def_sen;
         private System.Windows.Forms.CheckBox def_sec;
         private System.Windows.Forms.CheckBox def_wor;
@@ -563,14 +627,20 @@
         private System.Windows.Forms.CheckBox loc_sec;
         private System.Windows.Forms.CheckBox loc_wor;
         private System.Windows.Forms.CheckBox loc_par;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox sop_teacherAndStudent;
         private System.Windows.Forms.CheckBox sop_teacher2;
         private System.Windows.Forms.CheckBox sop_student;
         private System.Windows.Forms.CheckBox sop_teacher1;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.CheckBox sop_teacherAndStudentl;
+        private System.Windows.Forms.CheckBox sop_teacher2l;
+        private System.Windows.Forms.CheckBox sop_studentl;
+        private System.Windows.Forms.CheckBox sop_teacher1l;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }

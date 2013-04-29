@@ -52,17 +52,22 @@ namespace MyMentorUtilityClient
             Clip.Current.DefaultSections.paragraph = def_par.Checked ? 1 : 0;
             Clip.Current.DefaultSections.sentence = def_sen.Checked ? 1 : 0;
             Clip.Current.DefaultSections.section = def_sec.Checked ? 1 : 0;
-            Clip.Current.DefaultSections.word = def_wor.Checked ? 1 : 0;
+            Clip.Current.DefaultSections.chapter = def_wor.Checked ? 1 : 0;
 
             Clip.Current.LockedSections.paragraph = def_par.Checked ? 1 : 0;
             Clip.Current.LockedSections.sentence = def_sen.Checked ? 1 : 0;
             Clip.Current.LockedSections.section = def_sec.Checked ? 1 : 0;
-            Clip.Current.LockedSections.word = def_wor.Checked ? 1 : 0;
+            Clip.Current.LockedSections.chapter = def_wor.Checked ? 1 : 0;
 
-            Clip.Current.LearningOptions.teacher1 = sop_teacher1.Checked ? 1 : 0;
-            Clip.Current.LearningOptions.teacherAndStudent = sop_teacherAndStudent.Checked ? 1 : 0;
-            Clip.Current.LearningOptions.teacher2 = sop_teacher2.Checked ? 1 : 0;
-            Clip.Current.LearningOptions.student = sop_student.Checked ? 1 : 0;
+            Clip.Current.DefaultLearningOptions.teacher1 = sop_teacher1.Checked ? 1 : 0;
+            Clip.Current.DefaultLearningOptions.teacherAndStudent = sop_teacherAndStudent.Checked ? 1 : 0;
+            Clip.Current.DefaultLearningOptions.teacher2 = sop_teacher2.Checked ? 1 : 0;
+            Clip.Current.DefaultLearningOptions.student = sop_student.Checked ? 1 : 0;
+
+            Clip.Current.LockedLearningOptions.teacher1 = sop_teacher1l.Checked ? 1 : 0;
+            Clip.Current.LockedLearningOptions.teacherAndStudent = sop_teacherAndStudentl.Checked ? 1 : 0;
+            Clip.Current.LockedLearningOptions.teacher2 = sop_teacher2l.Checked ? 1 : 0;
+            Clip.Current.LockedLearningOptions.student = sop_studentl.Checked ? 1 : 0;
 
             if (string.IsNullOrEmpty(Clip.Current.FileName) && Clip.Current.IsNew)
             {
@@ -125,17 +130,22 @@ namespace MyMentorUtilityClient
             def_par.Checked = Clip.Current.DefaultSections.paragraph == 1;
             def_sen.Checked = Clip.Current.DefaultSections.sentence == 1;
             def_sec.Checked = Clip.Current.DefaultSections.section == 1;
-            def_wor.Checked = Clip.Current.DefaultSections.word == 1;
+            def_wor.Checked = Clip.Current.DefaultSections.chapter == 1;
 
             loc_par.Checked = Clip.Current.LockedSections.paragraph == 1;
             loc_sen.Checked = Clip.Current.LockedSections.sentence == 1;
             loc_sec.Checked = Clip.Current.LockedSections.section == 1;
-            loc_wor.Checked = Clip.Current.LockedSections.word == 1;
+            loc_wor.Checked = Clip.Current.LockedSections.chapter == 1;
 
-            sop_teacher1.Checked = Clip.Current.LearningOptions.teacher1 == 1;
-            sop_teacherAndStudent.Checked = Clip.Current.LearningOptions.teacherAndStudent == 1;
-            sop_teacher2.Checked = Clip.Current.LearningOptions.teacher2 == 1;
-            sop_student.Checked = Clip.Current.LearningOptions.student == 1;
+            sop_teacher1.Checked = Clip.Current.DefaultLearningOptions.teacher1 == 1;
+            sop_teacherAndStudent.Checked = Clip.Current.DefaultLearningOptions.teacherAndStudent == 1;
+            sop_teacher2.Checked = Clip.Current.DefaultLearningOptions.teacher2 == 1;
+            sop_student.Checked = Clip.Current.DefaultLearningOptions.student == 1;
+
+            sop_teacher1l.Checked = Clip.Current.LockedLearningOptions.teacher1 == 1;
+            sop_teacherAndStudentl.Checked = Clip.Current.LockedLearningOptions.teacherAndStudent == 1;
+            sop_teacher2l.Checked = Clip.Current.LockedLearningOptions.teacher2 == 1;
+            sop_studentl.Checked = Clip.Current.LockedLearningOptions.student == 1;
         }
 
         private void button3_Click(object sender, EventArgs e)

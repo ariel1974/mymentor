@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,19 @@ namespace MyMentorUtilityClient
 {
     public class Clip
     {
+        public const string PAR_SIGN_OPEN = "{{";
+        public const string PAR_SIGN_CLOSE = "}}";
+
+        public const string SEN_SIGN_OPEN = "((";
+        public const string SEN_SIGN_CLOSE = "))";
+
+        public const string SEC_SIGN_OPEN = "<<";
+        public const string SEC_SIGN_CLOSE = ">>";
+
+        public const string WOR_SIGN_OPEN = "[[";
+        public const string WOR_SIGN_CLOSE = "]]";
+
+
         private static Clip instance;
 
         private Clip()
@@ -33,7 +47,8 @@ namespace MyMentorUtilityClient
                     instance = new Clip();
                     instance.DefaultSections = new sections();
                     instance.LockedSections = new sections();
-                    instance.LearningOptions = new learningOptions();
+                    instance.DefaultLearningOptions = new learningOptions();
+                    instance.LockedLearningOptions = new learningOptions();
                 }
 
                 return instance;
@@ -58,7 +73,8 @@ namespace MyMentorUtilityClient
         public string AudioFileName { get; set; }
         public sections DefaultSections { get; set; }
         public sections LockedSections { get; set; }
-        public learningOptions LearningOptions { get; set; }
+        public learningOptions DefaultLearningOptions { get; set; }
+        public learningOptions LockedLearningOptions { get; set; }
         public string JsonSchemaFileName { get; set; }
         public string HtmlFileName { get; set; }
         public string MmnFileName { get; set; }
@@ -227,16 +243,44 @@ namespace MyMentorUtilityClient
             return string.Empty;
         }
 
+        private static string ReadTemplate()
+        {
+            string result = string.Empty;
+
+            using (Stream stream = Assembly.GetExecutingAssembly()
+                               .GetManifestResourceStream("MyMentorUtilityClient.Resources.template.html"))
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                     result = reader.ReadToEnd();
+                }
+
+            return result;
+        }
+
         public bool ExtractHtml()
         {
             string tempPath = System.IO.Path.GetTempPath();
 
-            this.HtmlFileName = Path.Combine(tempPath, string.Format("{0}.txt", this.ID.ToString()));
+            this.HtmlFileName = Path.Combine(tempPath, string.Format("{0}.html", this.ID.ToString()));
 
             RichTextBox rtb = new RichTextBox();
             rtb.Rtf = this.RtfText;
 
-            System.IO.File.WriteAllText(this.HtmlFileName, rtb.Text.Replace("[", string.Empty).Replace("]", string.Empty));
+            string template = ReadTemplate();
+
+            string html = string.Format( template
+                , this.FontFileName
+                ,rtb.Text.Replace(Clip.PAR_SIGN_CLOSE, "</br>").Replace(Clip.PAR_SIGN_OPEN, string.Empty)
+                .Replace(Clip.PAR_SIGN_CLOSE, string.Empty)
+                .Replace(Clip.SEN_SIGN_OPEN, string.Empty)
+                .Replace(Clip.SEN_SIGN_CLOSE, string.Empty)
+                .Replace(Clip.SEC_SIGN_OPEN, string.Empty)
+                .Replace(Clip.SEC_SIGN_CLOSE, string.Empty)
+                .Replace(Clip.WOR_SIGN_OPEN, string.Empty)
+                .Replace(Clip.WOR_SIGN_CLOSE, string.Empty));
+
+
+            System.IO.File.WriteAllText(this.HtmlFileName, html);
 
             return true;
         }
@@ -260,7 +304,8 @@ namespace MyMentorUtilityClient
             clip.duration = this.Duration;
             clip.defaultSections = this.DefaultSections;
             clip.lockedSections = this.LockedSections;
-            clip.learningOptions = this.LearningOptions;
+            clip.defaultLearningOptions = this.DefaultLearningOptions;
+            clip.lockedLearningOptions = this.LockedLearningOptions;
             clip.category = this.Category;
             clip.subCategory = this.SubCategory;
             clip.tags = this.Tags;

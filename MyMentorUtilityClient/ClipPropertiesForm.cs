@@ -146,6 +146,15 @@ namespace MyMentorUtilityClient
             sop_teacherAndStudentl.Checked = Clip.Current.LockedLearningOptions.teacherAndStudent == 1;
             sop_teacher2l.Checked = Clip.Current.LockedLearningOptions.teacher2 == 1;
             sop_studentl.Checked = Clip.Current.LockedLearningOptions.student == 1;
+
+            if (Clip.Current.LastPublishedOn.HasValue)
+            {
+                textBox7.Text = Clip.Current.LastPublishedOn.Value.ToString("F");
+            }
+            else
+            {
+                textBox7.Text = "לא פורסם מעולם";
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)

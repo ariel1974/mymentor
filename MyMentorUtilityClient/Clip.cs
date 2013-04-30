@@ -78,6 +78,7 @@ namespace MyMentorUtilityClient
         public string JsonSchemaFileName { get; set; }
         public string HtmlFileName { get; set; }
         public string MmnFileName { get; set; }
+        public Nullable<DateTime> LastPublishedOn { get; set; }
 
         public bool AutoIncrementVersion { get; set; }
  
@@ -222,6 +223,9 @@ namespace MyMentorUtilityClient
             clip["createdByUser"] = "natan";// user.Username;
             //clip.ACL = new ParseACL(user);
             await clip.SaveAsync();
+
+            this.LastPublishedOn = DateTime.Now;
+            this.Save();
 
             return true;
         }

@@ -79,7 +79,7 @@ namespace MyMentorUtilityClient
 
                     paragraphs_local.Add(new Paragraph
                     {
-                        CharIndex = matchParagraph.Index,
+                        CharIndex = matchParagraph.Index - ((paragraphIndex + 1) * 2) - paragraphIndex * 2,
                         Index = paragraphIndex,
                         Sentences = new List<Sentence>(),
                         Words = new List<Word>(),
@@ -103,13 +103,18 @@ namespace MyMentorUtilityClient
                                 throw new ApplicationException(string.Format("עוגן משפט מיותר בטקסט"));
                             }
 
+                            //fix parent paragraph char index
+                            paragraphs_local[paragraphIndex].CharIndex = paragraphIndex == 0 ? 
+                                                                        paragraphs_local[paragraphIndex].CharIndex : 
+                                                                        paragraphs_local[paragraphIndex].CharIndex - ((sentenceIndex + 1) * 4);
+
                             sentenceIndex++;
                             innerSentenceIndex++;
                             innerSectionIndex = -1;
 
                             paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
                             {
-                                CharIndex = matchSentense.Index + matchParagraph.Index,
+                                CharIndex = paragraphs_local[paragraphIndex].CharIndex,
                                 Index = sentenceIndex,
                                 Sections = new List<Section>(),
                                 Words = new List<Word>(),
@@ -133,12 +138,18 @@ namespace MyMentorUtilityClient
                                         throw new ApplicationException(string.Format("עוגן קטע מיותר"));
                                     }
 
+                                    //fix parent paragraph char index
+                                    //paragraphs_local[paragraphIndex].CharIndex = paragraphs_local[paragraphIndex].CharIndex - ((sectionIndex + 1) * 4);
+
+                                    //fix parent paragraph char index
+                                    paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex - (paragraphIndex * ((sectionIndex + 1) * 4));
+
                                     sectionIndex++;
                                     innerSectionIndex++;
 
                                     paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
                                     {
-                                        CharIndex = matchSection.Index + matchSentense.Index + matchParagraph.Index,
+                                        CharIndex = paragraphs_local[paragraphIndex].CharIndex,
                                         Index = sectionIndex,
                                         Words = new List<Word>(),
                                         StartTime = start,
@@ -1168,7 +1179,6 @@ namespace MyMentorUtilityClient
             Clip.Current.Version = "1.00";
             Clip.Current.Status = "PENDING";
             Clip.Current.ID = Guid.NewGuid();
-            Clip.Current.FontName = "Arial";
             Clip.Current.IsNew = true;
 
             this.Text = "MyMentor - " + Clip.Current.Title;
@@ -1327,8 +1337,6 @@ namespace MyMentorUtilityClient
                 if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     richTextBox1.Font = fontDialog1.Font;
-
-                    Clip.Current.FontName = fontDialog1.Font.Name;
                 }
             }
             catch (Exception ex)

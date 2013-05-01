@@ -62,8 +62,6 @@ namespace MyMentorUtilityClient
         public string FileName { get; set; }
         public Guid ID { get; set; }
         public string Title { get; set; }
-        public string FontName { get; set; }
-        public string FontFileName { get; set; }
         public string Description { get; set; }
         public string Version { get; set; }
         public string Category { get; set; }
@@ -160,9 +158,9 @@ namespace MyMentorUtilityClient
         {
             string tempPath = System.IO.Path.GetTempPath();
 
-            string fontsPath = Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
+            //string fontsPath = Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
 
-            File.Copy(Path.Combine(fontsPath, this.FontFileName), Path.Combine(tempPath, this.FontFileName), true);
+            //File.Copy(Path.Combine(fontsPath, this.FontFileName), Path.Combine(tempPath, this.FontFileName), true);
 
             //
             FileInfo info = new FileInfo(this.FileName);
@@ -172,7 +170,7 @@ namespace MyMentorUtilityClient
 
             using (ZipFile zip = new ZipFile())
             {
-                zip.AddFile(Path.Combine(tempPath, this.FontFileName), string.Empty);
+                //zip.AddFile(Path.Combine(tempPath, this.FontFileName), string.Empty);
                 zip.AddFile(this.JsonSchemaFileName, string.Empty);
 
                 if ( !string.IsNullOrEmpty(this.AudioFileName) && File.Exists(this.AudioFileName))
@@ -211,8 +209,8 @@ namespace MyMentorUtilityClient
             clip["clipTitle"] = this.Title;
             clip["clipDescription"] = this.Description;
             clip["clipVersion"] = this.Version;
-            clip["fontName"] = this.FontName;
-            clip["fontFileName"] = this.FontFileName;
+            //clip["fontName"] = this.FontName;
+            //clip["fontFileName"] = this.FontFileName;
             clip["status"] = this.Status;
             clip["category"] = this.Category;
             clip["subCategory"] = this.SubCategory;
@@ -264,35 +262,46 @@ namespace MyMentorUtilityClient
         public bool ExtractHtml()
         {
             string tempPath = System.IO.Path.GetTempPath();
+            string rtfCode =  Guid.NewGuid().ToString();
 
-            this.HtmlFileName = Path.Combine(tempPath, string.Format("{0}.html", this.ID.ToString()));
+            string tempRtf = Path.Combine(tempPath, string.Format("{0}.rtf", rtfCode));
+            string tempHtmlFolder = Path.Combine(tempPath, string.Format("{0}", Guid.NewGuid().ToString()));
+
+            this.HtmlFileName = Path.Combine(tempHtmlFolder, string.Format("{0}.html", rtfCode));
 
             RichTextBox rtb = new RichTextBox();
             rtb.Rtf = this.RtfText;
-
-            string template = ReadTemplate();
-
-            string html = string.Format( template
-                , this.FontFileName
-                ,rtb.Text.Replace(Clip.PAR_SIGN_CLOSE, "</br>").Replace(Clip.PAR_SIGN_OPEN, string.Empty)
+            rtb.Text = rtb.Text.Replace(Clip.PAR_SIGN_CLOSE, string.Empty).Replace(Clip.PAR_SIGN_OPEN, string.Empty)
                 .Replace(Clip.PAR_SIGN_CLOSE, string.Empty)
                 .Replace(Clip.SEN_SIGN_OPEN, string.Empty)
                 .Replace(Clip.SEN_SIGN_CLOSE, string.Empty)
                 .Replace(Clip.SEC_SIGN_OPEN, string.Empty)
                 .Replace(Clip.SEC_SIGN_CLOSE, string.Empty)
                 .Replace(Clip.WOR_SIGN_OPEN, string.Empty)
-                .Replace(Clip.WOR_SIGN_CLOSE, string.Empty));
+                .Replace(Clip.WOR_SIGN_CLOSE, string.Empty);
 
+            rtb.SaveFile(tempRtf);
 
-            System.IO.File.WriteAllText(this.HtmlFileName, html);
+            //get the full location of the assembly with DaoTests in it
+            string rtf2html_exe = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "rtftohtml", "rtf2html.exe");
 
-            return true;
+            var t = Task.Factory.StartNew(() =>
+            {
+
+                System.Diagnostics.ProcessStartInfo startInfo = new ProcessStartInfo(rtf2html_exe);
+                startInfo.Arguments = string.Format("\"{0}\" \"{1}\"", tempRtf, tempHtmlFolder);
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                Process p = System.Diagnostics.Process.Start(startInfo);
+                while (!p.HasExited) ;
+            });
+
+            t.Wait();
+
+            return File.Exists(this.HtmlFileName);
         }
 
         public bool ExtractJson()
         {
-            this.FontFileName = GetFontFile(this.FontName);
-
             string tempPath = System.IO.Path.GetTempPath();
 
             this.JsonSchemaFileName = Path.Combine(tempPath, string.Format("{0}.json", this.ID.ToString()));
@@ -300,8 +309,6 @@ namespace MyMentorUtilityClient
             jsonClip clip = new jsonClip();
             clip.id = this.ID.ToString();
             clip.title = this.Title;
-            clip.fontName = this.FontName;
-            clip.fontFileName = this.FontFileName;
             clip.description = this.Description;
             clip.clipVersion = this.Version;
             clip.schemaVersion = "1.02";

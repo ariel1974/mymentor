@@ -69,6 +69,7 @@ namespace MyMentorUtilityClient
         public string Tags { get; set; }
         public string Status { get; set; }
         public string AudioFileName { get; set; }
+        public long ClipSize { get; set; }
         public sections DefaultSections { get; set; }
         public sections LockedSections { get; set; }
         public learningOptions DefaultLearningOptions { get; set; }
@@ -158,14 +159,6 @@ namespace MyMentorUtilityClient
         {
             string tempPath = System.IO.Path.GetTempPath();
 
-            //string fontsPath = Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
-
-            //File.Copy(Path.Combine(fontsPath, this.FontFileName), Path.Combine(tempPath, this.FontFileName), true);
-
-            //
-            FileInfo info = new FileInfo(this.FileName);
-
-
             this.MmnFileName = Path.Combine(tempPath, string.Format("{0}.mmn", this.ID.ToString()));
 
             using (ZipFile zip = new ZipFile())
@@ -182,6 +175,9 @@ namespace MyMentorUtilityClient
                 zip.AddFile(this.HtmlFileName, string.Empty);
                 zip.Save(this.MmnFileName);
             }
+
+            FileInfo info = new FileInfo(this.MmnFileName);
+            this.ClipSize = info.Length;
 
             return true;
         }
@@ -209,7 +205,7 @@ namespace MyMentorUtilityClient
             clip["clipTitle"] = this.Title;
             clip["clipDescription"] = this.Description;
             clip["clipVersion"] = this.Version;
-            //clip["fontName"] = this.FontName;
+            clip["clipSize"] = this.ClipSize;
             //clip["fontFileName"] = this.FontFileName;
             clip["status"] = this.Status;
             clip["category"] = this.Category;
@@ -297,7 +293,19 @@ namespace MyMentorUtilityClient
 
             t.Wait();
 
-            return File.Exists(this.HtmlFileName);
+            var newHtmlFileLocation = Path.Combine(tempPath, string.Format("{0}.html", this.ID.ToString()));
+
+            if (File.Exists(this.HtmlFileName))
+            {
+                File.Copy(this.HtmlFileName, newHtmlFileLocation, true);
+                this.HtmlFileName = newHtmlFileLocation;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool ExtractJson()

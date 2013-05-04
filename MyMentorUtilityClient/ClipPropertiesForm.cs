@@ -46,7 +46,7 @@ namespace MyMentorUtilityClient
             Clip.Current.Tags = textBox6.Text;
             Clip.Current.AudioFileName = textBox2.Text;
             Clip.Current.Status = comboBox1.Text;
-            Clip.Current.Duration = clipDurationTimer.Value;
+            Clip.Current.Duration = timePickerSpinner1.Value;
             Clip.Current.AutoIncrementVersion = checkBox1.Checked;
 
             Clip.Current.DefaultSections.paragraph = def_par.Checked ? 1 : 0;
@@ -124,7 +124,7 @@ namespace MyMentorUtilityClient
             textBox5.Text = Clip.Current.SubCategory;
             textBox6.Text = Clip.Current.Tags;
             comboBox1.Text = Clip.Current.Status;
-            clipDurationTimer.Value = Clip.Current.Duration;
+            timePickerSpinner1.Value = Clip.Current.Duration;
             checkBox1.Checked = Clip.Current.AutoIncrementVersion;
 
             def_par.Checked = Clip.Current.DefaultSections.paragraph == 1;

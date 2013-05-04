@@ -98,16 +98,19 @@
     <Compile Include="PublishForm.Designer.cs">
       <DependentUpon>PublishForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TimePickerColumn.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TimePicker\TimePicker.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TimePicker\TimePicker.designer.cs">
-      <DependentUpon>TimePicker.cs</DependentUpon>
-    </Compile>
     <Compile Include="TimeSpanFormatter.cs" />
+    <Compile Include="TimeSpinner\NumericUpDownEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TimeSpinner\NumericUpDownEx.Designer.cs">
+      <DependentUpon>NumericUpDownEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSpinner\TimePickerSpinner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimeSpinner\TimePickerSpinner.Designer.cs">
+      <DependentUpon>TimePickerSpinner.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,8 +135,11 @@
     <EmbeddedResource Include="PublishForm.resx">
       <DependentUpon>PublishForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TimePicker\TimePicker.resx">
-      <DependentUpon>TimePicker.cs</DependentUpon>
+    <EmbeddedResource Include="TimeSpinner\NumericUpDownEx.resx">
+      <DependentUpon>NumericUpDownEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeSpinner\TimePickerSpinner.resx">
+      <DependentUpon>TimePickerSpinner.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

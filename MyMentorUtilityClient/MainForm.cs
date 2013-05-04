@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using ECN.SchoolSoundSystem;
 using Ionic.Zip;
 using MyMentorUtilityClient.Properties;
 using Newtonsoft.Json;
@@ -24,6 +23,10 @@ namespace MyMentorUtilityClient
     {
         private List<Paragraph> m_paragraphs = null;
 
+        private BindingList<BaseSection> m_bindingListParagraphs = null;
+        private BindingList<BaseSection> m_bindingListSentenses = null;
+        private BindingList<BaseSection> m_bindingListSections = null;
+
         private object m_selected = null;
         private bool m_disableScanningText;
         private AnchorType m_selectedAnchorType = AnchorType.None;
@@ -32,6 +35,8 @@ namespace MyMentorUtilityClient
         {
             InitializeComponent();
         }
+
+        private static Regex m_regexAll = new Regex(@"(\(\()|(\)\))|(\[\[)|(\]\])|({{)|(}})|(<<)|(>>)", RegexOptions.Compiled);
 
         private static Regex m_regexParagraphs = new Regex(@"(?<=\{\{)(.*?)(?=\}\})", RegexOptions.Compiled);
         private static Regex m_regexFreeParagraphs = new Regex(@"({{|}})", RegexOptions.Compiled);
@@ -42,10 +47,61 @@ namespace MyMentorUtilityClient
         private static Regex m_regexSections = new Regex(@"(?<=\<\<)(.*?)(?=\>\>)", RegexOptions.Compiled);
         private static Regex m_regexFreeSections = new Regex(@"(\<\<|\>\>)", RegexOptions.Compiled);
 
-        private static Regex m_regexWords = new Regex(@"(?<=\[\[)(.*?)(?=\]\])|(\w+)", RegexOptions.Compiled);
+        private static Regex m_regexWords = new Regex(@"(?<group>(?<=\[\[)(.*?)(?=\]\]))|(?<free>\w+)", RegexOptions.Compiled);
         private static Regex m_regexFreeWords = new Regex(@"(\[\[|\]\])", RegexOptions.Compiled);
 
-        private void ScanText()
+        private int FixIndex(int originalIndex, string match)
+        {
+            char[] chars = match.ToCharArray();
+            int index = 0;
+
+            while (originalIndex > 2 &&
+                   index < match.Length - 2 && match.Substring(index, 2) == Clip.PAR_SIGN_OPEN
+                || match.Substring(index, 2) == Clip.SEN_SIGN_OPEN
+                || match.Substring(index, 2) == Clip.SEC_SIGN_OPEN
+                || match.Substring(index, 2) == Clip.WOR_SIGN_OPEN)
+            {
+                originalIndex -= 2;
+                index += 2;
+            }
+
+            return originalIndex;
+        }
+
+        private void FixSchedule()
+        {
+            try
+            {
+                TimeSpan startNext = TimeSpan.Zero;
+
+                //foreach (Paragraph paragraph in m_paragraphs)
+                //{
+                //    if (startNext < paragraph.StartTime)
+                //    {
+                //        startNext = paragraph.StartTime;
+                //    }
+
+                //    startNext = startNext.Add(paragraph.Duration);
+
+                //}
+
+
+                m_bindingListParagraphs.ResetBindings();
+                m_bindingListSentenses.ResetBindings();
+                m_bindingListSections.ResetBindings();
+
+            }
+            catch (ApplicationException ex)
+            {
+                MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            }
+        }
+
+        private void DevideText()
         {
             try
             {
@@ -58,9 +114,23 @@ namespace MyMentorUtilityClient
                 int innerSentenceIndex = -1;
                 int innerSectionIndex = -1;
 
+                TimeSpan nextStartTime = TimeSpan.Zero;
+                TimeSpan nextParagraphDuration = TimeSpan.Zero;
+                TimeSpan nextSentenceDuration = TimeSpan.Zero;
+                TimeSpan nextSectionDuration = TimeSpan.Zero;
+
+                IEnumerable<Word> allWords = null;
+
+                if (m_paragraphs != null)
+                {
+                    allWords = m_paragraphs.FlattenWords();
+                }
+
                 /// Paragraphs
 
                 MatchCollection matchesParagraphs = m_regexParagraphs.Matches(richTextBox1.Text);
+
+                int bufferIndex = 0;
 
                 foreach (Match matchParagraph in matchesParagraphs)
                 {
@@ -74,18 +144,33 @@ namespace MyMentorUtilityClient
                     paragraphIndex++;
                     innerSentenceIndex = -1;
 
-                    TimeSpan start = new TimeSpan(0, 0, 0);
-                    TimeSpan duration = new TimeSpan(0, 0, 0);
+                    TimeSpan start = TimeSpan.Zero;
+                    TimeSpan duration = TimeSpan.Zero;
+                    Paragraph ex_paragraph = null;
+
+                    //check for saved schedule
+                    if (m_paragraphs != null)
+                    {
+                        ex_paragraph = m_paragraphs.Where(p => p.Index == paragraphIndex).FirstOrDefault();
+                    }
+
+                    if (ex_paragraph != null)
+                    {
+                        start = ex_paragraph.StartTime;
+                        duration = ex_paragraph.Duration;
+                    }
 
                     paragraphs_local.Add(new Paragraph
                     {
-                        CharIndex = matchParagraph.Index - ((paragraphIndex + 1) * 2) - paragraphIndex * 2,
+                        CharIndex = matchParagraph.Index - bufferIndex - 2,
                         Index = paragraphIndex,
                         Sentences = new List<Sentence>(),
                         Words = new List<Word>(),
                         StartTime = start,
                         Duration = duration,
                     });
+
+                    bufferIndex += 4;
 
                     /// Sentenses 
                     /// 
@@ -103,24 +188,46 @@ namespace MyMentorUtilityClient
                                 throw new ApplicationException(string.Format("עוגן משפט מיותר בטקסט"));
                             }
 
-                            //fix parent paragraph char index
-                            paragraphs_local[paragraphIndex].CharIndex = paragraphIndex == 0 ? 
-                                                                        paragraphs_local[paragraphIndex].CharIndex : 
-                                                                        paragraphs_local[paragraphIndex].CharIndex - ((sentenceIndex + 1) * 4);
+                            start = TimeSpan.Zero;
+                            duration = TimeSpan.Zero;
+                            Sentence ex_sentence = null;
+
+                            //check for saved schedule
+                            if (m_paragraphs != null)
+                            {
+                                ex_sentence = m_paragraphs.SelectMany(s => s.Sentences).Where(p => p.Index == sentenceIndex).FirstOrDefault();
+                            }
+
+                            if (ex_sentence != null)
+                            {
+                                start = ex_sentence.StartTime;
+                                duration = ex_sentence.Duration;
+                            }
 
                             sentenceIndex++;
                             innerSentenceIndex++;
                             innerSectionIndex = -1;
 
-                            paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
+                            int sectionsOffset = 0;
+                            int wordsOffset = 0;
+
+                            if (innerSentenceIndex > 0)
                             {
-                                CharIndex = paragraphs_local[paragraphIndex].CharIndex,
+                                sectionsOffset = paragraphs_local[paragraphIndex].Sentences.Take(innerSentenceIndex).SelectMany(p => p.Sections).Count() * 4;
+                                wordsOffset = paragraphs_local[paragraphIndex].Sentences.Take(innerSentenceIndex).SelectMany(p => p.Sections).SelectMany(w => w.Words).Where(w => w.IsInGroup).Count() * 4;
+                            }
+
+                            paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
+                            {   //                     5                               +           15    - 4   - (4 * 1) - 2
+                                CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchSentense.Index - sectionsOffset - wordsOffset - (4 * innerSentenceIndex) - 2,
                                 Index = sentenceIndex,
                                 Sections = new List<Section>(),
                                 Words = new List<Word>(),
                                 StartTime = start,
                                 Duration = duration
                             });
+
+                            bufferIndex += 4;
 
                             /// Sections 
                             /// 
@@ -138,23 +245,19 @@ namespace MyMentorUtilityClient
                                         throw new ApplicationException(string.Format("עוגן קטע מיותר"));
                                     }
 
-                                    //fix parent paragraph char index
-                                    //paragraphs_local[paragraphIndex].CharIndex = paragraphs_local[paragraphIndex].CharIndex - ((sectionIndex + 1) * 4);
-
-                                    //fix parent paragraph char index
-                                    paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex - (paragraphIndex * ((sectionIndex + 1) * 4));
-
                                     sectionIndex++;
                                     innerSectionIndex++;
 
                                     paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
                                     {
-                                        CharIndex = paragraphs_local[paragraphIndex].CharIndex,
+                                        CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchSection.Index - (4 * innerSectionIndex) - 2,
                                         Index = sectionIndex,
                                         Words = new List<Word>(),
                                         StartTime = start,
                                         Duration = duration
                                     });
+
+                                    bufferIndex += 4;
 
                                     /// Sections 
                                     /// 
@@ -171,14 +274,32 @@ namespace MyMentorUtilityClient
 
                                         wordIndex++;
 
+                                        if (allWords != null)
+                                        {
+                                            Word ex_word = allWords.Where(w => w.Index == wordIndex).FirstOrDefault();
+
+                                            if (ex_word != null)
+                                            {
+                                                start = ex_word.StartTime;
+                                                duration = ex_word.Duration;
+                                            }
+                                        }
+
                                         paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Add(new Word
                                         {
-                                            CharIndex = matchWord.Index + matchSection.Index + matchSentense.Index + matchParagraph.Index,
+                                            CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].CharIndex + matchWord.Index - (matchWord.Groups["word"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Where(w => w.IsInGroup).Count() * 4,
+                                            IsInGroup = matchWord.Groups["group"].Success,
                                             Index = wordIndex,
                                             Text = matchWord.Value,
                                             StartTime = start,
                                             Duration = duration
                                         });
+
+                                        if (matchWord.Groups["group"].Success)
+                                        {
+                                            bufferIndex += 4;
+                                        }
+
                                     }
 
 
@@ -201,9 +322,21 @@ namespace MyMentorUtilityClient
 
                                     wordIndex++;
 
+                                    if (allWords != null)
+                                    {
+                                        Word ex_word = allWords.Where(w => w.Index == wordIndex).FirstOrDefault();
+
+                                        if (ex_word != null)
+                                        {
+                                            start = ex_word.StartTime;
+                                            duration = ex_word.Duration;
+                                        }
+                                    }
+
                                     paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Words.Add(new Word
                                     {
-                                        CharIndex = matchWord.Index + matchSentense.Index + matchParagraph.Index,
+                                        CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchWord.Index - (matchWord.Groups["word"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Words.Where(w => w.IsInGroup).Count() * 4,
+                                        IsInGroup = matchWord.Groups["group"].Success,
                                         Index = wordIndex,
                                         Text = matchWord.Value,
                                         StartTime = start,
@@ -233,9 +366,21 @@ namespace MyMentorUtilityClient
 
                             wordIndex++;
 
+                            if (allWords != null)
+                            {
+                                Word ex_word = allWords.Where(w => w.Index == wordIndex).FirstOrDefault();
+
+                                if (ex_word != null)
+                                {
+                                    start = ex_word.StartTime;
+                                    duration = ex_word.Duration;
+                                }
+                            }
+
                             paragraphs_local[paragraphIndex].Words.Add(new Word
                             {
-                                CharIndex = matchWord.Index + matchParagraph.Index,
+                                CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Words.Where(w => w.IsInGroup).Count() * 4,
+                                IsInGroup = matchWord.Groups["group"].Success,
                                 Index = wordIndex,
                                 Text = matchWord.Value,
                                 StartTime = start,
@@ -248,9 +393,17 @@ namespace MyMentorUtilityClient
 
                 m_paragraphs = paragraphs_local;
 
-                paragraphsGrid.DataSource = m_paragraphs.ToList();
-                sentencesGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).ToList();
-                sectionsGrid.DataSource = m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).ToList();
+                    m_bindingListParagraphs = new BindingList<BaseSection>(m_paragraphs.ToList<BaseSection>());
+                    m_bindingListSentenses = new BindingList<BaseSection>(m_paragraphs.SelectMany(p => p.Sentences).ToList<BaseSection>());
+                    m_bindingListSections = new BindingList<BaseSection>(m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).ToList<BaseSection>());
+
+                //if (reloadGrids)
+                //{
+
+                    paragraphsGrid.DataSource = m_bindingListParagraphs;
+                    sentencesGrid.DataSource = m_bindingListSentenses;
+                    sectionsGrid.DataSource = m_bindingListSections;
+                //}
             }
             catch (ApplicationException ex)
             {
@@ -258,7 +411,7 @@ namespace MyMentorUtilityClient
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
         }
 
@@ -606,46 +759,6 @@ namespace MyMentorUtilityClient
 
         }
 
-        private void timePicker1_OnValueChanged(object sender, EventArgs e)
-        {
-            if (m_selected != null)
-            {
-                ((BaseSection)m_selected).StartTime = ((TimePicker)sender).Value;
-            }
-
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            int selectedIndex = richTextBox1.SelectionStart;
-
-            if (m_selected != null)
-            {
-                switch (m_selectedAnchorType)
-                {
-                    case AnchorType.Paragraph:
-                        break;
-                    case AnchorType.Sentence:
-                        break;
-                    case AnchorType.Section:
-                        break;
-                    case AnchorType.Word:
-                        break;
-                    default:
-                        break;
-                }
-
-                ((BaseSection)m_selected).StartTime = startTimer.Value;
-                ((BaseSection)m_selected).Duration = durationTimer.Value;
-
-                ScanText();
-                richTextBox1.Focus();
-
-                richTextBox1_SelectionChanged(null, new EventArgs());
-            }
-
-        }
 
         private AnchorDirection GetNextDirection(AnchorType anchorType)
         {
@@ -823,86 +936,7 @@ namespace MyMentorUtilityClient
             this.Text = "MyMentor - " + Clip.Current.Title;
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (GetNextDirection(AnchorType.Section) == AnchorDirection.Open)
-                {
-                    richTextBox2.Text = "[";
-                }
-                else
-                {
-                    richTextBox2.Text = "]";
-                }
 
-                richTextBox2.Select(0, 1);
-                richTextBox2.SelectionColor = Color.Green;
-
-                var selectionIndex = richTextBox1.SelectionStart;
-                richTextBox1.SelectedRtf = richTextBox2.SelectedRtf;
-                richTextBox1.Select(selectionIndex + 1, 0);
-                richTextBox1.SelectionColor = Color.Black;
-            }
-            catch (ApplicationException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (GetNextDirection(AnchorType.Sentence) == AnchorDirection.Open)
-                {
-                    richTextBox2.Text = "[";
-                }
-                else
-                {
-                    richTextBox2.Text = "]";
-                }
-
-                richTextBox2.Select(0, 1);
-                richTextBox2.SelectionColor = Color.Blue;
-
-                var selectionIndex = richTextBox1.SelectionStart;
-                richTextBox1.SelectedRtf = richTextBox2.SelectedRtf;
-                richTextBox1.Select(selectionIndex + 1, 0);
-                richTextBox1.SelectionColor = Color.Black;
-            }
-            catch (ApplicationException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void toolStripButton3_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (GetNextDirection(AnchorType.Paragraph) == AnchorDirection.Open)
-                {
-                    richTextBox2.Text = "[";
-                }
-                else
-                {
-                    richTextBox2.Text = "]";
-                }
-
-                richTextBox2.Select(0, 1);
-                richTextBox2.SelectionColor = Color.Red;
-
-                var selectionIndex = richTextBox1.SelectionStart;
-                richTextBox1.SelectedRtf = richTextBox2.SelectedRtf;
-                richTextBox1.Select(selectionIndex + 1, 0);
-                richTextBox1.SelectionColor = Color.Black;
-            }
-            catch (ApplicationException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
 
         private void button5_Click(object sender, EventArgs e)
         {
@@ -948,7 +982,7 @@ namespace MyMentorUtilityClient
                 }
             }
 
-            ScanText();
+            DevideText();
 
             Clip.Current.Paragraphs = m_paragraphs;
             Clip.Current.RtfText = richTextBox1.Rtf;
@@ -965,46 +999,6 @@ namespace MyMentorUtilityClient
 
         private void richTextBox1_SelectionChanged(object sender, EventArgs e)
         {
-            try
-            {
-                int selection = richTextBox1.SelectionStart;
-
-                if (selection > 0)
-                {
-                    char[] chars = richTextBox1.Text.ToCharArray(0, selection);
-
-                    //minus special characters
-                    int minus = chars.Count(c => c == ']' || c == '[' || (int)c == 10);
-
-                    int i = selection - 1;
-
-                    while (chars[i] != ' ' && chars[i] != ']' && chars[i] != '[' && i >= 0)
-                    {
-                        i--;
-                    }
-
-                    Word word = m_paragraphs.SelectMany(s => s.Sentences).SelectMany(sc => sc.Sections)
-                            .SelectMany(w => w.Words).Where(w => w.CharIndex == (i + 1 - minus)).FirstOrDefault();
-
-                    if (word != null)
-                    {
-                        m_selected = word;
-
-                        tbSectionText.Text = word.Text;
-                        startTimer.Value = ((BaseSection)m_selected).StartTime;
-                        durationTimer.Value = ((BaseSection)m_selected).Duration;
-
-                        m_selectedAnchorType = AnchorType.Word;
-                        sectionGroup.Text = "תזמון מילה";
-                        lblSectionText.Text = "מילה";
-
-                    }
-                }
-            }
-            catch
-            {
-
-            }
 
         }
 
@@ -1034,8 +1028,8 @@ namespace MyMentorUtilityClient
                     sectionGroup.Text = "תזמון פסקה";
                     lblSectionText.Text = "פסקה";
                     tbSectionText.Text = ((Paragraph)m_selected).Content;
-                    startTimer.Value = ((Paragraph)m_selected).StartTime;
-                    durationTimer.Value = ((Paragraph)m_selected).Duration;
+                    timePickerSpinner1.Value = ((Paragraph)m_selected).StartTime;
+                    timePickerSpinner2.Value = ((Paragraph)m_selected).StartTime.Add(((Paragraph)m_selected).Duration);
                 }
             }
 
@@ -1053,8 +1047,8 @@ namespace MyMentorUtilityClient
                     sectionGroup.Text = "תזמון משפט";
                     lblSectionText.Text = "משפט";
                     tbSectionText.Text = ((Sentence)m_selected).Content;
-                    startTimer.Value = ((Sentence)m_selected).StartTime;
-                    durationTimer.Value = ((Sentence)m_selected).Duration;
+                    timePickerSpinner1.Value = ((Sentence)m_selected).StartTime;
+                    timePickerSpinner2.Value = ((Sentence)m_selected).StartTime.Add(((Sentence)m_selected).Duration);
                 }
             }
         }
@@ -1071,8 +1065,8 @@ namespace MyMentorUtilityClient
                     sectionGroup.Text = "תזמון קטע";
                     lblSectionText.Text = "קטע";
                     tbSectionText.Text = ((Section)m_selected).Content;
-                    startTimer.Value = ((Section)m_selected).StartTime;
-                    durationTimer.Value = ((Section)m_selected).Duration;
+                    timePickerSpinner1.Value = ((Section)m_selected).StartTime;
+                    timePickerSpinner2.Value = ((Section)m_selected).StartTime.Add(((Section)m_selected).Duration);
                 }
             }
         }
@@ -1152,6 +1146,7 @@ namespace MyMentorUtilityClient
                 {
                     Clip.Current.FileName = saveFileDialog1.FileName;
                     Clip.Current.RtfText = richTextBox1.Rtf;
+                    Clip.Current.Paragraphs = m_paragraphs;
                     Clip.Current.Save();
 
                     MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
@@ -1165,6 +1160,7 @@ namespace MyMentorUtilityClient
             else
             {
                 Clip.Current.RtfText = richTextBox1.Rtf;
+                Clip.Current.Paragraphs = m_paragraphs;
                 Clip.Current.Save();
 
                 MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
@@ -1186,6 +1182,14 @@ namespace MyMentorUtilityClient
             m_disableScanningText = true;
             richTextBox1.Rtf = Clip.Current.RtfText;
             m_disableScanningText = false;
+
+            m_selected = null;
+            tbSectionText.Text = string.Empty;
+            timePickerSpinner1.Value = TimeSpan.Zero;
+            timePickerSpinner2.Value = TimeSpan.Zero;
+
+            DevideText();
+           
 
         }
 
@@ -1213,6 +1217,8 @@ namespace MyMentorUtilityClient
             {
                 di.Create();
             }
+
+            m_paragraphs = null;
 
             openFileDialog1.InitialDirectory = di.FullName;
             openFileDialog1.DefaultExt = "mmnx";
@@ -1247,8 +1253,15 @@ namespace MyMentorUtilityClient
                 if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
                 {
                     m_paragraphs = Clip.Current.Paragraphs;
-                    ScanText();
                 }
+
+                DevideText();
+
+                m_selected = null;
+                tbSectionText.Text = string.Empty;
+                timePickerSpinner1.Value = TimeSpan.Zero;
+                timePickerSpinner2.Value = TimeSpan.Zero;
+
             }
         }
 
@@ -1281,7 +1294,7 @@ namespace MyMentorUtilityClient
                 }
             }
 
-            ScanText();
+            DevideText();
 
             Clip.Current.Paragraphs = m_paragraphs;
             Clip.Current.RtfText = richTextBox1.Rtf;
@@ -1509,12 +1522,12 @@ namespace MyMentorUtilityClient
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ScanText();
+            DevideText();
         }
 
         private void toolStripMenuItem12_Click(object sender, EventArgs e)
         {
-            ScanText();
+            DevideText();
         }
 
         private void toolStripButton9_Click(object sender, EventArgs e)
@@ -1529,7 +1542,7 @@ namespace MyMentorUtilityClient
                 }
             }
 
-            ScanText();
+            DevideText();
 
             Clip.Current.Paragraphs = m_paragraphs;
             Clip.Current.RtfText = richTextBox1.Rtf;
@@ -1542,13 +1555,13 @@ namespace MyMentorUtilityClient
 
         private void toolStripButton10_Click(object sender, EventArgs e)
         {
-            ScanText();
+            DevideText();
 
         }
 
         private void validateMenuStrip_Click(object sender, EventArgs e)
         {
-            ScanText();
+            DevideText();
         }
 
         private void toolStripMenuItem4_Click_1(object sender, EventArgs e)
@@ -1560,19 +1573,19 @@ namespace MyMentorUtilityClient
 
         private void startTimer_OnValueChanged(object sender, EventArgs e)
         {
-            ((BaseSection)m_selected).StartTime = startTimer.Value;
-            ((BaseSection)m_selected).Duration = durationTimer.Value;
+            //((BaseSection)m_selected).StartTime = startTimer.Value;
+            //((BaseSection)m_selected).Duration = durationTimer.Value;
 
-            ScanText();
+            //ScanText();
             richTextBox1.Focus();
         }
 
         private void durationTimer_OnValueChanged(object sender, EventArgs e)
         {
-            ((BaseSection)m_selected).StartTime = startTimer.Value;
-            ((BaseSection)m_selected).Duration = durationTimer.Value;
+            //((BaseSection)m_selected).StartTime = startTimer.Value;
+            //((BaseSection)m_selected).Duration = durationTimer.Value;
 
-            ScanText();
+            //ScanText();
             richTextBox1.Focus();
         }
 
@@ -1581,6 +1594,68 @@ namespace MyMentorUtilityClient
             ClipPropertiesForm frm = new ClipPropertiesForm(this);
             frm.ShowDialog();
 
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            timePickerSpinner1.Value = new TimeSpan(0, 0, 4, 5, 44);
+        }
+
+        private void timePickerSpinner1_ValueChanged(object sender, EventArgs e)
+        {
+            if (m_selected != null)
+            {
+                ((BaseSection)m_selected).StartTime = timePickerSpinner1.Value;
+                ((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
+                FixSchedule();
+            }
+        }
+
+        private void timePickerSpinner2_ValueChanged(object sender, EventArgs e)
+        {
+            if (m_selected != null)
+            {
+                ((BaseSection)m_selected).StartTime = timePickerSpinner1.Value;
+                ((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
+                FixSchedule();
+            }
+        }
+
+        private void richTextBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                //return;
+                int selection = richTextBox1.SelectionStart;
+
+                if (selection > 0 && m_paragraphs != null)
+                {
+                    char[] chars = richTextBox1.Text.ToCharArray(0, selection);
+
+                    int length = m_regexAll.Matches(richTextBox1.Text.Substring(0, selection)).Count * 2;
+
+                    int realCharIndex = selection - length;
+
+                    Word word = m_paragraphs.FlattenWords().Where(w => w.CharIndex <= realCharIndex).LastOrDefault();
+
+                    if (word != null)
+                    {
+                        m_selected = word;
+
+                        tbSectionText.Text = word.Text;
+                        timePickerSpinner1.Value = word.StartTime;
+                        timePickerSpinner2.Value = word.StartTime.Add(word.Duration);
+
+                        m_selectedAnchorType = AnchorType.Word;
+                        sectionGroup.Text = "תזמון מילה";
+                        lblSectionText.Text = "מילה";
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 
@@ -1592,6 +1667,7 @@ namespace MyMentorUtilityClient
         public string Text { get; set; }
     }
 
+    [Serializable()]
     public abstract class BaseSection
     {
         [JsonProperty(PropertyName = "index", Order = 1)]
@@ -1650,10 +1726,14 @@ namespace MyMentorUtilityClient
 
     }
 
+    [Serializable()]
     public class Word : BaseSection
     {
         [JsonProperty(PropertyName = "text", Order = 5)]
         public string Text { get; set; }
+
+        [JsonProperty("isInGroup")]
+        public bool IsInGroup { get; set; }
 
         [XmlIgnore]
         [JsonIgnore]
@@ -1671,7 +1751,8 @@ namespace MyMentorUtilityClient
 
     }
 
-    public class Section : BaseSection
+    [Serializable()]
+    public class Section : BaseSection, ICloneable
     {
 
         [JsonIgnore]
@@ -1691,9 +1772,17 @@ namespace MyMentorUtilityClient
             }
         }
 
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
+
     }
 
-    public class Sentence : BaseSection
+    [Serializable()]
+    public class Sentence : BaseSection, ICloneable
     {
         [JsonProperty(PropertyName = "sections", Order = 5)]
         [XmlArrayItem("Sections")]
@@ -1724,9 +1813,17 @@ namespace MyMentorUtilityClient
             }
         }
 
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
+
     }
 
-    public class Paragraph : BaseSection
+    [Serializable()]
+    public class Paragraph : BaseSection, ICloneable
     {
         [JsonProperty(PropertyName = "sentences", Order = 5)]
         [XmlArrayItem("Sentences")]
@@ -1756,7 +1853,10 @@ namespace MyMentorUtilityClient
             }
         }
 
-
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 
     public enum AnchorType

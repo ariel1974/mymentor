@@ -34,12 +34,12 @@
             this.button3 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.sectionGroup = new System.Windows.Forms.GroupBox();
+            this.timePickerSpinner2 = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
+            this.timePickerSpinner1 = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
             this.lblSectionText = new System.Windows.Forms.Label();
             this.tbSectionText = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.durationTimer = new ECN.SchoolSoundSystem.TimePicker();
-            this.startTimer = new ECN.SchoolSoundSystem.TimePicker();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.קובץToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,10 +112,10 @@
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.sectionGroup.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -174,12 +174,12 @@
             // 
             // sectionGroup
             // 
+            this.sectionGroup.Controls.Add(this.timePickerSpinner2);
+            this.sectionGroup.Controls.Add(this.timePickerSpinner1);
             this.sectionGroup.Controls.Add(this.lblSectionText);
             this.sectionGroup.Controls.Add(this.tbSectionText);
             this.sectionGroup.Controls.Add(this.label11);
             this.sectionGroup.Controls.Add(this.label10);
-            this.sectionGroup.Controls.Add(this.durationTimer);
-            this.sectionGroup.Controls.Add(this.startTimer);
             this.sectionGroup.Location = new System.Drawing.Point(7, 488);
             this.sectionGroup.Margin = new System.Windows.Forms.Padding(4);
             this.sectionGroup.Name = "sectionGroup";
@@ -188,6 +188,26 @@
             this.sectionGroup.TabIndex = 15;
             this.sectionGroup.TabStop = false;
             this.sectionGroup.Text = "עדכון";
+            // 
+            // timePickerSpinner2
+            // 
+            this.timePickerSpinner2.Location = new System.Drawing.Point(144, 134);
+            this.timePickerSpinner2.Margin = new System.Windows.Forms.Padding(6);
+            this.timePickerSpinner2.Name = "timePickerSpinner2";
+            this.timePickerSpinner2.Size = new System.Drawing.Size(173, 36);
+            this.timePickerSpinner2.TabIndex = 22;
+            this.timePickerSpinner2.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerSpinner2.ValueChanged += new System.EventHandler(this.timePickerSpinner2_ValueChanged);
+            // 
+            // timePickerSpinner1
+            // 
+            this.timePickerSpinner1.Location = new System.Drawing.Point(144, 88);
+            this.timePickerSpinner1.Margin = new System.Windows.Forms.Padding(4);
+            this.timePickerSpinner1.Name = "timePickerSpinner1";
+            this.timePickerSpinner1.Size = new System.Drawing.Size(181, 36);
+            this.timePickerSpinner1.TabIndex = 21;
+            this.timePickerSpinner1.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerSpinner1.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
             // 
             // lblSectionText
             // 
@@ -221,41 +241,13 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(345, 96);
+            this.label10.Location = new System.Drawing.Point(345, 97);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(78, 18);
             this.label10.TabIndex = 16;
             this.label10.Text = "זמן התחלה";
             this.label10.Click += new System.EventHandler(this.label10_Click);
-            // 
-            // durationTimer
-            // 
-            this.durationTimer.Hours = 0;
-            this.durationTimer.Location = new System.Drawing.Point(207, 140);
-            this.durationTimer.Margin = new System.Windows.Forms.Padding(4);
-            this.durationTimer.Milliseconds = 0;
-            this.durationTimer.Minutes = 0;
-            this.durationTimer.Name = "durationTimer";
-            this.durationTimer.Seconds = 0;
-            this.durationTimer.Size = new System.Drawing.Size(112, 28);
-            this.durationTimer.TabIndex = 15;
-            this.durationTimer.Value = System.TimeSpan.Parse("00:00:00");
-            this.durationTimer.OnValueChanged += new System.EventHandler(this.durationTimer_OnValueChanged);
-            // 
-            // startTimer
-            // 
-            this.startTimer.Hours = 0;
-            this.startTimer.Location = new System.Drawing.Point(207, 93);
-            this.startTimer.Margin = new System.Windows.Forms.Padding(4);
-            this.startTimer.Milliseconds = 0;
-            this.startTimer.Minutes = 0;
-            this.startTimer.Name = "startTimer";
-            this.startTimer.Seconds = 0;
-            this.startTimer.Size = new System.Drawing.Size(112, 28);
-            this.startTimer.TabIndex = 14;
-            this.startTimer.Value = System.TimeSpan.Parse("00:00:00");
-            this.startTimer.OnValueChanged += new System.EventHandler(this.startTimer_OnValueChanged);
             // 
             // menuStrip1
             // 
@@ -685,6 +677,7 @@
             this.richTextBox1.TabIndex = 30;
             this.richTextBox1.Text = "";
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
+            this.richTextBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseClick);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // ToolStrip1
@@ -963,6 +956,17 @@
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
             // 
+            // toolStripButton11
+            // 
+            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
+            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton11.Name = "toolStripButton11";
+            this.toolStripButton11.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton11.Text = "toolStripButton11";
+            this.toolStripButton11.ToolTipText = "מאפייני שיעור";
+            this.toolStripButton11.Click += new System.EventHandler(this.toolStripButton11_Click);
+            // 
             // toolStripButton10
             // 
             this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -984,17 +988,6 @@
             this.toolStripButton9.Text = "toolStripButton9";
             this.toolStripButton9.ToolTipText = "פרסם";
             this.toolStripButton9.Click += new System.EventHandler(this.toolStripButton9_Click);
-            // 
-            // toolStripButton11
-            // 
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
-            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton11.Name = "toolStripButton11";
-            this.toolStripButton11.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton11.Text = "toolStripButton11";
-            this.toolStripButton11.ToolTipText = "מאפייני שיעור";
-            this.toolStripButton11.Click += new System.EventHandler(this.toolStripButton11_Click);
             // 
             // MainForm
             // 
@@ -1041,10 +1034,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.RichTextBox richTextBox2;
-        private ECN.SchoolSoundSystem.TimePicker startTimer;
         private System.Windows.Forms.GroupBox sectionGroup;
         private System.Windows.Forms.Label label10;
-        private ECN.SchoolSoundSystem.TimePicker durationTimer;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem קובץToolStripMenuItem;
@@ -1124,6 +1115,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButton10;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripButton toolStripButton11;
+        private TimeSpinner.TimePickerSpinner timePickerSpinner1;
+        private TimeSpinner.TimePickerSpinner timePickerSpinner2;
     }
 }
 

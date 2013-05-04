@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.sop_teacher1l = new System.Windows.Forms.CheckBox();
             this.sop_studentl = new System.Windows.Forms.CheckBox();
@@ -56,7 +58,6 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.clipDurationTimer = new ECN.SchoolSoundSystem.TimePicker();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -73,8 +74,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.timePickerSpinner1 = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -85,6 +85,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.timePickerSpinner1);
             this.groupBox1.Controls.Add(this.textBox7);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.groupBox5);
@@ -98,7 +99,6 @@
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.label15);
-            this.groupBox1.Controls.Add(this.clipDurationTimer);
             this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label8);
@@ -119,6 +119,26 @@
             this.groupBox1.Size = new System.Drawing.Size(925, 439);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBox7.Location = new System.Drawing.Point(465, 384);
+            this.textBox7.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.ReadOnly = true;
+            this.textBox7.Size = new System.Drawing.Size(333, 26);
+            this.textBox7.TabIndex = 55;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(838, 387);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 18);
+            this.label4.TabIndex = 54;
+            this.label4.Text = "פורסם ב";
             // 
             // groupBox5
             // 
@@ -404,19 +424,6 @@
             this.label15.TabIndex = 21;
             this.label15.Text = "משך";
             // 
-            // clipDurationTimer
-            // 
-            this.clipDurationTimer.Hours = 0;
-            this.clipDurationTimer.Location = new System.Drawing.Point(688, 348);
-            this.clipDurationTimer.Margin = new System.Windows.Forms.Padding(6);
-            this.clipDurationTimer.Milliseconds = 0;
-            this.clipDurationTimer.Minutes = 0;
-            this.clipDurationTimer.Name = "clipDurationTimer";
-            this.clipDurationTimer.Seconds = 0;
-            this.clipDurationTimer.Size = new System.Drawing.Size(120, 39);
-            this.clipDurationTimer.TabIndex = 20;
-            this.clipDurationTimer.Value = System.TimeSpan.Parse("00:00:00");
-            // 
             // comboBox1
             // 
             this.comboBox1.Font = new System.Drawing.Font("Arial", 12F);
@@ -570,25 +577,14 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // label4
+            // timePickerSpinner1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(838, 387);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 18);
-            this.label4.TabIndex = 54;
-            this.label4.Text = "פורסם ב";
-            // 
-            // textBox7
-            // 
-            this.textBox7.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox7.Location = new System.Drawing.Point(465, 384);
-            this.textBox7.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(333, 26);
-            this.textBox7.TabIndex = 55;
+            this.timePickerSpinner1.Location = new System.Drawing.Point(626, 344);
+            this.timePickerSpinner1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.timePickerSpinner1.Name = "timePickerSpinner1";
+            this.timePickerSpinner1.Size = new System.Drawing.Size(186, 32);
+            this.timePickerSpinner1.TabIndex = 56;
+            this.timePickerSpinner1.Value = System.TimeSpan.Parse("00:00:00");
             // 
             // ClipPropertiesForm
             // 
@@ -637,7 +633,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label15;
-        private ECN.SchoolSoundSystem.TimePicker clipDurationTimer;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button3;
@@ -668,5 +663,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label4;
+        private TimeSpinner.TimePickerSpinner timePickerSpinner1;
     }
 }

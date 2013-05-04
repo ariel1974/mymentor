@@ -279,7 +279,7 @@ namespace MyMentorUtilityClient
             rtb.SaveFile(tempRtf);
 
             //get the full location of the assembly with DaoTests in it
-            string rtf2html_exe = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "rtftohtml", "rtf2html.exe");
+            string rtf2html_exe = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Rtf2Html", "rtf2html.exe");
 
             var t = Task.Factory.StartNew(() =>
             {

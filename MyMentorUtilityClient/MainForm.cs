@@ -162,6 +162,7 @@ namespace MyMentorUtilityClient
 
                     paragraphs_local.Add(new Paragraph
                     {
+                        RealCharIndex = matchParagraph.Index,
                         CharIndex = matchParagraph.Index - bufferIndex - 2,
                         Index = paragraphIndex,
                         Sentences = new List<Sentence>(),
@@ -219,6 +220,7 @@ namespace MyMentorUtilityClient
 
                             paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
                             {   //                     5                               +           15    - 4   - (4 * 1) - 2
+                                RealCharIndex = paragraphs_local[paragraphIndex].RealCharIndex + matchSentense.Index,
                                 CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchSentense.Index - sectionsOffset - wordsOffset - (4 * innerSentenceIndex) - 2,
                                 Index = sentenceIndex,
                                 Sections = new List<Section>(),
@@ -250,6 +252,7 @@ namespace MyMentorUtilityClient
 
                                     paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
                                     {
+                                        RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].RealCharIndex + matchSection.Index,
                                         CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchSection.Index - (4 * innerSectionIndex) - 2,
                                         Index = sectionIndex,
                                         Words = new List<Word>(),
@@ -287,7 +290,8 @@ namespace MyMentorUtilityClient
 
                                         paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Add(new Word
                                         {
-                                            CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].CharIndex + matchWord.Index - (matchWord.Groups["word"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Where(w => w.IsInGroup).Count() * 4,
+                                            RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].RealCharIndex + matchWord.Index,
+                                            CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Where(w => w.IsInGroup).Count() * 4,
                                             IsInGroup = matchWord.Groups["group"].Success,
                                             Index = wordIndex,
                                             Text = matchWord.Value,
@@ -335,7 +339,8 @@ namespace MyMentorUtilityClient
 
                                     paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Words.Add(new Word
                                     {
-                                        CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchWord.Index - (matchWord.Groups["word"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Words.Where(w => w.IsInGroup).Count() * 4,
+                                        RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].RealCharIndex + matchWord.Index,
+                                        CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Words.Where(w => w.IsInGroup).Count() * 4,
                                         IsInGroup = matchWord.Groups["group"].Success,
                                         Index = wordIndex,
                                         Text = matchWord.Value,
@@ -379,6 +384,7 @@ namespace MyMentorUtilityClient
 
                             paragraphs_local[paragraphIndex].Words.Add(new Word
                             {
+                                RealCharIndex = paragraphs_local[paragraphIndex].RealCharIndex + matchWord.Index,
                                 CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Words.Where(w => w.IsInGroup).Count() * 4,
                                 IsInGroup = matchWord.Groups["group"].Success,
                                 Index = wordIndex,
@@ -1630,13 +1636,9 @@ namespace MyMentorUtilityClient
 
                 if (selection > 0 && m_paragraphs != null)
                 {
-                    char[] chars = richTextBox1.Text.ToCharArray(0, selection);
+                    IEnumerable<Word> words = m_paragraphs.FlattenWords();
 
-                    int length = m_regexAll.Matches(richTextBox1.Text.Substring(0, selection)).Count * 2;
-
-                    int realCharIndex = selection - length;
-
-                    Word word = m_paragraphs.FlattenWords().Where(w => w.CharIndex <= realCharIndex).LastOrDefault();
+                    Word word = words.Where(w => w.RealCharIndex <= selection).LastOrDefault();
 
                     if (word != null)
                     {
@@ -1675,6 +1677,9 @@ namespace MyMentorUtilityClient
 
         [JsonProperty(PropertyName = "charIndex", Order = 2)]
         public int CharIndex { get; set; }
+
+        [JsonIgnore]
+        public int RealCharIndex { get; set; }
 
         [JsonIgnore]
         [XmlIgnore]

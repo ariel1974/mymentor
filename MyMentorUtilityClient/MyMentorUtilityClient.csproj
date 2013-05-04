@@ -151,13 +151,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="RtfToHtml\Rtf2Html.exe.config">
+    <None Include="Rtf2Html\Rtf2Html.exe.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="RtfToHtml\Rtf2Html.vshost.exe.config">
+    <None Include="Rtf2Html\Rtf2Html.vshost.exe.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="RtfToHtml\Rtf2Html.vshost.exe.manifest">
+    <None Include="Rtf2Html\Rtf2Html.vshost.exe.manifest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -168,52 +168,52 @@
     <EmbeddedResource Include="Resources\template.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RtfToHtml\Itenso.Rtf.Converter.Html.dll">
+    <Content Include="Rtf2Html\Itenso.Rtf.Converter.Html.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\Itenso.Rtf.Converter.Html.pdb">
+    <Content Include="Rtf2Html\Itenso.Rtf.Converter.Html.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\Itenso.Rtf.Interpreter.dll">
+    <Content Include="Rtf2Html\Itenso.Rtf.Interpreter.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\Itenso.Rtf.Interpreter.pdb">
+    <Content Include="Rtf2Html\Itenso.Rtf.Interpreter.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\Itenso.Rtf.Parser.dll">
+    <Content Include="Rtf2Html\Itenso.Rtf.Parser.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\Itenso.Rtf.Parser.pdb">
+    <Content Include="Rtf2Html\Itenso.Rtf.Parser.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\Itenso.Sys.dll">
+    <Content Include="Rtf2Html\Itenso.Sys.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\Itenso.Sys.pdb">
+    <Content Include="Rtf2Html\Itenso.Sys.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\log4net.dll">
+    <Content Include="Rtf2Html\log4net.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\nunit-console-runner.dll">
+    <Content Include="Rtf2Html\nunit-console-runner.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\nunit.core.dll">
+    <Content Include="Rtf2Html\nunit.core.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\nunit.framework.dll">
+    <Content Include="Rtf2Html\nunit.framework.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\nunit.util.dll">
+    <Content Include="Rtf2Html\nunit.util.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\Rtf2Html.exe">
+    <Content Include="Rtf2Html\Rtf2Html.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\Rtf2Html.pdb">
+    <Content Include="Rtf2Html\Rtf2Html.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RtfToHtml\Rtf2Html.vshost.exe">
+    <Content Include="Rtf2Html\Rtf2Html.vshost.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

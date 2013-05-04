@@ -90,17 +90,17 @@
     </ComponentGroup>
     <ComponentGroup Id="Rtf2Html" Directory="RFT2HTMLFOLDER">
       <Component Id="ThirdParty" Guid='{2ABA8FC6-F380-4913-89AC-6FF8C3367CF4}'>
-        <File Id='Itenso.Rtf.Converter.Html.dll' Name='Itenso.Rtf.Converter.Html.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\RtfToHtml\Itenso.Rtf.Converter.Html.dll' KeyPath='no'/>
-        <File Id='Itenso.Rtf.Interpreter.dll' Name='Itenso.Rtf.Interpreter.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\RtfToHtml\Itenso.Rtf.Interpreter.dll' KeyPath='no'/>
-        <File Id='Itenso.Rtf.Parser.dll' Name='Itenso.Rtf.Parser.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\RtfToHtml\Itenso.Rtf.Parser.dll' KeyPath='no'/>
-        <File Id='Itenso.Sys.dll' Name='Itenso.Sys.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\RtfToHtml\Itenso.Sys.dll' KeyPath='no'/>
-        <File Id='log4net.dll' Name='log4net.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\RtfToHtml\log4net.dll' KeyPath='no'/>
-        <File Id='Rtf2Html.exe' Name='Rtf2Html.exe' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\RtfToHtml\Rtf2Html.exe' KeyPath='no'/>
-        <File Id='Rtf2Html.exe.config' Name='Rtf2Html.exe.config' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\RtfToHtml\Rtf2Html.exe.config' KeyPath='no'/>
-        <File Id='nunit.core.dll' Name='nunit.core.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\RtfToHtml\nunit.core.dll' KeyPath='no'/>
-        <File Id='nunit.framework.dll' Name='nunit.framework.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\RtfToHtml\nunit.framework.dll' KeyPath='no'/>
-        <File Id='nunit.util.dll' Name='nunit.util.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\RtfToHtml\nunit.util.dll' KeyPath='no'/>
-        <File Id='nunitconsolerunnerdll' Name='nunit-console-runner.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\RtfToHtml\nunit-console-runner.dll' KeyPath='no'/>
+        <File Id='Itenso.Rtf.Converter.Html.dll' Name='Itenso.Rtf.Converter.Html.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Rtf.Converter.Html.dll' KeyPath='no'/>
+        <File Id='Itenso.Rtf.Interpreter.dll' Name='Itenso.Rtf.Interpreter.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Rtf.Interpreter.dll' KeyPath='no'/>
+        <File Id='Itenso.Rtf.Parser.dll' Name='Itenso.Rtf.Parser.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Rtf.Parser.dll' KeyPath='no'/>
+        <File Id='Itenso.Sys.dll' Name='Itenso.Sys.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Sys.dll' KeyPath='no'/>
+        <File Id='log4net.dll' Name='log4net.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\log4net.dll' KeyPath='no'/>
+        <File Id='Rtf2Html.exe' Name='Rtf2Html.exe' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Rtf2Html.exe' KeyPath='no'/>
+        <File Id='Rtf2Html.exe.config' Name='Rtf2Html.exe.config' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Rtf2Html.exe.config' KeyPath='no'/>
+        <File Id='nunit.core.dll' Name='nunit.core.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\nunit.core.dll' KeyPath='no'/>
+        <File Id='nunit.framework.dll' Name='nunit.framework.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\nunit.framework.dll' KeyPath='no'/>
+        <File Id='nunit.util.dll' Name='nunit.util.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\nunit.util.dll' KeyPath='no'/>
+        <File Id='nunitconsolerunnerdll' Name='nunit-console-runner.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\nunit-console-runner.dll' KeyPath='no'/>
       </Component>
     </ComponentGroup>
   </Fragment>

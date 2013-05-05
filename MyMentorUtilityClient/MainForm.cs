@@ -74,16 +74,68 @@ namespace MyMentorUtilityClient
             {
                 TimeSpan startNext = TimeSpan.Zero;
 
-                //foreach (Paragraph paragraph in m_paragraphs)
-                //{
-                //    if (startNext < paragraph.StartTime)
-                //    {
-                //        startNext = paragraph.StartTime;
-                //    }
+                foreach (Paragraph paragraph in m_paragraphs)
+                {
+                    if (startNext > paragraph.StartTime)
+                    {
+                        paragraph.StartTime = startNext;
+                    }
 
-                //    startNext = startNext.Add(paragraph.Duration);
+                    startNext = paragraph.StartTime.Add(paragraph.Duration);
 
-                //}
+                    foreach (Word word in paragraph.Words)
+                    {
+                        if (startNext > word.StartTime)
+                        {
+                            word.StartTime = startNext;
+                        }
+
+                        startNext = word.StartTime.Add(word.Duration);
+                    }
+
+                    foreach (Sentence sentence in paragraph.Sentences)
+                    {
+                        if (startNext > sentence.StartTime)
+                        {
+                            sentence.StartTime = startNext;
+                        }
+
+                        startNext = sentence.StartTime.Add(sentence.Duration);
+
+                        foreach (Word word in sentence.Words)
+                        {
+                            if (startNext > word.StartTime)
+                            {
+                                word.StartTime = startNext;
+                            }
+
+                            startNext = word.StartTime.Add(word.Duration);
+                        }
+
+                        foreach (Section section in sentence.Sections)
+                        {
+                            if (startNext > section.StartTime)
+                            {
+                                section.StartTime = startNext;
+                            }
+
+                            startNext = section.StartTime.Add(section.Duration);
+
+                            foreach (Word word in section.Words)
+                            {
+                                if (startNext > word.StartTime)
+                                {
+                                    word.StartTime = startNext;
+                                }
+
+                                startNext = word.StartTime.Add(word.Duration);
+                            }
+
+                        }
+
+                    }
+
+                }
 
 
                 m_bindingListParagraphs.ResetBindings();
@@ -1611,6 +1663,11 @@ namespace MyMentorUtilityClient
         {
             if (m_selected != null)
             {
+                if (timePickerSpinner2.Value < timePickerSpinner1.Value)
+                {
+                    timePickerSpinner2.Value = timePickerSpinner1.Value;
+                }
+
                 ((BaseSection)m_selected).StartTime = timePickerSpinner1.Value;
                 ((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
                 FixSchedule();
@@ -1621,6 +1678,11 @@ namespace MyMentorUtilityClient
         {
             if (m_selected != null)
             {
+                if (timePickerSpinner2.Value < timePickerSpinner1.Value)
+                {
+                    timePickerSpinner2.Value = timePickerSpinner1.Value;
+                }
+
                 ((BaseSection)m_selected).StartTime = timePickerSpinner1.Value;
                 ((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
                 FixSchedule();

@@ -164,7 +164,7 @@
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(411, 687);
+            this.richTextBox2.Location = new System.Drawing.Point(273, 687);
             this.richTextBox2.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(38, 29);
@@ -180,18 +180,18 @@
             this.sectionGroup.Controls.Add(this.tbSectionText);
             this.sectionGroup.Controls.Add(this.label11);
             this.sectionGroup.Controls.Add(this.label10);
-            this.sectionGroup.Location = new System.Drawing.Point(7, 488);
+            this.sectionGroup.Location = new System.Drawing.Point(4, 488);
             this.sectionGroup.Margin = new System.Windows.Forms.Padding(4);
             this.sectionGroup.Name = "sectionGroup";
             this.sectionGroup.Padding = new System.Windows.Forms.Padding(4);
-            this.sectionGroup.Size = new System.Drawing.Size(442, 191);
+            this.sectionGroup.Size = new System.Drawing.Size(307, 191);
             this.sectionGroup.TabIndex = 15;
             this.sectionGroup.TabStop = false;
             this.sectionGroup.Text = "עדכון";
             // 
             // timePickerSpinner2
             // 
-            this.timePickerSpinner2.Location = new System.Drawing.Point(144, 134);
+            this.timePickerSpinner2.Location = new System.Drawing.Point(19, 129);
             this.timePickerSpinner2.Margin = new System.Windows.Forms.Padding(6);
             this.timePickerSpinner2.Name = "timePickerSpinner2";
             this.timePickerSpinner2.Size = new System.Drawing.Size(173, 36);
@@ -201,7 +201,7 @@
             // 
             // timePickerSpinner1
             // 
-            this.timePickerSpinner1.Location = new System.Drawing.Point(144, 88);
+            this.timePickerSpinner1.Location = new System.Drawing.Point(19, 83);
             this.timePickerSpinner1.Margin = new System.Windows.Forms.Padding(4);
             this.timePickerSpinner1.Name = "timePickerSpinner1";
             this.timePickerSpinner1.Size = new System.Drawing.Size(181, 36);
@@ -212,7 +212,7 @@
             // lblSectionText
             // 
             this.lblSectionText.AutoSize = true;
-            this.lblSectionText.Location = new System.Drawing.Point(345, 48);
+            this.lblSectionText.Location = new System.Drawing.Point(220, 43);
             this.lblSectionText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSectionText.Name = "lblSectionText";
             this.lblSectionText.Size = new System.Drawing.Size(44, 18);
@@ -221,17 +221,17 @@
             // 
             // tbSectionText
             // 
-            this.tbSectionText.Location = new System.Drawing.Point(21, 44);
+            this.tbSectionText.Location = new System.Drawing.Point(19, 39);
             this.tbSectionText.Margin = new System.Windows.Forms.Padding(4);
             this.tbSectionText.Name = "tbSectionText";
             this.tbSectionText.ReadOnly = true;
-            this.tbSectionText.Size = new System.Drawing.Size(296, 26);
+            this.tbSectionText.Size = new System.Drawing.Size(173, 26);
             this.tbSectionText.TabIndex = 19;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(345, 143);
+            this.label11.Location = new System.Drawing.Point(220, 138);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(56, 18);
@@ -241,7 +241,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(345, 97);
+            this.label10.Location = new System.Drawing.Point(220, 92);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(78, 18);
@@ -529,11 +529,11 @@
             // 
             this.groupBox5.Controls.Add(this.sectionsGrid);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.Location = new System.Drawing.Point(457, 488);
+            this.groupBox5.Location = new System.Drawing.Point(319, 488);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(350, 191);
+            this.groupBox5.Size = new System.Drawing.Size(396, 191);
             this.groupBox5.TabIndex = 24;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "קטעים";
@@ -550,7 +550,7 @@
             this.sectionsGrid.Name = "sectionsGrid";
             this.sectionsGrid.ReadOnly = true;
             this.sectionsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.sectionsGrid.Size = new System.Drawing.Size(342, 164);
+            this.sectionsGrid.Size = new System.Drawing.Size(388, 164);
             this.sectionsGrid.TabIndex = 12;
             this.sectionsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.sectionsGrid_CellMouseClick);
             // 
@@ -558,11 +558,11 @@
             // 
             this.groupBox6.Controls.Add(this.sentencesGrid);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(815, 488);
+            this.groupBox6.Location = new System.Drawing.Point(723, 488);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox6.Size = new System.Drawing.Size(350, 191);
+            this.groupBox6.Size = new System.Drawing.Size(396, 191);
             this.groupBox6.TabIndex = 25;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "משפטים";
@@ -579,7 +579,7 @@
             this.sentencesGrid.Name = "sentencesGrid";
             this.sentencesGrid.ReadOnly = true;
             this.sentencesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.sentencesGrid.Size = new System.Drawing.Size(342, 164);
+            this.sentencesGrid.Size = new System.Drawing.Size(388, 164);
             this.sentencesGrid.TabIndex = 12;
             this.sentencesGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.sentencesGrid_CellMouseClick);
             // 
@@ -598,11 +598,11 @@
             // 
             this.groupBox4.Controls.Add(this.paragraphsGrid);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(1173, 488);
+            this.groupBox4.Location = new System.Drawing.Point(1127, 488);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(350, 191);
+            this.groupBox4.Size = new System.Drawing.Size(396, 191);
             this.groupBox4.TabIndex = 26;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "פסקאות";
@@ -619,7 +619,7 @@
             this.paragraphsGrid.Name = "paragraphsGrid";
             this.paragraphsGrid.ReadOnly = true;
             this.paragraphsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.paragraphsGrid.Size = new System.Drawing.Size(342, 164);
+            this.paragraphsGrid.Size = new System.Drawing.Size(388, 164);
             this.paragraphsGrid.TabIndex = 12;
             this.paragraphsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.paragraphsGrid_CellMouseClick);
             // 
@@ -629,7 +629,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 453F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 313F));
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox6, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox5, 2, 3);

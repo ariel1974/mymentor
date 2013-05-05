@@ -629,7 +629,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 313F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 315F));
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox6, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox5, 2, 3);
@@ -988,6 +988,10 @@
             this.toolStripButton9.Text = "toolStripButton9";
             this.toolStripButton9.ToolTipText = "פרסם";
             this.toolStripButton9.Click += new System.EventHandler(this.toolStripButton9_Click);
+            // 
+            // fontDialog1
+            // 
+            this.fontDialog1.Color = System.Drawing.SystemColors.ControlText;
             // 
             // MainForm
             // 

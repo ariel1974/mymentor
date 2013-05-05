@@ -72,7 +72,7 @@
             // 
             this.milliseconds.Format = "{0:000}";
             this.milliseconds.Increment = new decimal(new int[] {
-            10,
+            100,
             0,
             0,
             0});

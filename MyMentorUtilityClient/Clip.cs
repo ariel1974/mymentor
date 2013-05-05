@@ -117,7 +117,7 @@ namespace MyMentorUtilityClient
         /// 
         /// </summary>
         /// <param name="path"></param>
-        public async static void Load(string fileName)
+        public static void Load(string fileName)
         {
             XmlSerializer serializer = new XmlSerializer(new Clip().GetType());
 
@@ -128,16 +128,7 @@ namespace MyMentorUtilityClient
                 instance = (Clip)deserialized;
             }
 
-            //check in the cloud if exists
-            //var query = ParseObject.GetQuery("Clips").WhereEqualTo("clipId", instance.ID.ToString());
-
-            //ParseObject obj = await query.FirstOrDefaultAsync();
-
-            //if (obj == null)
-            //{
-            //    instance = null;
-            //    throw new ApplicationException("סרט זה אינו קיים בענן");
-            //}
+            instance.FileName = fileName;
         }
 
         /// <summary>

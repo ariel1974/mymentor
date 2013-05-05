@@ -561,7 +561,8 @@ namespace MyMentorUtilityClient
             {
                 while (selectionIndex < remember.Length &&
                 !remember.Substring(selectionIndex, 1).IsPartOfAnchor() &&
-                remember.Substring(selectionIndex, 1) != " ")
+                remember.Substring(selectionIndex, 1) != " " &&
+                remember.Substring(selectionIndex, 1)!= "\n")
                 {
                     selectionIndex++;
                 }
@@ -570,10 +571,16 @@ namespace MyMentorUtilityClient
             {
                 while (selectionIndex > 0 &&
                 !remember.Substring(selectionIndex - 1, 1).IsPartOfAnchor() &&
-                remember.Substring(selectionIndex - 1, 1) != " ")
+                remember.Substring(selectionIndex - 1, 1) != " " &&
+                remember.Substring(selectionIndex, 1) != "\n")
                 {
                     selectionIndex--;
                 }
+            }
+
+            if (direction == AnchorDirection.Open && remember.Substring(selectionIndex, 1) == "\n")
+            {
+                selectionIndex++;
             }
 
             richTextBox1.SelectionStart = selectionIndex;
@@ -638,7 +645,7 @@ namespace MyMentorUtilityClient
                 //richTextBox1.SelectionColor = Color.Black;
 
                 /// FIND AUTO OPEN LOGIC
-                if (direction == AnchorDirection.Close)
+                if (direction == AnchorDirection.Close && type != AnchorType.Word)
                 {
                     int charIndex = selectionIndex - 2;
 
@@ -698,12 +705,22 @@ namespace MyMentorUtilityClient
 
                             case AnchorType.Section:
 
-                                if (
-                                    richTextBox2.SelectedText == Clip.PAR_SIGN_CLOSE ||
-                                    richTextBox2.SelectedText == Clip.PAR_SIGN_OPEN
+                                if ( false
+                                    //richTextBox2.SelectedText == Clip.PAR_SIGN_CLOSE ||
+                                    //richTextBox2.SelectedText == Clip.PAR_SIGN_OPEN
                                     )
                                 {
                                     throw new ApplicationException();
+                                }
+                                else if (richTextBox1.SelectedText == Clip.SEC_SIGN_CLOSE ||
+                                    richTextBox2.SelectedText == Clip.PAR_SIGN_OPEN ||
+                                    richTextBox2.SelectedText == Clip.SEN_SIGN_OPEN
+                                    )
+                                {
+                                    richTextBox1.Text = richTextBox1.Text.Insert(charIndex + 2, Clip.SEC_SIGN_OPEN);
+                                    blFoundAnchor = true;
+                                    break;
+
                                 }
                                 else if (richTextBox2.SelectedText == Clip.SEC_SIGN_OPEN)
                                 {
@@ -724,8 +741,6 @@ namespace MyMentorUtilityClient
                             case AnchorType.Word:
 
                                 if (
-                                    //richTextBox2.SelectedText == PAR_SIGN_CLOSE ||
-                                    //richTextBox2.SelectedText == PAR_SIGN_OPEN ||
                                     richTextBox2.SelectedText == Clip.SEN_SIGN_OPEN
                                     )
                                 {
@@ -1319,7 +1334,6 @@ namespace MyMentorUtilityClient
                 tbSectionText.Text = string.Empty;
                 timePickerSpinner1.Value = TimeSpan.Zero;
                 timePickerSpinner2.Value = TimeSpan.Zero;
-
             }
         }
 
@@ -1720,6 +1734,11 @@ namespace MyMentorUtilityClient
             {
 
             }
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

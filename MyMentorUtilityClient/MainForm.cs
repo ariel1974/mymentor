@@ -72,6 +72,8 @@ namespace MyMentorUtilityClient
         {
             try
             {
+                return;
+
                 TimeSpan startNext = TimeSpan.Zero;
 
                 foreach (Paragraph paragraph in m_paragraphs)
@@ -1721,8 +1723,17 @@ namespace MyMentorUtilityClient
                         m_selected = word;
 
                         tbSectionText.Text = word.Text;
-                        timePickerSpinner1.Value = word.StartTime;
-                        timePickerSpinner2.Value = word.StartTime.Add(word.Duration);
+
+                        if (word.StartTime == TimeSpan.Zero && word.Duration == TimeSpan.Zero)
+                        {
+                            timePickerSpinner1.Value = timePickerSpinner2.Value;
+                            ((BaseSection)m_selected).StartTime = timePickerSpinner2.Value;
+                        }
+                        else
+                        {
+                            timePickerSpinner1.Value = word.StartTime;
+                            timePickerSpinner2.Value = word.StartTime.Add(word.Duration);
+                        }
 
                         m_selectedAnchorType = AnchorType.Word;
                         sectionGroup.Text = "תזמון מילה";

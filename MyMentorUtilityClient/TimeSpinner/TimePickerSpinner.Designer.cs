@@ -78,7 +78,7 @@
             0});
             this.milliseconds.Location = new System.Drawing.Point(83, 3);
             this.milliseconds.Maximum = new decimal(new int[] {
-            999,
+            1000,
             0,
             0,
             0});

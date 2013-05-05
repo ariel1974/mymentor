@@ -48,8 +48,9 @@ namespace MyMentorUtilityClient.TimeSpinner
             if (m_skipEvents)
                 return;
 
-            if (milliseconds.Value == 999)
+            if (milliseconds.Value == 1000)
             {
+                m_skipEvents = true;
                 milliseconds.Value = 0;
 
                 if (seconds.Value == 59)
@@ -61,6 +62,7 @@ namespace MyMentorUtilityClient.TimeSpinner
                 {
                     seconds.Value = seconds.Value + 1;
                 }
+                m_skipEvents = false;
             }
 
             m_Value = new TimeSpan(0, 0, (int)minutes.Value, (int)seconds.Value, (int)milliseconds.Value);

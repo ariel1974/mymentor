@@ -299,12 +299,18 @@ namespace MyMentorUtilityClient
             }
         }
 
-        public bool ExtractJson()
+        public bool SaveJson(string json)
         {
             string tempPath = System.IO.Path.GetTempPath();
 
             this.JsonSchemaFileName = Path.Combine(tempPath, string.Format("{0}.json", this.ID.ToString()));
+            System.IO.File.WriteAllText(this.JsonSchemaFileName, json);
 
+            return true;
+        }
+
+        public string ExtractJson()
+        {
             jsonClip clip = new jsonClip();
             clip.id = this.ID.ToString();
             clip.title = this.Title;
@@ -321,11 +327,7 @@ namespace MyMentorUtilityClient
             clip.tags = this.Tags;
 
             clip.paragraphs = this.Paragraphs;
-            string json = JsonConvert.SerializeObject(clip,Formatting.Indented);
-
-            System.IO.File.WriteAllText(this.JsonSchemaFileName, json);
-
-            return true;
+            return JsonConvert.SerializeObject(clip,Formatting.Indented);
         }
 
     }

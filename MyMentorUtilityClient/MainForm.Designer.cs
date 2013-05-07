@@ -116,6 +116,8 @@
             this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.jsonMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.sectionGroup.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -491,7 +493,9 @@
             // עזרהToolStripMenuItem1
             // 
             this.עזרהToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.אודותToolStripMenuItem});
+            this.אודותToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.jsonMenu});
             this.עזרהToolStripMenuItem1.Name = "עזרהToolStripMenuItem1";
             this.עזרהToolStripMenuItem1.Size = new System.Drawing.Size(47, 19);
             this.עזרהToolStripMenuItem1.Text = "עזרה";
@@ -499,7 +503,7 @@
             // אודותToolStripMenuItem
             // 
             this.אודותToolStripMenuItem.Name = "אודותToolStripMenuItem";
-            this.אודותToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.אודותToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.אודותToolStripMenuItem.Text = "אודות";
             this.אודותToolStripMenuItem.Click += new System.EventHandler(this.אודותToolStripMenuItem_Click);
             // 
@@ -993,6 +997,18 @@
             // 
             this.fontDialog1.Color = System.Drawing.SystemColors.ControlText;
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
+            // 
+            // jsonMenu
+            // 
+            this.jsonMenu.Name = "jsonMenu";
+            this.jsonMenu.Size = new System.Drawing.Size(152, 22);
+            this.jsonMenu.Text = "הצג JSON";
+            this.jsonMenu.Click += new System.EventHandler(this.jsonMenu_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -1121,6 +1137,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButton11;
         private TimeSpinner.TimePickerSpinner timePickerSpinner1;
         private TimeSpinner.TimePickerSpinner timePickerSpinner2;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem jsonMenu;
     }
 }
 

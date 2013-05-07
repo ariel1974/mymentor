@@ -54,10 +54,10 @@ namespace MyMentorUtilityClient
             Clip.Current.DefaultSections.section = def_sec.Checked ? 1 : 0;
             Clip.Current.DefaultSections.chapter = def_wor.Checked ? 1 : 0;
 
-            Clip.Current.LockedSections.paragraph = def_par.Checked ? 1 : 0;
-            Clip.Current.LockedSections.sentence = def_sen.Checked ? 1 : 0;
-            Clip.Current.LockedSections.section = def_sec.Checked ? 1 : 0;
-            Clip.Current.LockedSections.chapter = def_wor.Checked ? 1 : 0;
+            Clip.Current.LockedSections.paragraph = loc_par.Checked ? 1 : 0;
+            Clip.Current.LockedSections.sentence = loc_sen.Checked ? 1 : 0;
+            Clip.Current.LockedSections.section = loc_sec.Checked ? 1 : 0;
+            Clip.Current.LockedSections.chapter = loc_wor.Checked ? 1 : 0;
 
             Clip.Current.DefaultLearningOptions.teacher1 = sop_teacher1.Checked ? 1 : 0;
             Clip.Current.DefaultLearningOptions.teacherAndStudent = sop_teacherAndStudent.Checked ? 1 : 0;

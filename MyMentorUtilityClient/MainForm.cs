@@ -76,6 +76,7 @@ namespace MyMentorUtilityClient
 
                 TimeSpan startNext = TimeSpan.Zero;
 
+                //fix start and duration
                 foreach (Paragraph paragraph in m_paragraphs)
                 {
                     if (startNext > paragraph.StartTime)
@@ -473,6 +474,8 @@ namespace MyMentorUtilityClient
             {
                 MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
+
+            FixSchedule();
         }
 
         private void FixGridLayout()
@@ -1686,7 +1689,11 @@ namespace MyMentorUtilityClient
 
                 ((BaseSection)m_selected).StartTime = timePickerSpinner1.Value;
                 ((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
-                FixSchedule();
+
+                //m_bindingListParagraphs.ResetBindings();
+                //m_bindingListSentenses.ResetBindings();
+               // m_bindingListSections.ResetBindings();
+
             }
         }
 
@@ -1701,7 +1708,11 @@ namespace MyMentorUtilityClient
 
                 ((BaseSection)m_selected).StartTime = timePickerSpinner1.Value;
                 ((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
-                FixSchedule();
+
+                //m_bindingListParagraphs.ResetBindings();
+                //m_bindingListSentenses.ResetBindings();
+                // m_bindingListSections.ResetBindings();
+
             }
         }
 
@@ -1751,6 +1762,21 @@ namespace MyMentorUtilityClient
         {
 
         }
+
+        private void jsonMenu_Click(object sender, EventArgs e)
+        {
+            if(Clip.Current.IsNew)
+            {
+                MessageBox.Show("Please save clip first");
+                return;
+            }
+
+            Clip.Current.Save();
+            FixSchedule();
+
+            JsonDebugFrm frm = new JsonDebugFrm();
+            frm.ShowDialog();
+        }
     }
 
     public class SectionCellData
@@ -1775,11 +1801,92 @@ namespace MyMentorUtilityClient
 
         [JsonIgnore]
         [XmlIgnore]
-        public TimeSpan StartTime { get; set; }
+        public TimeSpan StartTime
+        {
+            get
+            {
+                if (m_startTime == TimeSpan.Zero)
+                {
+                    switch (this.GetType().ToString())
+                    {
+                        case "MyMentorUtilityClient.Paragraph":
+
+                            if (((Paragraph)this).Words.Any())
+                            {
+                                m_startTime = ((Paragraph)this).Words.First().StartTime;
+                            }
+                            else
+                            {
+                                if (((Paragraph)this).Sentences.Any())
+                                {
+                                    m_startTime = ((Paragraph)this).Sentences.First().StartTime; 
+                                }
+                            }
+                            break;
+                        case "MyMentorUtilityClient.Sentence":
+                            if (((Sentence)this).Words.Any())
+                            {
+                                m_startTime = ((Sentence)this).Words.First().StartTime;
+                            }
+                            else
+                            {
+                                if (((Sentence)this).Sections.Any())
+                                {
+                                    m_startTime = ((Sentence)this).Sections.First().StartTime; 
+                                }
+                            }
+                            break;
+                        case "MyMentorUtilityClient.Section":
+                            if (((Section)this).Words.Any())
+                            {
+                                m_startTime = ((Sentence)this).Words.First().StartTime;
+                            }
+                            break;
+                    }
+                }
+
+                return m_startTime;
+            }
+            set
+            {
+                m_startTime = value;
+            }
+        }
+            
+
+        private TimeSpan m_duration;
+        private TimeSpan m_startTime;
 
         [JsonIgnore]
         [XmlIgnore]
-        public TimeSpan Duration { get; set; }
+        public TimeSpan Duration {
+            get
+            {
+                if (m_duration == TimeSpan.Zero)
+                {
+                    switch (this.GetType().ToString())
+                    {
+                        case "MyMentorUtilityClient.Paragraph":
+                            m_duration = new TimeSpan(((Paragraph)this).Words.Sum(p => p.Duration.Ticks) + ((Paragraph)this).Sentences.Sum(s => s.Duration.Ticks));
+                            break;
+                        case "MyMentorUtilityClient.Sentence":
+                            m_duration = new TimeSpan(((Sentence)this).Words.Sum(p => p.Duration.Ticks) + ((Sentence)this).Sections.Sum(p => p.Duration.Ticks));
+                            break;
+                        case "MyMentorUtilityClient.Section":
+                            m_duration = new TimeSpan(((Section)this).Words.Sum(p => p.Duration.Ticks));
+                            break;
+                    }
+                }
+                
+                return m_duration;
+            }
+
+
+            set
+            {
+                m_duration = value;
+            }
+        }
 
         [JsonProperty(PropertyName = "audioStart", Order = 3)]
         [XmlIgnore]

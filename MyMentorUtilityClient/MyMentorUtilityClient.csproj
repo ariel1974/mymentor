@@ -76,6 +76,12 @@
       <DependentUpon>ClipPropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="JsonDebugFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JsonDebugFrm.Designer.cs">
+      <DependentUpon>JsonDebugFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Json\jsonClip.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ClipPropertiesForm.resx">
       <DependentUpon>ClipPropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JsonDebugFrm.resx">
+      <DependentUpon>JsonDebugFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

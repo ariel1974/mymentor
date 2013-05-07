@@ -1862,8 +1862,8 @@ namespace MyMentorUtilityClient
         public TimeSpan Duration {
             get
             {
-                if (m_duration == TimeSpan.Zero)
-                {
+                //if (m_duration == TimeSpan.Zero)
+                //{
                     switch (this.GetType().ToString())
                     {
                         case "MyMentorUtilityClient.Paragraph":
@@ -1876,7 +1876,7 @@ namespace MyMentorUtilityClient
                             m_duration = new TimeSpan(((Section)this).Words.Sum(p => p.Duration.Ticks));
                             break;
                     }
-                }
+                //}
                 
                 return m_duration;
             }

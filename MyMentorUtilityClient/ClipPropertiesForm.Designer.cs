@@ -74,7 +74,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.timePickerSpinner1 = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
+            this.textBox8 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -85,7 +85,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox1.Controls.Add(this.timePickerSpinner1);
+            this.groupBox1.Controls.Add(this.textBox8);
             this.groupBox1.Controls.Add(this.textBox7);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.groupBox5);
@@ -577,14 +577,15 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // timePickerSpinner1
+            // textBox8
             // 
-            this.timePickerSpinner1.Location = new System.Drawing.Point(626, 344);
-            this.timePickerSpinner1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.timePickerSpinner1.Name = "timePickerSpinner1";
-            this.timePickerSpinner1.Size = new System.Drawing.Size(186, 32);
-            this.timePickerSpinner1.TabIndex = 56;
-            this.timePickerSpinner1.Value = System.TimeSpan.Parse("00:00:00");
+            this.textBox8.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBox8.Location = new System.Drawing.Point(560, 347);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
+            this.textBox8.Size = new System.Drawing.Size(237, 26);
+            this.textBox8.TabIndex = 56;
             // 
             // ClipPropertiesForm
             // 
@@ -663,6 +664,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label4;
-        private TimeSpinner.TimePickerSpinner timePickerSpinner1;
+        private System.Windows.Forms.TextBox textBox8;
     }
 }

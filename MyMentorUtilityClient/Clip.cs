@@ -93,7 +93,13 @@ namespace MyMentorUtilityClient
 
         [JsonIgnore]
         [XmlIgnore]
-        public TimeSpan Duration { get; set; }
+        public TimeSpan Duration
+        {
+            get
+            {
+                return new TimeSpan(this.Paragraphs.SelectMany(p => p.Words).Sum(p => p.Duration.Ticks) + this.Paragraphs.SelectMany( p => p.Sentences).Sum(s => s.Duration.Ticks));
+            }
+        }
 
         [JsonProperty(PropertyName = "clipDuration")]
         [XmlIgnore]
@@ -110,7 +116,6 @@ namespace MyMentorUtilityClient
         public long XmlDuration
         {
             get { return Duration.Ticks; }
-            set { Duration = new TimeSpan(value); }
         }
 
         /// <summary>

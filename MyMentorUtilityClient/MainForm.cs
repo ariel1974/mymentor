@@ -23,17 +23,22 @@ namespace MyMentorUtilityClient
     {
         private List<Paragraph> m_paragraphs = null;
 
-        private BindingList<BaseSection> m_bindingListParagraphs = null;
-        private BindingList<BaseSection> m_bindingListSentenses = null;
-        private BindingList<BaseSection> m_bindingListSections = null;
+        private string m_initClip = string.Empty;
+
+        private BindingList<Paragraph> m_bindingListParagraphs = null;
+        private BindingList<Sentence> m_bindingListSentenses = null;
+        private BindingList<Section> m_bindingListSections = null;
+        private BindingList<Word> m_bindingListWords = null;
 
         private object m_selected = null;
         private bool m_disableScanningText;
         private AnchorType m_selectedAnchorType = AnchorType.None;
 
-        public MainForm()
+        public MainForm(string[] args)
         {
             InitializeComponent();
+
+            m_initClip = args.Length > 0 ? args[0] : string.Empty;
         }
 
         private static Regex m_regexAll = new Regex(@"(\(\()|(\)\))|(\[\[)|(\]\])|({{)|(}})|(<<)|(>>)", RegexOptions.Compiled);
@@ -158,8 +163,8 @@ namespace MyMentorUtilityClient
 
         private void DevideText()
         {
-            try
-            {
+            //try
+            //{
                 var paragraphs_local = new List<Paragraph>();
                 int paragraphIndex = -1;
                 int sectionIndex = -1;
@@ -201,6 +206,8 @@ namespace MyMentorUtilityClient
 
                     TimeSpan start = TimeSpan.Zero;
                     TimeSpan duration = TimeSpan.Zero;
+                    bool startManually = false;
+                    bool durationManually = false;
                     Paragraph ex_paragraph = null;
 
                     //check for saved schedule
@@ -213,12 +220,16 @@ namespace MyMentorUtilityClient
                     {
                         start = ex_paragraph.StartTime;
                         duration = ex_paragraph.Duration;
+                        startManually = ex_paragraph.ManuallyStartDate;
+                        durationManually = ex_paragraph.ManuallyDuration;
                     }
 
                     paragraphs_local.Add(new Paragraph
                     {
                         RealCharIndex = matchParagraph.Index,
                         CharIndex = matchParagraph.Index - bufferIndex - 2,
+                        ManuallyStartDate = startManually,
+                        ManuallyDuration = durationManually,
                         Index = paragraphIndex,
                         Sentences = new List<Sentence>(),
                         Words = new List<Word>(),
@@ -246,7 +257,13 @@ namespace MyMentorUtilityClient
 
                             start = TimeSpan.Zero;
                             duration = TimeSpan.Zero;
+                             startManually = false;
+                             durationManually = false;
                             Sentence ex_sentence = null;
+                            
+                            sentenceIndex++;
+                            innerSentenceIndex++;
+                            innerSectionIndex = -1;
 
                             //check for saved schedule
                             if (m_paragraphs != null)
@@ -258,11 +275,9 @@ namespace MyMentorUtilityClient
                             {
                                 start = ex_sentence.StartTime;
                                 duration = ex_sentence.Duration;
+                                startManually = ex_sentence.ManuallyStartDate;
+                                durationManually = ex_sentence.ManuallyDuration;
                             }
-
-                            sentenceIndex++;
-                            innerSentenceIndex++;
-                            innerSectionIndex = -1;
 
                             int sectionsOffset = 0;
                             int wordsOffset = 0;
@@ -278,6 +293,8 @@ namespace MyMentorUtilityClient
                                 RealCharIndex = paragraphs_local[paragraphIndex].RealCharIndex + matchSentense.Index,
                                 CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchSentense.Index - sectionsOffset - wordsOffset - (4 * innerSentenceIndex) - 2,
                                 Index = sentenceIndex,
+                                ManuallyDuration = durationManually,
+                                ManuallyStartDate = startManually,
                                 Sections = new List<Section>(),
                                 Words = new List<Word>(),
                                 StartTime = start,
@@ -305,8 +322,30 @@ namespace MyMentorUtilityClient
                                     sectionIndex++;
                                     innerSectionIndex++;
 
+                                    start = TimeSpan.Zero;
+                                    duration = TimeSpan.Zero;
+                                    startManually = false;
+                                    durationManually = false;
+                                    Section ex_section = null;
+
+                                    //check for saved schedule
+                                    if (m_paragraphs != null)
+                                    {
+                                        ex_section = m_paragraphs.SelectMany(s => s.Sentences).SelectMany(se => se.Sections).Where(p => p.Index == sectionIndex).FirstOrDefault();
+                                    }
+
+                                    if (ex_section != null)
+                                    {
+                                        start = ex_section.StartTime;
+                                        duration = ex_section.Duration;
+                                        startManually = ex_section.ManuallyStartDate;
+                                        durationManually = ex_section.ManuallyDuration;
+                                    }
+
                                     paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
                                     {
+                                        ManuallyDuration = durationManually,
+                                        ManuallyStartDate = startManually,
                                         RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].RealCharIndex + matchSection.Index,
                                         CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchSection.Index - (4 * innerSectionIndex) - 2,
                                         Index = sectionIndex,
@@ -454,26 +493,25 @@ namespace MyMentorUtilityClient
 
                 m_paragraphs = paragraphs_local;
 
-                    m_bindingListParagraphs = new BindingList<BaseSection>(m_paragraphs.ToList<BaseSection>());
-                    m_bindingListSentenses = new BindingList<BaseSection>(m_paragraphs.SelectMany(p => p.Sentences).ToList<BaseSection>());
-                    m_bindingListSections = new BindingList<BaseSection>(m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).ToList<BaseSection>());
+                m_bindingListParagraphs = new BindingList<Paragraph>(m_paragraphs.ToList());
+                m_bindingListSentenses = new BindingList<Sentence>(m_paragraphs.SelectMany(p => p.Sentences).ToList());
+                m_bindingListSections = new BindingList<Section>(m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).ToList());
+                m_bindingListWords = new BindingList<Word>(m_paragraphs.FlattenWords().ToList<Word>());
 
-                //if (reloadGrids)
-                //{
-
-                    paragraphsGrid.DataSource = m_bindingListParagraphs;
-                    sentencesGrid.DataSource = m_bindingListSentenses;
-                    sectionsGrid.DataSource = m_bindingListSections;
+                paragraphsGrid.DataSource = m_bindingListParagraphs;
+                sentencesGrid.DataSource = m_bindingListSentenses;
+                sectionsGrid.DataSource = m_bindingListSections;
+                wordsGrid.DataSource = m_bindingListWords;
                 //}
-            }
-            catch (ApplicationException ex)
-            {
-                MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-            }
+            //}
+            //catch (ApplicationException ex)
+            //{
+            //    MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            //}
 
             FixSchedule();
         }
@@ -567,7 +605,7 @@ namespace MyMentorUtilityClient
                 while (selectionIndex < remember.Length &&
                 !remember.Substring(selectionIndex, 1).IsPartOfAnchor() &&
                 remember.Substring(selectionIndex, 1) != " " &&
-                remember.Substring(selectionIndex, 1)!= "\n")
+                remember.Substring(selectionIndex, 1) != "\n")
                 {
                     selectionIndex++;
                 }
@@ -710,7 +748,7 @@ namespace MyMentorUtilityClient
 
                             case AnchorType.Section:
 
-                                if ( false
+                                if (false
                                     //richTextBox2.SelectedText == Clip.PAR_SIGN_CLOSE ||
                                     //richTextBox2.SelectedText == Clip.PAR_SIGN_OPEN
                                     )
@@ -1007,11 +1045,18 @@ namespace MyMentorUtilityClient
             //    lblLoginUser.Text = "מחובר כ-" + ParseUser.CurrentUser.Username;
             //}
 
-            Clip.Current.Title = "שיעור 1";
-            Clip.Current.IsDirty = false;
-            Clip.Current.IsNew = true;
-            Clip.Current.ID = Guid.NewGuid();
-            this.Text = "MyMentor - " + Clip.Current.Title;
+            if (!string.IsNullOrEmpty(m_initClip))
+            {
+
+            }
+            else
+            {
+                Clip.Current.Title = "שיעור 1";
+                Clip.Current.IsDirty = false;
+                Clip.Current.IsNew = true;
+                Clip.Current.ID = Guid.NewGuid();
+                this.Text = "MyMentor - " + Clip.Current.Title;
+            }
         }
 
 
@@ -1106,8 +1151,17 @@ namespace MyMentorUtilityClient
                     sectionGroup.Text = "תזמון פסקה";
                     lblSectionText.Text = "פסקה";
                     tbSectionText.Text = ((Paragraph)m_selected).Content;
-                    timePickerSpinner1.Value = ((Paragraph)m_selected).StartTime;
-                    timePickerSpinner2.Value = ((Paragraph)m_selected).StartTime.Add(((Paragraph)m_selected).Duration);
+
+                    if (((Paragraph)m_selected).StartTime != TimeSpan.Zero || ((Paragraph)m_selected).Duration != TimeSpan.Zero)
+                    {
+                        timePickerSpinner1.Value = ((Paragraph)m_selected).StartTime;
+                        timePickerSpinner2.Value = ((Paragraph)m_selected).StartTime.Add(((Paragraph)m_selected).Duration);
+                    }
+                    else
+                    {
+                        timePickerSpinner1.Value = timePickerSpinner2.Value;
+                        //timePickerSpinner1_ValueChanged(null, new EventArgs());
+                    }
                 }
             }
 
@@ -1125,8 +1179,17 @@ namespace MyMentorUtilityClient
                     sectionGroup.Text = "תזמון משפט";
                     lblSectionText.Text = "משפט";
                     tbSectionText.Text = ((Sentence)m_selected).Content;
-                    timePickerSpinner1.Value = ((Sentence)m_selected).StartTime;
-                    timePickerSpinner2.Value = ((Sentence)m_selected).StartTime.Add(((Sentence)m_selected).Duration);
+
+                    if (((Sentence)m_selected).StartTime != TimeSpan.Zero || ((Sentence)m_selected).Duration != TimeSpan.Zero)
+                    {
+                        timePickerSpinner1.Value = ((Sentence)m_selected).StartTime;
+                        timePickerSpinner2.Value = ((Sentence)m_selected).StartTime.Add(((Sentence)m_selected).Duration);
+                    }
+                    else
+                    {
+                        timePickerSpinner1.Value = timePickerSpinner2.Value;
+                        //timePickerSpinner1_ValueChanged(null, new EventArgs());
+                    }
                 }
             }
         }
@@ -1143,8 +1206,17 @@ namespace MyMentorUtilityClient
                     sectionGroup.Text = "תזמון קטע";
                     lblSectionText.Text = "קטע";
                     tbSectionText.Text = ((Section)m_selected).Content;
-                    timePickerSpinner1.Value = ((Section)m_selected).StartTime;
-                    timePickerSpinner2.Value = ((Section)m_selected).StartTime.Add(((Section)m_selected).Duration);
+
+                    if (((Section)m_selected).StartTime != TimeSpan.Zero || ((Section)m_selected).Duration != TimeSpan.Zero)
+                    {
+                        timePickerSpinner1.Value = ((Section)m_selected).StartTime;
+                        timePickerSpinner2.Value = ((Section)m_selected).StartTime.Add(((Section)m_selected).Duration);
+                    }
+                    else
+                    {
+                        timePickerSpinner1.Value = timePickerSpinner2.Value;
+                        //timePickerSpinner1_ValueChanged(null, new EventArgs());
+                    }
                 }
             }
         }
@@ -1267,7 +1339,7 @@ namespace MyMentorUtilityClient
             timePickerSpinner2.Value = TimeSpan.Zero;
 
             DevideText();
-           
+
 
         }
 
@@ -1287,7 +1359,7 @@ namespace MyMentorUtilityClient
             }
         }
 
-        private void OpenClip()
+        private string GetFileDialog()
         {
             DirectoryInfo di = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MyMentor Clips"));
 
@@ -1295,8 +1367,6 @@ namespace MyMentorUtilityClient
             {
                 di.Create();
             }
-
-            m_paragraphs = null;
 
             openFileDialog1.InitialDirectory = di.FullName;
             openFileDialog1.DefaultExt = "mmnx";
@@ -1307,39 +1377,66 @@ namespace MyMentorUtilityClient
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                try
-                {
-                    Clip.Load(openFileDialog1.FileName);
-                }
-                catch (ApplicationException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("קובץ שיעור אינו תקין", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                    return;
-                }
-
-                this.Text = "MyMentor - " + Clip.Current.Title;
-
-                m_disableScanningText = true;
-                richTextBox1.Rtf = Clip.Current.RtfText;
-                m_disableScanningText = false;
-
-                if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
-                {
-                    m_paragraphs = Clip.Current.Paragraphs;
-                }
-
-                DevideText();
-
-                m_selected = null;
-                tbSectionText.Text = string.Empty;
-                timePickerSpinner1.Value = TimeSpan.Zero;
-                timePickerSpinner2.Value = TimeSpan.Zero;
+                return openFileDialog1.FileName;
             }
+            else
+            {
+                return null;
+            }
+        }
+
+        private void OpenClip()
+        {
+            OpenClip(null);
+        }
+
+        private void OpenClip(string file)
+        {
+            if (string.IsNullOrEmpty(file))
+            {
+                file = GetFileDialog();
+            }
+
+            if (string.IsNullOrEmpty(file))
+            {
+                return;
+            }
+
+            m_paragraphs = null;
+
+            try
+            {
+                Clip.Load(file);
+            }
+            catch (ApplicationException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("קובץ שיעור אינו תקין", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+
+            this.Text = "MyMentor - " + Clip.Current.Title;
+
+            m_disableScanningText = true;
+            richTextBox1.Rtf = Clip.Current.RtfText;
+            m_disableScanningText = false;
+
+            if (Clip.Current.Paragraphs != null && Clip.Current.Paragraphs.Count() > 0)
+            {
+                m_paragraphs = Clip.Current.Paragraphs;
+            }
+
+            DevideText();
+
+            m_selected = null;
+            tbSectionText.Text = string.Empty;
+            timePickerSpinner1.Value = TimeSpan.Zero;
+            timePickerSpinner2.Value = TimeSpan.Zero;
+
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -1689,10 +1786,11 @@ namespace MyMentorUtilityClient
 
                 ((BaseSection)m_selected).StartTime = timePickerSpinner1.Value;
                 ((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
-
+                ((BaseSection)m_selected).ManuallyDuration = true;
+                ((BaseSection)m_selected).ManuallyStartDate = true;
                 //m_bindingListParagraphs.ResetBindings();
                 //m_bindingListSentenses.ResetBindings();
-               // m_bindingListSections.ResetBindings();
+                // m_bindingListSections.ResetBindings();
 
             }
         }
@@ -1708,7 +1806,8 @@ namespace MyMentorUtilityClient
 
                 ((BaseSection)m_selected).StartTime = timePickerSpinner1.Value;
                 ((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
-
+                ((BaseSection)m_selected).ManuallyStartDate = true;
+                ((BaseSection)m_selected).ManuallyDuration = true;
                 //m_bindingListParagraphs.ResetBindings();
                 //m_bindingListSentenses.ResetBindings();
                 // m_bindingListSections.ResetBindings();
@@ -1735,20 +1834,21 @@ namespace MyMentorUtilityClient
 
                         tbSectionText.Text = word.Text;
 
-                        if (word.StartTime == TimeSpan.Zero && word.Duration == TimeSpan.Zero)
-                        {
-                            timePickerSpinner1.Value = timePickerSpinner2.Value;
-                            ((BaseSection)m_selected).StartTime = timePickerSpinner2.Value;
-                        }
-                        else
-                        {
-                            timePickerSpinner1.Value = word.StartTime;
-                            timePickerSpinner2.Value = word.StartTime.Add(word.Duration);
-                        }
-
                         m_selectedAnchorType = AnchorType.Word;
                         sectionGroup.Text = "תזמון מילה";
                         lblSectionText.Text = "מילה";
+                        tbSectionText.Text = ((Word)m_selected).Text;
+
+                        if (((Word)m_selected).StartTime != TimeSpan.Zero || ((Word)m_selected).Duration != TimeSpan.Zero)
+                        {
+                            timePickerSpinner1.Value = ((Word)m_selected).StartTime;
+                            timePickerSpinner2.Value = ((Word)m_selected).StartTime.Add(((Word)m_selected).Duration);
+                        }
+                        else
+                        {
+                            timePickerSpinner1.Value = timePickerSpinner2.Value;
+                            //timePickerSpinner1_ValueChanged(null, new EventArgs());
+                        }
                     }
                 }
             }
@@ -1765,17 +1865,45 @@ namespace MyMentorUtilityClient
 
         private void jsonMenu_Click(object sender, EventArgs e)
         {
-            if(Clip.Current.IsNew)
+            if (Clip.Current.IsNew)
             {
                 MessageBox.Show("Please save clip first");
                 return;
             }
 
+            Clip.Current.Paragraphs = m_paragraphs;
             Clip.Current.Save();
             FixSchedule();
 
             JsonDebugFrm frm = new JsonDebugFrm();
             frm.ShowDialog();
+        }
+
+        private void wordsGrid_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (wordsGrid.SelectedRows.Count > 0)
+            {
+                m_selected = wordsGrid.SelectedRows[0].DataBoundItem as Word;
+
+                if (m_selected != null)
+                {
+                    m_selectedAnchorType = AnchorType.Word;
+                    sectionGroup.Text = "תזמון מילה";
+                    lblSectionText.Text = "מילה";
+                    tbSectionText.Text = ((Word)m_selected).Text;
+
+                    if (((Word)m_selected).StartTime != TimeSpan.Zero || ((Word)m_selected).Duration != TimeSpan.Zero)
+                    {
+                        timePickerSpinner1.Value = ((Word)m_selected).StartTime;
+                        timePickerSpinner2.Value = ((Word)m_selected).StartTime.Add(((Word)m_selected).Duration);
+                    }
+                    else
+                    {
+                        timePickerSpinner1.Value = timePickerSpinner2.Value;
+                        //timePickerSpinner1_ValueChanged(null, new EventArgs());
+                    }
+                }
+            }
         }
     }
 
@@ -1800,12 +1928,18 @@ namespace MyMentorUtilityClient
         public int RealCharIndex { get; set; }
 
         [JsonIgnore]
+        public bool ManuallyStartDate { get; set; }
+
+        [JsonIgnore]
+        public bool ManuallyDuration { get; set; }
+
+        [JsonIgnore]
         [XmlIgnore]
         public TimeSpan StartTime
         {
             get
             {
-                if (m_startTime == TimeSpan.Zero)
+                if (!this.ManuallyStartDate)
                 {
                     switch (this.GetType().ToString())
                     {
@@ -1819,7 +1953,7 @@ namespace MyMentorUtilityClient
                             {
                                 if (((Paragraph)this).Sentences.Any())
                                 {
-                                    m_startTime = ((Paragraph)this).Sentences.First().StartTime; 
+                                    m_startTime = ((Paragraph)this).Sentences.First().StartTime;
                                 }
                             }
                             break;
@@ -1832,14 +1966,14 @@ namespace MyMentorUtilityClient
                             {
                                 if (((Sentence)this).Sections.Any())
                                 {
-                                    m_startTime = ((Sentence)this).Sections.First().StartTime; 
+                                    m_startTime = ((Sentence)this).Sections.First().StartTime;
                                 }
                             }
                             break;
                         case "MyMentorUtilityClient.Section":
                             if (((Section)this).Words.Any())
                             {
-                                m_startTime = ((Sentence)this).Words.First().StartTime;
+                                m_startTime = ((Section)this).Words.First().StartTime;
                             }
                             break;
                     }
@@ -1852,18 +1986,19 @@ namespace MyMentorUtilityClient
                 m_startTime = value;
             }
         }
-            
+
 
         private TimeSpan m_duration;
         private TimeSpan m_startTime;
 
         [JsonIgnore]
         [XmlIgnore]
-        public TimeSpan Duration {
+        public TimeSpan Duration
+        {
             get
             {
-                //if (m_duration == TimeSpan.Zero)
-                //{
+                if (!this.ManuallyDuration)
+                {
                     switch (this.GetType().ToString())
                     {
                         case "MyMentorUtilityClient.Paragraph":
@@ -1876,8 +2011,8 @@ namespace MyMentorUtilityClient
                             m_duration = new TimeSpan(((Section)this).Words.Sum(p => p.Duration.Ticks));
                             break;
                     }
-                //}
-                
+                }
+
                 return m_duration;
             }
 

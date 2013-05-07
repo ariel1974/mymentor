@@ -76,6 +76,14 @@
       <DependentUpon>ClipPropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="FileAssociation\AssociationManager.cs" />
+    <Compile Include="FileAssociation\FileAssociationInfo.cs" />
+    <Compile Include="FileAssociation\ProgramAssociationInfo.cs" />
+    <Compile Include="FileAssociation\ProgramIcon.cs" />
+    <Compile Include="FileAssociation\ProgramVerb.cs" />
+    <Compile Include="FileAssociation\RegistryException.cs" />
+    <Compile Include="FileAssociation\RegistryWrapper.cs" />
+    <Compile Include="FileAssociation\ShellNotification.cs" />
     <Compile Include="JsonDebugFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,7 +103,6 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainFormBackup.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublishForm.cs">

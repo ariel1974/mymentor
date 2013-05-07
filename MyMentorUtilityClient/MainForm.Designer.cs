@@ -71,6 +71,8 @@
             this.menuConnectAsDifferentUser = new System.Windows.Forms.ToolStripMenuItem();
             this.עזרהToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.אודותToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.jsonMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.button5 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -83,6 +85,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.wordsGrid = new System.Windows.Forms.DataGridView();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.ToolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -116,8 +120,6 @@
             this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.jsonMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.sectionGroup.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -128,6 +130,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.paragraphsGrid)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wordsGrid)).BeginInit();
             this.ToolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -166,7 +170,7 @@
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(273, 687);
+            this.richTextBox2.Location = new System.Drawing.Point(582, 687);
             this.richTextBox2.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(38, 29);
@@ -182,11 +186,12 @@
             this.sectionGroup.Controls.Add(this.tbSectionText);
             this.sectionGroup.Controls.Add(this.label11);
             this.sectionGroup.Controls.Add(this.label10);
+            this.sectionGroup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sectionGroup.Location = new System.Drawing.Point(4, 488);
             this.sectionGroup.Margin = new System.Windows.Forms.Padding(4);
             this.sectionGroup.Name = "sectionGroup";
             this.sectionGroup.Padding = new System.Windows.Forms.Padding(4);
-            this.sectionGroup.Size = new System.Drawing.Size(307, 191);
+            this.sectionGroup.Size = new System.Drawing.Size(322, 191);
             this.sectionGroup.TabIndex = 15;
             this.sectionGroup.TabStop = false;
             this.sectionGroup.Text = "עדכון";
@@ -503,9 +508,21 @@
             // אודותToolStripMenuItem
             // 
             this.אודותToolStripMenuItem.Name = "אודותToolStripMenuItem";
-            this.אודותToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.אודותToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.אודותToolStripMenuItem.Text = "אודות";
             this.אודותToolStripMenuItem.Click += new System.EventHandler(this.אודותToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(123, 6);
+            // 
+            // jsonMenu
+            // 
+            this.jsonMenu.Name = "jsonMenu";
+            this.jsonMenu.Size = new System.Drawing.Size(126, 22);
+            this.jsonMenu.Text = "הצג JSON";
+            this.jsonMenu.Click += new System.EventHandler(this.jsonMenu_Click);
             // 
             // button5
             // 
@@ -533,11 +550,11 @@
             // 
             this.groupBox5.Controls.Add(this.sectionsGrid);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.Location = new System.Drawing.Point(319, 488);
+            this.groupBox5.Location = new System.Drawing.Point(628, 488);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(396, 191);
+            this.groupBox5.Size = new System.Drawing.Size(297, 191);
             this.groupBox5.TabIndex = 24;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "קטעים";
@@ -554,7 +571,7 @@
             this.sectionsGrid.Name = "sectionsGrid";
             this.sectionsGrid.ReadOnly = true;
             this.sectionsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.sectionsGrid.Size = new System.Drawing.Size(388, 164);
+            this.sectionsGrid.Size = new System.Drawing.Size(289, 164);
             this.sectionsGrid.TabIndex = 12;
             this.sectionsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.sectionsGrid_CellMouseClick);
             // 
@@ -562,11 +579,11 @@
             // 
             this.groupBox6.Controls.Add(this.sentencesGrid);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(723, 488);
+            this.groupBox6.Location = new System.Drawing.Point(933, 488);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox6.Size = new System.Drawing.Size(396, 191);
+            this.groupBox6.Size = new System.Drawing.Size(291, 191);
             this.groupBox6.TabIndex = 25;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "משפטים";
@@ -583,7 +600,7 @@
             this.sentencesGrid.Name = "sentencesGrid";
             this.sentencesGrid.ReadOnly = true;
             this.sentencesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.sentencesGrid.Size = new System.Drawing.Size(388, 164);
+            this.sentencesGrid.Size = new System.Drawing.Size(283, 164);
             this.sentencesGrid.TabIndex = 12;
             this.sentencesGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.sentencesGrid_CellMouseClick);
             // 
@@ -602,11 +619,11 @@
             // 
             this.groupBox4.Controls.Add(this.paragraphsGrid);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(1127, 488);
+            this.groupBox4.Location = new System.Drawing.Point(1232, 488);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(396, 191);
+            this.groupBox4.Size = new System.Drawing.Size(291, 191);
             this.groupBox4.TabIndex = 26;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "פסקאות";
@@ -623,24 +640,26 @@
             this.paragraphsGrid.Name = "paragraphsGrid";
             this.paragraphsGrid.ReadOnly = true;
             this.paragraphsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.paragraphsGrid.Size = new System.Drawing.Size(388, 164);
+            this.paragraphsGrid.Size = new System.Drawing.Size(283, 164);
             this.paragraphsGrid.TabIndex = 12;
             this.paragraphsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.paragraphsGrid_CellMouseClick);
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 315F));
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.47247F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.56861F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 328F));
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox6, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox5, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.richTextBox2, 3, 4);
             this.tableLayoutPanel1.Controls.Add(this.richTextBox1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.sectionGroup, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.sectionGroup, 4, 3);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 3, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
@@ -651,7 +670,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 274F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 199F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1527, 734);
             this.tableLayoutPanel1.TabIndex = 29;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
@@ -662,15 +680,15 @@
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.button7);
-            this.panel1.Location = new System.Drawing.Point(625, 687);
+            this.panel1.Location = new System.Drawing.Point(628, 687);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(898, 43);
+            this.panel1.Size = new System.Drawing.Size(895, 43);
             this.panel1.TabIndex = 29;
             // 
             // richTextBox1
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.richTextBox1, 4);
+            this.tableLayoutPanel1.SetColumnSpan(this.richTextBox1, 5);
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.richTextBox1.Location = new System.Drawing.Point(4, 31);
@@ -683,6 +701,33 @@
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
             this.richTextBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseClick);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.wordsGrid);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(333, 487);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(288, 193);
+            this.groupBox1.TabIndex = 31;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "מילים";
+            // 
+            // wordsGrid
+            // 
+            this.wordsGrid.AllowUserToAddRows = false;
+            this.wordsGrid.AllowUserToDeleteRows = false;
+            this.wordsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.wordsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wordsGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.wordsGrid.Location = new System.Drawing.Point(3, 22);
+            this.wordsGrid.Margin = new System.Windows.Forms.Padding(4);
+            this.wordsGrid.Name = "wordsGrid";
+            this.wordsGrid.ReadOnly = true;
+            this.wordsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.wordsGrid.Size = new System.Drawing.Size(282, 168);
+            this.wordsGrid.TabIndex = 13;
+            this.wordsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.wordsGrid_CellMouseClick);
             // 
             // ToolStrip1
             // 
@@ -997,18 +1042,6 @@
             // 
             this.fontDialog1.Color = System.Drawing.SystemColors.ControlText;
             // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
-            // 
-            // jsonMenu
-            // 
-            this.jsonMenu.Name = "jsonMenu";
-            this.jsonMenu.Size = new System.Drawing.Size(152, 22);
-            this.jsonMenu.Text = "הצג JSON";
-            this.jsonMenu.Click += new System.EventHandler(this.jsonMenu_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -1041,6 +1074,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.paragraphsGrid)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.wordsGrid)).EndInit();
             this.ToolStrip1.ResumeLayout(false);
             this.ToolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1139,6 +1174,8 @@
         private TimeSpinner.TimePickerSpinner timePickerSpinner2;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem jsonMenu;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView wordsGrid;
     }
 }
 

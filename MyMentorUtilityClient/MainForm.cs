@@ -1740,6 +1740,9 @@ namespace MyMentorUtilityClient
 
         private void toolStripMenuItem4_Click_1(object sender, EventArgs e)
         {
+            Clip.Current.Paragraphs = m_paragraphs;
+            Clip.Current.RtfText = richTextBox1.Rtf;
+            
             ClipPropertiesForm frm = new ClipPropertiesForm(this);
             frm.ShowDialog();
 
@@ -1765,6 +1768,9 @@ namespace MyMentorUtilityClient
 
         private void toolStripButton11_Click(object sender, EventArgs e)
         {
+            Clip.Current.Paragraphs = m_paragraphs;
+            Clip.Current.RtfText = richTextBox1.Rtf;
+
             ClipPropertiesForm frm = new ClipPropertiesForm(this);
             frm.ShowDialog();
 

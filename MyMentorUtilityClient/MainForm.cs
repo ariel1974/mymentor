@@ -502,6 +502,7 @@ namespace MyMentorUtilityClient
                 sentencesGrid.DataSource = m_bindingListSentenses;
                 sectionsGrid.DataSource = m_bindingListSections;
                 wordsGrid.DataSource = m_bindingListWords;
+                wordsGrid.Columns[1].Visible = false;
                 //}
             //}
             //catch (ApplicationException ex)
@@ -1924,21 +1925,6 @@ namespace MyMentorUtilityClient
     [Serializable()]
     public abstract class BaseSection
     {
-        [JsonProperty(PropertyName = "index", Order = 1)]
-        public int Index { get; set; }
-
-        [JsonProperty(PropertyName = "charIndex", Order = 2)]
-        public int CharIndex { get; set; }
-
-        [JsonIgnore]
-        public int RealCharIndex { get; set; }
-
-        [JsonIgnore]
-        public bool ManuallyStartDate { get; set; }
-
-        [JsonIgnore]
-        public bool ManuallyDuration { get; set; }
-
         [JsonIgnore]
         [XmlIgnore]
         public TimeSpan StartTime
@@ -1999,6 +1985,17 @@ namespace MyMentorUtilityClient
 
         [JsonIgnore]
         [XmlIgnore]
+        public TimeSpan EndTime
+        {
+            get
+            {
+                return m_startTime.Add(m_duration);
+            }
+        }
+
+
+        [JsonIgnore]
+        [XmlIgnore]
         public TimeSpan Duration
         {
             get
@@ -2028,6 +2025,21 @@ namespace MyMentorUtilityClient
                 m_duration = value;
             }
         }
+
+        [JsonProperty(PropertyName = "index", Order = 1)]
+        public int Index { get; set; }
+
+        [JsonProperty(PropertyName = "charIndex", Order = 2)]
+        public int CharIndex { get; set; }
+
+        [JsonIgnore]
+        public int RealCharIndex { get; set; }
+
+        [JsonIgnore]
+        public bool ManuallyStartDate { get; set; }
+
+        [JsonIgnore]
+        public bool ManuallyDuration { get; set; }
 
         [JsonProperty(PropertyName = "audioStart", Order = 3)]
         [XmlIgnore]

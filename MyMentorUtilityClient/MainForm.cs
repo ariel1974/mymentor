@@ -2051,7 +2051,17 @@ namespace MyMentorUtilityClient
             }
         }
 
-        [JsonProperty(PropertyName = "audioDuration", Order = 4)]
+        [JsonProperty(PropertyName = "audioEnd", Order = 4)]
+        [XmlIgnore]
+        public string EndTimeText
+        {
+            get
+            {
+                return this.EndTime.ToString(@"hh\:mm\:ss\.fff");
+            }
+        }
+
+        [JsonProperty(PropertyName = "audioDuration", Order = 5)]
         [XmlIgnore]
         public string DurationText
         {

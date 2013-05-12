@@ -24,38 +24,41 @@ namespace MyMentorUtilityClient
             Application.SetCompatibleTextRenderingDefault(false);
 
             FileAssociationInfo fai = new FileAssociationInfo(".mnnx");
-            if (!fai.Exists)
+            if (fai.Exists)
             {
-                fai.Create("MyMentor");
-
-                //Specify MIME type (optional)
-                //fai.ContentType = "application/myfile";
-
-                //Programs automatically displayed in open with list
-                fai.OpenWithList = new string[] { "notepad.exe" };
+                fai.Delete();
             }
+
+            fai.Create("MyMentor");
+
+            //Specify MIME type (optional)
+            //fai.ContentType = "application/myfile";
+
+            //Programs automatically displayed in open with list
+            fai.OpenWithList = new string[] { "MyMentorUtilityClient.exe" };
 
             ProgramAssociationInfo pai = new ProgramAssociationInfo(fai.ProgID);
-            if (!pai.Exists)
+            if (pai.Exists)
             {
-
-                pai.Create
-                (
-                    //Description of program/file type
-                "MyMentor file type",
-
-                new ProgramVerb
-                     (
-                    //Verb name
-                     "Open",
-                    //Path and arguments to use
-                     System.Reflection.Assembly.GetExecutingAssembly().Location + " %1"
-                     )
-                   );
-
-                //optional
-                //pai.DefaultIcon = new ProgramIcon(@"C:\SomePath\SomeIcon.ico");
+                pai.Delete();
             }
+
+            pai.Create
+            (
+                //Description of program/file type
+            "MyMentor file type",
+
+            new ProgramVerb
+                    (
+                //Verb name
+                    "Open",
+                //Path and arguments to use
+                    System.Reflection.Assembly.GetExecutingAssembly().Location + " %1"
+                    )
+                );
+
+            //optional
+            //pai.DefaultIcon = new ProgramIcon(@"C:\SomePath\SomeIcon.ico");
 
             Application.Run(new MainForm(args));
         }

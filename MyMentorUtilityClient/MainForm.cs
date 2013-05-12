@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ using System.Xml.Serialization;
 using Ionic.Zip;
 using MyMentorUtilityClient.Properties;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Parse;
 
 namespace MyMentorUtilityClient
@@ -1048,7 +1050,7 @@ namespace MyMentorUtilityClient
 
             if (!string.IsNullOrEmpty(m_initClip))
             {
-
+                OpenClip(m_initClip);
             }
             else
             {
@@ -1922,6 +1924,23 @@ namespace MyMentorUtilityClient
         public string Text { get; set; }
     }
 
+    public class WordsJsonConverter : CustomCreationConverter<List<Word>>
+    {
+        public override List<Word> Create(Type objectType)
+        {
+            return new List<Word>();
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            var list = value as IList<Word>;
+            if (list.Count() > 0)
+            {
+                base.WriteJson(writer, value, serializer);
+            }
+        }
+    }
+
     [Serializable()]
     public abstract class BaseSection
     {
@@ -2087,11 +2106,16 @@ namespace MyMentorUtilityClient
             set { Duration = new TimeSpan(value); }
         }
 
-        [JsonProperty(PropertyName = "words", Order = 8)]
+        [JsonProperty(PropertyName = "words", Order = 8, NullValueHandling = NullValueHandling.Ignore)]
         [XmlArrayItem("Words")]
-        public virtual List<Word> Words { get; set; }
+        public virtual List<Word> Words
+        {
+            get;
+            set;
+        }
 
     }
+
 
     [Serializable()]
     public class Word : BaseSection
@@ -2151,7 +2175,7 @@ namespace MyMentorUtilityClient
     [Serializable()]
     public class Sentence : BaseSection, ICloneable
     {
-        [JsonProperty(PropertyName = "sections", Order = 5)]
+        [JsonProperty(PropertyName = "sections", Order = 7)]
         [XmlArrayItem("Sections")]
         public List<Section> Sections { get; set; }
 
@@ -2192,7 +2216,7 @@ namespace MyMentorUtilityClient
     [Serializable()]
     public class Paragraph : BaseSection, ICloneable
     {
-        [JsonProperty(PropertyName = "sentences", Order = 5)]
+        [JsonProperty(PropertyName = "sentences", Order = 7)]
         [XmlArrayItem("Sentences")]
         public List<Sentence> Sentences { get; set; }
 

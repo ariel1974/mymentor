@@ -6,8 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Xml.Serialization;
+using HtmlAgilityPack;
 using Ionic.Zip;
 using Microsoft.Win32;
 using MyMentorUtilityClient.Json;
@@ -80,7 +80,7 @@ namespace MyMentorUtilityClient
         public Nullable<DateTime> LastPublishedOn { get; set; }
 
         public bool AutoIncrementVersion { get; set; }
- 
+
         [XmlIgnore]
         public bool IsNew { get; set; }
         [XmlIgnore]
@@ -97,7 +97,7 @@ namespace MyMentorUtilityClient
         {
             get
             {
-                return new TimeSpan(this.Paragraphs.SelectMany(p => p.Words).Sum(p => p.Duration.Ticks) + this.Paragraphs.SelectMany( p => p.Sentences).Sum(s => s.Duration.Ticks));
+                return new TimeSpan(this.Paragraphs.SelectMany(p => p.Words).Sum(p => p.Duration.Ticks) + this.Paragraphs.SelectMany(p => p.Sentences).Sum(s => s.Duration.Ticks));
             }
         }
 
@@ -162,9 +162,9 @@ namespace MyMentorUtilityClient
                 //zip.AddFile(Path.Combine(tempPath, this.FontFileName), string.Empty);
                 zip.AddFile(this.JsonSchemaFileName, string.Empty);
 
-                if ( !string.IsNullOrEmpty(this.AudioFileName) && File.Exists(this.AudioFileName))
+                if (!string.IsNullOrEmpty(this.AudioFileName) && File.Exists(this.AudioFileName))
                 {
-                    File.Copy(this.AudioFileName, Path.Combine(tempPath, string.Format("{0}.mp3", this.ID.ToString())),true);
+                    File.Copy(this.AudioFileName, Path.Combine(tempPath, string.Format("{0}.mp3", this.ID.ToString())), true);
                     zip.AddFile(Path.Combine(tempPath, string.Format("{0}.mp3", this.ID.ToString())), string.Empty);
                 }
 
@@ -181,7 +181,7 @@ namespace MyMentorUtilityClient
         public async Task<bool> UploadAsync(IProgress<ParseUploadProgressEventArgs> progress)
         {
             //read file content
-            byte[] bytes = File.ReadAllBytes(this.MmnFileName );
+            byte[] bytes = File.ReadAllBytes(this.MmnFileName);
             ParseFile file = new ParseFile(string.Format("{0}.mmn", this.ID.ToString()), bytes);
             await file.SaveAsync(progress);
 
@@ -219,7 +219,7 @@ namespace MyMentorUtilityClient
 
             return true;
         }
-        
+
         static RegistryKey fontsKey =
     Registry.LocalMachine.OpenSubKey(
         @"Software\Microsoft\Windows NT\CurrentVersion\Fonts");
@@ -237,31 +237,17 @@ namespace MyMentorUtilityClient
             return string.Empty;
         }
 
-        private static string ReadTemplate()
-        {
-            string result = string.Empty;
-
-            using (Stream stream = Assembly.GetExecutingAssembly()
-                               .GetManifestResourceStream("MyMentorUtilityClient.Resources.template.html"))
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                     result = reader.ReadToEnd();
-                }
-
-            return result;
-        }
-
         public bool ExtractHtml()
         {
             string tempPath = System.IO.Path.GetTempPath();
-            string rtfCode =  Guid.NewGuid().ToString();
+            string rtfCode = Guid.NewGuid().ToString();
 
             string tempRtf = Path.Combine(tempPath, string.Format("{0}.rtf", rtfCode));
             string tempHtmlFolder = Path.Combine(tempPath, string.Format("{0}", Guid.NewGuid().ToString()));
 
             this.HtmlFileName = Path.Combine(tempHtmlFolder, string.Format("{0}.html", rtfCode));
 
-            RichTextBox rtb = new RichTextBox();
+            System.Windows.Forms.RichTextBox rtb = new System.Windows.Forms.RichTextBox();
             rtb.Rtf = this.RtfText;
             rtb.Text = rtb.Text.Replace(Clip.PAR_SIGN_CLOSE, string.Empty).Replace(Clip.PAR_SIGN_OPEN, string.Empty)
                 .Replace(Clip.PAR_SIGN_CLOSE, string.Empty)
@@ -293,6 +279,8 @@ namespace MyMentorUtilityClient
 
             if (File.Exists(this.HtmlFileName))
             {
+                FixHtmlAttributes(this.HtmlFileName);
+
                 File.Copy(this.HtmlFileName, newHtmlFileLocation, true);
                 this.HtmlFileName = newHtmlFileLocation;
 
@@ -302,6 +290,16 @@ namespace MyMentorUtilityClient
             {
                 return false;
             }
+        }
+
+        private void FixHtmlAttributes(string path)
+        {
+            HtmlDocument doc = new HtmlDocument();
+            doc.Load(path);
+
+            doc.DocumentNode.SelectNodes("html").FirstOrDefault().Attributes.Add("style", "direction:rtl");
+
+            doc.Save(path);
         }
 
         public bool SaveJson(string json)
@@ -332,7 +330,7 @@ namespace MyMentorUtilityClient
             clip.tags = this.Tags;
 
             clip.paragraphs = this.Paragraphs;
-            return JsonConvert.SerializeObject(clip,Formatting.Indented);
+            return JsonConvert.SerializeObject(clip, Formatting.Indented);
         }
 
     }

@@ -85,6 +85,7 @@
         <File Id='NewtonsoftJsondll' Name='Newtonsoft.Json.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Newtonsoft.Json.dll' KeyPath='no'/>
         <File Id='Parsedll' Name='Parse.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.dll' KeyPath='no'/>
         <File Id='ParseNetFx45dll' Name='Parse.NetFx45.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.NetFx45.dll' KeyPath='no'/>
+        <File Id='HtmlAgilityPackdll' Name='HtmlAgilityPack.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\HtmlAgilityPack.dll' KeyPath='no'/>
 
       </Component>
     </ComponentGroup>

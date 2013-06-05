@@ -12,6 +12,23 @@ namespace MyMentorUtilityClient
 {
     public static class ExtensionMethods
     {
+        public static string RemovePunctation(this string value)
+        {
+            char[] chars = value.ToCharArray();
+            StringBuilder sb = new StringBuilder();
+
+            foreach (char c in chars)
+            {
+                if ((int)c >= 1488 && (int)c <= 1514)
+                {
+                    sb = sb.Append(c);
+                }
+            }
+
+            return sb.ToString();
+        }
+
+
         public static IEnumerable<Word> FlattenWords(this IEnumerable<Paragraph> paragraphs)
         {
             return paragraphs.SelectMany(p => p.Words)

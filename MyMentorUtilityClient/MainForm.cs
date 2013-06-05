@@ -167,249 +167,200 @@ namespace MyMentorUtilityClient
         {
             //try
             //{
-                var paragraphs_local = new List<Paragraph>();
-                int paragraphIndex = -1;
-                int sectionIndex = -1;
-                int sentenceIndex = -1;
-                int wordIndex = -1;
+            var paragraphs_local = new List<Paragraph>();
+            int paragraphIndex = -1;
+            int sectionIndex = -1;
+            int sentenceIndex = -1;
+            int wordIndex = -1;
 
-                int innerSentenceIndex = -1;
-                int innerSectionIndex = -1;
+            int innerSentenceIndex = -1;
+            int innerSectionIndex = -1;
 
-                TimeSpan nextStartTime = TimeSpan.Zero;
-                TimeSpan nextParagraphDuration = TimeSpan.Zero;
-                TimeSpan nextSentenceDuration = TimeSpan.Zero;
-                TimeSpan nextSectionDuration = TimeSpan.Zero;
+            TimeSpan nextStartTime = TimeSpan.Zero;
+            TimeSpan nextParagraphDuration = TimeSpan.Zero;
+            TimeSpan nextSentenceDuration = TimeSpan.Zero;
+            TimeSpan nextSectionDuration = TimeSpan.Zero;
 
-                IEnumerable<Word> allWords = null;
+            IEnumerable<Word> allWords = null;
 
-                if (m_paragraphs != null)
+            if (m_paragraphs != null)
+            {
+                allWords = m_paragraphs.FlattenWords();
+            }
+
+            /// Paragraphs
+
+            MatchCollection matchesParagraphs = m_regexParagraphs.Matches(richTextBox1.Text);
+
+            int bufferIndex = 0;
+
+            foreach (Match matchParagraph in matchesParagraphs)
+            {
+                // test for more paragraph sections
+                Match testPar = m_regexFreeParagraphs.Match(matchParagraph.Value);
+                if (testPar.Success)
                 {
-                    allWords = m_paragraphs.FlattenWords();
+                    throw new ApplicationException(string.Format("עוגן פסקה מיותר"));
                 }
 
-                /// Paragraphs
+                paragraphIndex++;
+                innerSentenceIndex = -1;
 
-                MatchCollection matchesParagraphs = m_regexParagraphs.Matches(richTextBox1.Text);
+                TimeSpan start = TimeSpan.Zero;
+                TimeSpan duration = TimeSpan.Zero;
+                bool startManually = false;
+                bool durationManually = false;
+                Paragraph ex_paragraph = null;
 
-                int bufferIndex = 0;
-
-                foreach (Match matchParagraph in matchesParagraphs)
+                //check for saved schedule
+                if (m_paragraphs != null)
                 {
-                    // test for more paragraph sections
-                    Match testPar = m_regexFreeParagraphs.Match(matchParagraph.Value);
-                    if (testPar.Success)
+                    ex_paragraph = m_paragraphs.Where(p => p.Index == paragraphIndex).FirstOrDefault();
+                }
+
+                if (ex_paragraph != null)
+                {
+                    start = ex_paragraph.StartTime;
+                    duration = ex_paragraph.Duration;
+                    startManually = ex_paragraph.ManuallyStartDate;
+                    durationManually = ex_paragraph.ManuallyDuration;
+                }
+
+                paragraphs_local.Add(new Paragraph
+                {
+                    RealCharIndex = matchParagraph.Index,
+                    CharIndex = matchParagraph.Index - bufferIndex - 2,
+                    ManuallyStartDate = startManually,
+                    ManuallyDuration = durationManually,
+                    Index = paragraphIndex,
+                    Sentences = new List<Sentence>(),
+                    Words = new List<Word>(),
+                    StartTime = start,
+                    Duration = duration,
+                });
+
+                bufferIndex += 4;
+
+                /// Sentenses 
+                /// 
+                MatchCollection matchesSentenses = m_regexSentenses.Matches(matchParagraph.Value);
+
+                //in case exists sentences 
+                if (matchesSentenses.Count > 0)
+                {
+                    foreach (Match matchSentense in matchesSentenses)
                     {
-                        throw new ApplicationException(string.Format("עוגן פסקה מיותר"));
-                    }
-
-                    paragraphIndex++;
-                    innerSentenceIndex = -1;
-
-                    TimeSpan start = TimeSpan.Zero;
-                    TimeSpan duration = TimeSpan.Zero;
-                    bool startManually = false;
-                    bool durationManually = false;
-                    Paragraph ex_paragraph = null;
-
-                    //check for saved schedule
-                    if (m_paragraphs != null)
-                    {
-                        ex_paragraph = m_paragraphs.Where(p => p.Index == paragraphIndex).FirstOrDefault();
-                    }
-
-                    if (ex_paragraph != null)
-                    {
-                        start = ex_paragraph.StartTime;
-                        duration = ex_paragraph.Duration;
-                        startManually = ex_paragraph.ManuallyStartDate;
-                        durationManually = ex_paragraph.ManuallyDuration;
-                    }
-
-                    paragraphs_local.Add(new Paragraph
-                    {
-                        RealCharIndex = matchParagraph.Index,
-                        CharIndex = matchParagraph.Index - bufferIndex - 2,
-                        ManuallyStartDate = startManually,
-                        ManuallyDuration = durationManually,
-                        Index = paragraphIndex,
-                        Sentences = new List<Sentence>(),
-                        Words = new List<Word>(),
-                        StartTime = start,
-                        Duration = duration,
-                    });
-
-                    bufferIndex += 4;
-
-                    /// Sentenses 
-                    /// 
-                    MatchCollection matchesSentenses = m_regexSentenses.Matches(matchParagraph.Value);
-
-                    //in case exists sentences 
-                    if (matchesSentenses.Count > 0)
-                    {
-                        foreach (Match matchSentense in matchesSentenses)
+                        // test for more paragraph sections
+                        testPar = m_regexFreeSentenses.Match(matchSentense.Value);
+                        if (testPar.Success)
                         {
-                            // test for more paragraph sections
-                            testPar = m_regexFreeSentenses.Match(matchSentense.Value);
-                            if (testPar.Success)
+                            throw new ApplicationException(string.Format("עוגן משפט מיותר בטקסט"));
+                        }
+
+                        start = TimeSpan.Zero;
+                        duration = TimeSpan.Zero;
+                        startManually = false;
+                        durationManually = false;
+                        Sentence ex_sentence = null;
+
+                        sentenceIndex++;
+                        innerSentenceIndex++;
+                        innerSectionIndex = -1;
+
+                        //check for saved schedule
+                        if (m_paragraphs != null)
+                        {
+                            ex_sentence = m_paragraphs.SelectMany(s => s.Sentences).Where(p => p.Index == sentenceIndex).FirstOrDefault();
+                        }
+
+                        if (ex_sentence != null)
+                        {
+                            start = ex_sentence.StartTime;
+                            duration = ex_sentence.Duration;
+                            startManually = ex_sentence.ManuallyStartDate;
+                            durationManually = ex_sentence.ManuallyDuration;
+                        }
+
+                        int sectionsOffset = 0;
+                        int wordsOffset = 0;
+
+                        if (innerSentenceIndex > 0)
+                        {
+                            sectionsOffset = paragraphs_local[paragraphIndex].Sentences.Take(innerSentenceIndex).SelectMany(p => p.Sections).Count() * 4;
+                            wordsOffset = paragraphs_local[paragraphIndex].Sentences.Take(innerSentenceIndex).SelectMany(p => p.Sections).SelectMany(w => w.Words).Where(w => w.IsInGroup).Count() * 4;
+                        }
+
+                        paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
+                        {   //                     5                               +           15    - 4   - (4 * 1) - 2
+                            RealCharIndex = paragraphs_local[paragraphIndex].RealCharIndex + matchSentense.Index,
+                            CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchSentense.Index - sectionsOffset - wordsOffset - (4 * innerSentenceIndex) - 2,
+                            Index = sentenceIndex,
+                            ManuallyDuration = durationManually,
+                            ManuallyStartDate = startManually,
+                            Sections = new List<Section>(),
+                            Words = new List<Word>(),
+                            StartTime = start,
+                            Duration = duration
+                        });
+
+                        bufferIndex += 4;
+
+                        /// Sections 
+                        /// 
+                        MatchCollection matchesSections = m_regexSections.Matches(matchSentense.Value);
+
+                        if (matchesSections.Count > 0)
+                        {
+
+                            foreach (Match matchSection in matchesSections)
                             {
-                                throw new ApplicationException(string.Format("עוגן משפט מיותר בטקסט"));
-                            }
-
-                            start = TimeSpan.Zero;
-                            duration = TimeSpan.Zero;
-                             startManually = false;
-                             durationManually = false;
-                            Sentence ex_sentence = null;
-                            
-                            sentenceIndex++;
-                            innerSentenceIndex++;
-                            innerSectionIndex = -1;
-
-                            //check for saved schedule
-                            if (m_paragraphs != null)
-                            {
-                                ex_sentence = m_paragraphs.SelectMany(s => s.Sentences).Where(p => p.Index == sentenceIndex).FirstOrDefault();
-                            }
-
-                            if (ex_sentence != null)
-                            {
-                                start = ex_sentence.StartTime;
-                                duration = ex_sentence.Duration;
-                                startManually = ex_sentence.ManuallyStartDate;
-                                durationManually = ex_sentence.ManuallyDuration;
-                            }
-
-                            int sectionsOffset = 0;
-                            int wordsOffset = 0;
-
-                            if (innerSentenceIndex > 0)
-                            {
-                                sectionsOffset = paragraphs_local[paragraphIndex].Sentences.Take(innerSentenceIndex).SelectMany(p => p.Sections).Count() * 4;
-                                wordsOffset = paragraphs_local[paragraphIndex].Sentences.Take(innerSentenceIndex).SelectMany(p => p.Sections).SelectMany(w => w.Words).Where(w => w.IsInGroup).Count() * 4;
-                            }
-
-                            paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
-                            {   //                     5                               +           15    - 4   - (4 * 1) - 2
-                                RealCharIndex = paragraphs_local[paragraphIndex].RealCharIndex + matchSentense.Index,
-                                CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchSentense.Index - sectionsOffset - wordsOffset - (4 * innerSentenceIndex) - 2,
-                                Index = sentenceIndex,
-                                ManuallyDuration = durationManually,
-                                ManuallyStartDate = startManually,
-                                Sections = new List<Section>(),
-                                Words = new List<Word>(),
-                                StartTime = start,
-                                Duration = duration
-                            });
-
-                            bufferIndex += 4;
-
-                            /// Sections 
-                            /// 
-                            MatchCollection matchesSections = m_regexSections.Matches(matchSentense.Value);
-
-                            if (matchesSections.Count > 0)
-                            {
-
-                                foreach (Match matchSection in matchesSections)
+                                // test for more paragraph sections
+                                testPar = m_regexFreeSections.Match(matchSection.Value);
+                                if (testPar.Success)
                                 {
-                                    // test for more paragraph sections
-                                    testPar = m_regexFreeSections.Match(matchSection.Value);
-                                    if (testPar.Success)
-                                    {
-                                        throw new ApplicationException(string.Format("עוגן קטע מיותר"));
-                                    }
-
-                                    sectionIndex++;
-                                    innerSectionIndex++;
-
-                                    start = TimeSpan.Zero;
-                                    duration = TimeSpan.Zero;
-                                    startManually = false;
-                                    durationManually = false;
-                                    Section ex_section = null;
-
-                                    //check for saved schedule
-                                    if (m_paragraphs != null)
-                                    {
-                                        ex_section = m_paragraphs.SelectMany(s => s.Sentences).SelectMany(se => se.Sections).Where(p => p.Index == sectionIndex).FirstOrDefault();
-                                    }
-
-                                    if (ex_section != null)
-                                    {
-                                        start = ex_section.StartTime;
-                                        duration = ex_section.Duration;
-                                        startManually = ex_section.ManuallyStartDate;
-                                        durationManually = ex_section.ManuallyDuration;
-                                    }
-
-                                    paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
-                                    {
-                                        ManuallyDuration = durationManually,
-                                        ManuallyStartDate = startManually,
-                                        RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].RealCharIndex + matchSection.Index,
-                                        CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchSection.Index - (4 * innerSectionIndex) - 2,
-                                        Index = sectionIndex,
-                                        Words = new List<Word>(),
-                                        StartTime = start,
-                                        Duration = duration
-                                    });
-
-                                    bufferIndex += 4;
-
-                                    /// Sections 
-                                    /// 
-                                    MatchCollection matchesWords = m_regexWords.Matches(matchSection.Value);
-
-                                    foreach (Match matchWord in matchesWords)
-                                    {
-                                        // test for more paragraph sections
-                                        testPar = m_regexFreeWords.Match(matchWord.Value);
-                                        if (testPar.Success)
-                                        {
-                                            throw new ApplicationException(string.Format("עוגן מילה מיותר"));
-                                        }
-
-                                        wordIndex++;
-
-                                        if (allWords != null)
-                                        {
-                                            Word ex_word = allWords.Where(w => w.Index == wordIndex).FirstOrDefault();
-
-                                            if (ex_word != null)
-                                            {
-                                                start = ex_word.StartTime;
-                                                duration = ex_word.Duration;
-                                            }
-                                        }
-
-                                        paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Add(new Word
-                                        {
-                                            RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].RealCharIndex + matchWord.Index,
-                                            CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Where(w => w.IsInGroup).Count() * 4,
-                                            IsInGroup = matchWord.Groups["group"].Success,
-                                            Index = wordIndex,
-                                            Text = matchWord.Value,
-                                            StartTime = start,
-                                            Duration = duration
-                                        });
-
-                                        if (matchWord.Groups["group"].Success)
-                                        {
-                                            bufferIndex += 4;
-                                        }
-
-                                    }
-
-
+                                    throw new ApplicationException(string.Format("עוגן קטע מיותר"));
                                 }
-                            }
-                            else
-                            {
-                                //no sections for this sentense
+
+                                sectionIndex++;
+                                innerSectionIndex++;
+
+                                start = TimeSpan.Zero;
+                                duration = TimeSpan.Zero;
+                                startManually = false;
+                                durationManually = false;
+                                Section ex_section = null;
+
+                                //check for saved schedule
+                                if (m_paragraphs != null)
+                                {
+                                    ex_section = m_paragraphs.SelectMany(s => s.Sentences).SelectMany(se => se.Sections).Where(p => p.Index == sectionIndex).FirstOrDefault();
+                                }
+
+                                if (ex_section != null)
+                                {
+                                    start = ex_section.StartTime;
+                                    duration = ex_section.Duration;
+                                    startManually = ex_section.ManuallyStartDate;
+                                    durationManually = ex_section.ManuallyDuration;
+                                }
+
+                                paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
+                                {
+                                    ManuallyDuration = durationManually,
+                                    ManuallyStartDate = startManually,
+                                    RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].RealCharIndex + matchSection.Index,
+                                    CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchSection.Index - (4 * innerSectionIndex) - 2,
+                                    Index = sectionIndex,
+                                    Words = new List<Word>(),
+                                    StartTime = start,
+                                    Duration = duration
+                                });
+
+                                bufferIndex += 4;
+
+                                /// Sections 
                                 /// 
-                                MatchCollection matchesWords = m_regexWords.Matches(matchSentense.Value);
+                                MatchCollection matchesWords = m_regexWords.Matches(matchSection.Value);
 
                                 foreach (Match matchWord in matchesWords)
                                 {
@@ -433,79 +384,128 @@ namespace MyMentorUtilityClient
                                         }
                                     }
 
-                                    paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Words.Add(new Word
+                                    paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Add(new Word
                                     {
-                                        RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].RealCharIndex + matchWord.Index,
-                                        CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Words.Where(w => w.IsInGroup).Count() * 4,
+                                        RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].RealCharIndex + matchWord.Index,
+                                        CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Where(w => w.IsInGroup).Count() * 4,
                                         IsInGroup = matchWord.Groups["group"].Success,
                                         Index = wordIndex,
                                         Text = matchWord.Value,
                                         StartTime = start,
                                         Duration = duration
                                     });
+
+                                    if (matchWord.Groups["group"].Success)
+                                    {
+                                        bufferIndex += 4;
+                                    }
+
                                 }
 
-                            }
 
+                            }
                         }
-                    }
-                    else
-                    {
-                        //no sentense for this paragraph
-                        /// Sections 
-                        /// 
-                        MatchCollection matchesWords = m_regexWords.Matches(matchParagraph.Value);
-
-                        foreach (Match matchWord in matchesWords)
+                        else
                         {
-                            // test for more paragraph sections
-                            testPar = m_regexFreeWords.Match(matchWord.Value);
-                            if (testPar.Success)
+                            //no sections for this sentense
+                            /// 
+                            MatchCollection matchesWords = m_regexWords.Matches(matchSentense.Value);
+
+                            foreach (Match matchWord in matchesWords)
                             {
-                                throw new ApplicationException(string.Format("עוגן מילה מיותר"));
-                            }
-
-                            wordIndex++;
-
-                            if (allWords != null)
-                            {
-                                Word ex_word = allWords.Where(w => w.Index == wordIndex).FirstOrDefault();
-
-                                if (ex_word != null)
+                                // test for more paragraph sections
+                                testPar = m_regexFreeWords.Match(matchWord.Value);
+                                if (testPar.Success)
                                 {
-                                    start = ex_word.StartTime;
-                                    duration = ex_word.Duration;
+                                    throw new ApplicationException(string.Format("עוגן מילה מיותר"));
                                 }
+
+                                wordIndex++;
+
+                                if (allWords != null)
+                                {
+                                    Word ex_word = allWords.Where(w => w.Index == wordIndex).FirstOrDefault();
+
+                                    if (ex_word != null)
+                                    {
+                                        start = ex_word.StartTime;
+                                        duration = ex_word.Duration;
+                                    }
+                                }
+
+                                paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Words.Add(new Word
+                                {
+                                    RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].RealCharIndex + matchWord.Index,
+                                    CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Words.Where(w => w.IsInGroup).Count() * 4,
+                                    IsInGroup = matchWord.Groups["group"].Success,
+                                    Index = wordIndex,
+                                    Text = matchWord.Value,
+                                    StartTime = start,
+                                    Duration = duration
+                                });
                             }
 
-                            paragraphs_local[paragraphIndex].Words.Add(new Word
-                            {
-                                RealCharIndex = paragraphs_local[paragraphIndex].RealCharIndex + matchWord.Index,
-                                CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Words.Where(w => w.IsInGroup).Count() * 4,
-                                IsInGroup = matchWord.Groups["group"].Success,
-                                Index = wordIndex,
-                                Text = matchWord.Value,
-                                StartTime = start,
-                                Duration = duration
-                            });
                         }
 
                     }
                 }
+                else
+                {
+                    //no sentense for this paragraph
+                    /// Sections 
+                    /// 
+                    MatchCollection matchesWords = m_regexWords.Matches(matchParagraph.Value);
 
-                m_paragraphs = paragraphs_local;
+                    foreach (Match matchWord in matchesWords)
+                    {
+                        // test for more paragraph sections
+                        testPar = m_regexFreeWords.Match(matchWord.Value);
+                        if (testPar.Success)
+                        {
+                            throw new ApplicationException(string.Format("עוגן מילה מיותר"));
+                        }
 
-                m_bindingListParagraphs = new BindingList<Paragraph>(m_paragraphs.ToList());
-                m_bindingListSentenses = new BindingList<Sentence>(m_paragraphs.SelectMany(p => p.Sentences).ToList());
-                m_bindingListSections = new BindingList<Section>(m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).ToList());
-                m_bindingListWords = new BindingList<Word>(m_paragraphs.FlattenWords().ToList<Word>());
+                        wordIndex++;
 
-                paragraphsGrid.DataSource = m_bindingListParagraphs;
-                sentencesGrid.DataSource = m_bindingListSentenses;
-                sectionsGrid.DataSource = m_bindingListSections;
-                wordsGrid.DataSource = m_bindingListWords;
-                wordsGrid.Columns[1].Visible = false;
-                //}
+                        if (allWords != null)
+                        {
+                            Word ex_word = allWords.Where(w => w.Index == wordIndex).FirstOrDefault();
+
+                            if (ex_word != null)
+                            {
+                                start = ex_word.StartTime;
+                                duration = ex_word.Duration;
+                            }
+                        }
+
+                        paragraphs_local[paragraphIndex].Words.Add(new Word
+                        {
+                            RealCharIndex = paragraphs_local[paragraphIndex].RealCharIndex + matchWord.Index,
+                            CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Words.Where(w => w.IsInGroup).Count() * 4,
+                            IsInGroup = matchWord.Groups["group"].Success,
+                            Index = wordIndex,
+                            Text = matchWord.Value,
+                            StartTime = start,
+                            Duration = duration
+                        });
+                    }
+
+                }
+            }
+
+            m_paragraphs = paragraphs_local;
+
+            m_bindingListParagraphs = new BindingList<Paragraph>(m_paragraphs.ToList());
+            m_bindingListSentenses = new BindingList<Sentence>(m_paragraphs.SelectMany(p => p.Sentences).ToList());
+            m_bindingListSections = new BindingList<Section>(m_paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).ToList());
+            m_bindingListWords = new BindingList<Word>(m_paragraphs.FlattenWords().ToList<Word>());
+
+            paragraphsGrid.DataSource = m_bindingListParagraphs;
+            sentencesGrid.DataSource = m_bindingListSentenses;
+            sectionsGrid.DataSource = m_bindingListSections;
+            wordsGrid.DataSource = m_bindingListWords;
+            wordsGrid.Columns[1].Visible = false;
+            //}
             //}
             //catch (ApplicationException ex)
             //{
@@ -1745,7 +1745,7 @@ namespace MyMentorUtilityClient
         {
             Clip.Current.Paragraphs = m_paragraphs;
             Clip.Current.RtfText = richTextBox1.Rtf;
-            
+
             ClipPropertiesForm frm = new ClipPropertiesForm(this);
             frm.ShowDialog();
 
@@ -2051,6 +2051,58 @@ namespace MyMentorUtilityClient
         [JsonProperty(PropertyName = "charIndex", Order = 2)]
         public int CharIndex { get; set; }
 
+        [JsonProperty(PropertyName = "length", Order = 3)]
+        public int Length
+        {
+            get
+            {
+                int length = 0;
+
+                switch (this.GetType().ToString())
+                {
+                    case "MyMentorUtilityClient.Paragraph":
+
+                        if (((Paragraph)this).Words.Any())
+                        {
+                            length = ((Paragraph)this).Words.Sum(w => w.Length);
+                        }
+                        else
+                        {
+                            if (((Paragraph)this).Sentences.Any())
+                            {
+                                length = ((Paragraph)this).Sentences.Sum(s => s.Length);
+                            }
+                        }
+                        break;
+                    case "MyMentorUtilityClient.Sentence":
+                        if (((Sentence)this).Words.Any())
+                        {
+                            length = ((Sentence)this).Words.Sum(w => w.Length);
+                        }
+                        else
+                        {
+                            if (((Sentence)this).Sections.Any())
+                            {
+                                length = ((Sentence)this).Sections.Sum(s => s.Length);
+                            }
+                        }
+                        break;
+                    case "MyMentorUtilityClient.Section":
+                        if (((Section)this).Words.Any())
+                        {
+                            length = ((Section)this).Words.Sum(w => w.Length);
+                        }
+                        break;
+                    case "MyMentorUtilityClient.Word":
+                        length = ((Word)this).Text.RemovePunctation().Length;
+                        break;
+                }
+
+                return length;
+            }
+
+        }
+
         [JsonIgnore]
         public int RealCharIndex { get; set; }
 
@@ -2060,7 +2112,7 @@ namespace MyMentorUtilityClient
         [JsonIgnore]
         public bool ManuallyDuration { get; set; }
 
-        [JsonProperty(PropertyName = "audioStart", Order = 3)]
+        [JsonProperty(PropertyName = "audioStart", Order = 4)]
         [XmlIgnore]
         public string StartTimeText
         {
@@ -2070,7 +2122,7 @@ namespace MyMentorUtilityClient
             }
         }
 
-        [JsonProperty(PropertyName = "audioEnd", Order = 4)]
+        [JsonProperty(PropertyName = "audioEnd", Order = 5)]
         [XmlIgnore]
         public string EndTimeText
         {
@@ -2080,7 +2132,7 @@ namespace MyMentorUtilityClient
             }
         }
 
-        [JsonProperty(PropertyName = "audioDuration", Order = 5)]
+        [JsonProperty(PropertyName = "audioDuration", Order = 6)]
         [XmlIgnore]
         public string DurationText
         {
@@ -2120,7 +2172,7 @@ namespace MyMentorUtilityClient
     [Serializable()]
     public class Word : BaseSection
     {
-        [JsonProperty(PropertyName = "text", Order = 5)]
+        [JsonProperty(PropertyName = "text", Order = 7)]
         public string Text { get; set; }
 
         [JsonProperty("isInGroup")]
@@ -2175,7 +2227,7 @@ namespace MyMentorUtilityClient
     [Serializable()]
     public class Sentence : BaseSection, ICloneable
     {
-        [JsonProperty(PropertyName = "sections", Order = 7)]
+        [JsonProperty(PropertyName = "sections", Order = 8)]
         [XmlArrayItem("Sections")]
         public List<Section> Sections { get; set; }
 
@@ -2216,7 +2268,7 @@ namespace MyMentorUtilityClient
     [Serializable()]
     public class Paragraph : BaseSection, ICloneable
     {
-        [JsonProperty(PropertyName = "sentences", Order = 7)]
+        [JsonProperty(PropertyName = "sentences", Order = 8)]
         [XmlArrayItem("Sentences")]
         public List<Sentence> Sentences { get; set; }
 

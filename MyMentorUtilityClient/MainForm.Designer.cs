@@ -33,8 +33,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.sectionGroup = new System.Windows.Forms.GroupBox();
-            this.timePickerSpinner2 = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
-            this.timePickerSpinner1 = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
             this.lblSectionText = new System.Windows.Forms.Label();
             this.tbSectionText = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -116,6 +114,10 @@
             this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.timePickerSpinner2 = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
+            this.timePickerSpinner1 = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.sectionGroup.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -154,7 +156,7 @@
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(585, 737);
+            this.richTextBox2.Location = new System.Drawing.Point(588, 737);
             this.richTextBox2.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(38, 1);
@@ -175,30 +177,10 @@
             this.sectionGroup.Margin = new System.Windows.Forms.Padding(4);
             this.sectionGroup.Name = "sectionGroup";
             this.sectionGroup.Padding = new System.Windows.Forms.Padding(4);
-            this.sectionGroup.Size = new System.Drawing.Size(326, 342);
+            this.sectionGroup.Size = new System.Drawing.Size(330, 342);
             this.sectionGroup.TabIndex = 15;
             this.sectionGroup.TabStop = false;
             this.sectionGroup.Text = "עדכון";
-            // 
-            // timePickerSpinner2
-            // 
-            this.timePickerSpinner2.Location = new System.Drawing.Point(19, 129);
-            this.timePickerSpinner2.Margin = new System.Windows.Forms.Padding(6);
-            this.timePickerSpinner2.Name = "timePickerSpinner2";
-            this.timePickerSpinner2.Size = new System.Drawing.Size(173, 36);
-            this.timePickerSpinner2.TabIndex = 22;
-            this.timePickerSpinner2.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerSpinner2.ValueChanged += new System.EventHandler(this.timePickerSpinner2_ValueChanged);
-            // 
-            // timePickerSpinner1
-            // 
-            this.timePickerSpinner1.Location = new System.Drawing.Point(19, 83);
-            this.timePickerSpinner1.Margin = new System.Windows.Forms.Padding(4);
-            this.timePickerSpinner1.Name = "timePickerSpinner1";
-            this.timePickerSpinner1.Size = new System.Drawing.Size(181, 36);
-            this.timePickerSpinner1.TabIndex = 21;
-            this.timePickerSpinner1.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerSpinner1.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
             // 
             // lblSectionText
             // 
@@ -512,11 +494,11 @@
             // 
             this.groupBox5.Controls.Add(this.sectionsGrid);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.Location = new System.Drawing.Point(631, 387);
+            this.groupBox5.Location = new System.Drawing.Point(634, 387);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(296, 342);
+            this.groupBox5.Size = new System.Drawing.Size(295, 342);
             this.groupBox5.TabIndex = 24;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "קטעים";
@@ -533,7 +515,7 @@
             this.sectionsGrid.Name = "sectionsGrid";
             this.sectionsGrid.ReadOnly = true;
             this.sectionsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.sectionsGrid.Size = new System.Drawing.Size(288, 315);
+            this.sectionsGrid.Size = new System.Drawing.Size(287, 315);
             this.sectionsGrid.TabIndex = 12;
             this.sectionsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.sectionsGrid_CellMouseClick);
             // 
@@ -541,11 +523,11 @@
             // 
             this.groupBox6.Controls.Add(this.sentencesGrid);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(935, 387);
+            this.groupBox6.Location = new System.Drawing.Point(937, 387);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox6.Size = new System.Drawing.Size(290, 342);
+            this.groupBox6.Size = new System.Drawing.Size(289, 342);
             this.groupBox6.TabIndex = 25;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "משפטים";
@@ -562,7 +544,7 @@
             this.sentencesGrid.Name = "sentencesGrid";
             this.sentencesGrid.ReadOnly = true;
             this.sentencesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.sentencesGrid.Size = new System.Drawing.Size(282, 315);
+            this.sentencesGrid.Size = new System.Drawing.Size(281, 315);
             this.sentencesGrid.TabIndex = 12;
             this.sentencesGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.sentencesGrid_CellMouseClick);
             // 
@@ -581,11 +563,11 @@
             // 
             this.groupBox4.Controls.Add(this.paragraphsGrid);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(1233, 387);
+            this.groupBox4.Location = new System.Drawing.Point(1234, 387);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(290, 342);
+            this.groupBox4.Size = new System.Drawing.Size(289, 342);
             this.groupBox4.TabIndex = 26;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "פסקאות";
@@ -602,7 +584,7 @@
             this.paragraphsGrid.Name = "paragraphsGrid";
             this.paragraphsGrid.ReadOnly = true;
             this.paragraphsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.paragraphsGrid.Size = new System.Drawing.Size(282, 315);
+            this.paragraphsGrid.Size = new System.Drawing.Size(281, 315);
             this.paragraphsGrid.TabIndex = 12;
             this.paragraphsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.paragraphsGrid_CellMouseClick);
             // 
@@ -613,7 +595,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.98973F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.46201F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.55852F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 332F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 336F));
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox6, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox5, 2, 3);
@@ -655,9 +637,9 @@
             // 
             this.groupBox1.Controls.Add(this.wordsGrid);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(337, 386);
+            this.groupBox1.Location = new System.Drawing.Point(341, 386);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(287, 344);
+            this.groupBox1.Size = new System.Drawing.Size(286, 344);
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "מילים";
@@ -674,7 +656,7 @@
             this.wordsGrid.Name = "wordsGrid";
             this.wordsGrid.ReadOnly = true;
             this.wordsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.wordsGrid.Size = new System.Drawing.Size(281, 319);
+            this.wordsGrid.Size = new System.Drawing.Size(280, 319);
             this.wordsGrid.TabIndex = 13;
             this.wordsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.wordsGrid_CellMouseClick);
             // 
@@ -685,6 +667,8 @@
             this.tbrOpen,
             this.tbrSave,
             this.ToolStripSeparator1,
+            this.toolStripComboBox1,
+            this.toolStripLabel1,
             this.tbrFont,
             this.ToolStripSeparator4,
             this.tbrRight,
@@ -991,6 +975,47 @@
             // 
             this.fontDialog1.Color = System.Drawing.SystemColors.ControlText;
             // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            "12px",
+            "14px",
+            "16px",
+            "20px",
+            "22px",
+            "26px",
+            "32px"});
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(75, 25);
+            this.toolStripComboBox1.Text = "12px";
+            this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
+            // 
+            // timePickerSpinner2
+            // 
+            this.timePickerSpinner2.Location = new System.Drawing.Point(19, 129);
+            this.timePickerSpinner2.Margin = new System.Windows.Forms.Padding(6);
+            this.timePickerSpinner2.Name = "timePickerSpinner2";
+            this.timePickerSpinner2.Size = new System.Drawing.Size(173, 36);
+            this.timePickerSpinner2.TabIndex = 22;
+            this.timePickerSpinner2.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerSpinner2.ValueChanged += new System.EventHandler(this.timePickerSpinner2_ValueChanged);
+            // 
+            // timePickerSpinner1
+            // 
+            this.timePickerSpinner1.Location = new System.Drawing.Point(19, 83);
+            this.timePickerSpinner1.Margin = new System.Windows.Forms.Padding(4);
+            this.timePickerSpinner1.Name = "timePickerSpinner1";
+            this.timePickerSpinner1.Size = new System.Drawing.Size(181, 36);
+            this.timePickerSpinner1.TabIndex = 21;
+            this.timePickerSpinner1.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerSpinner1.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(51, 22);
+            this.toolStripLabel1.Text = "Text size";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -1120,6 +1145,8 @@
         private System.Windows.Forms.ToolStripMenuItem jsonMenu;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView wordsGrid;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
     }
 }
 

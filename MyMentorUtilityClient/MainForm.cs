@@ -1515,9 +1515,9 @@ namespace MyMentorUtilityClient
         {
             try
             {
-                if (!(richTextBox1.Font == null))
+                if (!(richTextBox1.SelectionFont == null))
                 {
-                    fontDialog1.Font = richTextBox1.Font;
+                    fontDialog1.Font = richTextBox1.SelectionFont;
                 }
                 else
                 {
@@ -1526,7 +1526,7 @@ namespace MyMentorUtilityClient
                 fontDialog1.ShowApply = true;
                 if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    richTextBox1.Font = fontDialog1.Font;
+                    richTextBox1.SelectionFont = fontDialog1.Font;
                 }
             }
             catch (Exception ex)
@@ -1914,6 +1914,11 @@ namespace MyMentorUtilityClient
                 }
             }
         }
+
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            richTextBox1.Font = new Font(richTextBox1.Font.FontFamily, float.Parse(toolStripComboBox1.Text.Replace("px",string.Empty)));
+        }
     }
 
     public class SectionCellData
@@ -2064,7 +2069,7 @@ namespace MyMentorUtilityClient
 
                         if (((Paragraph)this).Words.Any())
                         {
-                            length = ((Paragraph)this).Words.Sum(w => w.Length);
+                            length = (((Paragraph)this).Words.Last().CharIndex + ((Paragraph)this).Words.Last().Length ) - ((Sentence)this).CharIndex;
                         }
                         else
                         {
@@ -2077,7 +2082,7 @@ namespace MyMentorUtilityClient
                     case "MyMentorUtilityClient.Sentence":
                         if (((Sentence)this).Words.Any())
                         {
-                            length = ((Sentence)this).Words.Sum(w => w.Length);
+                            length = (((Sentence)this).Words.Last().CharIndex + ((Sentence)this).Words.Last().Length ) - ((Sentence)this).CharIndex;
                         }
                         else
                         {
@@ -2090,11 +2095,11 @@ namespace MyMentorUtilityClient
                     case "MyMentorUtilityClient.Section":
                         if (((Section)this).Words.Any())
                         {
-                            length = ((Section)this).Words.Sum(w => w.Length);
+                            length = (((Section)this).Words.Last().CharIndex + ((Section)this).Words.Last().Length ) - ((Section)this).CharIndex;
                         }
                         break;
                     case "MyMentorUtilityClient.Word":
-                        length = ((Word)this).Text.RemovePunctation().Length;
+                        length = ((Word)this).Text.Length;//   .RemovePunctation().Length;
                         break;
                 }
 

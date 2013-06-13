@@ -280,7 +280,6 @@ namespace MyMentorUtilityClient
             if (File.Exists(this.HtmlFileName))
             {
                 FixHtmlAttributes(this.HtmlFileName);
-
                 File.Copy(this.HtmlFileName, newHtmlFileLocation, true);
                 this.HtmlFileName = newHtmlFileLocation;
 

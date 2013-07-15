@@ -124,7 +124,7 @@ namespace MyMentorUtilityClient
             textBox5.Text = Clip.Current.SubCategory;
             textBox6.Text = Clip.Current.Tags;
             comboBox1.Text = Clip.Current.Status;
-            textBox8.Text = Clip.Current.Duration.ToString(@"hh\:mm\:ss\.fff");
+            textBox8.Text = Clip.Current.Chapter.Duration.ToString(@"hh\:mm\:ss\.fff");
             checkBox1.Checked = Clip.Current.AutoIncrementVersion;
 
             def_par.Checked = Clip.Current.DefaultSections.paragraph == 1;

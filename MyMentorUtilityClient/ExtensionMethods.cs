@@ -14,12 +14,33 @@ namespace MyMentorUtilityClient
     {
         public static string RemovePunctation(this string value)
         {
+            return RemovePunctation(value, false);
+        }
+
+        public static string RemovePunctation(this string value, bool saveSectionSigns)
+        {
             char[] chars = value.ToCharArray();
             StringBuilder sb = new StringBuilder();
 
             foreach (char c in chars)
             {
-                if ((int)c >= 1488 && (int)c <= 1514)
+                if ( (int)c >= 1488 && (int)c <= 1514 || //hebrew
+                    (int)c >= 65 && (int)c <= 90 || //english upper
+                    (int)c >= 97 && (int)c <= 122 || //english upper
+                    (int)c == 32 || // space
+                    (int)c == 58 || // :
+                    (int)c == 44 || // ,
+                    (int)c == 45 || // -
+                    (int)c == 1470 || // ־
+                    (int)c == 46 || // .
+                    (int)c == 59 || // ;
+                    (c == '}' && saveSectionSigns) ||
+                    (c == '{' && saveSectionSigns) ||
+                    (c == '(' && saveSectionSigns) ||
+                    (c == ')' && saveSectionSigns) ||
+                    (c == '<' && saveSectionSigns) ||
+                    (c == '>' && saveSectionSigns)
+                    )
                 {
                     sb = sb.Append(c);
                 }

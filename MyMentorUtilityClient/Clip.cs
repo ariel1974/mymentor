@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using HtmlAgilityPack;
@@ -62,8 +63,11 @@ namespace MyMentorUtilityClient
         public string FileName { get; set; }
         public Guid ID { get; set; }
         public string Title { get; set; }
+        public bool RightAlignment { get; set; }
         public string Description { get; set; }
         public string Version { get; set; }
+        public float FontSize { get; set; }
+        public string FontName { get; set; }
         public string Category { get; set; }
         public string SubCategory { get; set; }
         public string Tags { get; set; }
@@ -78,45 +82,23 @@ namespace MyMentorUtilityClient
         public string HtmlFileName { get; set; }
         public string MmnFileName { get; set; }
         public Nullable<DateTime> LastPublishedOn { get; set; }
-
         public bool AutoIncrementVersion { get; set; }
+
+        [JsonIgnore]
+        [XmlArrayItem("Paragraphs")]
+        public List<Paragraph> Paragraphs { get; set; }
 
         [XmlIgnore]
         public bool IsNew { get; set; }
         [XmlIgnore]
         public bool IsDirty { get; set; }
 
-        [JsonProperty("paragraphs")]
-        [XmlArrayItem("Paragraphs")]
-        public List<Paragraph> Paragraphs { get; set; }
+        [JsonProperty("chapter")]
+        [XmlIgnore]
+        public Chapter Chapter { get; set; }
+
         public string RtfText { get; set; }
 
-        [JsonIgnore]
-        [XmlIgnore]
-        public TimeSpan Duration
-        {
-            get
-            {
-                return new TimeSpan(this.Paragraphs.SelectMany(p => p.Words).Sum(p => p.Duration.Ticks) + this.Paragraphs.SelectMany(p => p.Sentences).Sum(s => s.Duration.Ticks));
-            }
-        }
-
-        [JsonProperty(PropertyName = "clipDuration")]
-        [XmlIgnore]
-        public string DurationText
-        {
-            get
-            {
-                return this.Duration.ToString(@"hh\:mm\:ss\.fff");
-            }
-        }
-
-        [JsonIgnore]
-        [XmlAttribute("Duration")]
-        public long XmlDuration
-        {
-            get { return Duration.Ticks; }
-        }
 
         /// <summary>
         /// 
@@ -202,7 +184,7 @@ namespace MyMentorUtilityClient
             clip["clipDescription"] = this.Description;
             clip["clipVersion"] = this.Version;
             clip["clipSize"] = this.ClipSize;
-            //clip["fontFileName"] = this.FontFileName;
+            //clip["fontName"] = this.FontFileName;
             clip["status"] = this.Status;
             clip["category"] = this.Category;
             clip["subCategory"] = this.SubCategory;
@@ -249,15 +231,8 @@ namespace MyMentorUtilityClient
 
             System.Windows.Forms.RichTextBox rtb = new System.Windows.Forms.RichTextBox();
             rtb.Rtf = this.RtfText;
-            rtb.Text = rtb.Text.Replace(Clip.PAR_SIGN_CLOSE, string.Empty).Replace(Clip.PAR_SIGN_OPEN, string.Empty)
-                .Replace(Clip.PAR_SIGN_CLOSE, string.Empty)
-                .Replace(Clip.SEN_SIGN_OPEN, string.Empty)
-                .Replace(Clip.SEN_SIGN_CLOSE, string.Empty)
-                .Replace(Clip.SEC_SIGN_OPEN, string.Empty)
-                .Replace(Clip.SEC_SIGN_CLOSE, string.Empty)
-                .Replace(Clip.WOR_SIGN_OPEN, string.Empty)
-                .Replace(Clip.WOR_SIGN_CLOSE, string.Empty);
-
+            rtb.Text = MainForm.m_regexAll.Replace(rtb.Text, string.Empty);
+            //rtb.Text = Paragraphs.Select(p => p.Content).Aggregate((a, b) => a + b);
             rtb.SaveFile(tempRtf);
 
             //get the full location of the assembly with DaoTests in it
@@ -265,9 +240,8 @@ namespace MyMentorUtilityClient
 
             var t = Task.Factory.StartNew(() =>
             {
-
                 System.Diagnostics.ProcessStartInfo startInfo = new ProcessStartInfo(rtf2html_exe);
-                startInfo.Arguments = string.Format("\"{0}\" \"{1}\"", tempRtf, tempHtmlFolder);
+                startInfo.Arguments = string.Format("\"{0}\" \"{1}\" /IDF", tempRtf, tempHtmlFolder);
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 Process p = System.Diagnostics.Process.Start(startInfo);
                 while (!p.HasExited) ;
@@ -296,9 +270,15 @@ namespace MyMentorUtilityClient
             HtmlDocument doc = new HtmlDocument();
             doc.Load(path);
 
-            doc.DocumentNode.SelectNodes("html").FirstOrDefault().Attributes.Add("style", "direction:rtl");
+            doc.DocumentNode.SelectNodes("html").FirstOrDefault().Attributes.Add("style", "direction:" + (this.RightAlignment ? "rtl" : "ltr") );
 
             doc.Save(path);
+
+            var reg = new Regex(" (?= )|(?<= ) ");
+
+            var fileContents = System.IO.File.ReadAllText(path);
+            fileContents = reg.Replace(fileContents, "&nbsp;");//.Replace("</p>","</p>&nbsp;");
+            System.IO.File.WriteAllText(path, fileContents);
         }
 
         public bool SaveJson(string json)
@@ -318,8 +298,11 @@ namespace MyMentorUtilityClient
             clip.title = this.Title;
             clip.description = this.Description;
             clip.clipVersion = this.Version;
+            clip.fontSize = this.FontSize;
+            clip.fontName = this.FontName;
+            clip.chapter = this.Chapter;
             clip.schemaVersion = "1.02";
-            clip.duration = this.Duration;
+            //clip.duration = this.Duration;
             clip.defaultSections = this.DefaultSections;
             clip.lockedSections = this.LockedSections;
             clip.defaultLearningOptions = this.DefaultLearningOptions;
@@ -328,7 +311,7 @@ namespace MyMentorUtilityClient
             clip.subCategory = this.SubCategory;
             clip.tags = this.Tags;
 
-            clip.paragraphs = this.Paragraphs;
+            //clip.paragraphs = this.Paragraphs;
             return JsonConvert.SerializeObject(clip, Formatting.Indented);
         }
 

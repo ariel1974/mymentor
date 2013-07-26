@@ -66,7 +66,15 @@ namespace MyMentorUtilityClient
                     {
                         if (Clip.Current.AutoIncrementVersion)
                         {
-                            Clip.Current.Version = Convert.ToString( Convert.ToDouble(Clip.Current.Version) + 0.01);
+                            try
+                            {
+                                Clip.Current.Version = Convert.ToString(Convert.ToDouble(Clip.Current.Version) + 0.01);
+                            }
+                            catch
+                            {
+
+                            }
+
                             Clip.Current.Save();
                         }
 

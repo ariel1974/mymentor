@@ -94,7 +94,6 @@ namespace MyMentorUtilityClient
         public bool IsDirty { get; set; }
 
         [JsonProperty("chapter")]
-        [XmlIgnore]
         public Chapter Chapter { get; set; }
 
         public string RtfText { get; set; }

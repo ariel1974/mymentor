@@ -39,7 +39,9 @@ namespace MyMentorUtilityClient
                     (c == '(' && saveSectionSigns) ||
                     (c == ')' && saveSectionSigns) ||
                     (c == '<' && saveSectionSigns) ||
-                    (c == '>' && saveSectionSigns)
+                    (c == '>' && saveSectionSigns) ||
+                    (c == '[' && saveSectionSigns) ||
+                    (c == ']' && saveSectionSigns) 
                     )
                 {
                     sb = sb.Append(c);

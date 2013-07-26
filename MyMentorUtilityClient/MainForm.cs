@@ -43,7 +43,7 @@ namespace MyMentorUtilityClient
             m_initClip = args.Length > 0 ? args[0] : string.Empty;
         }
 
-        public static Regex m_regexAll = new Regex(@"(\(\()|(\)\))|(\[\[)|(\]\])|({{)|(}})|(<<)|(>>)", RegexOptions.Compiled | RegexOptions.Singleline);
+        public static Regex m_regexAll = new Regex(@"(\(\()|(\)\))|(\[\[)|(\]\])|({{)|(}})|(<<)|(>>)", RegexOptions.Compiled | RegexOptions.Multiline);
 
         private static Regex m_regexRemoveWhiteSpacesParagraphs = new Regex(@"(?<=\{\{)[ ]{1,}|[ ]{1,}(?=\}\})", RegexOptions.Compiled | RegexOptions.Singleline);
         private static Regex m_regexRemoveWhiteSpacesSentences = new Regex(@"(?<=\(\()[ ]{1,}|[ ]{1,}(?=\)\))", RegexOptions.Compiled | RegexOptions.Singleline);
@@ -58,7 +58,7 @@ namespace MyMentorUtilityClient
         private static Regex m_regexSections = new Regex(@"(?<=\<\<)(.*?)(?=\>\>)", RegexOptions.Compiled | RegexOptions.Singleline);
         private static Regex m_regexFreeSections = new Regex(@"(\<\<|\>\>)", RegexOptions.Compiled | RegexOptions.Singleline);
 
-        private static Regex m_regexWords = new Regex(@"(?<group>(?<=\[\[)(.*?)(?=\]\]))|(?<free>[\u0591-\u05F4a-zA-Z]+)", RegexOptions.Compiled | RegexOptions.Singleline);
+        private static Regex m_regexWords = new Regex(@"(?<group>(?<=\[\[)(.*?)(?=\]\]))|(?<free>[\u0591-\u05F4a-zA-Z.?]+)", RegexOptions.Compiled | RegexOptions.Singleline);
         private static Regex m_regexFreeWords = new Regex(@"(\[\[|\]\])", RegexOptions.Compiled | RegexOptions.Singleline);
 
         private int FixIndex(int originalIndex, string match)
@@ -171,11 +171,6 @@ namespace MyMentorUtilityClient
         {
             try
             {
-
-                //richTextBox1.Text = m_regexRemoveWhiteSpacesParagraphs.Replace(richTextBox1.Text, string.Empty);
-                //richTextBox1.Text = m_regexRemoveWhiteSpacesSentences.Replace(richTextBox1.Text, string.Empty);
-                //richTextBox1.Text = m_regexRemoveWhiteSpacesSections.Replace(richTextBox1.Text, string.Empty); 
-
                 var paragraphs_local = new List<Paragraph>();
                 int paragraphIndex = -1;
                 int sectionIndex = -1;
@@ -237,7 +232,7 @@ namespace MyMentorUtilityClient
 
                     paragraphs_local.Add(new Paragraph
                     {
-                        Content = matchParagraph.Value,
+                        Content = matchParagraph.Value.Trim(),
                         RealCharIndex = matchParagraph.Index,
                         CharIndex = matchParagraph.Index - bufferIndex - 2,
                         ManuallyStartDate = startManually,
@@ -302,7 +297,7 @@ namespace MyMentorUtilityClient
 
                             paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
                             {   //                     5                               +           15    - 4   - (4 * 1) - 2
-                                Content = matchSentense.Value,
+                                Content = matchSentense.Value.Trim(),
                                 RealCharIndex = paragraphs_local[paragraphIndex].RealCharIndex + matchSentense.Index,
                                 CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchSentense.Index - sectionsOffset - wordsOffset - (4 * innerSentenceIndex) - 2,
                                 Index = sentenceIndex,
@@ -355,13 +350,17 @@ namespace MyMentorUtilityClient
                                         durationManually = ex_section.ManuallyDuration;
                                     }
 
+                                    int groupWordsBuffer = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.SelectMany(s => s.Words).Where(w => w.IsInGroup).Count();
+
                                     paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
                                     {
                                         Content = matchSection.Value,
                                         ManuallyDuration = durationManually,
                                         ManuallyStartDate = startManually,
                                         RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].RealCharIndex + matchSection.Index,
-                                        CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchSection.Index - (4 * innerSectionIndex) - 2,
+                                        CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchSection.Index - (4 * innerSectionIndex) - 2 - (4 * groupWordsBuffer)
+                                           // paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.SelectMany(s => s.Words).Where(w => w.IsInGroup).Sum( w => w.Length )
+                                            ,
                                         Index = sectionIndex,
                                         Words = new List<Word>(),
                                         StartTime = start,
@@ -399,7 +398,7 @@ namespace MyMentorUtilityClient
                                         paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Add(new Word
                                         {
                                             RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].RealCharIndex + matchWord.Index,
-                                            CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Where(w => w.IsInGroup).Count() * 4,
+                                            CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].CharIndex + matchWord.Index - (matchWord.Groups["group"].Success ? 2 : 0) - (4 * paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Where(w => w.IsInGroup).Count()),
                                             IsInGroup = matchWord.Groups["group"].Success,
                                             Index = wordIndex,
                                             Content = matchWord.Value,
@@ -508,6 +507,7 @@ namespace MyMentorUtilityClient
 
                 m_chapter = new Chapter();
                 m_chapter.Words = new List<Word>();
+                m_chapter.Content = m_regexAll.Replace(richTextBox1.Text, string.Empty);
                 m_chapter.Paragraphs = paragraphs_local;
 
                 m_bindingListParagraphs = new BindingList<Paragraph>(m_chapter.Paragraphs.ToList());
@@ -641,15 +641,16 @@ namespace MyMentorUtilityClient
                 }
             }
 
-            if (direction == AnchorDirection.Open && remember.Substring(selectionIndex, 1) == "\n")
-            {
-                selectionIndex++;
-            }
-
-            richTextBox1.SelectionStart = selectionIndex;
-
             try
             {
+
+                if (direction == AnchorDirection.Open && !string.IsNullOrEmpty(remember) &&
+                    remember.Substring(selectionIndex, 1) == "\n")
+                {
+                    selectionIndex++;
+                }
+
+                richTextBox1.SelectionStart = selectionIndex;
 
                 switch (type)
                 {
@@ -2006,7 +2007,14 @@ namespace MyMentorUtilityClient
         {
             get
             {
-                return MainForm.m_regexAll.Replace(m_content, string.Empty);
+                if (this.GetType() == typeof(Chapter))
+                {
+                    return MainForm.m_regexAll.Replace(m_content, string.Empty);
+                }
+                else
+                {
+                    return MainForm.m_regexAll.Replace(m_content, string.Empty);
+                }
             }
             set
             {
@@ -2087,16 +2095,6 @@ namespace MyMentorUtilityClient
         private TimeSpan m_startTime;
         protected string m_content = string.Empty;
 
-        [JsonIgnore]
-        [XmlIgnore]
-        public TimeSpan EndTime
-        {
-            get
-            {
-                return m_startTime.Add(m_duration);
-            }
-        }
-
 
         [JsonIgnore]
         [XmlIgnore]
@@ -2109,7 +2107,7 @@ namespace MyMentorUtilityClient
                     switch (this.GetType().ToString())
                     {
                         case "MyMentorUtilityClient.Chapter":
-                            m_duration = new TimeSpan(((Chapter)this).Words.Sum(p => p.Duration.Ticks) + ((Chapter)this).Paragraphs.Sum(s => s.Duration.Ticks));
+                            m_duration = new TimeSpan(((Chapter)this).Paragraphs.Sum(s => s.Duration.Ticks));
                             break;
                         case "MyMentorUtilityClient.Paragraph":
                             m_duration = new TimeSpan(((Paragraph)this).Words.Sum(p => p.Duration.Ticks) + ((Paragraph)this).Sentences.Sum(s => s.Duration.Ticks));
@@ -2133,6 +2131,17 @@ namespace MyMentorUtilityClient
             }
         }
 
+
+        [JsonIgnore]
+        [XmlIgnore]
+        public TimeSpan EndTime
+        {
+            get
+            {
+                return m_startTime.Add(m_duration);
+            }
+        }
+
         [JsonProperty(PropertyName = "index", Order = 1)]
         public int Index { get; set; }
 
@@ -2144,7 +2153,7 @@ namespace MyMentorUtilityClient
         {
             get
             {
-                return Content.Length;//.RemovePunctation().Length;
+                return Content.Length;
             }
 
         }
@@ -2168,7 +2177,7 @@ namespace MyMentorUtilityClient
             }
         }
 
-        [JsonProperty(PropertyName = "audioEnd", Order = 5)]
+        [JsonProperty(PropertyName = "audioEnd", Order = 6)]
         [XmlIgnore]
         public string EndTimeText
         {
@@ -2178,7 +2187,7 @@ namespace MyMentorUtilityClient
             }
         }
 
-        [JsonProperty(PropertyName = "audioDuration", Order = 6)]
+        [JsonProperty(PropertyName = "audioDuration", Order = 5)]
         [XmlIgnore]
         public string DurationText
         {
@@ -2282,12 +2291,25 @@ namespace MyMentorUtilityClient
             return this.MemberwiseClone();
         }
 
+        //[JsonIgnore]
+        //public override string Content
+        //{
+        //    get
+        //    {
+        //        return m_content;
+        //    }
+        //    set
+        //    {
+        //        m_content = value;
+        //    }
+        //}
+
         [JsonProperty(PropertyName = "length", Order = 3)]
         public override int Length
         {
             get
             {
-                return this.Paragraphs.Sum(p => p.Length);
+                return this.Content.Length;
             }
 
         }

@@ -4027,7 +4027,25 @@ namespace SoundStudio
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            audioSoundEditor1.DisplayWaveformAnalyzer.Destroy();
+            richTextBox3.Clear();
+            richTextBox3.Rtf = richTextBox1.Rtf;
+            richTextBox3.SelectionStart = 0;
+            richTextBox3.SelectionLength = 0;
+            richTextBox3.SelectedText = "[p]";
 
+            if (tabControl1.SelectedIndex == 2)
+            {
+                // create the waveform analyzer (always call this function on the end of the form's Load fucntion)
+                audioSoundEditor1.DisplayWaveformAnalyzer.Create(panel4.Handle, pictureBox1.Left, pictureBox1.Top, panel4.Width, panel4.Height);
+            }
+            else
+            {
+                // create the waveform analyzer (always call this function on the end of the form's Load fucntion)
+                audioSoundEditor1.DisplayWaveformAnalyzer.Create(panel1.Handle, Picture1.Left, Picture1.Top, panel1.Width, panel1.Height);
+            }
+
+            PaintGraphics();
         }
 
         private void mnuFile_NewClip_Click(object sender, EventArgs e)

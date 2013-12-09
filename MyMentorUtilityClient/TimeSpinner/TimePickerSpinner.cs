@@ -98,5 +98,6 @@ namespace MyMentorUtilityClient.TimeSpinner
                 ValueChanged(this,e);
             }
         }
+
     }
 }

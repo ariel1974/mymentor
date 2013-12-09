@@ -60,7 +60,8 @@ namespace MyMentorUtilityClient
             //optional
             //pai.DefaultIcon = new ProgramIcon(@"C:\SomePath\SomeIcon.ico");
 
-            Application.Run(new MainForm(args));
+            Application.Run(new SoundStudio.FormMain());
+            //Application.Run(new ModeSelection(args));
         }
     }
 }

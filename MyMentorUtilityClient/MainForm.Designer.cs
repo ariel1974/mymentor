@@ -155,7 +155,7 @@
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(574, 737);
+            this.richTextBox2.Location = new System.Drawing.Point(812, 737);
             this.richTextBox2.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(38, 1);
@@ -176,7 +176,7 @@
             this.sectionGroup.Margin = new System.Windows.Forms.Padding(4);
             this.sectionGroup.Name = "sectionGroup";
             this.sectionGroup.Padding = new System.Windows.Forms.Padding(4);
-            this.sectionGroup.Size = new System.Drawing.Size(368, 342);
+            this.sectionGroup.Size = new System.Drawing.Size(683, 342);
             this.sectionGroup.TabIndex = 15;
             this.sectionGroup.TabStop = false;
             this.sectionGroup.Text = "עדכון";
@@ -199,6 +199,7 @@
             this.tbSectionText.ReadOnly = true;
             this.tbSectionText.Size = new System.Drawing.Size(173, 26);
             this.tbSectionText.TabIndex = 19;
+            this.tbSectionText.Text = " ";
             // 
             // label11
             // 
@@ -473,19 +474,19 @@
             // אודותToolStripMenuItem
             // 
             this.אודותToolStripMenuItem.Name = "אודותToolStripMenuItem";
-            this.אודותToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.אודותToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.אודותToolStripMenuItem.Text = "אודות";
             this.אודותToolStripMenuItem.Click += new System.EventHandler(this.אודותToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(123, 6);
             // 
             // jsonMenu
             // 
             this.jsonMenu.Name = "jsonMenu";
-            this.jsonMenu.Size = new System.Drawing.Size(152, 22);
+            this.jsonMenu.Size = new System.Drawing.Size(126, 22);
             this.jsonMenu.Text = "הצג JSON";
             this.jsonMenu.Click += new System.EventHandler(this.jsonMenu_Click);
             // 
@@ -493,11 +494,11 @@
             // 
             this.groupBox5.Controls.Add(this.sectionsGrid);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.Location = new System.Drawing.Point(620, 387);
+            this.groupBox5.Location = new System.Drawing.Point(858, 387);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(241, 342);
+            this.groupBox5.Size = new System.Drawing.Size(161, 342);
             this.groupBox5.TabIndex = 24;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "קטעים";
@@ -514,7 +515,7 @@
             this.sectionsGrid.Name = "sectionsGrid";
             this.sectionsGrid.ReadOnly = true;
             this.sectionsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.sectionsGrid.Size = new System.Drawing.Size(233, 315);
+            this.sectionsGrid.Size = new System.Drawing.Size(153, 315);
             this.sectionsGrid.TabIndex = 12;
             this.sectionsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.sectionsGrid_CellMouseClick);
             // 
@@ -522,11 +523,11 @@
             // 
             this.groupBox6.Controls.Add(this.sentencesGrid);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(869, 387);
+            this.groupBox6.Location = new System.Drawing.Point(1027, 387);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox6.Size = new System.Drawing.Size(236, 342);
+            this.groupBox6.Size = new System.Drawing.Size(157, 342);
             this.groupBox6.TabIndex = 25;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "משפטים";
@@ -543,7 +544,7 @@
             this.sentencesGrid.Name = "sentencesGrid";
             this.sentencesGrid.ReadOnly = true;
             this.sentencesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.sentencesGrid.Size = new System.Drawing.Size(228, 315);
+            this.sentencesGrid.Size = new System.Drawing.Size(149, 315);
             this.sentencesGrid.TabIndex = 12;
             this.sentencesGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.sentencesGrid_CellMouseClick);
             // 
@@ -562,11 +563,11 @@
             // 
             this.groupBox4.Controls.Add(this.paragraphsGrid);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(1113, 387);
+            this.groupBox4.Location = new System.Drawing.Point(1192, 387);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(236, 342);
+            this.groupBox4.Size = new System.Drawing.Size(157, 342);
             this.groupBox4.TabIndex = 26;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "פסקאות";
@@ -583,7 +584,7 @@
             this.paragraphsGrid.Name = "paragraphsGrid";
             this.paragraphsGrid.ReadOnly = true;
             this.paragraphsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.paragraphsGrid.Size = new System.Drawing.Size(228, 315);
+            this.paragraphsGrid.Size = new System.Drawing.Size(149, 315);
             this.paragraphsGrid.TabIndex = 12;
             this.paragraphsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.paragraphsGrid_CellMouseClick);
             // 
@@ -594,7 +595,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.98973F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.46201F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.55852F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 374F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 689F));
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox6, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.groupBox5, 2, 3);
@@ -636,9 +637,9 @@
             // 
             this.groupBox1.Controls.Add(this.wordsGrid);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(379, 386);
+            this.groupBox1.Location = new System.Drawing.Point(694, 386);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(234, 344);
+            this.groupBox1.Size = new System.Drawing.Size(157, 344);
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "מילים";
@@ -655,7 +656,7 @@
             this.wordsGrid.Name = "wordsGrid";
             this.wordsGrid.ReadOnly = true;
             this.wordsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.wordsGrid.Size = new System.Drawing.Size(228, 319);
+            this.wordsGrid.Size = new System.Drawing.Size(151, 319);
             this.wordsGrid.TabIndex = 13;
             this.wordsGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.wordsGrid_CellMouseClick);
             // 
@@ -697,6 +698,7 @@
             this.ToolStrip1.Size = new System.Drawing.Size(1353, 25);
             this.ToolStrip1.TabIndex = 30;
             this.ToolStrip1.Text = "ToolStrip1";
+            this.ToolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStrip1_ItemClicked);
             // 
             // tbrNew
             // 
@@ -993,6 +995,7 @@
             this.timePickerSpinner2.TabIndex = 22;
             this.timePickerSpinner2.Value = System.TimeSpan.Parse("00:00:00");
             this.timePickerSpinner2.ValueChanged += new System.EventHandler(this.timePickerSpinner2_ValueChanged);
+            this.timePickerSpinner2.Load += new System.EventHandler(this.timePickerSpinner2_Load);
             // 
             // timePickerSpinner1
             // 

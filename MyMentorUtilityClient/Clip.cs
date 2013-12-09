@@ -19,6 +19,7 @@ namespace MyMentorUtilityClient
 {
     public class Clip
     {
+        public const string PAR_SIGN = "[3]";
         public const string PAR_SIGN_OPEN = "{{";
         public const string PAR_SIGN_CLOSE = "}}";
 
@@ -192,7 +193,7 @@ namespace MyMentorUtilityClient
 
             //TODO change real user
             clip["createdByUser"] = "natan";// user.Username;
-            //clip.ACL = new ParseACL(user);
+            clip.ACL = new ParseACL(user);
             await clip.SaveAsync();
 
             this.LastPublishedOn = DateTime.Now;

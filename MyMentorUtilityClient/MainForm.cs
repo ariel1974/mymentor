@@ -1970,6 +1970,16 @@ namespace MyMentorUtilityClient
         {
 
         }
+
+        private void timePickerSpinner2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ToolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 
     public class SectionCellData

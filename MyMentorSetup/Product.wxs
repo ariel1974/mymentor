@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" 
      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  
-  <Product Id="{C0E70D44-65DE-4596-A060-D6864EA55099}" Name="MyMentor Studio" Language="1033" Version="1.0.0.3" Manufacturer="MyMentor" UpgradeCode="ed5d63d1-e5ab-4234-b6e8-55145768e85f">
-    <Package Id="{95DF566E-8075-47EB-B42B-0A55D94178BC}" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+  <Product Id="{FCF466FF-922F-4A38-856A-10F5876FE3ED}" Name="MyMentor Studio v2.0" Language="1033" Version="1.0.0.3" Manufacturer="MyMentor" UpgradeCode="0ab14caa-679a-404c-b05f-e60f94506be7">
+    <Package Id="{307D7425-5786-4C65-A96D-F3DF2AA10925}" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
     <UI>
       <UIRef Id="WixUI_Minimal" />
@@ -13,13 +13,13 @@
         Event="DoAction"
         Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
     </UI>
-    
-    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch MyMentor Studio" />
+
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch MyMentor Studio v2.0" />
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <PropertyRef Id="NETFRAMEWORK45"/>
 
-    <Property Id="WixShellExecTarget" Value="[INSTALLFOLDER]MyMentorUtilityClient.exe" />
+    <Property Id="WixShellExecTarget" Value="[INSTALLFOLDER]MyMentor.exe" />
     <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -30,7 +30,7 @@
       <ComponentGroupRef Id="Rtf2Html" />
     </Feature>
 
-    <Feature Id='Complete' Title='MyMentor Studio' Description='The complete package.'
+    <Feature Id='Complete' Title='MyMentor Studio v2.0' Description='The complete package.'
         Display='expand' Level='1' ConfigurableDirectory='INSTALLFOLDER'>
       <Feature Id='MainProgram' Title='Program' Description='The main executable.' Level='1'>
         <ComponentRef Id='MainExecutable' />
@@ -38,18 +38,18 @@
         <ComponentRef Id="ApplicationShortcut" />
       </Feature>
     </Feature>
-    <Icon Id="MyMentorUtilityClient.exe" SourceFile="..\MyMentorUtilityClient\bin\debug\MyMentorUtilityClient.exe" />
+    <Icon Id="MyMentor.exe" SourceFile="..\MyMentorUtilityClient\bin\debug\MyMentor.exe" />
 
     <Condition Message="This application requires .NET Framework 4.5. Please install the .NET Framework then run this installer again.">
       <![CDATA[Installed OR NETFRAMEWORK45]]>
     </Condition>
 
     <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="ApplicationShortcut" Guid="{C5396555-AC50-4635-8BA1-148AAF3DBE2B}">
+      <Component Id="ApplicationShortcut" Guid="{B26DF39A-CFDB-4E72-85AB-54A1FA29B1A5}">
         <Shortcut Id="ApplicationStartMenuShortcut"
-             Name="MyMentor Studio"
-           Description="MyMentor Studio"
-            Target="[INSTALLFOLDER]MyMentorUtilityClient.exe"
+             Name="MyMentor Studio v2.0"
+           Description="MyMentor Studio v2.0"
+            Target="[INSTALLFOLDER]MyMentor.exe"
                   WorkingDirectory="INSTALLFOLDER"/>
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
         <RegistryValue Root="HKCU" Key="Software\Microsoft\MyMentorStudio" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
@@ -61,26 +61,26 @@
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="MyMentor">
+        <Directory Id="INSTALLFOLDER" Name="MyMentor Studio v2.0">
           <Directory Id="RFT2HTMLFOLDER" Name="Rtf2Html">
           </Directory>
         </Directory>
         </Directory>
       <Directory Id="DesktopFolder"  SourceName="Desktop"/>
       <Directory Id="ProgramMenuFolder">
-        <Directory Id="ApplicationProgramsFolder" Name="MyMentor Studio"/>
+        <Directory Id="ApplicationProgramsFolder" Name="MyMentor Studio v2.0"/>
       </Directory>
     </Directory>
   </Fragment>
 
   <Fragment>
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <Component Id="MainExecutable" Guid='{E03D0738-530B-4405-AD8A-10B5E2243B72}'>
-        <File Id='MyMentorUtilityClientexe' Name='MyMentorUtilityClient.exe' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentorUtilityClient.exe' KeyPath='yes'>
-          <Shortcut Id="desktop" Directory="DesktopFolder" Name="MyMentor Studio" WorkingDirectory="TARGETDIR" Icon="MyMentorUtilityClient.exe" IconIndex="0" Advertise="yes" />
+      <Component Id="MainExecutable" Guid='{CFD2CA42-4DDD-4F14-B93F-5F0BFE335CBA}'>
+        <File Id='MyMentorexe' Name='MyMentor.exe' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.exe' KeyPath='yes'>
+          <Shortcut Id="desktop" Directory="DesktopFolder" Name="MyMentor Studio" WorkingDirectory="TARGETDIR" Icon="MyMentor.exe" IconIndex="0" Advertise="yes" />
         </File>
-        <File Id='MyMentorUtilityClientexeconfig' Name='MyMentorUtilityClient.exe.config' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentorUtilityClient.exe.config' KeyPath='no'/>
-        <File Id='MyMentorUtilityClientpdb' Name='MyMentorUtilityClient.pdb' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentorUtilityClient.pdb' KeyPath='no'/>
+        <File Id='MyMentorUtilityClientexeconfig' Name='MyMentor.exe.config' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.exe.config' KeyPath='no'/>
+        <File Id='MyMentorUtilityClientpdb' Name='MyMentor.pdb' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.pdb' KeyPath='no'/>
         <File Id='IonicZipdll' Name='Ionic.Zip.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Ionic.Zip.dll' KeyPath='no'/>
         <File Id='NewtonsoftJsondll' Name='Newtonsoft.Json.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Newtonsoft.Json.dll' KeyPath='no'/>
         <File Id='Parsedll' Name='Parse.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.dll' KeyPath='no'/>
@@ -90,7 +90,7 @@
       </Component>
     </ComponentGroup>
     <ComponentGroup Id="Rtf2Html" Directory="RFT2HTMLFOLDER">
-      <Component Id="ThirdParty" Guid='{2ABA8FC6-F380-4913-89AC-6FF8C3367CF4}'>
+      <Component Id="ThirdParty" Guid='{41D99439-CE79-4A67-87B4-B36600755610}'>
         <File Id='Itenso.Rtf.Converter.Html.dll' Name='Itenso.Rtf.Converter.Html.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Rtf.Converter.Html.dll' KeyPath='no'/>
         <File Id='Itenso.Rtf.Interpreter.dll' Name='Itenso.Rtf.Interpreter.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Rtf.Interpreter.dll' KeyPath='no'/>
         <File Id='Itenso.Rtf.Parser.dll' Name='Itenso.Rtf.Parser.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Rtf.Parser.dll' KeyPath='no'/>

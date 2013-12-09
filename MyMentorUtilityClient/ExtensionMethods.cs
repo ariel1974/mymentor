@@ -52,13 +52,13 @@ namespace MyMentorUtilityClient
         }
 
 
-        public static IEnumerable<Word> FlattenWords(this IEnumerable<Paragraph> paragraphs)
-        {
-            return paragraphs.SelectMany(p => p.Words)
-                .Concat(paragraphs.SelectMany(p => p.Sentences).SelectMany(s => s.Words))
-                .Concat(paragraphs.SelectMany(p => p.Sentences).SelectMany(s => s.Sections).SelectMany(se => se.Words))
-                .OrderBy(w => w.Index);
-        }
+        //public static IEnumerable<Word> FlattenWords(this IEnumerable<Paragraph> paragraphs)
+        //{
+        //    return paragraphs.SelectMany(p => p.Words)
+        //        .Concat(paragraphs.SelectMany(p => p.Sentences).SelectMany(s => s.Words))
+        //        .Concat(paragraphs.SelectMany(p => p.Sentences).SelectMany(s => s.Sections).SelectMany(se => se.Words))
+        //        .OrderBy(w => w.Index);
+        //}
 
         public static Word SeekForWord(this IEnumerable<Paragraph> paragraphs, int wordCharIndex)
         {
@@ -66,7 +66,7 @@ namespace MyMentorUtilityClient
 
             foreach (Paragraph paragraph in paragraphs)
             {
-                theOne = paragraph.Words.Where(w => w.CharIndex == wordCharIndex).SingleOrDefault();
+                theOne = null;// paragraph.Words.Where(w => w.CharIndex == wordCharIndex).SingleOrDefault();
 
                 if (theOne != null)
                 {
@@ -76,7 +76,7 @@ namespace MyMentorUtilityClient
                 {
                     foreach (Sentence sentense in paragraph.Sentences)
                     {
-                        theOne = sentense.Words.Where(w => w.CharIndex == wordCharIndex).SingleOrDefault();
+                        theOne = null;// sentense.Words.Where(w => w.CharIndex == wordCharIndex).SingleOrDefault();
 
                         if (theOne != null)
                         {

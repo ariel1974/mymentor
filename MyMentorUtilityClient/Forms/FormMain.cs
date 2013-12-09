@@ -15,89 +15,89 @@ using System.Collections.Generic;
 
 namespace SoundStudio
 {
-	/// <summary>
-	/// Summary description for Form1.
-	/// </summary>
-	public class FormMain : System.Windows.Forms.Form
+    /// <summary>
+    /// Summary description for Form1.
+    /// </summary>
+    public class FormMain : System.Windows.Forms.Form
     {
         #region Controls
         public System.Windows.Forms.GroupBox Frame4;
-		public System.Windows.Forms.Label Label2;
-		public System.Windows.Forms.Label Label3;
-		public System.Windows.Forms.Label Label4;
-		public System.Windows.Forms.Label Label5;
-		public System.Windows.Forms.Label Label6;
-		public System.Windows.Forms.Label LabelSelectionBegin;
-		public System.Windows.Forms.Label LabelSelectionEnd;
-		public System.Windows.Forms.Label LabelSelectionDuration;
-		public System.Windows.Forms.Label LabelRangeBegin;
-		public System.Windows.Forms.Label LabelRangeEnd;
-		public System.Windows.Forms.Label LabelRangeDuration;
-		public System.Windows.Forms.Label LabelTotalDuration;
-		public System.Windows.Forms.Label Label8;
-		public System.Windows.Forms.PictureBox Picture1;
-		public System.Windows.Forms.Label LabelStatus;
-		private System.Windows.Forms.OpenFileDialog openFileDialog1;
-		public System.Windows.Forms.Timer TimerReload;
-		public System.Windows.Forms.Timer TimerMenuEnabler;
-		private System.Windows.Forms.ProgressBar progressBar1;
-		private System.ComponentModel.IContainer components;
+        public System.Windows.Forms.Label Label2;
+        public System.Windows.Forms.Label Label3;
+        public System.Windows.Forms.Label Label4;
+        public System.Windows.Forms.Label Label5;
+        public System.Windows.Forms.Label Label6;
+        public System.Windows.Forms.Label LabelSelectionBegin;
+        public System.Windows.Forms.Label LabelSelectionEnd;
+        public System.Windows.Forms.Label LabelSelectionDuration;
+        public System.Windows.Forms.Label LabelRangeBegin;
+        public System.Windows.Forms.Label LabelRangeEnd;
+        public System.Windows.Forms.Label LabelRangeDuration;
+        public System.Windows.Forms.Label LabelTotalDuration;
+        public System.Windows.Forms.Label Label8;
+        public System.Windows.Forms.PictureBox Picture1;
+        public System.Windows.Forms.Label LabelStatus;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        public System.Windows.Forms.Timer TimerReload;
+        public System.Windows.Forms.Timer TimerMenuEnabler;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.ComponentModel.IContainer components;
 
-		public System.Windows.Forms.Button buttonPlay;
-		public System.Windows.Forms.Button buttonStop;
-		public System.Windows.Forms.Button buttonPlaySelection;
-		private System.Windows.Forms.Timer timerDisplayWaveform;
-		private System.Windows.Forms.Button buttonPause;
+        public System.Windows.Forms.Button buttonPlay;
+        public System.Windows.Forms.Button buttonStop;
+        public System.Windows.Forms.Button buttonPlaySelection;
+        private System.Windows.Forms.Timer timerDisplayWaveform;
+        private System.Windows.Forms.Button buttonPause;
 
-		private AudioSoundEditor.AudioSoundEditor audioSoundEditor1;
-		public System.Windows.Forms.Button buttonStopRecording;
-		public System.Windows.Forms.Button buttonStartRecNew;
-		public System.Windows.Forms.Button buttonStartRecAppend;
-		private AudioSoundRecorder.AudioSoundRecorder audioSoundRecorder1;
+        private AudioSoundEditor.AudioSoundEditor audioSoundEditor1;
+        public System.Windows.Forms.Button buttonStopRecording;
+        public System.Windows.Forms.Button buttonStartRecNew;
+        public System.Windows.Forms.Button buttonStartRecAppend;
+        private AudioSoundRecorder.AudioSoundRecorder audioSoundRecorder1;
         #endregion
 
         #region Audio SetUp
-        private byte[]	m_byteBuffer = null;
-		const int VOLUME_FLAT = 0;
-		const int VOLUME_SLIDING = 1;
+        private byte[] m_byteBuffer = null;
+        const int VOLUME_FLAT = 0;
+        const int VOLUME_SLIDING = 1;
 
-		// calback functions
-		private AudioSoundEditor.DSPCallbackFunction addrReverbCallback;
-		private AudioSoundEditor.DSPCallbackFunction addrBalanceCallback;
+        // calback functions
+        private AudioSoundEditor.DSPCallbackFunction addrReverbCallback;
+        private AudioSoundEditor.DSPCallbackFunction addrBalanceCallback;
 
-		// unique identifiers for DSPs
-		public Int32	m_idDspReverbInternal;
-		public Int32	m_idDspBalanceInternal;
-		public Int32	m_idDspReverbExternal;
-		public Int32	m_idDspBalanceExternal;
-		public Int32	m_idDspBassBoostExternal;
+        // unique identifiers for DSPs
+        public Int32 m_idDspReverbInternal;
+        public Int32 m_idDspBalanceInternal;
+        public Int32 m_idDspReverbExternal;
+        public Int32 m_idDspBalanceExternal;
+        public Int32 m_idDspBassBoostExternal;
 
-		// unique identifiers for VSTs
-		public Int32	m_idVstKarmaFxEq;
-		public Int32	m_idVstFromFile;
+        // unique identifiers for VSTs
+        public Int32 m_idVstKarmaFxEq;
+        public Int32 m_idVstFromFile;
 
-		// Reverb internal DSP variables
-		private Int32	BUFFERLEN = 1200;	// length of the reverb's buffer
-		private float[]	m_buffReverbLeft;	// buffer for left channel reverb
-		private float[]	m_buffReverbRight;	// buffer for right channel reverb
-		private Int32	m_posReverb;		// current position in buffers
+        // Reverb internal DSP variables
+        private Int32 BUFFERLEN = 1200;	// length of the reverb's buffer
+        private float[] m_buffReverbLeft;	// buffer for left channel reverb
+        private float[] m_buffReverbRight;	// buffer for right channel reverb
+        private Int32 m_posReverb;		// current position in buffers
 
-		// Balance internal DSP variables
-		private Int16	m_nBalancePercentageInternal = 0;
+        // Balance internal DSP variables
+        private Int16 m_nBalancePercentageInternal = 0;
 
-		// Bass boost parameters
-		private BASSBOOST_PARAMETERS	m_paramBassBoostExternal;
-		public System.Windows.Forms.GroupBox framePlayback;
-		private System.Windows.Forms.Timer timerRecordingDone;
-		public System.Windows.Forms.GroupBox FrameRecording;
-		private System.Windows.Forms.Label label18;
-		private System.Windows.Forms.Label label17;
+        // Bass boost parameters
+        private BASSBOOST_PARAMETERS m_paramBassBoostExternal;
+        public System.Windows.Forms.GroupBox framePlayback;
+        private System.Windows.Forms.Timer timerRecordingDone;
+        public System.Windows.Forms.GroupBox FrameRecording;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
         #endregion
 
         #region More Controls
-        private bool	m_bRecAppendMode;
+        private bool m_bRecAppendMode;
 
-		private IntPtr m_hWndVuMeterLeft;
+        private IntPtr m_hWndVuMeterLeft;
         private IntPtr m_hWndVuMeterRight;
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel1;
@@ -187,6 +187,8 @@ namespace SoundStudio
         #endregion
 
         #region Clip SetUp
+
+        private TimeSpan m_setStartTime = TimeSpan.Zero;
         private Word m_selectedScheduledWord = null;
         private bool m_selectedAnchor = false;
         private bool m_skipSelectionChange = false;
@@ -234,101 +236,100 @@ namespace SoundStudio
         private MyMentorUtilityClient.TimeSpinner.TimePickerSpinner timePickerSpinner1;
         private Label label9;
         public Button buttonHammer;
-        private Timer AddSchedulerLineTimer;
         private ToolStripMenuItem mnuLoadTest;
         private Timer timerUpdateTimePickerSpinner;
 
-        private string	m_strExportPathname;
+        private string m_strExportPathname;
 
-		// Reverb internal DSP
-		private void ReverbCallback (IntPtr bufferSamples, Int32 bufferSamplesLength, Int32 nUserData)
-		{
-			float[]	buffTemp = new float[bufferSamplesLength/4];
-			Int32	index;
+        // Reverb internal DSP
+        private void ReverbCallback(IntPtr bufferSamples, Int32 bufferSamplesLength, Int32 nUserData)
+        {
+            float[] buffTemp = new float[bufferSamplesLength / 4];
+            Int32 index;
 
-			Marshal.Copy(bufferSamples, buffTemp, 0, bufferSamplesLength/4);
+            Marshal.Copy(bufferSamples, buffTemp, 0, bufferSamplesLength / 4);
 
-			for (index = 0; index < (bufferSamplesLength / 4); index += 2)
-			{
-				float left, right;
-				left = buffTemp[index] + (m_buffReverbLeft[m_posReverb] / 2);
-				right = buffTemp[index + 1] + (m_buffReverbRight[m_posReverb] / 2);
-		        
-				m_buffReverbLeft[m_posReverb] = left;
-				buffTemp[index] = left;
-				m_buffReverbRight[m_posReverb] = right;
-				buffTemp[index + 1] = right;
-		        
-				m_posReverb++;
-				if (m_posReverb == BUFFERLEN)
-					m_posReverb = 0;
-			}
+            for (index = 0; index < (bufferSamplesLength / 4); index += 2)
+            {
+                float left, right;
+                left = buffTemp[index] + (m_buffReverbLeft[m_posReverb] / 2);
+                right = buffTemp[index + 1] + (m_buffReverbRight[m_posReverb] / 2);
 
-			Marshal.Copy(buffTemp, 0, bufferSamples, bufferSamplesLength/4);
-		}
+                m_buffReverbLeft[m_posReverb] = left;
+                buffTemp[index] = left;
+                m_buffReverbRight[m_posReverb] = right;
+                buffTemp[index + 1] = right;
 
-		// Balance internal DSP
-		private void BalanceCallback (IntPtr bufferSamples, Int32 bufferSamplesLength, Int32 nUserData)
-		{
-			if (m_nBalancePercentageInternal == 0)
-				return;
+                m_posReverb++;
+                if (m_posReverb == BUFFERLEN)
+                    m_posReverb = 0;
+            }
 
-			float[]	buffTemp = new float[bufferSamplesLength/4];
+            Marshal.Copy(buffTemp, 0, bufferSamples, bufferSamplesLength / 4);
+        }
 
-			Marshal.Copy(bufferSamples, buffTemp, 0, bufferSamplesLength/4);
+        // Balance internal DSP
+        private void BalanceCallback(IntPtr bufferSamples, Int32 bufferSamplesLength, Int32 nUserData)
+        {
+            if (m_nBalancePercentageInternal == 0)
+                return;
 
-			Int32	length = bufferSamplesLength;
-			Int32	index = 0;
-			do
-			{
-				if (m_nBalancePercentageInternal < 0)
-					buffTemp[index + 1] = buffTemp[index + 1] * (100 + m_nBalancePercentageInternal) / 100;
-				else
-					buffTemp[index] = buffTemp[index] * (100 - m_nBalancePercentageInternal) / 100;
-		        
-				length = length - 8;
-				index = index + 2;
-			}
-			while (length > 0);
+            float[] buffTemp = new float[bufferSamplesLength / 4];
 
-			Marshal.Copy(buffTemp, 0, bufferSamples, bufferSamplesLength/4);
-		}
+            Marshal.Copy(bufferSamples, buffTemp, 0, bufferSamplesLength / 4);
+
+            Int32 length = bufferSamplesLength;
+            Int32 index = 0;
+            do
+            {
+                if (m_nBalancePercentageInternal < 0)
+                    buffTemp[index + 1] = buffTemp[index + 1] * (100 + m_nBalancePercentageInternal) / 100;
+                else
+                    buffTemp[index] = buffTemp[index] * (100 - m_nBalancePercentageInternal) / 100;
+
+                length = length - 8;
+                index = index + 2;
+            }
+            while (length > 0);
+
+            Marshal.Copy(buffTemp, 0, bufferSamples, bufferSamplesLength / 4);
+        }
 
 
-		public FormMain()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        public FormMain()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.Frame4 = new System.Windows.Forms.GroupBox();
@@ -415,6 +416,7 @@ namespace SoundStudio
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.timePickerSpinner1 = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -470,13 +472,11 @@ namespace SoundStudio
             this.mnuHelp_About = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuHelp_ShowJSON = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuLoadTest = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.audioDjStudio1 = new AudioDjStudio.AudioDjStudio();
             this.djLineTimer = new System.Windows.Forms.Timer(this.components);
-            this.AddSchedulerLineTimer = new System.Windows.Forms.Timer(this.components);
-            this.mnuLoadTest = new System.Windows.Forms.ToolStripMenuItem();
-            this.timePickerSpinner1 = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
             this.timerUpdateTimePickerSpinner = new System.Windows.Forms.Timer(this.components);
             this.Frame4.SuspendLayout();
             this.framePlayback.SuspendLayout();
@@ -1560,6 +1560,16 @@ namespace SoundStudio
             this.label9.TabIndex = 24;
             this.label9.Text = "בחירה";
             // 
+            // timePickerSpinner1
+            // 
+            this.timePickerSpinner1.Location = new System.Drawing.Point(53, 19);
+            this.timePickerSpinner1.Margin = new System.Windows.Forms.Padding(4);
+            this.timePickerSpinner1.Name = "timePickerSpinner1";
+            this.timePickerSpinner1.Size = new System.Drawing.Size(181, 36);
+            this.timePickerSpinner1.TabIndex = 22;
+            this.timePickerSpinner1.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerSpinner1.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
+            // 
             // tabPage4
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 46);
@@ -1977,6 +1987,13 @@ namespace SoundStudio
             this.mnuHelp_ShowJSON.Text = "הצג נתוני DEBUG";
             this.mnuHelp_ShowJSON.Click += new System.EventHandler(this.mnuHelp_ShowJSON_Click);
             // 
+            // mnuLoadTest
+            // 
+            this.mnuLoadTest.Name = "mnuLoadTest";
+            this.mnuLoadTest.Size = new System.Drawing.Size(165, 22);
+            this.mnuLoadTest.Text = "טען קובץ Test";
+            this.mnuLoadTest.Click += new System.EventHandler(this.mnuLoadTest_Click);
+            // 
             // audioDjStudio1
             // 
             this.audioDjStudio1.Fader = ((AudioDjStudio.FaderObject)(resources.GetObject("audioDjStudio1.Fader")));
@@ -1993,28 +2010,7 @@ namespace SoundStudio
             this.djLineTimer.Interval = 50;
             this.djLineTimer.Tick += new System.EventHandler(this.djLineTimer_Tick);
             // 
-            // AddSchedulerLineTimer
-            // 
-            this.AddSchedulerLineTimer.Tick += new System.EventHandler(this.AddSchedulerLineTimer_Tick);
-            // 
-            // mnuLoadTest
-            // 
-            this.mnuLoadTest.Name = "mnuLoadTest";
-            this.mnuLoadTest.Size = new System.Drawing.Size(165, 22);
-            this.mnuLoadTest.Text = "טען קובץ Test";
-            this.mnuLoadTest.Click += new System.EventHandler(this.mnuLoadTest_Click);
-            // 
-            // timePickerSpinner1
-            // 
-            this.timePickerSpinner1.Location = new System.Drawing.Point(53, 19);
-            this.timePickerSpinner1.Margin = new System.Windows.Forms.Padding(4);
-            this.timePickerSpinner1.Name = "timePickerSpinner1";
-            this.timePickerSpinner1.Size = new System.Drawing.Size(181, 36);
-            this.timePickerSpinner1.TabIndex = 22;
-            this.timePickerSpinner1.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerSpinner1.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
-            // 
-            // timerUpdateSpinnerControl
+            // timerUpdateTimePickerSpinner
             // 
             this.timerUpdateTimePickerSpinner.Interval = 50;
             this.timerUpdateTimePickerSpinner.Tick += new System.EventHandler(this.timerUpdateSpinnerControl_Tick);
@@ -2071,713 +2067,719 @@ namespace SoundStudio
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
 
-		public static bool CheckKeyPress (TextBox textbox, Int32 key)
-		{
-			// allow valid floating point characters
-			if (key >= 48 && key <= 57)
-				return false;
+        public static bool CheckKeyPress(TextBox textbox, Int32 key)
+        {
+            // allow valid floating point characters
+            if (key >= 48 && key <= 57)
+                return false;
 
-			// obtain the decimal separator for the current locale
-			char	strDecimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
-			int	nDecimalSeparator = Convert.ToInt32 (strDecimalSeparator);
-			if (key == nDecimalSeparator ||
-				key == 8 ||
-				key == 45)
-			{
-				if (key == nDecimalSeparator)
-				{
-					// check if the decimal separator has already been entered
-					if (textbox.Text.IndexOf (strDecimalSeparator) != -1)
-						// discard further decimal separators
-						return true;
-				}
-				return false;
-			}
-		    
-			// character not valid for floating point number, discard it
-			return true;
-		}
+            // obtain the decimal separator for the current locale
+            char strDecimalSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            int nDecimalSeparator = Convert.ToInt32(strDecimalSeparator);
+            if (key == nDecimalSeparator ||
+                key == 8 ||
+                key == 45)
+            {
+                if (key == nDecimalSeparator)
+                {
+                    // check if the decimal separator has already been entered
+                    if (textbox.Text.IndexOf(strDecimalSeparator) != -1)
+                        // discard further decimal separators
+                        return true;
+                }
+                return false;
+            }
 
-		private void GetSelectedRange (ref Int32 nBeginSelectionInMs, ref Int32 nEndSelectionInMs)
-		{
-			bool	bSelectionAvailable = false;
-			audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection (ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
-				
-			// if a selection is available
-			if (!bSelectionAvailable)
-			{
-				// apply the effect on the whole sound
-				nBeginSelectionInMs = 0;
-				nEndSelectionInMs = -1;
-			}
+            // character not valid for floating point number, discard it
+            return true;
+        }
 
-			// check if we have simply selected a position (vertical dotted line)
-			if (nBeginSelectionInMs == nEndSelectionInMs)
-				// apply the effect till the end of sound
-				nEndSelectionInMs = -1;
-		}
+        private void GetSelectedRange(ref Int32 nBeginSelectionInMs, ref Int32 nEndSelectionInMs)
+        {
+            bool bSelectionAvailable = false;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
 
-		private IntPtr CreateVuMeter (Label ctrlPosition, AudioSoundRecorder.enumGraphicBarOrientations nOrientation)
-		{
-			// create a new graphic bar
-			IntPtr hWnd = audioSoundRecorder1.GraphicBarsManager.Create (panel2.Handle, ctrlPosition.Left, ctrlPosition.Top,
-				ctrlPosition.Width, ctrlPosition.Height);
+            // if a selection is available
+            if (!bSelectionAvailable)
+            {
+                // apply the effect on the whole sound
+                nBeginSelectionInMs = 0;
+                nEndSelectionInMs = -1;
+            }
 
-			// set graphic bar range
-			audioSoundRecorder1.GraphicBarsManager.SetRange (hWnd, 0, 32767);
+            // check if we have simply selected a position (vertical dotted line)
+            if (nBeginSelectionInMs == nEndSelectionInMs)
+                // apply the effect till the end of sound
+                nEndSelectionInMs = -1;
+        }
 
-			// enable automatic drop and set the requested orientation
-			AudioSoundRecorder.GRAPHIC_BAR_SETTINGS	settings = new AudioSoundRecorder.GRAPHIC_BAR_SETTINGS ();
-			audioSoundRecorder1.GraphicBarsManager.GetGraphicalSettings (hWnd, ref settings);
-			settings.bAutomaticDrop = true;
-			settings.nOrientation = nOrientation;
-			audioSoundRecorder1.GraphicBarsManager.SetGraphicalSettings (hWnd, settings);
-			
-			return hWnd;
-		}
+        private IntPtr CreateVuMeter(Label ctrlPosition, AudioSoundRecorder.enumGraphicBarOrientations nOrientation)
+        {
+            // create a new graphic bar
+            IntPtr hWnd = audioSoundRecorder1.GraphicBarsManager.Create(panel2.Handle, ctrlPosition.Left, ctrlPosition.Top,
+                ctrlPosition.Width, ctrlPosition.Height);
 
-		private void FormMain_Load(object sender, System.EventArgs e)
-		{
+            // set graphic bar range
+            audioSoundRecorder1.GraphicBarsManager.SetRange(hWnd, 0, 32767);
+
+            // enable automatic drop and set the requested orientation
+            AudioSoundRecorder.GRAPHIC_BAR_SETTINGS settings = new AudioSoundRecorder.GRAPHIC_BAR_SETTINGS();
+            audioSoundRecorder1.GraphicBarsManager.GetGraphicalSettings(hWnd, ref settings);
+            settings.bAutomaticDrop = true;
+            settings.nOrientation = nOrientation;
+            audioSoundRecorder1.GraphicBarsManager.SetGraphicalSettings(hWnd, settings);
+
+            return hWnd;
+        }
+
+        private void FormMain_Load(object sender, System.EventArgs e)
+        {
             rtbMainEditorGraphics = richTextBox1.CreateGraphics();
             rtbAlternateEditorGraphics = richTextBox3.CreateGraphics();
 
-			// init controls
-			audioSoundRecorder1.InitRecordingSystem ();
-			audioSoundEditor1.InitEditor ();
-            
-			// create the recorder's VU-Meter
-			audioSoundRecorder1.DisplayVUMeter.Create (IntPtr.Zero);
-			m_hWndVuMeterLeft = CreateVuMeter(label17, AudioSoundRecorder.enumGraphicBarOrientations.GRAPHIC_BAR_ORIENT_VERTICAL);
-			m_hWndVuMeterRight = CreateVuMeter(label18, AudioSoundRecorder.enumGraphicBarOrientations.GRAPHIC_BAR_ORIENT_VERTICAL);
+            // init controls
+            audioSoundRecorder1.InitRecordingSystem();
+            audioSoundEditor1.InitEditor();
+
+            // create the recorder's VU-Meter
+            audioSoundRecorder1.DisplayVUMeter.Create(IntPtr.Zero);
+            m_hWndVuMeterLeft = CreateVuMeter(label17, AudioSoundRecorder.enumGraphicBarOrientations.GRAPHIC_BAR_ORIENT_VERTICAL);
+            m_hWndVuMeterRight = CreateVuMeter(label18, AudioSoundRecorder.enumGraphicBarOrientations.GRAPHIC_BAR_ORIENT_VERTICAL);
 
             // create the waveform analyzer (always call this function on the end of the form's Load fucntion)
             audioSoundEditor1.DisplayWaveformAnalyzer.Create(panel1.Handle, Picture1.Left, Picture1.Top, panel1.Width, panel1.Height);
 
-			// get the analyzer's current settings
-			WANALYZER_SCROLLBARS_SETTINGS settingsScrollbars = new WANALYZER_SCROLLBARS_SETTINGS();
-			audioSoundEditor1.DisplayWaveformAnalyzer.SettingsScrollbarsGet(ref settingsScrollbars);
-		    
-			// hide the bottom scrollbar
-			settingsScrollbars.bVisibleBottom = false;
+            // get the analyzer's current settings
+            WANALYZER_SCROLLBARS_SETTINGS settingsScrollbars = new WANALYZER_SCROLLBARS_SETTINGS();
+            audioSoundEditor1.DisplayWaveformAnalyzer.SettingsScrollbarsGet(ref settingsScrollbars);
 
-			// apply the new settings
-			audioSoundEditor1.DisplayWaveformAnalyzer.SettingsScrollbarsSet(settingsScrollbars);
+            // hide the bottom scrollbar
+            settingsScrollbars.bVisibleBottom = false;
 
-			// init unique identifiers for DSPs
-			m_idDspReverbInternal = 0;
-			m_idDspBalanceInternal = 0;
-			m_idDspReverbExternal = 0;
-			m_idDspBalanceExternal = 0;
-			m_idDspBassBoostExternal = 0;
+            // apply the new settings
+            audioSoundEditor1.DisplayWaveformAnalyzer.SettingsScrollbarsSet(settingsScrollbars);
 
-			// init unique identifiers for VSTs
-			m_idVstKarmaFxEq = 0;
+            // init unique identifiers for DSPs
+            m_idDspReverbInternal = 0;
+            m_idDspBalanceInternal = 0;
+            m_idDspReverbExternal = 0;
+            m_idDspBalanceExternal = 0;
+            m_idDspBassBoostExternal = 0;
 
-			TimerMenuEnabler.Enabled = true;
-		}
+            // init unique identifiers for VSTs
+            m_idVstKarmaFxEq = 0;
 
-		private void buttonPlay_Click(object sender, System.EventArgs e)
-		{
+            TimerMenuEnabler.Enabled = true;
+        }
+
+        private void buttonPlay_Click(object sender, System.EventArgs e)
+        {
             audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
 
-			audioSoundEditor1.PlaySound ();
-		}
+            audioSoundEditor1.PlaySound();
+        }
 
-		private void buttonPlaySelection_Click(object sender, System.EventArgs e)
-		{
-			// get the position selected on the waveform analyzer, if any
-			bool	bSelectionAvailable = false;
-			Int32	nBeginSelectionInMs = 0;
-			Int32	nEndSelectionInMs = 0;
-			audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection (ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+        private void buttonPlaySelection_Click(object sender, System.EventArgs e)
+        {
+            // get the position selected on the waveform analyzer, if any
+            bool bSelectionAvailable = false;
+            Int32 nBeginSelectionInMs = 0;
+            Int32 nEndSelectionInMs = 0;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
 
-			// if a selection is available
-			if (bSelectionAvailable)
-				// play selected range only
-				audioSoundEditor1.PlaySoundRange (nBeginSelectionInMs, nEndSelectionInMs);
-		}
+            // if a selection is available
+            if (bSelectionAvailable)
+                // play selected range only
+                audioSoundEditor1.PlaySoundRange(nBeginSelectionInMs, nEndSelectionInMs);
+        }
 
-		private void buttonPause_Click(object sender, System.EventArgs e)
-		{
+        private void buttonPause_Click(object sender, System.EventArgs e)
+        {
             if (buttonPause.Text == "השהה")
             {
                 audioSoundEditor1.PauseSound();
             }
             else
                 audioSoundEditor1.ResumeSound();
-		}
+        }
 
-		private void buttonStop_Click(object sender, System.EventArgs e)
-		{
-			audioSoundEditor1.StopSound ();
-		}
+        private void buttonStop_Click(object sender, System.EventArgs e)
+        {
+            audioSoundEditor1.StopSound();
+        }
 
         private void LoadAudioFromMemory(object sender, System.EventArgs e)
-		{
-			// due to the fact that a Load operation will discard any existing sound,
-			// check if there is already a Loading session available
-			DialogResult	result;
-			if (audioSoundEditor1.GetSoundDuration () > 0)
-			{
-				// ask the user if he wants to go on
+        {
+            // due to the fact that a Load operation will discard any existing sound,
+            // check if there is already a Loading session available
+            DialogResult result;
+            if (audioSoundEditor1.GetSoundDuration() > 0)
+            {
+                // ask the user if he wants to go on
                 result = MessageBox.Show("קיים קובץ שמע בזיכרון, האם בכל זאת ליצור חדש ?", "MyMentor", MessageBoxButtons.YesNo);
                 if (result == DialogResult.No)
-					return;
-			}
-		    
-			// free the actual session
-			audioSoundEditor1.CloseSound ();
-		    
-			// reset formatted strings
-			LabelRangeBegin.Text = "00:00:00.000";
-			LabelRangeEnd.Text = "00:00:00.000";
-			LabelRangeDuration.Text = "00:00:00.000";
-			LabelSelectionBegin.Text = "00:00:00.000";
-			LabelSelectionEnd.Text = "00:00:00.000";
-			LabelSelectionDuration.Text = "00:00:00.000";
-			LabelTotalDuration.Text = "00:00:00.000";
+                    return;
+            }
 
-			openFileDialog1.Filter =
-				"Supported Sounds (*.mp3;*.mp2;*.wav;*.ogg;*.aiff;*.wma;*.wmv;*.asx;*.asf;" +
-				"*.m4a;*.mp4;*.flac;*.aac;*.ac3;*.wv;" +
-				"*.au;*.aif;*.w64;*.voc;*.sf;*.paf;*.pvf;*.caf;*.svx ;" +
-				"*.it;*.xm;*.s3m;*.mod;*.mtm;*.mo3;*.cda)|" +
-				"*.mp3;*.mp2;*.wav;*.ogg;*.aiff;*.wma;*.wmv;*.asx;*.asf;" +
-				"*.m4a;*.mp4;*.flac;*.aac;*.ac3;*.wv;" +
-				"*.au;*.aif;*.w64;*.voc;*.sf;*.paf;*.pvf;*.caf;*.svx ;" +
-				"*.it;*.xm;*.s3m;*.mod;*.mtm;*.mo3;*.cda|" +
-				"MP3 and MP2 sounds (*.mp3;*.mp2)|*.mp3;*.mp2|" +
-				"AAC and MP4 sounds (*.aac;*.mp4)|*.aac;*.mp4|" +
-				"WAV sounds (*.wav)|*.wav|" +
-				"OGG Vorbis sounds (*.ogg)|*.ogg|" +
-				"AIFF sounds (*.aiff)|*.aiff|" +
-				"Windows Media sounds (*.wma;*.wmv;*.asx;*.asf)|*.wma;*.wmv;*.asx;*.asf|" +
-				"AC3 sounds (*.ac3)|*.ac3;|" +
-				"ALAC sounds (*.m4a)|*.ac3;|" +
-				"FLAC sounds (*.flac)|*.flac;|" +
-				"WavPack sounds (*.wv)|*.wv;|" +
-				"All files (*.*)|*.*";
-			openFileDialog1.Title = "Load a sound file";
-			result = openFileDialog1.ShowDialog();
-			if (result == DialogResult.Cancel)
-				return;
-			
-			// read the song file into a memory buffer
-			FileStream		streamFile = new FileStream (openFileDialog1.FileName, FileMode.Open);
-			BinaryReader	binReader = new BinaryReader (streamFile);
-		
-			m_byteBuffer = new byte[streamFile.Length];
-			int read = binReader.Read (m_byteBuffer, 0, (int) streamFile.Length);
+            // free the actual session
+            audioSoundEditor1.CloseSound();
 
-			// load the new song from the memory buffer
-			audioSoundEditor1.SetLoadingMode (enumLoadingModes.LOAD_MODE_NEW);
-			if (audioSoundEditor1.LoadSoundFromMemory (m_byteBuffer, (Int32) streamFile.Length) != enumErrorCodes.ERR_NOERROR)
-				MessageBox.Show ("Cannot load file " + openFileDialog1.FileName);
+            // reset formatted strings
+            LabelRangeBegin.Text = "00:00:00.000";
+            LabelRangeEnd.Text = "00:00:00.000";
+            LabelRangeDuration.Text = "00:00:00.000";
+            LabelSelectionBegin.Text = "00:00:00.000";
+            LabelSelectionEnd.Text = "00:00:00.000";
+            LabelSelectionDuration.Text = "00:00:00.000";
+            LabelTotalDuration.Text = "00:00:00.000";
 
-			binReader.Close ();
-			streamFile.Close ();
-		}
+            openFileDialog1.Filter =
+                "Supported Sounds (*.mp3;*.mp2;*.wav;*.ogg;*.aiff;*.wma;*.wmv;*.asx;*.asf;" +
+                "*.m4a;*.mp4;*.flac;*.aac;*.ac3;*.wv;" +
+                "*.au;*.aif;*.w64;*.voc;*.sf;*.paf;*.pvf;*.caf;*.svx ;" +
+                "*.it;*.xm;*.s3m;*.mod;*.mtm;*.mo3;*.cda)|" +
+                "*.mp3;*.mp2;*.wav;*.ogg;*.aiff;*.wma;*.wmv;*.asx;*.asf;" +
+                "*.m4a;*.mp4;*.flac;*.aac;*.ac3;*.wv;" +
+                "*.au;*.aif;*.w64;*.voc;*.sf;*.paf;*.pvf;*.caf;*.svx ;" +
+                "*.it;*.xm;*.s3m;*.mod;*.mtm;*.mo3;*.cda|" +
+                "MP3 and MP2 sounds (*.mp3;*.mp2)|*.mp3;*.mp2|" +
+                "AAC and MP4 sounds (*.aac;*.mp4)|*.aac;*.mp4|" +
+                "WAV sounds (*.wav)|*.wav|" +
+                "OGG Vorbis sounds (*.ogg)|*.ogg|" +
+                "AIFF sounds (*.aiff)|*.aiff|" +
+                "Windows Media sounds (*.wma;*.wmv;*.asx;*.asf)|*.wma;*.wmv;*.asx;*.asf|" +
+                "AC3 sounds (*.ac3)|*.ac3;|" +
+                "ALAC sounds (*.m4a)|*.ac3;|" +
+                "FLAC sounds (*.flac)|*.flac;|" +
+                "WavPack sounds (*.wv)|*.wv;|" +
+                "All files (*.*)|*.*";
+            openFileDialog1.Title = "Load a sound file";
+            result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.Cancel)
+                return;
 
-		private void ExportAudioFile(object sender, System.EventArgs e)
-		{
-			FormExport	frmExport = new FormExport ();
-			frmExport.audioSoundEditor1 = this.audioSoundEditor1;
-			frmExport.ShowDialog (this);			
-			m_strExportPathname = frmExport.m_strExportPathname;
-		}
+            // read the song file into a memory buffer
+            FileStream streamFile = new FileStream(openFileDialog1.FileName, FileMode.Open);
+            BinaryReader binReader = new BinaryReader(streamFile);
 
-		private void TimerMenuEnabler_Tick(object sender, System.EventArgs e)
-		{
-			// check if there is a sound inside the system clipboard
-			if (audioSoundEditor1.IsSoundAvailableInClipboard())
-			{
-				mnuAudioSelectedPart_Paste.Enabled = true;
-		        
-				// check if there is already an available recorded sound
-				if (audioSoundEditor1.GetSoundDuration() > 0)
-				{
-					mnuAudioSelectedPart_Paste.Text = "הדבק ב- '&Append mode'";
-		            
-					mnuAudioSelectedPart_PasteInsertMode.Visible = true;
-				}
-				else
-				{
-					mnuAudioSelectedPart_Paste.Text = "&הדבק";
-		        
-					mnuAudioSelectedPart_PasteInsertMode.Visible = false;
-				}
-			}
-			else
-			{
-				mnuAudioSelectedPart_Paste.Enabled = false;
-				mnuAudioSelectedPart_PasteInsertMode.Visible = false;
-				mnuAudioSelectedPart_Paste.Text = "הדבק";
-			}
-		    
-			// check if there is a selection on the analyzer
-			bool	bSelectionAvailable = false;
-			Int32	nBeginSelectionInMs = 0;
-			Int32	nEndSelectionInMs = 0;
-			audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection (ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
-		    
-			// if a selection is available
-			if (bSelectionAvailable)
-			{
-				// enable copy & cut
-				mnuAudioSelectedPart_Cut.Enabled = true;
+            m_byteBuffer = new byte[streamFile.Length];
+            int read = binReader.Read(m_byteBuffer, 0, (int)streamFile.Length);
+
+            // load the new song from the memory buffer
+            audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_NEW);
+            if (audioSoundEditor1.LoadSoundFromMemory(m_byteBuffer, (Int32)streamFile.Length) != enumErrorCodes.ERR_NOERROR)
+                MessageBox.Show("Cannot load file " + openFileDialog1.FileName);
+
+            binReader.Close();
+            streamFile.Close();
+        }
+
+        private void ExportAudioFile(object sender, System.EventArgs e)
+        {
+            FormExport frmExport = new FormExport();
+            frmExport.audioSoundEditor1 = this.audioSoundEditor1;
+            frmExport.ShowDialog(this);
+            m_strExportPathname = frmExport.m_strExportPathname;
+        }
+
+        private void TimerMenuEnabler_Tick(object sender, System.EventArgs e)
+        {
+            // check if there is a sound inside the system clipboard
+            if (audioSoundEditor1.IsSoundAvailableInClipboard())
+            {
+                mnuAudioSelectedPart_Paste.Enabled = true;
+
+                // check if there is already an available recorded sound
+                if (audioSoundEditor1.GetSoundDuration() > 0)
+                {
+                    mnuAudioSelectedPart_Paste.Text = "הדבק ב- '&Append mode'";
+
+                    mnuAudioSelectedPart_PasteInsertMode.Visible = true;
+                }
+                else
+                {
+                    mnuAudioSelectedPart_Paste.Text = "&הדבק";
+
+                    mnuAudioSelectedPart_PasteInsertMode.Visible = false;
+                }
+            }
+            else
+            {
+                mnuAudioSelectedPart_Paste.Enabled = false;
+                mnuAudioSelectedPart_PasteInsertMode.Visible = false;
+                mnuAudioSelectedPart_Paste.Text = "הדבק";
+            }
+
+            // check if there is a selection on the analyzer
+            bool bSelectionAvailable = false;
+            Int32 nBeginSelectionInMs = 0;
+            Int32 nEndSelectionInMs = 0;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+            // if a selection is available
+            if (bSelectionAvailable)
+            {
+                // enable copy & cut
+                mnuAudioSelectedPart_Cut.Enabled = true;
                 mnuAudioSelectedPart_Copy.Enabled = true;
-		        
-				// enable selection deletion
+
+                // enable selection deletion
                 mnuAudioSelectedPart_Delete.Enabled = true;
-		        
-				// enable reduction to selection
+
+                // enable reduction to selection
                 mnuAudioSelectedPart_Reduce.Enabled = true;
-		        
-				// enable selection removal
+
+                // enable selection removal
                 mnuAudioSelectedPart_Remove.Enabled = true;
 
-				// enable zoom to selection
+                // enable zoom to selection
                 mnuZoom_Selection.Enabled = true;
-			}
-			else
-			{
-				// disable copy & cut
+            }
+            else
+            {
+                // disable copy & cut
                 mnuAudioSelectedPart_Cut.Enabled = false;
                 mnuAudioSelectedPart_Copy.Enabled = false;
-		    
-				// disable selection deletion
+
+                // disable selection deletion
                 mnuAudioSelectedPart_Delete.Enabled = false;
-		        
-				// disable reduction to selection
+
+                // disable reduction to selection
                 mnuAudioSelectedPart_Reduce.Enabled = false;
-		    
-				// disable selection removal
+
+                // disable selection removal
                 mnuAudioSelectedPart_Remove.Enabled = false;
 
-				// disable zoom to selection
+                // disable zoom to selection
                 mnuZoom_Selection.Enabled = false;
-			}
+            }
 
-			// check if there is a sound available
-			if (audioSoundEditor1.GetSoundDuration() > 0)
-			{
-				// enable Select all
-				mnuAudioSelectedPart_SelectAll.Enabled = true;
-		        
-				// enable editing tools
-				mnuAudioOptions_InsertSilent.Enabled = true;
-				mnuAudioOptions_ApplyBackgroundSound.Enabled = true;
+            // check if there is a sound available
+            if (audioSoundEditor1.GetSoundDuration() > 0)
+            {
+                // enable Select all
+                mnuAudioSelectedPart_SelectAll.Enabled = true;
 
-				// enable special effects
+                // enable editing tools
+                mnuAudioOptions_InsertSilent.Enabled = true;
+                mnuAudioOptions_ApplyBackgroundSound.Enabled = true;
+
+                // enable special effects
                 mnuAudioEffects.Enabled = true;
 
-				// enable zoom
-				mnuZoom.Enabled = true;
-			}
-			else
-			{
-				// disable Select all
+                // enable zoom
+                mnuZoom.Enabled = true;
+            }
+            else
+            {
+                // disable Select all
                 mnuAudioSelectedPart_SelectAll.Enabled = false;
-		    
-				// disable editing tools
+
+                // disable editing tools
                 mnuAudioOptions_InsertSilent.Enabled = false;
                 mnuAudioOptions_ApplyBackgroundSound.Enabled = false;
 
-				// disable special effects
-				mnuAudioEffects.Enabled = false;
+                // disable special effects
+                mnuAudioEffects.Enabled = false;
 
-				// disable zoom
-				mnuZoom.Enabled = false;
-			}
-		}
+                // disable zoom
+                mnuZoom.Enabled = false;
+            }
+        }
 
-		private void TimerReload_Tick(object sender, System.EventArgs e)
-		{
-			// reset the timer
-			TimerReload.Enabled = false;
+        private void TimerReload_Tick(object sender, System.EventArgs e)
+        {
+            // reset the timer
+            TimerReload.Enabled = false;
 
-			// get updated sound duration
-			Int32	nDurationInMs = audioSoundEditor1.GetSoundDuration();
-			if (nDurationInMs == 0)
-			{
-				// the whole song was deleted, let's free all
-				audioSoundEditor1.CloseSound ();
-		    
-				// reset formatted strings
-				LabelRangeBegin.Text = "00:00:00.000";
-				LabelRangeEnd.Text = "00:00:00.000";
-				LabelRangeDuration.Text = "00:00:00.000";
-				LabelSelectionBegin.Text = "00:00:00.000";
-				LabelSelectionEnd.Text = "00:00:00.000";
-				LabelSelectionDuration.Text = "00:00:00.000";
-				LabelTotalDuration.Text = "00:00:00.000";
-				return;
-			}
+            // get updated sound duration
+            Int32 nDurationInMs = audioSoundEditor1.GetSoundDuration();
+            if (nDurationInMs == 0)
+            {
+                // the whole song was deleted, let's free all
+                audioSoundEditor1.CloseSound();
 
-			// display updated sound duration
-			LabelTotalDuration.Text = audioSoundEditor1.GetFormattedTime(nDurationInMs, true, true);
-			LabelTotalDuration.Refresh ();
+                // reset formatted strings
+                LabelRangeBegin.Text = "00:00:00.000";
+                LabelRangeEnd.Text = "00:00:00.000";
+                LabelRangeDuration.Text = "00:00:00.000";
+                LabelSelectionBegin.Text = "00:00:00.000";
+                LabelSelectionEnd.Text = "00:00:00.000";
+                LabelSelectionDuration.Text = "00:00:00.000";
+                LabelTotalDuration.Text = "00:00:00.000";
+                return;
+            }
 
-			// check if the song was loaded from a previous recording session
-			if (audioSoundRecorder1.RecordedSound.GetDuration() > 0)
-				// free recorder contents
-				audioSoundRecorder1.RecordedSound.FreeMemory ();
+            // display updated sound duration
+            LabelTotalDuration.Text = audioSoundEditor1.GetFormattedTime(nDurationInMs, true, true);
+            LabelTotalDuration.Refresh();
 
-			// request full waveform analysis using different resolutions depending upon the song's duration
-			// remember that the higher the resolution, the slower the time required to perform it
-			enumAnalyzerResolutions	nResolution;
-			if (nDurationInMs <= 5000)
-				// less than 5 seconds
-				nResolution = enumAnalyzerResolutions.WAVEANALYZER_RES_MAXIMUM;
-			else if ((nDurationInMs > 5000) && (nDurationInMs <= 10000))
-				// between 5 and 10 seconds
-				nResolution = enumAnalyzerResolutions.WAVEANALYZER_RES_HIGH;
-			else if ((nDurationInMs > 10000) && (nDurationInMs <= 300000))
-				// between 10 seconds and 5 minutes
-				nResolution = enumAnalyzerResolutions.WAVEANALYZER_RES_MIDDLE;
-			else
-				// above 5 minutes
-				nResolution = enumAnalyzerResolutions.WAVEANALYZER_RES_LOW;
+            // check if the song was loaded from a previous recording session
+            if (audioSoundRecorder1.RecordedSound.GetDuration() > 0)
+                // free recorder contents
+                audioSoundRecorder1.RecordedSound.FreeMemory();
 
-			// get the mix analyzer's current settings
-			WANALYZER_GENERAL_SETTINGS settingsGeneral = new WANALYZER_GENERAL_SETTINGS();
-			audioSoundEditor1.DisplayWaveformAnalyzer.SettingsGeneralGet(ref settingsGeneral);
+            // request full waveform analysis using different resolutions depending upon the song's duration
+            // remember that the higher the resolution, the slower the time required to perform it
+            enumAnalyzerResolutions nResolution;
+            if (nDurationInMs <= 5000)
+                // less than 5 seconds
+                nResolution = enumAnalyzerResolutions.WAVEANALYZER_RES_MAXIMUM;
+            else if ((nDurationInMs > 5000) && (nDurationInMs <= 10000))
+                // between 5 and 10 seconds
+                nResolution = enumAnalyzerResolutions.WAVEANALYZER_RES_HIGH;
+            else if ((nDurationInMs > 10000) && (nDurationInMs <= 300000))
+                // between 10 seconds and 5 minutes
+                nResolution = enumAnalyzerResolutions.WAVEANALYZER_RES_MIDDLE;
+            else
+                // above 5 minutes
+                nResolution = enumAnalyzerResolutions.WAVEANALYZER_RES_LOW;
 
-			// apply the new resolution
-			settingsGeneral.nResolution = nResolution;
-			audioSoundEditor1.DisplayWaveformAnalyzer.SettingsGeneralSet(settingsGeneral);
-			
-			// start waveform analysis
-			audioSoundEditor1.DisplayWaveformAnalyzer.AnalyzeFullSound ();
+            // get the mix analyzer's current settings
+            WANALYZER_GENERAL_SETTINGS settingsGeneral = new WANALYZER_GENERAL_SETTINGS();
+            audioSoundEditor1.DisplayWaveformAnalyzer.SettingsGeneralGet(ref settingsGeneral);
 
-			// some debugging message
-			enumStoreModes	nStoreMode = audioSoundEditor1.GetStoreMode();
-			if (nStoreMode == enumStoreModes.STORE_MODE_MEMORY_BUFFER)
-				Debug.WriteLine ("Song loaded inside a memory buffer whose total size is " + audioSoundEditor1.GetMemorySize() + " bytes");
-			else if (nStoreMode == enumStoreModes.STORE_MODE_TEMP_FILE)
-			{
-				Debug.WriteLine ("Song loaded inside a temporary file whose pathname is " + audioSoundEditor1.GetTempFilePathname());
-				Debug.WriteLine ("and whose size is " + audioSoundEditor1.GetTempFileSize () + " bytes");
-			}
-		}
+            // apply the new resolution
+            settingsGeneral.nResolution = nResolution;
+            audioSoundEditor1.DisplayWaveformAnalyzer.SettingsGeneralSet(settingsGeneral);
 
-		private void timerDisplayWaveform_Tick(object sender, System.EventArgs e)
-		{
-			timerDisplayWaveform.Enabled = false;
+            // start waveform analysis
+            audioSoundEditor1.DisplayWaveformAnalyzer.AnalyzeFullSound();
 
-			// display the full waveform
-			audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange (0, -1);		
-		}
+            // some debugging message
+            enumStoreModes nStoreMode = audioSoundEditor1.GetStoreMode();
+            if (nStoreMode == enumStoreModes.STORE_MODE_MEMORY_BUFFER)
+                Debug.WriteLine("Song loaded inside a memory buffer whose total size is " + audioSoundEditor1.GetMemorySize() + " bytes");
+            else if (nStoreMode == enumStoreModes.STORE_MODE_TEMP_FILE)
+            {
+                Debug.WriteLine("Song loaded inside a temporary file whose pathname is " + audioSoundEditor1.GetTempFilePathname());
+                Debug.WriteLine("and whose size is " + audioSoundEditor1.GetTempFileSize() + " bytes");
+            }
+        }
 
-		private void audioSoundEditor1_SoundExportStarted(object sender, System.EventArgs e)
-		{
-			LabelStatus.Text = "Status: Exporting...";
-			progressBar1.Visible = true;
+        private void timerDisplayWaveform_Tick(object sender, System.EventArgs e)
+        {
+            timerDisplayWaveform.Enabled = false;
 
-			LabelStatus.Refresh ();
-		}
+            // display the full waveform
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange(0, -1);
+        }
 
-		private void audioSoundEditor1_SoundExportPerc(object sender, AudioSoundEditor.SoundExportPercEventArgs e)
-		{
-			if (progressBar1.Value == e.nPercentage)
-				// no change
-				return;
-		    
-			progressBar1.Value = e.nPercentage;
-			LabelStatus.Text = "Status: Exporting... " + e.nPercentage.ToString() + "%";
+        private void audioSoundEditor1_SoundExportStarted(object sender, System.EventArgs e)
+        {
+            LabelStatus.Text = "Status: Exporting...";
+            progressBar1.Visible = true;
 
-			progressBar1.Refresh ();
-			LabelStatus.Refresh ();		
-		}
+            LabelStatus.Refresh();
+        }
 
-		private void audioSoundEditor1_SoundExportDone(object sender, AudioSoundEditor.SoundExportDoneEventArgs e)
-		{
-			LabelStatus.Text = "Status: Idle";
-			progressBar1.Visible = false;
+        private void audioSoundEditor1_SoundExportPerc(object sender, AudioSoundEditor.SoundExportPercEventArgs e)
+        {
+            if (progressBar1.Value == e.nPercentage)
+                // no change
+                return;
 
-			LabelStatus.Refresh ();
-		    
-			if (e.nResult != enumErrorCodes.ERR_NOERROR)
-				MessageBox.Show ("Export failed with the following error code: " + e.nResult.ToString ());
-			else
-				MessageBox.Show ("Editing session exported to " + m_strExportPathname);
-		}
+            progressBar1.Value = e.nPercentage;
+            LabelStatus.Text = "Status: Exporting... " + e.nPercentage.ToString() + "%";
 
-		private void audioSoundEditor1_SoundEditStarted(object sender, AudioSoundEditor.SoundEditStartedEventArgs e)
-		{
-			LabelStatus.Text = "Status: Editing ...";
-			progressBar1.Visible = true;
+            progressBar1.Refresh();
+            LabelStatus.Refresh();
+        }
 
-			LabelStatus.Refresh ();
-			progressBar1.Refresh ();
-		}
+        private void audioSoundEditor1_SoundExportDone(object sender, AudioSoundEditor.SoundExportDoneEventArgs e)
+        {
+            LabelStatus.Text = "Status: Idle";
+            progressBar1.Visible = false;
 
-		private void audioSoundEditor1_SoundEditPerc(object sender, AudioSoundEditor.SoundEditPercEventArgs e)
-		{
-			if (progressBar1.Value == e.nPercentage)
-				// no change
-				return;
-		    
-			progressBar1.Value = e.nPercentage;
-			LabelStatus.Text = "Status: Editing... " + e.nPercentage.ToString() + "%";
+            LabelStatus.Refresh();
 
-			progressBar1.Refresh ();
-			LabelStatus.Refresh ();
-		}
+            if (e.nResult != enumErrorCodes.ERR_NOERROR)
+                MessageBox.Show("Export failed with the following error code: " + e.nResult.ToString());
+            else
+                MessageBox.Show("Editing session exported to " + m_strExportPathname);
+        }
 
-		private void audioSoundEditor1_SoundEditDone(object sender, AudioSoundEditor.SoundEditDoneEventArgs e)
-		{
-			LabelStatus.Text = "Status: Idle";
-			progressBar1.Visible = false;
+        private void audioSoundEditor1_SoundEditStarted(object sender, AudioSoundEditor.SoundEditStartedEventArgs e)
+        {
+            LabelStatus.Text = "Status: Editing ...";
+            progressBar1.Visible = true;
 
-			LabelStatus.Refresh ();			
+            LabelStatus.Refresh();
+            progressBar1.Refresh();
+        }
 
-			if (e.bResult == true)
-			{
-				// success, force a new analysis of the recorded sound
-				TimerReload.Enabled = true;
+        private void audioSoundEditor1_SoundEditPerc(object sender, AudioSoundEditor.SoundEditPercEventArgs e)
+        {
+            if (progressBar1.Value == e.nPercentage)
+                // no change
+                return;
 
-				Int32	nDuration = audioSoundEditor1.GetSoundDuration();
-				LabelTotalDuration.Text = audioSoundEditor1.GetFormattedTime (nDuration, true, true);
-				LabelTotalDuration.Refresh ();
-			}
-		}
+            progressBar1.Value = e.nPercentage;
+            LabelStatus.Text = "Status: Editing... " + e.nPercentage.ToString() + "%";
 
-		private void audioSoundEditor1_SoundPlaybackDone(object sender, System.EventArgs e)
-		{
-			buttonPause.Text = "השהה";
-			LabelStatus.Text = "Status: Idle";
-			LabelStatus.Refresh ();
+            progressBar1.Refresh();
+            LabelStatus.Refresh();
+        }
+
+        private void audioSoundEditor1_SoundEditDone(object sender, AudioSoundEditor.SoundEditDoneEventArgs e)
+        {
+            LabelStatus.Text = "Status: Idle";
+            progressBar1.Visible = false;
+
+            LabelStatus.Refresh();
+
+            if (e.bResult == true)
+            {
+                // success, force a new analysis of the recorded sound
+                TimerReload.Enabled = true;
+
+                Int32 nDuration = audioSoundEditor1.GetSoundDuration();
+                LabelTotalDuration.Text = audioSoundEditor1.GetFormattedTime(nDuration, true, true);
+                LabelTotalDuration.Refresh();
+            }
+        }
+
+        private void audioSoundEditor1_SoundPlaybackDone(object sender, System.EventArgs e)
+        {
+            buttonPause.Text = "השהה";
+            LabelStatus.Text = "Status: Idle";
+            LabelStatus.Refresh();
 
             buttonStartDJPlay.Text = "נגן";
             timePickerSpinner1.Enabled = true;
 
-			FrameRecording.Enabled = true;
-		}
-
-		private void audioSoundEditor1_SoundPlaybackPlaying(object sender, System.EventArgs e)
-		{
-			buttonPause.Text = "השהה";
-			LabelStatus.Text = "Status: Playing...";
-			LabelStatus.Refresh ();
-
-			FrameRecording.Enabled = false;
-		}
-
-		private void audioSoundEditor1_SoundPlaybackPaused(object sender, System.EventArgs e)
-		{
-			buttonPause.Text = "המשך";
-			LabelStatus.Text = "Status: Playback paused";
-			LabelStatus.Refresh ();			
-		}
-
-		private void audioSoundEditor1_SoundPlaybackStopped(object sender, System.EventArgs e)
-		{
-			buttonPause.Text = "השהה";
-			LabelStatus.Text = "Status: Idle";
-			LabelStatus.Refresh ();					
-
-			FrameRecording.Enabled = true;
-		}
-
-		private void audioSoundEditor1_WaveAnalysisStart(object sender, System.EventArgs e)
-		{
-			LabelStatus.Text = "Status: Analyzing waveform...";
-			progressBar1.Value = 0;
-			progressBar1.Visible = true;
-
-			progressBar1.Refresh ();
-			LabelStatus.Refresh ();
-		}
-
-		private void audioSoundEditor1_WaveAnalysisPerc(object sender, AudioSoundEditor.WaveAnalysisPercEventArgs e)
-		{
-			if (progressBar1.Value == e.nPercentage)
-				// no change
-				return;
-		    
-			progressBar1.Value = e.nPercentage;
-			LabelStatus.Text = "Status: Analyzing waveform... " + e.nPercentage.ToString () + "%";
-			progressBar1.Refresh ();
-			LabelStatus.Refresh ();
-		}
-
-		private void audioSoundEditor1_WaveAnalysisStop(object sender, AudioSoundEditor.WaveAnalysisStopEventArgs e)
-		{
-			// force a refresh of the waveform analyzer
-			timerDisplayWaveform.Enabled = true;
-
-			progressBar1.Visible = false;
-			LabelStatus.Text = "Status: Idle";
-
-			buttonPlay.Enabled = true;
-			buttonPause.Enabled = true;
-			buttonStop.Enabled = true;
-		}
-
-		private void audioSoundEditor1_WaveAnalyzerDisplayRangeChange(object sender, AudioSoundEditor.WaveAnalyzerDisplayRangeChangeEventArgs e)
-		{
-			// display formatted strings
-			LabelRangeBegin.Text = audioSoundEditor1.GetFormattedTime (e.nBeginPosInMs, true, true);
-			LabelRangeEnd.Text = audioSoundEditor1.GetFormattedTime (e.nEndPosInMs, true, true);
-			LabelRangeDuration.Text = audioSoundEditor1.GetFormattedTime (e.nEndPosInMs - e.nBeginPosInMs, true, true);
+            FrameRecording.Enabled = true;
         }
 
-		private void audioSoundEditor1_WaveAnalyzerSelectionChange(object sender, AudioSoundEditor.WaveAnalyzerSelectionChangeEventArgs e)
-		{
-			if (e.bSelectionAvailable)
-			{
-				// check if this is not only a position selection
-				if ((e.nEndPosInMs - e.nBeginPosInMs) > 0)
-					// selection can be played
-					buttonPlaySelection.Enabled = true;
-				else
-					// selection cannot be played because it's simply a position selection
-					buttonPlaySelection.Enabled = false;
-		        
-				// display formatted strings
-				LabelSelectionBegin.Text = audioSoundEditor1.GetFormattedTime (e.nBeginPosInMs, true, true);
-				LabelSelectionEnd.Text = audioSoundEditor1.GetFormattedTime (e.nEndPosInMs, true, true);
-				LabelSelectionDuration.Text = audioSoundEditor1.GetFormattedTime (e.nEndPosInMs - e.nBeginPosInMs, true, true);
+        private void audioSoundEditor1_SoundPlaybackPlaying(object sender, System.EventArgs e)
+        {
+            buttonPause.Text = "השהה";
+            LabelStatus.Text = "Status: Playing...";
+            LabelStatus.Refresh();
+
+            FrameRecording.Enabled = false;
+        }
+
+        private void audioSoundEditor1_SoundPlaybackPaused(object sender, System.EventArgs e)
+        {
+            buttonPause.Text = "המשך";
+            LabelStatus.Text = "Status: Playback paused";
+            LabelStatus.Refresh();
+
+            int mm = audioSoundEditor1.GetPlaybackPosition();
+            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, mm, mm);
+
+        }
+
+        private void audioSoundEditor1_SoundPlaybackStopped(object sender, System.EventArgs e)
+        {
+            buttonPause.Text = "השהה";
+            LabelStatus.Text = "Status: Idle";
+            LabelStatus.Refresh();
+
+            FrameRecording.Enabled = true;
+        }
+
+        private void audioSoundEditor1_WaveAnalysisStart(object sender, System.EventArgs e)
+        {
+            LabelStatus.Text = "Status: Analyzing waveform...";
+            progressBar1.Value = 0;
+            progressBar1.Visible = true;
+
+            progressBar1.Refresh();
+            LabelStatus.Refresh();
+        }
+
+        private void audioSoundEditor1_WaveAnalysisPerc(object sender, AudioSoundEditor.WaveAnalysisPercEventArgs e)
+        {
+            if (progressBar1.Value == e.nPercentage)
+                // no change
+                return;
+
+            progressBar1.Value = e.nPercentage;
+            LabelStatus.Text = "Status: Analyzing waveform... " + e.nPercentage.ToString() + "%";
+            progressBar1.Refresh();
+            LabelStatus.Refresh();
+        }
+
+        private void audioSoundEditor1_WaveAnalysisStop(object sender, AudioSoundEditor.WaveAnalysisStopEventArgs e)
+        {
+            // force a refresh of the waveform analyzer
+            timerDisplayWaveform.Enabled = true;
+
+            progressBar1.Visible = false;
+            LabelStatus.Text = "Status: Idle";
+
+            buttonPlay.Enabled = true;
+            buttonPause.Enabled = true;
+            buttonStop.Enabled = true;
+
+            m_uniqueLine = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("MyLine", "KooKoo", 0, new WANALYZER_VERTICAL_LINE { color = Color.White, nWidth = 1, nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT, nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DASH_DOT, nHighCap = enumLineCaps.LINE_CAP_SQUARE, nLowCap = enumLineCaps.LINE_CAP_SQUARE, nTranspFactor = 0 });
+        }
+
+        private void audioSoundEditor1_WaveAnalyzerDisplayRangeChange(object sender, AudioSoundEditor.WaveAnalyzerDisplayRangeChangeEventArgs e)
+        {
+            // display formatted strings
+            LabelRangeBegin.Text = audioSoundEditor1.GetFormattedTime(e.nBeginPosInMs, true, true);
+            LabelRangeEnd.Text = audioSoundEditor1.GetFormattedTime(e.nEndPosInMs, true, true);
+            LabelRangeDuration.Text = audioSoundEditor1.GetFormattedTime(e.nEndPosInMs - e.nBeginPosInMs, true, true);
+        }
+
+        private void audioSoundEditor1_WaveAnalyzerSelectionChange(object sender, AudioSoundEditor.WaveAnalyzerSelectionChangeEventArgs e)
+        {
+            if (e.bSelectionAvailable)
+            {
+                // check if this is not only a position selection
+                if ((e.nEndPosInMs - e.nBeginPosInMs) > 0)
+                    // selection can be played
+                    buttonPlaySelection.Enabled = true;
+                else
+                    // selection cannot be played because it's simply a position selection
+                    buttonPlaySelection.Enabled = false;
+
+                // display formatted strings
+                LabelSelectionBegin.Text = audioSoundEditor1.GetFormattedTime(e.nBeginPosInMs, true, true);
+                LabelSelectionEnd.Text = audioSoundEditor1.GetFormattedTime(e.nEndPosInMs, true, true);
+                LabelSelectionDuration.Text = audioSoundEditor1.GetFormattedTime(e.nEndPosInMs - e.nBeginPosInMs, true, true);
 
                 //timePickerSpinner1.Value = TimeSpan.Parse(audioSoundEditor1.GetFormattedTime(e.nBeginPosInMs, true, true));
             }
-			else
-			{
-				// no selection to play
-				buttonPlaySelection.Enabled = false;
-		    
-				// display formatted strings
-				LabelSelectionBegin.Text = "00:00:00.000";
-				LabelSelectionEnd.Text = "00:00:00.000";
-				LabelSelectionDuration.Text = "00:00:00.000";
-			}
-		}
+            else
+            {
+                // no selection to play
+                buttonPlaySelection.Enabled = false;
+
+                // display formatted strings
+                LabelSelectionBegin.Text = "00:00:00.000";
+                LabelSelectionEnd.Text = "00:00:00.000";
+                LabelSelectionDuration.Text = "00:00:00.000";
+            }
+        }
 
 
-		private void audioSoundEditor1_SoundLoadingStarted(object sender, System.EventArgs e)
-		{
-			LabelStatus.Text = "Status: Loading... 0%";
-			progressBar1.Value = 0;
-			progressBar1.Visible = true;
+        private void audioSoundEditor1_SoundLoadingStarted(object sender, System.EventArgs e)
+        {
+            LabelStatus.Text = "Status: Loading... 0%";
+            progressBar1.Value = 0;
+            progressBar1.Visible = true;
 
-			progressBar1.Refresh ();
-			LabelStatus.Refresh ();
-		}
+            progressBar1.Refresh();
+            LabelStatus.Refresh();
+        }
 
-		private void audioSoundEditor1_SoundLoadingPerc(object sender, AudioSoundEditor.SoundLoadingPercEventArgs e)
-		{
-			if (progressBar1.Value == e.nPercentage)
-				// no change
-				return;
-		    
-			progressBar1.Value = e.nPercentage;
-			LabelStatus.Text = "Status: Loading... " + e.nPercentage.ToString() + "%";
+        private void audioSoundEditor1_SoundLoadingPerc(object sender, AudioSoundEditor.SoundLoadingPercEventArgs e)
+        {
+            if (progressBar1.Value == e.nPercentage)
+                // no change
+                return;
 
-			progressBar1.Refresh ();
-			LabelStatus.Refresh ();
-		}
+            progressBar1.Value = e.nPercentage;
+            LabelStatus.Text = "Status: Loading... " + e.nPercentage.ToString() + "%";
 
-		private void audioSoundEditor1_SoundLoadingDone(object sender, AudioSoundEditor.SoundLoadingDoneEventArgs e)
-		{
-			LabelStatus.Text = "Status: Idle";
-			LabelStatus.Refresh ();
-			progressBar1.Visible = false;
-		    
-			// force analysis of the loaded sound
-			if (e.bResult == true)
-				TimerReload.Enabled = true;
-			else
-				MessageBox.Show ("Sound failed to load with the following error code: " + audioSoundEditor1.LastError.ToString ());		    
-		}
+            progressBar1.Refresh();
+            LabelStatus.Refresh();
+        }
+
+        private void audioSoundEditor1_SoundLoadingDone(object sender, AudioSoundEditor.SoundLoadingDoneEventArgs e)
+        {
+            LabelStatus.Text = "Status: Idle";
+            LabelStatus.Refresh();
+            progressBar1.Visible = false;
+
+            // force analysis of the loaded sound
+            if (e.bResult == true)
+                TimerReload.Enabled = true;
+            else
+                MessageBox.Show("Sound failed to load with the following error code: " + audioSoundEditor1.LastError.ToString());
+        }
 
 
-		private void buttonStartRecNew_Click(object sender, System.EventArgs e)
-		{
-			// check if we already have an editing session in memory
-			DialogResult	result;
-			if (audioSoundEditor1.GetSoundDuration () > 0)
-			{
-				// ask the user if he wants to go on
-				result = MessageBox.Show ("An editing session is actually in memory: do you want to create a new one?", "Sound Editor", MessageBoxButtons.YesNo);
-				if (result == DialogResult.No)
-					return;
-			}
+        private void buttonStartRecNew_Click(object sender, System.EventArgs e)
+        {
+            // check if we already have an editing session in memory
+            DialogResult result;
+            if (audioSoundEditor1.GetSoundDuration() > 0)
+            {
+                // ask the user if he wants to go on
+                result = MessageBox.Show("An editing session is actually in memory: do you want to create a new one?", "Sound Editor", MessageBoxButtons.YesNo);
+                if (result == DialogResult.No)
+                    return;
+            }
 
-			// set the flag for "new" mode
-			m_bRecAppendMode = false;
-		    
-			// create a fresh new recording session
-			audioSoundRecorder1.SetRecordingMode (AudioSoundRecorder.enumRecordingModes.REC_MODE_NEW);
-		    
-			// start recording in memory from system default input device and input channel
-			audioSoundRecorder1.StartFromDirectSoundDevice (0, -1, "");
-		}
+            // set the flag for "new" mode
+            m_bRecAppendMode = false;
 
-		private void buttonStartRecAppend_Click(object sender, System.EventArgs e)
-		{
-			// create a fresh new recording session
-			audioSoundRecorder1.SetRecordingMode (AudioSoundRecorder.enumRecordingModes.REC_MODE_NEW);
-		    
-			// set the flag for "append" mode
-			m_bRecAppendMode = true;
-		    
-			// start recording in memory from system default input device and input channel
-			audioSoundRecorder1.StartFromDirectSoundDevice (0, -1, "");
-		}
+            // create a fresh new recording session
+            audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_NEW);
 
-		private void buttonStopRecording_Click(object sender, System.EventArgs e)
-		{
-			// stop recording
-			audioSoundRecorder1.Stop ();
-		}
+            // start recording in memory from system default input device and input channel
+            audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
+        }
 
-		private void audioSoundRecorder1_RecordingStarted(object sender, System.EventArgs e)
-		{
-			buttonStartRecNew.Enabled = false;
-			buttonStartRecAppend.Enabled = false;
-			buttonStopRecording.Enabled = true;
-		    
-			framePlayback.Enabled = false;
-		}
+        private void buttonStartRecAppend_Click(object sender, System.EventArgs e)
+        {
+            // create a fresh new recording session
+            audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_NEW);
 
-		private void audioSoundRecorder1_RecordingStopped(object sender, AudioSoundRecorder.RecordingStoppedEventArgs e)
-		{
-			// force loading the recording session into the editor
-			timerRecordingDone.Enabled = true;
+            // set the flag for "append" mode
+            m_bRecAppendMode = true;
 
-			buttonStartRecNew.Enabled = true;
-			buttonStartRecAppend.Enabled = true;
-			buttonStopRecording.Enabled = false;
-		    
-			framePlayback.Enabled = true;
-		}
+            // start recording in memory from system default input device and input channel
+            audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
+        }
 
-		private void audioSoundRecorder1_VUMeterValueChange(object sender, AudioSoundRecorder.VUMeterValueChangeEventArgs e)
-		{
-			audioSoundRecorder1.GraphicBarsManager.SetValue (m_hWndVuMeterLeft, e.nPeakLeft);
-			audioSoundRecorder1.GraphicBarsManager.SetValue (m_hWndVuMeterRight, e.nPeakRight);
-		}
+        private void buttonStopRecording_Click(object sender, System.EventArgs e)
+        {
+            // stop recording
+            audioSoundRecorder1.Stop();
+        }
 
-		private void timerRecordingDone_Tick(object sender, System.EventArgs e)
-		{
-			timerRecordingDone.Enabled = false;
-		    
-			// check if the latest recording session must replace or appended to the previous editing session
-			if (m_bRecAppendMode)
-				// append mode
-				audioSoundEditor1.SetLoadingMode (enumLoadingModes.LOAD_MODE_APPEND);
-			else
-				// discard previous editing session and start a new one
-				audioSoundEditor1.SetLoadingMode (enumLoadingModes.LOAD_MODE_NEW);
-		    
-			// load recorded sound inside the editor
-			audioSoundEditor1.LoadSoundFromRecordingSession (audioSoundRecorder1.Handle);
-		}
+        private void audioSoundRecorder1_RecordingStarted(object sender, System.EventArgs e)
+        {
+            buttonStartRecNew.Enabled = false;
+            buttonStartRecAppend.Enabled = false;
+            buttonStopRecording.Enabled = true;
+
+            framePlayback.Enabled = false;
+        }
+
+        private void audioSoundRecorder1_RecordingStopped(object sender, AudioSoundRecorder.RecordingStoppedEventArgs e)
+        {
+            // force loading the recording session into the editor
+            timerRecordingDone.Enabled = true;
+
+            buttonStartRecNew.Enabled = true;
+            buttonStartRecAppend.Enabled = true;
+            buttonStopRecording.Enabled = false;
+
+            framePlayback.Enabled = true;
+        }
+
+        private void audioSoundRecorder1_VUMeterValueChange(object sender, AudioSoundRecorder.VUMeterValueChangeEventArgs e)
+        {
+            audioSoundRecorder1.GraphicBarsManager.SetValue(m_hWndVuMeterLeft, e.nPeakLeft);
+            audioSoundRecorder1.GraphicBarsManager.SetValue(m_hWndVuMeterRight, e.nPeakRight);
+        }
+
+        private void timerRecordingDone_Tick(object sender, System.EventArgs e)
+        {
+            timerRecordingDone.Enabled = false;
+
+            // check if the latest recording session must replace or appended to the previous editing session
+            if (m_bRecAppendMode)
+                // append mode
+                audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_APPEND);
+            else
+                // discard previous editing session and start a new one
+                audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_NEW);
+
+            // load recorded sound inside the editor
+            audioSoundEditor1.LoadSoundFromRecordingSession(audioSoundRecorder1.Handle);
+        }
 
 
         private void mnuAudioEffects_Equalizer_Click(object sender, EventArgs e)
@@ -3415,7 +3417,7 @@ namespace SoundStudio
                         {   //                     5                               +           15    - 4   - (4 * 1) - 2
                             Content = matchSentense.StrippedValue,
                             RealCharIndex = paragraphs_local[paragraphIndex].RealCharIndex + matchSentense.CharIndex,
-                            CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchSentense.CharIndex - wordsOffset ,// - Math.Max(0, 3 * innerSentenceIndex ),
+                            CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchSentense.CharIndex - wordsOffset,// - Math.Max(0, 3 * innerSentenceIndex ),
                             Index = sentenceIndex,
                             ManuallyDuration = durationManually,
                             ManuallyStartDate = startManually,
@@ -3468,7 +3470,7 @@ namespace SoundStudio
                                 durationManually = ex_section.ManuallyDuration;
                             }
 
-                            int groupWordsBuffer = Math.Max( 0, paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.SelectMany(s => s.Words).Count() * 3);
+                            int groupWordsBuffer = Math.Max(0, paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.SelectMany(s => s.Words).Count() * 3);
 
                             paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
                             {
@@ -3476,8 +3478,8 @@ namespace SoundStudio
                                 ManuallyDuration = durationManually,
                                 ManuallyStartDate = startManually,
                                 RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].RealCharIndex + matchSection.CharIndex,
-                                CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchSection.CharIndex 
-                                //- (3 * innerSectionIndex) 
+                                CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchSection.CharIndex
+                                    //- (3 * innerSectionIndex) 
                                 - groupWordsBuffer,
                                 Index = sectionIndex,
                                 Words = new List<Word>(),
@@ -3511,7 +3513,7 @@ namespace SoundStudio
                                 {
                                     RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].RealCharIndex + matchWord.CharIndex,
                                     CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].CharIndex + matchWord.CharIndex
-                                    // - (3 * Math.Max( 0, innerWordIndex)),
+                                        // - (3 * Math.Max( 0, innerWordIndex)),
                                     - (3 * Math.Max(0, paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Count())),
                                     IsInGroup = true, //matchWord.Groups["group"].Success,
                                     Index = wordIndex,
@@ -4197,10 +4199,26 @@ namespace SoundStudio
             richTextBox3.SelectionLength = 0;
             richTextBox3.SelectedText = "[p]";
 
+            m_selectedAnchor = false;
+
             //scheduler step
             if (tabControl1.SelectedIndex == 2)
             {
                 DevideText();
+
+                if (m_chapter.Paragraphs != null)
+                {
+                    m_selectedScheduledWord = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(sc => sc.Sections)
+                    .SelectMany(w => w.Words).FirstOrDefault();
+
+                    if (m_selectedScheduledWord != null)
+                    {
+                        m_skipSelectionChange = true;
+                        richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + 3;
+                        richTextBox3.SelectionLength = m_selectedScheduledWord.Length;
+                        m_skipSelectionChange = false;
+                    }
+                }
 
                 //audioDjStudio1.InitSoundSystem(1, 0, 0, 0, 0);
                 //AudioDjStudio.enumErrorCodes error = audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
@@ -4208,7 +4226,6 @@ namespace SoundStudio
                 // create the waveform analyzer (always call this function on the end of the form's Load fucntion)
                 audioSoundEditor1.DisplayWaveformAnalyzer.Create(panel4.Handle, pictureBox1.Left, pictureBox1.Top, panel4.Width, panel4.Height);
                 audioSoundEditor1.DisplayWaveformAnalyzer.MouseSelectionEnable(false);
-                AddSchedulerLineTimer.Enabled = true;//()
             }
             else
             {
@@ -4397,7 +4414,7 @@ namespace SoundStudio
                 richTextBox3.SelectionStart = 0;
                 richTextBox3.SelectionLength = 3;
             }
-            else if (m_chapter.Paragraphs != null) 
+            else if (m_chapter.Paragraphs != null)
             {
                 //check for word selection
                 m_selectedScheduledWord = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(sc => sc.Sections)
@@ -4420,7 +4437,19 @@ namespace SoundStudio
                         richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + 3;
                         richTextBox3.SelectionLength = m_selectedScheduledWord.Length;
 
-                        timePickerSpinner1.Value = m_selectedScheduledWord.StartTime;
+                        //in case set start time during scheduling
+                        if (m_setStartTime != TimeSpan.Zero)
+                        {
+                            m_selectedScheduledWord.StartTime = m_setStartTime;
+                            m_setStartTime = TimeSpan.Zero;
+                        }
+                        else if (audioSoundEditor1.GetPlaybackStatus() != enumPlaybackStatus.PLAYBACK_PLAYING)
+                        {
+                            timePickerSpinner1.Value = m_selectedScheduledWord.StartTime;
+                        }
+                        
+                        //move line
+                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine,(int) m_selectedScheduledWord.StartTime.TotalMilliseconds,(int) m_selectedScheduledWord.StartTime.TotalMilliseconds);
                         m_selectedAnchor = false;
                     }
 
@@ -4433,33 +4462,33 @@ namespace SoundStudio
 
         private void audioDjStudio1_SilenceDetectionStateChange(object sender, AudioDjStudio.SilenceDetectionStateChangeEventArgs e)
         {
-            label7.Text = string.Format("{0}:{1}", e.nPositionInMs, e.bIsSilent); 
+            label7.Text = string.Format("{0}:{1}", e.nPositionInMs, e.bIsSilent);
         }
 
         private void buttonStartDJPlay_Click(object sender, EventArgs e)
         {
+            Int32 nDurationInMs = audioSoundEditor1.GetSoundDuration();
+            if (nDurationInMs == 0)
+            {
+                return;
+            }
+
             //audioDjStudio1.SilenceDetectionRealTimeEnable(0, true);
             //audioDjStudio1.SilenceDetectionRealTimeParamsSet(0, 800, 100);
             //AudioDjStudio.enumErrorCodes error1 = audioDjStudio1.PlaySound(0);
             if (buttonStartDJPlay.Text == "נגן")
             {
-                audioSoundEditor1.PlaySound();
-                buttonStartDJPlay.Text = "השהה";
+                audioSoundEditor1.PlaySoundRange( (int)timePickerSpinner1.Value.TotalMilliseconds, -1 );
+                buttonStartDJPlay.Text = "עצור";
 
                 timerUpdateTimePickerSpinner.Enabled = true;
                 timePickerSpinner1.Enabled = false;
             }
-            else if (buttonStartDJPlay.Text == "השהה")
+            else if (buttonStartDJPlay.Text == "עצור")
             {
                 timerUpdateTimePickerSpinner.Enabled = false;
-                audioSoundEditor1.PauseSound();
-                buttonStartDJPlay.Text = "המשך";
-            }
-            else
-            {
-                timerUpdateTimePickerSpinner.Enabled = true;
-                audioSoundEditor1.ResumeSound();
-                buttonStartDJPlay.Text = "השהה";
+                audioSoundEditor1.StopSound();
+                buttonStartDJPlay.Text = "נגן";
             }
 
             //djLineTimer.Enabled = true;
@@ -4467,37 +4496,37 @@ namespace SoundStudio
 
         private void djLineTimer_Tick(object sender, EventArgs e)
         {
-            double position = 0;
-            audioDjStudio1.SoundPositionGet(0, ref position, false);
-            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, (int)position, (int)position);
+            //double position = 0;
+            //audioDjStudio1.SoundPositionGet(0, ref position, false);
+            //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, (int)position, (int)position);
         }
 
         private void audioDjStudio1_SoundDone(object sender, AudioDjStudio.PlayerEventArgs e)
         {
-            djLineTimer.Enabled = false;
+            //djLineTimer.Enabled = false;
         }
 
         private void buttonHammer_Click(object sender, EventArgs e)
         {
+            if (audioSoundEditor1.GetPlaybackStatus() == enumPlaybackStatus.PLAYBACK_PLAYING)
+            {
+                m_setStartTime = timePickerSpinner1.Value;
 
+                richTextBox3.SelectionStart = richTextBox3.SelectionStart + richTextBox3.SelectionLength + 3;
+            }
         }
 
         private void timePickerSpinner1_ValueChanged(object sender, EventArgs e)
         {
-            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, (int) timePickerSpinner1.Value.TotalMilliseconds, (int) timePickerSpinner1.Value.TotalMilliseconds); 
+            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, (int)timePickerSpinner1.Value.TotalMilliseconds, (int)timePickerSpinner1.Value.TotalMilliseconds);
         }
 
-        private void AddSchedulerLineTimer_Tick(object sender, EventArgs e)
-        {
-            AddSchedulerLineTimer.Enabled = false;
-            m_uniqueLine = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("MyLine", "KooKoo", 1000, new WANALYZER_VERTICAL_LINE { color = Color.White, nWidth = 1, nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT, nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_SOLID, nHighCap = enumLineCaps.LINE_CAP_SQUARE, nLowCap = enumLineCaps.LINE_CAP_SQUARE, nTranspFactor = 0 });
-        }
 
         private void audioSoundEditor1_WaveAnalyzerLineMoving(object sender, WaveAnalyzerLineMovingEventArgs e)
         {
             if (e.nUniqueID == m_uniqueLine)
             {
-                timePickerSpinner1.Value = new TimeSpan(0,0,0,0,e.nPosInMs);
+                timePickerSpinner1.Value = new TimeSpan(0, 0, 0, 0, e.nPosInMs);
             }
         }
 
@@ -4515,20 +4544,36 @@ namespace SoundStudio
         {
             if (e.nAction == enumMouseActions.MOUSE_ACTION_LEFT_CLICK)
             {
-                
+
             }
         }
 
         private void timerUpdateSpinnerControl_Tick(object sender, EventArgs e)
         {
             int mm = audioSoundEditor1.GetPlaybackPosition();
+            var position = new TimeSpan(0, 0, 0, 0, mm); ;
 
-            timePickerSpinner1.Value = new TimeSpan(0, 0, 0, 0, mm);
-            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, mm, mm);
+            timePickerSpinner1.Value = position;
+
+            //during playing check if the current position moved over to the next word
+            if (m_chapter.Paragraphs != null && m_selectedScheduledWord != null && !m_selectedAnchor)
+            {
+                var nextWord = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections)
+                    .SelectMany(sc => sc.Words).FirstOrDefault(w => 
+                        position >= w.StartTime
+                        && w.StartTime > m_selectedScheduledWord.StartTime  );
+
+                if (nextWord != null && nextWord != m_selectedScheduledWord)
+                {
+                    richTextBox3.SelectionStart = nextWord.RealCharIndex + 3;
+                    //richTextBox3.SelectionLength = m_selectedScheduledWord.Length;
+
+                }
+            }
         }
 
 
-	}
+    }
 
     public struct SectionMatch
     {
@@ -4560,26 +4605,26 @@ namespace SoundStudio
         }
     }
 
-	// define the data structure containing the parameters that will be passed to the external DSP
-	// it's important that this data structure reflects exactly (also in terms of bytes length) the data structure
-	// used inside the DLL contaning the external DSP
-	[StructLayout(LayoutKind.Sequential)]
-	public struct BASSBOOST_PARAMETERS
-	{
-		public Int32	nSampleRate;
-		public Int16	nFrequencyHz;
-		public Int16	nBoostdB;
-	}
+    // define the data structure containing the parameters that will be passed to the external DSP
+    // it's important that this data structure reflects exactly (also in terms of bytes length) the data structure
+    // used inside the DLL contaning the external DSP
+    [StructLayout(LayoutKind.Sequential)]
+    public struct BASSBOOST_PARAMETERS
+    {
+        public Int32 nSampleRate;
+        public Int16 nFrequencyHz;
+        public Int16 nBoostdB;
+    }
 
-	// data structure for obtaining info about the DSP's user interface
-	[StructLayout(LayoutKind.Sequential)]
-	public struct DSP_EDITOR_WINDOW_INFO
-	{
-		public IntPtr	hWnd;
-		public byte		bIsVisible;
-		public Int32	nLeftPosPx;
-		public Int32	nTopPosPx;
-		public Int32	nWidthPx;
-		public Int32	nHeightPx;
-	}
+    // data structure for obtaining info about the DSP's user interface
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DSP_EDITOR_WINDOW_INFO
+    {
+        public IntPtr hWnd;
+        public byte bIsVisible;
+        public Int32 nLeftPosPx;
+        public Int32 nTopPosPx;
+        public Int32 nWidthPx;
+        public Int32 nHeightPx;
+    }
 }

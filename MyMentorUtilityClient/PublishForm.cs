@@ -75,7 +75,7 @@ namespace MyMentorUtilityClient
 
                             }
 
-                            Clip.Current.Save();
+                            //Clip.Current.Save();
                         }
 
                         label12.Text = "הסתיים בהצלחה!";

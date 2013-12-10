@@ -90,7 +90,7 @@ namespace MyMentorUtilityClient
                 {
                     Clip.Current.FileName = saveFileDialog1.FileName;
                     Clip.Current.RtfText = m_mainForm.richTextBox1.Rtf;
-                    Clip.Current.Save();
+                    //Clip.Current.Save();
                     m_mainForm.toolStripMenuItem8.Enabled = true;
                 }
                 else
@@ -100,7 +100,7 @@ namespace MyMentorUtilityClient
             }
             else
             {
-                Clip.Current.Save();
+                //Clip.Current.Save();
                 m_mainForm.toolStripMenuItem8.Enabled = true;
             }
 

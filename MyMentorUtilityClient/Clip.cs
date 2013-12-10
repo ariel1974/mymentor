@@ -118,10 +118,15 @@ namespace MyMentorUtilityClient
             instance.FileName = fileName;
         }
 
+        private void Save()
+        {
+            Save(null);
+        }
+
         /// <summary>
         /// 
         /// </summary>
-        public void Save()
+        public void Save(AudioSoundEditor.AudioSoundEditor editor)
         {
             XmlSerializer serializer = new XmlSerializer(this.GetType());
             using (StreamWriter writer = new StreamWriter(this.FileName))
@@ -131,6 +136,11 @@ namespace MyMentorUtilityClient
 
             this.IsDirty = false;
             this.IsNew = false;
+
+            if (editor != null)
+            {
+                editor.ExportToFile(44100, 1, 0, 0, -1, Path.ChangeExtension(this.FileName, ".mp3"));
+            }
         }
 
         public bool Publish()

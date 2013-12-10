@@ -1130,7 +1130,7 @@ namespace MyMentorUtilityClient
 
             Clip.Current.Chapter = m_chapter;
             Clip.Current.RtfText = richTextBox1.Rtf;
-            Clip.Current.Save();
+            //Clip.Current.Save();
 
             PublishForm frm = new PublishForm(this);
             frm.ShowDialog();
@@ -1326,7 +1326,7 @@ namespace MyMentorUtilityClient
                     Clip.Current.RtfText = richTextBox1.Rtf;
                     this.Text = "MyMentor - " + Clip.Current.FileName;
                     Clip.Current.Chapter = m_chapter;
-                    Clip.Current.Save();
+                    //Clip.Current.Save();
 
                     MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     toolStripMenuItem8.Enabled = true;
@@ -1342,7 +1342,7 @@ namespace MyMentorUtilityClient
                 Clip.Current.Chapter = m_chapter;
                 Clip.Current.FontSize = float.Parse(toolStripComboBox1.Text.Replace("pt", string.Empty));
                 Clip.Current.FontName = richTextBox1.Font.Name;
-                Clip.Current.Save();
+                //Clip.Current.Save();
 
                 MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
@@ -1512,7 +1512,7 @@ namespace MyMentorUtilityClient
             Clip.Current.FontName = richTextBox1.Font.Name;
             Clip.Current.Chapter = m_chapter;
             Clip.Current.RtfText = richTextBox1.Rtf;
-            Clip.Current.Save();
+            //Clip.Current.Save();
 
             PublishForm frm = new PublishForm(this);
             frm.ShowDialog();
@@ -1769,7 +1769,7 @@ namespace MyMentorUtilityClient
             Clip.Current.FontName = richTextBox1.Font.Name;
             Clip.Current.Chapter = m_chapter;
             Clip.Current.RtfText = richTextBox1.Rtf;
-            Clip.Current.Save();
+            //Clip.Current.Save();
 
             PublishForm frm = new PublishForm(this);
             frm.ShowDialog();
@@ -1928,7 +1928,7 @@ namespace MyMentorUtilityClient
             Clip.Current.FontSize = float.Parse(toolStripComboBox1.Text.Replace("pt", string.Empty));
             Clip.Current.FontName = richTextBox1.Font.Name;
             Clip.Current.Chapter = m_chapter;
-            Clip.Current.Save();
+            //Clip.Current.Save();
 
             JsonDebugFrm frm = new JsonDebugFrm();
             frm.ShowDialog();
@@ -2259,6 +2259,14 @@ namespace MyMentorUtilityClient
         public object Clone()
         {
             return this.MemberwiseClone();
+        }
+
+        [JsonIgnore]
+        [XmlIgnore]
+        public Word FirstWord
+        {
+            get;
+            set;
         }
 
         [JsonProperty(PropertyName = "length", Order = 3)]

@@ -189,7 +189,6 @@ namespace SoundStudio
         #region Clip SetUp
 
         private TimeSpan m_setStartTime = TimeSpan.Zero;
-        private TimeSpan m_setPreviousTime = TimeSpan.Zero;
         private Word m_selectedScheduledWord = null;
         private bool m_selectedAnchor = false;
         private bool m_skipSelectionChange = false;
@@ -419,15 +418,20 @@ namespace SoundStudio
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
+            this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.buttonHammer = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
             this.buttonStartDJPlay = new System.Windows.Forms.Button();
             this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numericUpDownInterval = new System.Windows.Forms.NumericUpDown();
+            this.buttonScheduleAnchor = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -493,12 +497,7 @@ namespace SoundStudio
             this.djLineTimer = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateTimePickerSpinner = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.buttonScheduleAnchor = new System.Windows.Forms.Button();
-            this.numericUpDownInterval = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.timePickerCurrentWord = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
             this.Frame4.SuspendLayout();
             this.framePlayback.SuspendLayout();
@@ -518,10 +517,10 @@ namespace SoundStudio
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
             this.panel3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
             this.SuspendLayout();
             // 
             // Frame4
@@ -875,7 +874,7 @@ namespace SoundStudio
             // 
             // audioSoundEditor1
             // 
-            this.audioSoundEditor1.Location = new System.Drawing.Point(519, 473);
+            this.audioSoundEditor1.Location = new System.Drawing.Point(519, 0);
             this.audioSoundEditor1.Name = "audioSoundEditor1";
             this.audioSoundEditor1.Size = new System.Drawing.Size(48, 48);
             this.audioSoundEditor1.TabIndex = 23;
@@ -900,6 +899,7 @@ namespace SoundStudio
             this.audioSoundEditor1.WaveAnalyzerMouseNotification += new AudioSoundEditor.AudioSoundEditor.WaveAnalyzerMouseNotificationEventHandler(this.audioSoundEditor1_WaveAnalyzerMouseNotification);
             this.audioSoundEditor1.WaveAnalyzerLineMoving += new AudioSoundEditor.AudioSoundEditor.WaveAnalyzerLineMovingEventHandler(this.audioSoundEditor1_WaveAnalyzerLineMoving);
             this.audioSoundEditor1.WaveAnalyzerHorzLineMoving += new AudioSoundEditor.AudioSoundEditor.WaveAnalyzerHorzLineMovingEventHandler(this.audioSoundEditor1_WaveAnalyzerHorzLineMoving);
+            this.audioSoundEditor1.WaveAnalyzerGraphicItemClick += new AudioSoundEditor.AudioSoundEditor.WaveAnalyzerGraphicItemClickEventHandler(this.audioSoundEditor1_WaveAnalyzerGraphicItemClick);
             // 
             // FrameRecording
             // 
@@ -1476,6 +1476,46 @@ namespace SoundStudio
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "תזמון קטעים";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(195, 64);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(122, 18);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "התחלה קטע נבחר";
+            // 
+            // LabelCurrentSchedulingTimer
+            // 
+            this.LabelCurrentSchedulingTimer.BackColor = System.Drawing.Color.White;
+            this.LabelCurrentSchedulingTimer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LabelCurrentSchedulingTimer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.LabelCurrentSchedulingTimer.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelCurrentSchedulingTimer.ForeColor = System.Drawing.Color.Black;
+            this.LabelCurrentSchedulingTimer.Location = new System.Drawing.Point(342, 64);
+            this.LabelCurrentSchedulingTimer.Name = "LabelCurrentSchedulingTimer";
+            this.LabelCurrentSchedulingTimer.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.LabelCurrentSchedulingTimer.Size = new System.Drawing.Size(108, 22);
+            this.LabelCurrentSchedulingTimer.TabIndex = 27;
+            this.LabelCurrentSchedulingTimer.Text = "00:00:00.000";
+            this.LabelCurrentSchedulingTimer.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // buttonRestartScheduling
+            // 
+            this.buttonRestartScheduling.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonRestartScheduling.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonRestartScheduling.Enabled = false;
+            this.buttonRestartScheduling.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRestartScheduling.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonRestartScheduling.Location = new System.Drawing.Point(311, 25);
+            this.buttonRestartScheduling.Name = "buttonRestartScheduling";
+            this.buttonRestartScheduling.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.buttonRestartScheduling.Size = new System.Drawing.Size(131, 28);
+            this.buttonRestartScheduling.TabIndex = 12;
+            this.buttonRestartScheduling.Text = "חזור להתחלה";
+            this.buttonRestartScheduling.UseVisualStyleBackColor = false;
+            this.buttonRestartScheduling.Click += new System.EventHandler(this.button1_Click);
+            // 
             // buttonHammer
             // 
             this.buttonHammer.BackColor = System.Drawing.SystemColors.Control;
@@ -1490,6 +1530,15 @@ namespace SoundStudio
             this.buttonHammer.Text = "פטיש";
             this.buttonHammer.UseVisualStyleBackColor = false;
             this.buttonHammer.Click += new System.EventHandler(this.buttonHammer_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(469, 65);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(76, 18);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "מיקום נוכחי";
             // 
             // buttonStartDJPlay
             // 
@@ -1562,38 +1611,61 @@ namespace SoundStudio
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "בדיקת מעברים";
             // 
-            // LabelCurrentSchedulingTimer
+            // label11
             // 
-            this.LabelCurrentSchedulingTimer.BackColor = System.Drawing.Color.White;
-            this.LabelCurrentSchedulingTimer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelCurrentSchedulingTimer.Cursor = System.Windows.Forms.Cursors.Default;
-            this.LabelCurrentSchedulingTimer.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelCurrentSchedulingTimer.ForeColor = System.Drawing.Color.Black;
-            this.LabelCurrentSchedulingTimer.Location = new System.Drawing.Point(342, 64);
-            this.LabelCurrentSchedulingTimer.Name = "LabelCurrentSchedulingTimer";
-            this.LabelCurrentSchedulingTimer.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.LabelCurrentSchedulingTimer.Size = new System.Drawing.Size(108, 22);
-            this.LabelCurrentSchedulingTimer.TabIndex = 27;
-            this.LabelCurrentSchedulingTimer.Text = "00:00:00.000";
-            this.LabelCurrentSchedulingTimer.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(18, 43);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(28, 18);
+            this.label11.TabIndex = 28;
+            this.label11.Text = "שנ\'";
             // 
-            // label10
+            // label7
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(195, 64);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(122, 18);
-            this.label10.TabIndex = 26;
-            this.label10.Text = "התחלה קטע נבחר";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(107, 42);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(107, 18);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "היסט עליון/תחתון";
             // 
-            // label9
+            // numericUpDownInterval
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(469, 65);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(76, 18);
-            this.label9.TabIndex = 24;
-            this.label9.Text = "מיקום נוכחי";
+            this.numericUpDownInterval.Location = new System.Drawing.Point(52, 38);
+            this.numericUpDownInterval.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownInterval.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownInterval.Name = "numericUpDownInterval";
+            this.numericUpDownInterval.Size = new System.Drawing.Size(49, 26);
+            this.numericUpDownInterval.TabIndex = 11;
+            this.numericUpDownInterval.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // buttonScheduleAnchor
+            // 
+            this.buttonScheduleAnchor.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonScheduleAnchor.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonScheduleAnchor.Enabled = false;
+            this.buttonScheduleAnchor.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonScheduleAnchor.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonScheduleAnchor.Location = new System.Drawing.Point(229, 38);
+            this.buttonScheduleAnchor.Name = "buttonScheduleAnchor";
+            this.buttonScheduleAnchor.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.buttonScheduleAnchor.Size = new System.Drawing.Size(94, 28);
+            this.buttonScheduleAnchor.TabIndex = 10;
+            this.buttonScheduleAnchor.Text = "התחל";
+            this.buttonScheduleAnchor.UseVisualStyleBackColor = false;
+            this.buttonScheduleAnchor.Click += new System.EventHandler(this.buttonScheduleAnchor_Click);
             // 
             // tabPage4
             // 
@@ -2049,7 +2121,7 @@ namespace SoundStudio
             // 
             this.audioDjStudio1.Fader = ((AudioDjStudio.FaderObject)(resources.GetObject("audioDjStudio1.Fader")));
             this.audioDjStudio1.LastError = AudioDjStudio.enumErrorCodes.ERR_NOERROR;
-            this.audioDjStudio1.Location = new System.Drawing.Point(567, 0);
+            this.audioDjStudio1.Location = new System.Drawing.Point(594, 0);
             this.audioDjStudio1.Name = "audioDjStudio1";
             this.audioDjStudio1.Size = new System.Drawing.Size(48, 48);
             this.audioDjStudio1.TabIndex = 63;
@@ -2083,22 +2155,6 @@ namespace SoundStudio
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1182, 665);
             this.tableLayoutPanel4.TabIndex = 64;
             // 
-            // buttonRestartScheduling
-            // 
-            this.buttonRestartScheduling.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonRestartScheduling.Cursor = System.Windows.Forms.Cursors.Default;
-            this.buttonRestartScheduling.Enabled = false;
-            this.buttonRestartScheduling.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRestartScheduling.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonRestartScheduling.Location = new System.Drawing.Point(311, 25);
-            this.buttonRestartScheduling.Name = "buttonRestartScheduling";
-            this.buttonRestartScheduling.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonRestartScheduling.Size = new System.Drawing.Size(131, 28);
-            this.buttonRestartScheduling.TabIndex = 12;
-            this.buttonRestartScheduling.Text = "חזור להתחלה";
-            this.buttonRestartScheduling.UseVisualStyleBackColor = false;
-            this.buttonRestartScheduling.Click += new System.EventHandler(this.button1_Click);
-            // 
             // panel5
             // 
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2106,62 +2162,6 @@ namespace SoundStudio
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(585, 39);
             this.panel5.TabIndex = 62;
-            // 
-            // buttonScheduleAnchor
-            // 
-            this.buttonScheduleAnchor.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonScheduleAnchor.Cursor = System.Windows.Forms.Cursors.Default;
-            this.buttonScheduleAnchor.Enabled = false;
-            this.buttonScheduleAnchor.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonScheduleAnchor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonScheduleAnchor.Location = new System.Drawing.Point(229, 38);
-            this.buttonScheduleAnchor.Name = "buttonScheduleAnchor";
-            this.buttonScheduleAnchor.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonScheduleAnchor.Size = new System.Drawing.Size(94, 28);
-            this.buttonScheduleAnchor.TabIndex = 10;
-            this.buttonScheduleAnchor.Text = "התחל";
-            this.buttonScheduleAnchor.UseVisualStyleBackColor = false;
-            this.buttonScheduleAnchor.Click += new System.EventHandler(this.buttonScheduleAnchor_Click);
-            // 
-            // numericUpDownInterval
-            // 
-            this.numericUpDownInterval.Location = new System.Drawing.Point(52, 38);
-            this.numericUpDownInterval.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numericUpDownInterval.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownInterval.Name = "numericUpDownInterval";
-            this.numericUpDownInterval.Size = new System.Drawing.Size(49, 26);
-            this.numericUpDownInterval.TabIndex = 11;
-            this.numericUpDownInterval.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(107, 42);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(107, 18);
-            this.label7.TabIndex = 27;
-            this.label7.Text = "היסט עליון/תחתון";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(18, 43);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(28, 18);
-            this.label11.TabIndex = 28;
-            this.label11.Text = "שנ\'";
             // 
             // timePickerCurrentWord
             // 
@@ -2191,7 +2191,6 @@ namespace SoundStudio
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MyMentor";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.ResizeEnd += new System.EventHandler(this.FormMain_ResizeEnd);
@@ -2219,11 +2218,11 @@ namespace SoundStudio
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
             this.panel3.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2312,6 +2311,13 @@ namespace SoundStudio
 
             // create the waveform analyzer (always call this function on the end of the form's Load fucntion)
             audioSoundEditor1.DisplayWaveformAnalyzer.Create(panel1.Handle, Picture1.Left, Picture1.Top, panel1.Width, panel1.Height);
+            // get the current analyzer wave settings
+            WANALYZER_WAVEFORM_SETTINGS settingsWave = new WANALYZER_WAVEFORM_SETTINGS();
+            audioSoundEditor1.DisplayWaveformAnalyzer.SettingsWaveGet(ref settingsWave);
+            settingsWave.nStereoVisualizationMode = enumWaveformStereoModes.STEREO_MODE_CHANNELS_MIXED;
+
+            // apply the new settings
+            audioSoundEditor1.DisplayWaveformAnalyzer.SettingsWaveSet(settingsWave);
 
             // get the analyzer's current settings
             WANALYZER_SCROLLBARS_SETTINGS settingsScrollbars = new WANALYZER_SCROLLBARS_SETTINGS();
@@ -2748,6 +2754,7 @@ namespace SoundStudio
             LabelStatus.Refresh();
 
             FrameRecording.Enabled = true;
+            timerUpdateTimePickerSpinner.Enabled = false;
         }
 
         private void audioSoundEditor1_WaveAnalysisStart(object sender, System.EventArgs e)
@@ -2784,7 +2791,30 @@ namespace SoundStudio
             buttonPause.Enabled = true;
             buttonStop.Enabled = true;
 
-            m_uniqueLine = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("MyLine", "KooKoo", 0, new WANALYZER_VERTICAL_LINE { color = Color.White, nWidth = 1, nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT, nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DASH_DOT, nHighCap = enumLineCaps.LINE_CAP_SQUARE, nLowCap = enumLineCaps.LINE_CAP_SQUARE, nTranspFactor = 0 });
+            if (m_waveFormTabIndex == 2)
+            {
+                if (m_chapter.Paragraphs != null)
+                {
+                    foreach (Word word in m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words))
+                    {
+                        word.GraphicItemUnique = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("W|" + word.Index, word.Content,
+                            (int)word.StartTime.TotalMilliseconds == 0 ? 50 : (int)word.StartTime.TotalMilliseconds,
+                            new WANALYZER_VERTICAL_LINE
+                        {
+                            color = Color.White,
+                            nWidth = 2,
+                            nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT,
+                            nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DOT,
+                            nHighCap = enumLineCaps.LINE_CAP_SQUARE,
+                            nLowCap = enumLineCaps.LINE_CAP_SQUARE,
+                            nTranspFactor = 50
+                        });
+                    }
+                }
+
+                m_uniqueLine = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("MyLine", "KooKoo", 0,
+                    new WANALYZER_VERTICAL_LINE { color = Color.Yellow, nWidth = 1, nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT, nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DASH_DOT, nHighCap = enumLineCaps.LINE_CAP_SQUARE, nLowCap = enumLineCaps.LINE_CAP_SQUARE, nTranspFactor = 0 });
+            }
         }
 
         private void audioSoundEditor1_WaveAnalyzerDisplayRangeChange(object sender, AudioSoundEditor.WaveAnalyzerDisplayRangeChangeEventArgs e)
@@ -3454,6 +3484,8 @@ namespace SoundStudio
                 TimeSpan nextSentenceDuration = TimeSpan.Zero;
                 TimeSpan nextSectionDuration = TimeSpan.Zero;
 
+                Word previousWord = null;
+
                 int bufferIndex = 0;
 
                 List<SectionMatch> matchesParagraphs = m_regexParagraphs.Matches(richTextBox1.Text).Cast<Match>()
@@ -3483,19 +3515,6 @@ namespace SoundStudio
 
                     TimeSpan start = TimeSpan.Zero;
                     TimeSpan duration = TimeSpan.Zero;
-                    Paragraph ex_paragraph = null;
-
-                    ////check for saved schedule
-                    //if (m_chapter != null && m_chapter.Paragraphs != null)
-                    //{
-                    //    ex_paragraph = m_chapter.Paragraphs.Where(p => p.Index == paragraphIndex).FirstOrDefault();
-                    //}
-
-                    //if (ex_paragraph != null)
-                    //{
-                    //    start = ex_paragraph.StartTime;
-                    //    duration = ex_paragraph.Duration;
-                    //}
 
                     paragraphs_local.Add(new Paragraph
                     {
@@ -3503,9 +3522,7 @@ namespace SoundStudio
                         RealCharIndex = matchParagraph.CharIndex,
                         CharIndex = matchParagraph.CharIndex - bufferIndex,
                         Index = paragraphIndex,
-                        Sentences = new List<Sentence>(),
-                        //StartTime = start,
-                        //Duration = duration,
+                        Sentences = new List<Sentence>()
                     });
 
                     bufferIndex += 3;
@@ -3529,23 +3546,10 @@ namespace SoundStudio
                     {
                         start = TimeSpan.Zero;
                         duration = TimeSpan.Zero;
-                        Sentence ex_sentence = null;
 
                         sentenceIndex++;
                         innerSentenceIndex++;
                         innerSectionIndex = -1;
-
-                        //check for saved schedule
-                        //if (m_chapter != null && m_chapter.Paragraphs != null)
-                        //{
-                        //    ex_sentence = m_chapter.Paragraphs.SelectMany(s => s.Sentences).Where(p => p.Index == sentenceIndex).FirstOrDefault();
-                        //}
-
-                        //if (ex_sentence != null)
-                        //{
-                        //    start = ex_sentence.StartTime;
-                        //    duration = ex_sentence.Duration;
-                        //}
 
                         int sectionsOffset = 0;
                         int wordsOffset = 0;
@@ -3562,9 +3566,7 @@ namespace SoundStudio
                             RealCharIndex = paragraphs_local[paragraphIndex].RealCharIndex + matchSentense.CharIndex,
                             CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchSentense.CharIndex - wordsOffset,// - Math.Max(0, 3 * innerSentenceIndex ),
                             Index = sentenceIndex,
-                            Sections = new List<Section>(),
-                            //StartTime = start,
-                            //Duration = duration
+                            Sections = new List<Section>()
                         });
 
                         bufferIndex += innerSentenceIndex == 0 ? 0 : 3;
@@ -3593,18 +3595,6 @@ namespace SoundStudio
                             start = TimeSpan.Zero;
                             duration = TimeSpan.Zero;
 
-                            //check for saved schedule
-                            //if (m_chapter != null && m_chapter.Paragraphs != null)
-                            //{
-                            //    ex_section = m_chapter.Paragraphs.SelectMany(s => s.Sentences).SelectMany(se => se.Sections).Where(p => p.Index == sectionIndex).FirstOrDefault();
-                            //}
-
-                            //if (ex_section != null)
-                            //{
-                            //    start = ex_section.StartTime;
-                            //    duration = ex_section.Duration;
-                            //}
-
                             int groupWordsBuffer = Math.Max(0, paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.SelectMany(s => s.Words).Count() * 3);
 
                             paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
@@ -3612,12 +3602,9 @@ namespace SoundStudio
                                 Content = matchSection.StrippedValue,
                                 RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].RealCharIndex + matchSection.CharIndex,
                                 CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchSection.CharIndex
-                                    //- (3 * innerSectionIndex) 
                                 - groupWordsBuffer,
                                 Index = sectionIndex,
                                 Words = new List<Word>(),
-                                //StartTime = start,
-                                //Duration = duration
                             });
 
                             bufferIndex += innerSectionIndex == 0 ? 0 : 3;
@@ -3642,15 +3629,21 @@ namespace SoundStudio
                                 wordIndex++;
                                 innerWordIndex++;
 
-                                Word ex_word = m_chapter.Paragraphs.SelectMany(s => s.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).FirstOrDefault(w => w.Index == wordIndex);
+                                Word ex_word = null;
 
-                                if (ex_word != null)
+                                if (m_chapter != null && 
+                                    m_chapter.Paragraphs != null)
                                 {
-                                    start = ex_word.StartTime;
-                                    duration = ex_word.Duration;
+                                    ex_word = m_chapter.Paragraphs.SelectMany(s => s.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).FirstOrDefault(w => w.Index == wordIndex);
+
+                                    if (ex_word != null)
+                                    {
+                                        start = ex_word.StartTime;
+                                        //duration = ex_word.Duration;
+                                    }
                                 }
 
-                                paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Add(new Word
+                                var newWord = new Word
                                 {
                                     RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].RealCharIndex + matchWord.CharIndex,
                                     CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].CharIndex + matchWord.CharIndex
@@ -3658,8 +3651,24 @@ namespace SoundStudio
                                     Index = wordIndex,
                                     Content = matchWord.Value,
                                     StartTime = start,
-                                    Duration = duration
-                                });
+                                    //Duration = duration
+                                };
+
+                                //set previous word
+                                if (previousWord != null)
+                                {
+                                    newWord.PreviousWord = newWord;
+                                }
+
+                                paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Add(newWord);
+
+                                //set next word to previous one
+                                if (wordIndex > 0)
+                                {
+                                    previousWord.NextWord = newWord;
+                                }
+
+                                previousWord = newWord;
 
                                 bufferIndex += innerWordIndex == 0 ? 0 : 3;
                             }
@@ -4347,6 +4356,7 @@ namespace SoundStudio
 
                 // create the waveform analyzer (always call this function on the end of the form's Load fucntion)
                 audioSoundEditor1.DisplayWaveformAnalyzer.Create(panel1.Handle, Picture1.Left, Picture1.Top, panel1.Width, panel1.Height);
+                audioSoundEditor1.DisplayWaveformAnalyzer.MouseSelectionEnable(true);
                 TimerReload.Enabled = true;
             }
             //scheduler step
@@ -4679,26 +4689,45 @@ namespace SoundStudio
             {
                 m_setStartTime = timePickerCurrentWord.Value;
 
-                if (m_selectedScheduledWord != null)
-                {
-                    var duration = m_setStartTime - m_setPreviousTime;
+                var saveIt = m_setStartTime;
 
-                    Debug.WriteLine(string.Format("Setting '{0}' with Duration time : {1}", m_selectedScheduledWord.Content, duration.ToString(@"hh\:mm\:ss\.fff")));
-
-                    //set current section duration
-                    m_selectedScheduledWord.Duration = m_setStartTime - m_setPreviousTime;
-
-                    //set previous
-                    m_setPreviousTime = m_setStartTime;
-                }
-
+                //goto next word
                 richTextBox3.SelectionStart = richTextBox3.SelectionStart + richTextBox3.SelectionLength + 3;
+
+                //add line 
+                m_selectedScheduledWord.GraphicItemUnique = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("W|" + m_selectedScheduledWord.Index, m_selectedScheduledWord.Content,
+                    (int)saveIt.TotalMilliseconds == 0 ? 50 : (int)saveIt.TotalMilliseconds,
+                    new WANALYZER_VERTICAL_LINE
+                    {
+                        color = Color.White,
+                        nWidth = 2,
+                        nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT,
+                        nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DOT,
+                        nHighCap = enumLineCaps.LINE_CAP_SQUARE,
+                        nLowCap = enumLineCaps.LINE_CAP_SQUARE,
+                        nTranspFactor = 50
+                    });
+
             }
         }
 
         private void timePickerSpinner1_ValueChanged(object sender, EventArgs e)
         {
             //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
+            if (m_selectedScheduledWord != null && !m_selectedAnchor)
+            {
+                m_selectedScheduledWord.StartTime = timePickerCurrentWord.Value;
+
+                //move relevet line
+                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_selectedScheduledWord.GraphicItemUnique,
+                    (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
+
+                //get the previous word to update duration
+                if (m_selectedScheduledWord.Index > 0)
+                {
+
+                }
+            }
         }
 
 
@@ -4707,6 +4736,15 @@ namespace SoundStudio
             if (e.nUniqueID == m_uniqueLine)
             {
                 timePickerCurrentWord.Value = new TimeSpan(0, 0, 0, 0, e.nPosInMs);
+            }
+            else
+            {
+                //other anchor -- get its name W|12
+                int index = int.Parse( audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemNameGet(e.nUniqueID).Split('|')[1] );
+
+                var word = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).Where(w => w.Index == index).FirstOrDefault();
+
+                word.StartTime = new TimeSpan(0, 0, 0, 0, e.nPosInMs);
             }
         }
 
@@ -4724,14 +4762,19 @@ namespace SoundStudio
         {
             if (e.nAction == enumMouseActions.MOUSE_ACTION_LEFT_CLICK)
             {
-
+                
             }
         }
 
         private void timerUpdateSpinnerControl_Tick(object sender, EventArgs e)
         {
+            if (audioSoundEditor1.GetPlaybackStatus() != enumPlaybackStatus.PLAYBACK_PLAYING)
+            {
+                return;
+            }
+
             int mm = audioSoundEditor1.GetPlaybackPosition();
-            var position = new TimeSpan(0, 0, 0, 0, mm); ;
+            var position = new TimeSpan(0, 0, 0, 0, Math.Max( mm ,0)); ;
 
             timePickerCurrentWord.Value = position;
 
@@ -4767,7 +4810,7 @@ namespace SoundStudio
                     foreach (var word in words)
                     {
                         word.StartTime = TimeSpan.Zero;
-                        word.Duration = TimeSpan.Zero;
+                        //word.Duration = TimeSpan.Zero;
                     }
                 }
 
@@ -4801,6 +4844,26 @@ namespace SoundStudio
             audioSoundEditor1.PlaySoundRange((int)timePickerCurrentWord.Value.TotalMilliseconds,
                     (int)timePickerCurrentWord.Value.TotalMilliseconds + (int)interval.TotalMilliseconds);
 
+        }
+
+        private void audioSoundEditor1_WaveAnalyzerGraphicItemClick(object sender, WaveAnalyzerGraphItemClickEventArgs e)
+        {
+            if (e.nUniqueID != m_uniqueLine)
+            {
+                //other anchor -- get its name W|12
+                int index = int.Parse(audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemNameGet(e.nUniqueID).Split('|')[1]);
+
+                var word = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).Where(w => w.Index == index).FirstOrDefault();
+
+                if (e.nButton == enumMouseButtons.MOUSE_BTN_RIGHT)
+                {
+                    richTextBox3.SelectionStart = word.RealCharIndex + 2;
+                }
+                else
+                {
+                    richTextBox3.SelectionStart = word.RealCharIndex + 4;
+                }
+            }
         }
 
 

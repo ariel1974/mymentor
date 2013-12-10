@@ -1840,7 +1840,7 @@ namespace MyMentorUtilityClient
                 }
 
                 ((BaseSection)m_selected).StartTime = timePickerSpinner1.Value;
-                ((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
+                //((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
                 //((BaseSection)m_selected).ManuallyDuration = true;
                 //((BaseSection)m_selected).ManuallyStartDate = true;
                 //m_bindingListParagraphs.ResetBindings();
@@ -1860,7 +1860,7 @@ namespace MyMentorUtilityClient
                 }
 
                 ((BaseSection)m_selected).StartTime = timePickerSpinner1.Value;
-                ((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
+                //((BaseSection)m_selected).Duration = timePickerSpinner2.Value.Subtract(timePickerSpinner1.Value);
                 //((BaseSection)m_selected).ManuallyStartDate = true;
                 //((BaseSection)m_selected).ManuallyDuration = true;
                 //m_bindingListParagraphs.ResetBindings();
@@ -2103,15 +2103,24 @@ namespace MyMentorUtilityClient
                     case "MyMentorUtilityClient.Section":
                         m_duration = new TimeSpan(((Section)this).Words.Sum(p => p.Duration.Ticks));
                         break;
+                    case "MyMentorUtilityClient.Word":
+
+                        var nextWord = ((Word)this).NextWord;
+
+                        if (nextWord != null)
+                        {
+                            m_duration = nextWord.StartTime - ((Word)this).StartTime;
+                        }
+                        break;
                 }
 
                 return m_duration;
             }
 
-            set
-            {
-                m_duration = value;
-            }
+           //set
+           // {
+           //     m_duration = value;
+           // }
         }
 
 
@@ -2187,7 +2196,7 @@ namespace MyMentorUtilityClient
         public long XmlDuration
         {
             get { return Duration.Ticks; }
-            set { Duration = new TimeSpan(value); }
+            //set { Duration = new TimeSpan(value); }
         }
     }
 
@@ -2195,6 +2204,16 @@ namespace MyMentorUtilityClient
     [Serializable()]
     public class Word : BaseSection
     {
+        [JsonIgnore]
+        public short GraphicItemUnique { get; set; }
+
+        [XmlIgnore]
+        [JsonIgnore]
+        public Word PreviousWord { get; set; }
+
+        [XmlIgnore]
+        [JsonIgnore]
+        public Word NextWord { get; set; }
     }
 
     [Serializable()]

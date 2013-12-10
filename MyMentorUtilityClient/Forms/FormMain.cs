@@ -96,6 +96,7 @@ namespace SoundStudio
 
         #region More Controls
         private bool m_bRecAppendMode;
+        private bool m_bRecOverwriteMode;
 
         private IntPtr m_hWndVuMeterLeft;
         private IntPtr m_hWndVuMeterRight;
@@ -248,6 +249,7 @@ namespace SoundStudio
         private Label label11;
         private ToolStripButton tbrProperties;
         public Label label12;
+        public Button buttonStartRecOverwrite;
 
         private string m_strExportPathname;
 
@@ -405,17 +407,18 @@ namespace SoundStudio
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.tbrWord = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbrProperties = new System.Windows.Forms.ToolStripButton();
             this.tbrParse = new System.Windows.Forms.ToolStripButton();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.timePickerCurrentWord = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
             this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
             this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.buttonHammer = new System.Windows.Forms.Button();
@@ -428,6 +431,7 @@ namespace SoundStudio
             this.numericUpDownInterval = new System.Windows.Forms.NumericUpDown();
             this.buttonScheduleAnchor = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -492,9 +496,8 @@ namespace SoundStudio
             this.timerUpdateTimePickerSpinner = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.tbrProperties = new System.Windows.Forms.ToolStripButton();
             this.label12 = new System.Windows.Forms.Label();
-            this.timePickerCurrentWord = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
+            this.buttonStartRecOverwrite = new System.Windows.Forms.Button();
             this.Frame4.SuspendLayout();
             this.framePlayback.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).BeginInit();
@@ -505,13 +508,13 @@ namespace SoundStudio
             this.ToolStrip1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
+            this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -899,15 +902,16 @@ namespace SoundStudio
             // FrameRecording
             // 
             this.FrameRecording.BackColor = System.Drawing.SystemColors.Control;
+            this.FrameRecording.Controls.Add(this.buttonStartRecOverwrite);
             this.FrameRecording.Controls.Add(this.buttonStartRecAppend);
             this.FrameRecording.Controls.Add(this.buttonStopRecording);
             this.FrameRecording.Controls.Add(this.buttonStartRecNew);
             this.FrameRecording.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FrameRecording.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FrameRecording.Location = new System.Drawing.Point(750, 135);
+            this.FrameRecording.Location = new System.Drawing.Point(605, 135);
             this.FrameRecording.Name = "FrameRecording";
             this.FrameRecording.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.FrameRecording.Size = new System.Drawing.Size(409, 80);
+            this.FrameRecording.Size = new System.Drawing.Size(554, 80);
             this.FrameRecording.TabIndex = 24;
             this.FrameRecording.TabStop = false;
             this.FrameRecording.Text = "הקלטה";
@@ -918,7 +922,7 @@ namespace SoundStudio
             this.buttonStartRecAppend.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonStartRecAppend.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStartRecAppend.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartRecAppend.Location = new System.Drawing.Point(170, 32);
+            this.buttonStartRecAppend.Location = new System.Drawing.Point(147, 31);
             this.buttonStartRecAppend.Name = "buttonStartRecAppend";
             this.buttonStartRecAppend.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.buttonStartRecAppend.Size = new System.Drawing.Size(107, 28);
@@ -934,10 +938,10 @@ namespace SoundStudio
             this.buttonStopRecording.Enabled = false;
             this.buttonStopRecording.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStopRecording.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStopRecording.Location = new System.Drawing.Point(6, 32);
+            this.buttonStopRecording.Location = new System.Drawing.Point(14, 31);
             this.buttonStopRecording.Name = "buttonStopRecording";
             this.buttonStopRecording.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonStopRecording.Size = new System.Drawing.Size(160, 28);
+            this.buttonStopRecording.Size = new System.Drawing.Size(127, 28);
             this.buttonStopRecording.TabIndex = 5;
             this.buttonStopRecording.Text = "עצור הקלטה";
             this.buttonStopRecording.UseVisualStyleBackColor = false;
@@ -949,7 +953,7 @@ namespace SoundStudio
             this.buttonStartRecNew.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonStartRecNew.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStartRecNew.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartRecNew.Location = new System.Drawing.Point(283, 32);
+            this.buttonStartRecNew.Location = new System.Drawing.Point(428, 31);
             this.buttonStartRecNew.Name = "buttonStartRecNew";
             this.buttonStartRecNew.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.buttonStartRecNew.Size = new System.Drawing.Size(120, 28);
@@ -1309,6 +1313,16 @@ namespace SoundStudio
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 28);
             // 
+            // tbrProperties
+            // 
+            this.tbrProperties.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrProperties.Image = ((System.Drawing.Image)(resources.GetObject("tbrProperties.Image")));
+            this.tbrProperties.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrProperties.Name = "tbrProperties";
+            this.tbrProperties.Size = new System.Drawing.Size(23, 25);
+            this.tbrProperties.Text = "toolStripButton11";
+            this.tbrProperties.ToolTipText = "מאפייני שיעור";
+            // 
             // tbrParse
             // 
             this.tbrParse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -1376,16 +1390,6 @@ namespace SoundStudio
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1162, 398);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.tableLayoutPanel4.SetColumnSpan(this.panel1, 2);
-            this.panel1.Controls.Add(this.Picture1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 463);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1176, 154);
-            this.panel1.TabIndex = 0;
             // 
             // panel2
             // 
@@ -1458,6 +1462,16 @@ namespace SoundStudio
             this.label10.Size = new System.Drawing.Size(122, 18);
             this.label10.TabIndex = 26;
             this.label10.Text = "התחלה קטע נבחר";
+            // 
+            // timePickerCurrentWord
+            // 
+            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 56);
+            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
+            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
+            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
+            this.timePickerCurrentWord.TabIndex = 25;
+            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
             // 
             // LabelCurrentSchedulingTimer
             // 
@@ -1624,6 +1638,16 @@ namespace SoundStudio
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "4 - פרסום";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.tableLayoutPanel4.SetColumnSpan(this.panel1, 2);
+            this.panel1.Controls.Add(this.Picture1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 463);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1176, 154);
+            this.panel1.TabIndex = 0;
             // 
             // panel3
             // 
@@ -2108,16 +2132,6 @@ namespace SoundStudio
             this.panel5.Size = new System.Drawing.Size(585, 39);
             this.panel5.TabIndex = 62;
             // 
-            // tbrProperties
-            // 
-            this.tbrProperties.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrProperties.Image = ((System.Drawing.Image)(resources.GetObject("tbrProperties.Image")));
-            this.tbrProperties.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrProperties.Name = "tbrProperties";
-            this.tbrProperties.Size = new System.Drawing.Size(23, 25);
-            this.tbrProperties.Text = "toolStripButton11";
-            this.tbrProperties.ToolTipText = "מאפייני שיעור";
-            // 
             // label12
             // 
             this.label12.BackColor = System.Drawing.SystemColors.Control;
@@ -2131,15 +2145,20 @@ namespace SoundStudio
             this.label12.TabIndex = 26;
             this.label12.Text = "הנך מחובר כ";
             // 
-            // timePickerCurrentWord
+            // buttonStartRecOverwrite
             // 
-            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 56);
-            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
-            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
-            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
-            this.timePickerCurrentWord.TabIndex = 25;
-            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
+            this.buttonStartRecOverwrite.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonStartRecOverwrite.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonStartRecOverwrite.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonStartRecOverwrite.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonStartRecOverwrite.Location = new System.Drawing.Point(260, 31);
+            this.buttonStartRecOverwrite.Name = "buttonStartRecOverwrite";
+            this.buttonStartRecOverwrite.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.buttonStartRecOverwrite.Size = new System.Drawing.Size(162, 28);
+            this.buttonStartRecOverwrite.TabIndex = 7;
+            this.buttonStartRecOverwrite.Text = "התחל ממיקום נבחר";
+            this.buttonStartRecOverwrite.UseVisualStyleBackColor = false;
+            this.buttonStartRecOverwrite.Click += new System.EventHandler(this.buttonStartRecOverwrite_Click);
             // 
             // FormMain
             // 
@@ -2176,7 +2195,6 @@ namespace SoundStudio
             this.ToolStrip1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -2185,6 +2203,7 @@ namespace SoundStudio
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -2310,9 +2329,9 @@ namespace SoundStudio
             tableLayoutPanel4.RowStyles[1].Height = 0;
 
 
-            audioSoundEditor1.EncodeFormats.FormatToUse = enumEncodingFormats.ENCODING_FORMAT_MP3;
-            audioSoundEditor1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_PRESETS;
-            audioSoundEditor1.EncodeFormats.MP3.Preset = enumMp3EncodePresets.MP3_PRESET_STANDARD;
+            //audioSoundEditor1.EncodeFormats.FormatToUse = enumEncodingFormats.ENCODING_FORMAT_MP3;
+            //audioSoundEditor1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_PRESETS;
+            //audioSoundEditor1.EncodeFormats.MP3.Preset = enumMp3EncodePresets.MP3_PRESET_STANDARD;
 
         }
 
@@ -2923,7 +2942,16 @@ namespace SoundStudio
             timerRecordingDone.Enabled = false;
 
             // check if the latest recording session must replace or appended to the previous editing session
-            if (m_bRecAppendMode)
+            if (m_bRecOverwriteMode)
+            {
+                TimeSpan startSelectionTime = TimeSpan.Parse(LabelSelectionBegin.Text);
+                TimeSpan endSelectionTime = TimeSpan.Parse(LabelSelectionEnd.Text);
+
+                // overwrite mode
+                audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_OVERWRITE);
+                audioSoundEditor1.SetOverwritePos((int)startSelectionTime.TotalMilliseconds, (int)endSelectionTime.TotalMilliseconds);
+            }
+            else if (m_bRecAppendMode)
                 // append mode
                 audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_APPEND);
             else
@@ -4355,6 +4383,8 @@ namespace SoundStudio
                     }
                 }
 
+                //remove guid line
+                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_uniqueLine);
                 audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
             }
             //scheduler step
@@ -4388,6 +4418,7 @@ namespace SoundStudio
 
                     if (m_chapter.Paragraphs != null)
                     {
+                        // Add lines for all anchors
                         foreach (Word word in m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words))
                         {
                             if (word.StartTime.TotalMilliseconds > 0)
@@ -4584,7 +4615,7 @@ namespace SoundStudio
 
         private void richTextBox3_SelectionChanged(object sender, EventArgs e)
         {
-            if (m_skipSelectionChange)
+            if (m_skipSelectionChange || m_chapter == null)
             {
                 return;
             }
@@ -4632,7 +4663,10 @@ namespace SoundStudio
                         var interval = new TimeSpan(0, 0, (int)numericUpDownInterval.Value);
 
                         //set current word start time when clicking word offline
-                        timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration - interval;
+                        if ((m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration).TotalSeconds >= interval.TotalSeconds)
+                        {
+                            timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration - interval;
+                        }
 
                         //move line
                         audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
@@ -4779,11 +4813,13 @@ namespace SoundStudio
 
         private void audioSoundEditor1_WaveAnalyzerLineMoving(object sender, WaveAnalyzerLineMovingEventArgs e)
         {
-            if (audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemNameGet(e.nUniqueID) == "MyLine")
+            var name = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemNameGet(e.nUniqueID);
+
+            if (name == "MyLine")
             {
                 timePickerCurrentWord.Value = new TimeSpan(0, 0, 0, 0, e.nPosInMs);
             }
-            else
+            else if (name.StartsWith("W|"))
             {
                 //other anchor -- get its name W|12
                 int index = int.Parse(audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemNameGet(e.nUniqueID).Split('|')[1]);
@@ -4906,10 +4942,12 @@ namespace SoundStudio
 
         private void audioSoundEditor1_WaveAnalyzerGraphicItemClick(object sender, WaveAnalyzerGraphItemClickEventArgs e)
         {
-            if (audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemNameGet(e.nUniqueID) != "MyLine")
+            var name = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemNameGet(e.nUniqueID);
+
+            if (name.StartsWith("W|") )
             {
                 //other anchor -- get its name W|12
-                int index = int.Parse(audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemNameGet(e.nUniqueID).Split('|')[1]);
+                int index = int.Parse(name.Split('|')[1]);
 
                 var word = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).Where(w => w.Index == index).FirstOrDefault();
 
@@ -4940,6 +4978,21 @@ namespace SoundStudio
                 MessageBox.Show("יש לבצע הקלטה ותזמון לשיעור לפני פרסומו", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 e.Cancel = true;
             }
+        }
+
+        private void buttonStartRecOverwrite_Click(object sender, EventArgs e)
+        {
+            // create a fresh new recording session
+            audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_OVERWRITE);
+
+            // set the flag for "append" mode
+            m_bRecOverwriteMode = true;
+            TimeSpan startSelectionTime = TimeSpan.Parse(LabelSelectionBegin.Text);
+
+            audioSoundRecorder1.SetOverwritePos((int)startSelectionTime.TotalMilliseconds);
+
+            // start recording in memory from system default input device and input channel
+            audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
         }
 
 

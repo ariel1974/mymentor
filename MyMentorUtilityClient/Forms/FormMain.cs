@@ -12,6 +12,7 @@ using AudioSoundEditor;
 using MyMentorUtilityClient;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using Parse;
 
 namespace SoundStudio
 {
@@ -248,8 +249,9 @@ namespace SoundStudio
         public Button buttonScheduleAnchor;
         private Label label11;
         private ToolStripButton tbrProperties;
-        public Label label12;
+        public Label lblLoginUser;
         public Button buttonStartRecOverwrite;
+        private ToolStripMenuItem mnuLoginDifferentUser;
 
         private string m_strExportPathname;
 
@@ -373,6 +375,7 @@ namespace SoundStudio
             this.timerDisplayWaveform = new System.Windows.Forms.Timer(this.components);
             this.audioSoundEditor1 = new AudioSoundEditor.AudioSoundEditor();
             this.FrameRecording = new System.Windows.Forms.GroupBox();
+            this.buttonStartRecOverwrite = new System.Windows.Forms.Button();
             this.buttonStartRecAppend = new System.Windows.Forms.Button();
             this.buttonStopRecording = new System.Windows.Forms.Button();
             this.buttonStartRecNew = new System.Windows.Forms.Button();
@@ -418,7 +421,6 @@ namespace SoundStudio
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.timePickerCurrentWord = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
             this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
             this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.buttonHammer = new System.Windows.Forms.Button();
@@ -496,8 +498,9 @@ namespace SoundStudio
             this.timerUpdateTimePickerSpinner = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.buttonStartRecOverwrite = new System.Windows.Forms.Button();
+            this.lblLoginUser = new System.Windows.Forms.Label();
+            this.timePickerCurrentWord = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
+            this.mnuLoginDifferentUser = new System.Windows.Forms.ToolStripMenuItem();
             this.Frame4.SuspendLayout();
             this.framePlayback.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).BeginInit();
@@ -915,6 +918,21 @@ namespace SoundStudio
             this.FrameRecording.TabIndex = 24;
             this.FrameRecording.TabStop = false;
             this.FrameRecording.Text = "הקלטה";
+            // 
+            // buttonStartRecOverwrite
+            // 
+            this.buttonStartRecOverwrite.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonStartRecOverwrite.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonStartRecOverwrite.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonStartRecOverwrite.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonStartRecOverwrite.Location = new System.Drawing.Point(260, 31);
+            this.buttonStartRecOverwrite.Name = "buttonStartRecOverwrite";
+            this.buttonStartRecOverwrite.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.buttonStartRecOverwrite.Size = new System.Drawing.Size(162, 28);
+            this.buttonStartRecOverwrite.TabIndex = 7;
+            this.buttonStartRecOverwrite.Text = "התחל ממיקום נבחר";
+            this.buttonStartRecOverwrite.UseVisualStyleBackColor = false;
+            this.buttonStartRecOverwrite.Click += new System.EventHandler(this.buttonStartRecOverwrite_Click);
             // 
             // buttonStartRecAppend
             // 
@@ -1463,16 +1481,6 @@ namespace SoundStudio
             this.label10.TabIndex = 26;
             this.label10.Text = "התחלה קטע נבחר";
             // 
-            // timePickerCurrentWord
-            // 
-            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 56);
-            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
-            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
-            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
-            this.timePickerCurrentWord.TabIndex = 25;
-            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
-            // 
             // LabelCurrentSchedulingTimer
             // 
             this.LabelCurrentSchedulingTimer.BackColor = System.Drawing.Color.White;
@@ -1686,6 +1694,7 @@ namespace SoundStudio
             this.toolStripMenuItem11,
             this.mnuFile_Publish,
             this.toolStripMenuItem12,
+            this.mnuLoginDifferentUser,
             this.mnuFile_Exit});
             this.menuFile.Name = "menuFile";
             this.menuFile.Size = new System.Drawing.Size(46, 20);
@@ -1694,71 +1703,71 @@ namespace SoundStudio
             // mnuFile_NewClip
             // 
             this.mnuFile_NewClip.Name = "mnuFile_NewClip";
-            this.mnuFile_NewClip.Size = new System.Drawing.Size(177, 22);
+            this.mnuFile_NewClip.Size = new System.Drawing.Size(200, 22);
             this.mnuFile_NewClip.Text = "שיעור חדש";
             this.mnuFile_NewClip.Click += new System.EventHandler(this.mnuFile_NewClip_Click);
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(174, 6);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(197, 6);
             // 
             // mnuFile_Open
             // 
             this.mnuFile_Open.Name = "mnuFile_Open";
-            this.mnuFile_Open.Size = new System.Drawing.Size(177, 22);
+            this.mnuFile_Open.Size = new System.Drawing.Size(200, 22);
             this.mnuFile_Open.Text = "פתח שיעור";
             // 
             // mnuFile_Save
             // 
             this.mnuFile_Save.Name = "mnuFile_Save";
-            this.mnuFile_Save.Size = new System.Drawing.Size(177, 22);
+            this.mnuFile_Save.Size = new System.Drawing.Size(200, 22);
             this.mnuFile_Save.Text = "שמור שיעור";
             this.mnuFile_Save.Click += new System.EventHandler(this.mnuFile_Save_Click);
             // 
             // mnuFile_SaveAs
             // 
             this.mnuFile_SaveAs.Name = "mnuFile_SaveAs";
-            this.mnuFile_SaveAs.Size = new System.Drawing.Size(177, 22);
+            this.mnuFile_SaveAs.Size = new System.Drawing.Size(200, 22);
             this.mnuFile_SaveAs.Text = "שמור שיעור בשם...";
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(174, 6);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(197, 6);
             // 
             // mnuFile_Properties
             // 
             this.mnuFile_Properties.Name = "mnuFile_Properties";
-            this.mnuFile_Properties.Size = new System.Drawing.Size(177, 22);
+            this.mnuFile_Properties.Size = new System.Drawing.Size(200, 22);
             this.mnuFile_Properties.Text = "מאפיינים";
             // 
             // mnuFile_Parse
             // 
             this.mnuFile_Parse.Name = "mnuFile_Parse";
-            this.mnuFile_Parse.Size = new System.Drawing.Size(177, 22);
+            this.mnuFile_Parse.Size = new System.Drawing.Size(200, 22);
             this.mnuFile_Parse.Text = "בדוק תקינות";
             // 
             // toolStripMenuItem11
             // 
             this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(174, 6);
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(197, 6);
             // 
             // mnuFile_Publish
             // 
             this.mnuFile_Publish.Name = "mnuFile_Publish";
-            this.mnuFile_Publish.Size = new System.Drawing.Size(177, 22);
+            this.mnuFile_Publish.Size = new System.Drawing.Size(200, 22);
             this.mnuFile_Publish.Text = "פרסם";
             // 
             // toolStripMenuItem12
             // 
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(174, 6);
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(197, 6);
             // 
             // mnuFile_Exit
             // 
             this.mnuFile_Exit.Name = "mnuFile_Exit";
-            this.mnuFile_Exit.Size = new System.Drawing.Size(177, 22);
+            this.mnuFile_Exit.Size = new System.Drawing.Size(200, 22);
             this.mnuFile_Exit.Text = "יציאה";
             this.mnuFile_Exit.Click += new System.EventHandler(this.mnuFile_Exit_Click);
             // 
@@ -2125,40 +2134,43 @@ namespace SoundStudio
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.label12);
+            this.panel5.Controls.Add(this.lblLoginUser);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 623);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(585, 39);
             this.panel5.TabIndex = 62;
             // 
-            // label12
+            // lblLoginUser
             // 
-            this.label12.BackColor = System.Drawing.SystemColors.Control;
-            this.label12.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label12.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label12.Location = new System.Drawing.Point(260, 11);
-            this.label12.Name = "label12";
-            this.label12.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label12.Size = new System.Drawing.Size(168, 17);
-            this.label12.TabIndex = 26;
-            this.label12.Text = "הנך מחובר כ";
+            this.lblLoginUser.BackColor = System.Drawing.SystemColors.Control;
+            this.lblLoginUser.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblLoginUser.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lblLoginUser.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoginUser.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblLoginUser.Location = new System.Drawing.Point(340, 9);
+            this.lblLoginUser.Name = "lblLoginUser";
+            this.lblLoginUser.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblLoginUser.Size = new System.Drawing.Size(229, 24);
+            this.lblLoginUser.TabIndex = 26;
+            this.lblLoginUser.Text = "הנך מחובר כ";
             // 
-            // buttonStartRecOverwrite
+            // timePickerCurrentWord
             // 
-            this.buttonStartRecOverwrite.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonStartRecOverwrite.Cursor = System.Windows.Forms.Cursors.Default;
-            this.buttonStartRecOverwrite.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStartRecOverwrite.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartRecOverwrite.Location = new System.Drawing.Point(260, 31);
-            this.buttonStartRecOverwrite.Name = "buttonStartRecOverwrite";
-            this.buttonStartRecOverwrite.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonStartRecOverwrite.Size = new System.Drawing.Size(162, 28);
-            this.buttonStartRecOverwrite.TabIndex = 7;
-            this.buttonStartRecOverwrite.Text = "התחל ממיקום נבחר";
-            this.buttonStartRecOverwrite.UseVisualStyleBackColor = false;
-            this.buttonStartRecOverwrite.Click += new System.EventHandler(this.buttonStartRecOverwrite_Click);
+            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 56);
+            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
+            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
+            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
+            this.timePickerCurrentWord.TabIndex = 25;
+            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
+            // 
+            // mnuLoginDifferentUser
+            // 
+            this.mnuLoginDifferentUser.Name = "mnuLoginDifferentUser";
+            this.mnuLoginDifferentUser.Size = new System.Drawing.Size(200, 22);
+            this.mnuLoginDifferentUser.Text = "התחבר כמשתמש אחר";
+            this.mnuLoginDifferentUser.Click += new System.EventHandler(this.mnuLoginDifferentUser_Click);
             // 
             // FormMain
             // 
@@ -3464,6 +3476,7 @@ namespace SoundStudio
 
                 Word previousWord = null;
                 Word firstWord = null;
+                Word lastWord = null;
 
                 int bufferIndex = 0;
 
@@ -3618,7 +3631,11 @@ namespace SoundStudio
                                     if (ex_word != null)
                                     {
                                         start = ex_word.StartTime;
-                                        //duration = ex_word.Duration;
+
+                                        if (ex_word.NextWord == null)
+                                        {
+                                            duration = ex_word.Duration;
+                                        }
                                     }
                                 }
 
@@ -3629,9 +3646,14 @@ namespace SoundStudio
                                     - (3 * Math.Max(0, paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Count())),
                                     Index = wordIndex,
                                     Content = matchWord.Value,
-                                    StartTime = start,
-                                    //Duration = duration
+                                    StartTime = start
                                 };
+
+                                //in case last word grab the duration
+                                if (ex_word != null && ex_word.NextWord == null)
+                                {
+                                    newWord.Duration = duration;
+                                }
 
                                 //set previous word
                                 if (previousWord != null)
@@ -3652,7 +3674,7 @@ namespace SoundStudio
                                 }
 
                                 previousWord = newWord;
-
+                                lastWord = newWord;
                                 //save first word
 
                                 bufferIndex += innerWordIndex == 0 ? 0 : 3;
@@ -3661,8 +3683,10 @@ namespace SoundStudio
                     }
                 }
 
+                //set is last to the last word (for duration manually);
                 m_chapter = new Chapter();
                 m_chapter.FirstWord = firstWord;
+                m_chapter.LastWord = lastWord;
                 m_chapter.Content = m_regexAll.Replace(richTextBox1.Text, string.Empty);
                 m_chapter.Paragraphs = paragraphs_local;
             }
@@ -4189,16 +4213,32 @@ namespace SoundStudio
         private void FormMain_Shown(object sender, EventArgs e)
         {
             richTextBox1.Focus();
+            if (ParseUser.CurrentUser == null)
+            {
+                LoginForm frmLogin = new LoginForm();
 
-            //if (ParseUser.CurrentUser == null)
-            //{
-            //    LoginForm frmLogin = new LoginForm(this);
-            //    frmLogin.ShowDialog();
-            //}
-            //else
-            //{
-            //    lblLoginUser.Text = "מחובר כ-" + ParseUser.CurrentUser.Username;
-            //}
+                var result = frmLogin.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    Application.Exit();
+                }
+                else
+                {
+                    if (ParseUser.CurrentUser != null)
+                    {
+                        lblLoginUser.Text = "הנך מחובר כ-" + ParseUser.CurrentUser.Username;
+                    }
+                    else
+                    {
+                        Application.Exit();
+                    }
+                }
+            }
+            else
+            {
+                lblLoginUser.Text = "הנך מחובר כ-" + ParseUser.CurrentUser.Username;
+            }
 
             if (!string.IsNullOrEmpty(m_initClip))
             {
@@ -4646,6 +4686,8 @@ namespace SoundStudio
             {
                 m_selectedSilentAnchor = false;
 
+                var savePreviousWord = m_selectedScheduledWord;
+
                 //check for word selection
                 m_selectedScheduledWord = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(sc => sc.Sections)
                     .SelectMany(w => w.Words).Where(ww => ww.RealCharIndex <= selectionIndex).LastOrDefault();
@@ -4677,27 +4719,48 @@ namespace SoundStudio
                     }
                     else
                     {
-                        //selected word
-                        richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
-                        richTextBox3.SelectionLength = m_selectedScheduledWord.Length;
-
-                        //in case set start time during scheduling
-                        if (m_setStartTime != TimeSpan.Zero && audioSoundEditor1.GetPlaybackStatus() == enumPlaybackStatus.PLAYBACK_PLAYING)
+                        //in case last word
+                        if (savePreviousWord == m_selectedScheduledWord
+                            && m_selectedScheduledWord == m_chapter.LastWord)
                         {
-                            m_selectedScheduledWord.StartTime = m_setStartTime;
+                            if (audioSoundEditor1.GetPlaybackStatus() == enumPlaybackStatus.PLAYBACK_PLAYING)
+                            {
+                                buttonHammer.Enabled = false;
+                                m_selectedScheduledWord.Duration = m_setStartTime - m_selectedScheduledWord.StartTime;
 
-                            Debug.WriteLine(string.Format("Setting '{0}' with start time : {1}", m_selectedScheduledWord.Content, m_selectedScheduledWord.StartTimeText));
-
-                            m_setStartTime = TimeSpan.Zero;
+                                Debug.WriteLine(string.Format("Setting '{0}' with duration : {1}", m_selectedScheduledWord.Content, m_selectedScheduledWord.DurationText));
+                            }
+                            else
+                            {
+                                //set current word start time when clicking word offline
+                                timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime;
+                                timePickerCurrentWord.Enabled = true;
+                            }
                         }
-                        else if (audioSoundEditor1.GetPlaybackStatus() != enumPlaybackStatus.PLAYBACK_PLAYING)
+                        else
                         {
-                            //set current word start time when clicking word offline
-                            timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime;
-                            timePickerCurrentWord.Enabled = true;
+                            //select the word
+                            richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
+                            richTextBox3.SelectionLength = m_selectedScheduledWord.Length;
+
+                            //in case set start time during scheduling
+                            if (m_setStartTime != TimeSpan.Zero && audioSoundEditor1.GetPlaybackStatus() == enumPlaybackStatus.PLAYBACK_PLAYING)
+                            {
+                                m_selectedScheduledWord.StartTime = m_setStartTime;
+
+                                Debug.WriteLine(string.Format("Setting '{0}' with start time : {1}", m_selectedScheduledWord.Content, m_selectedScheduledWord.StartTimeText));
+
+                                m_setStartTime = TimeSpan.Zero;
+                            }
+                            else if (audioSoundEditor1.GetPlaybackStatus() != enumPlaybackStatus.PLAYBACK_PLAYING)
+                            {
+                                //set current word start time when clicking word offline
+                                timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime;
+                                timePickerCurrentWord.Enabled = true;
+                            }
                         }
 
-                        //move line
+                        //move guid line
                         audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds);
                         m_selectedAnchor = false;
                         buttonScheduleAnchor.Enabled = false;
@@ -4769,9 +4832,10 @@ namespace SoundStudio
 
                 var saveIt = m_setStartTime;
 
+                //in case current on silent part
                 if (m_selectedSilentAnchor)
                 {
-                    //goto next word
+                    //goto to first word in chapter
                     richTextBox3.SelectionStart = START_PAUSE_SECTION_ANCHOR.Length + 1;
                 }
                 else
@@ -4780,20 +4844,23 @@ namespace SoundStudio
                     richTextBox3.SelectionStart = richTextBox3.SelectionStart + richTextBox3.SelectionLength + 3;
                 }
 
-                //add line 
-                m_selectedScheduledWord.GraphicItemUnique = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("W|" + m_selectedScheduledWord.Index, m_selectedScheduledWord.Content,
-                    (int)saveIt.TotalMilliseconds == 0 ? 50 : (int)saveIt.TotalMilliseconds,
-                    new WANALYZER_VERTICAL_LINE
-                    {
-                        color = Color.White,
-                        nWidth = 2,
-                        nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT,
-                        nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DOT,
-                        nHighCap = enumLineCaps.LINE_CAP_SQUARE,
-                        nLowCap = enumLineCaps.LINE_CAP_SQUARE,
-                        nTranspFactor = 50
-                    });
-
+                //in case the last word we dont want to draw another ending line
+                if (m_selectedScheduledWord != m_chapter.LastWord)
+                {
+                    //add line 
+                    m_selectedScheduledWord.GraphicItemUnique = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("W|" + m_selectedScheduledWord.Index, m_selectedScheduledWord.Content,
+                        (int)saveIt.TotalMilliseconds == 0 ? 50 : (int)saveIt.TotalMilliseconds,
+                        new WANALYZER_VERTICAL_LINE
+                        {
+                            color = Color.White,
+                            nWidth = 2,
+                            nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT,
+                            nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DOT,
+                            nHighCap = enumLineCaps.LINE_CAP_SQUARE,
+                            nLowCap = enumLineCaps.LINE_CAP_SQUARE,
+                            nTranspFactor = 50
+                        });
+                }
             }
         }
 
@@ -4868,7 +4935,7 @@ namespace SoundStudio
                 //in case slient part
                 if (m_selectedSilentAnchor)
                 {
-                    if (position >= m_chapter.FirstWord.StartTime)
+                    if (position >= m_chapter.FirstWord.StartTime && m_chapter.FirstWord.StartTime > TimeSpan.Zero)
                     {
                         richTextBox3.SelectionStart = m_chapter.FirstWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + 1;
                     }
@@ -4876,16 +4943,16 @@ namespace SoundStudio
                 else
                 {
                     //get next word
-                    //var nextWord = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections)
-                    //    .SelectMany(sc => sc.Words).FirstOrDefault(w =>
-                    //        position >= w.StartTime
-                    //        && w.StartTime > m_selectedScheduledWord.StartTime);
-
-                    if ( m_selectedScheduledWord.NextWord != null 
+                    if (m_selectedScheduledWord.NextWord != null
                         && position >= m_selectedScheduledWord.NextWord.StartTime
-                        && position < m_selectedScheduledWord.NextWord.NextWord.StartTime )
+                        && m_selectedScheduledWord.NextWord.NextWord != null
+                        && position < m_selectedScheduledWord.NextWord.NextWord.StartTime)
                     {
                         richTextBox3.SelectionStart = m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
+                    }
+                    else
+                    {
+
                     }
                 }
             }
@@ -4918,6 +4985,7 @@ namespace SoundStudio
             //timePickerCurrentWord.Value = TimeSpan.Zero;
             richTextBox3.SelectionStart = 4;
             buttonStartDJPlay.Text = "התחל";
+            buttonHammer.Enabled = true;
         }
 
         private void buttonScheduleAnchor_Click(object sender, EventArgs e)
@@ -4993,6 +5061,23 @@ namespace SoundStudio
 
             // start recording in memory from system default input device and input channel
             audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
+        }
+
+        private void mnuLoginDifferentUser_Click(object sender, EventArgs e)
+        {
+            LoginForm form = new LoginForm();
+            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (ParseUser.CurrentUser != null)
+                {
+                    lblLoginUser.Text = "הנך מחובר כ-" + ParseUser.CurrentUser.Username;
+                }
+                else
+                {
+                    Application.Exit();
+                }
+            }
+
         }
 
 

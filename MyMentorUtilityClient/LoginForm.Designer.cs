@@ -40,7 +40,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(133, 203);
+            this.button1.Location = new System.Drawing.Point(105, 203);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 31);
@@ -88,10 +88,11 @@
             // 
             // button2
             // 
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2.Location = new System.Drawing.Point(13, 203);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 31);
+            this.button2.Size = new System.Drawing.Size(84, 31);
             this.button2.TabIndex = 5;
             this.button2.Text = "ביטול";
             this.button2.UseVisualStyleBackColor = true;

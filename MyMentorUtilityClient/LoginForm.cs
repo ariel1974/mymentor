@@ -8,18 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Parse;
+using SoundStudio;
 
 namespace MyMentorUtilityClient
 {
     public partial class LoginForm : Form
     {
-        private MainForm m_mainForm;
-
-        public LoginForm(MainForm mainForm)
+        public LoginForm()
         {
             InitializeComponent();
-
-            m_mainForm = mainForm;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -32,10 +29,8 @@ namespace MyMentorUtilityClient
             try
             {
                 await ParseUser.LogInAsync(textBox1.Text, textBox2.Text);
-
-                //m_mainForm.lblLoginUser.Text = "מחובר כ-" + ParseUser.CurrentUser.Username;
-
                 this.Close();
+                this.DialogResult = System.Windows.Forms.DialogResult.OK;
             }
             catch
             {

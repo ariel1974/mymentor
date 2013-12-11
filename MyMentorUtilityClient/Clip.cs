@@ -200,10 +200,15 @@ namespace MyMentorUtilityClient
             clip["subCategory"] = this.SubCategory;
             clip["keywords"] = this.Tags;
             clip["clipFile"] = file;
+            clip["createdByUser"] = user.Username;
 
-            //TODO change real user
-            clip["createdByUser"] = "natan";// user.Username;
-            clip.ACL = new ParseACL(user);
+            var ACL = new ParseACL(ParseUser.CurrentUser)
+            {
+                PublicReadAccess = true,
+                PublicWriteAccess = false
+            };
+            clip.ACL = ACL;
+
             await clip.SaveAsync();
 
             this.LastPublishedOn = DateTime.Now;

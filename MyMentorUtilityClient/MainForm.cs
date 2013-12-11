@@ -1246,8 +1246,8 @@ namespace MyMentorUtilityClient
         {
             //ParseUser.LogOut();
 
-            LoginForm form = new LoginForm(this);
-            form.ShowDialog();
+            //LoginForm form = new LoginForm(this);
+            //form.ShowDialog();
         }
 
         private void menuClipProperties_Click(object sender, EventArgs e)
@@ -2082,13 +2082,13 @@ namespace MyMentorUtilityClient
         private TimeSpan m_startTime;
         protected string m_content = string.Empty;
 
-
         [JsonIgnore]
         [XmlIgnore]
         public TimeSpan Duration
         {
             get
             {
+                //last word...we have its duration manually
                 switch (this.GetType().ToString())
                 {
                     case "MyMentorUtilityClient.Chapter":
@@ -2106,21 +2106,20 @@ namespace MyMentorUtilityClient
                     case "MyMentorUtilityClient.Word":
 
                         var nextWord = ((Word)this).NextWord;
-
                         if (nextWord != null)
                         {
                             m_duration = nextWord.StartTime - ((Word)this).StartTime;
                         }
+
                         break;
                 }
 
                 return m_duration;
             }
-
-           //set
-           // {
-           //     m_duration = value;
-           // }
+            set
+            {
+                m_duration = value;
+            }
         }
 
 
@@ -2264,6 +2263,14 @@ namespace MyMentorUtilityClient
         [JsonIgnore]
         [XmlIgnore]
         public Word FirstWord
+        {
+            get;
+            set;
+        }
+
+        [JsonIgnore]
+        [XmlIgnore]
+        public Word LastWord
         {
             get;
             set;

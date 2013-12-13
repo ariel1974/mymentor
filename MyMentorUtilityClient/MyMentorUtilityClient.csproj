@@ -104,6 +104,28 @@
     <Compile Include="ClipPropertiesForm.Designer.cs">
       <DependentUpon>ClipPropertiesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComboBox\CheckBoxComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComboBox\CheckBoxComboBox.designer.cs">
+      <DependentUpon>CheckBoxComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComboBox\GripBounds.cs" />
+    <Compile Include="ComboBox\NativeMethods.cs" />
+    <Compile Include="ComboBox\Popup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComboBox\Popup.designer.cs">
+      <DependentUpon>Popup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComboBox\PopupComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComboBox\PopupComboBox.designer.cs">
+      <DependentUpon>PopupComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComboBox\Selection Wrappers\ListSelectionWrapper.cs" />
+    <Compile Include="ComboBox\Selection Wrappers\ObjectSelectionWrapper.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FileAssociation\AssociationManager.cs" />
     <Compile Include="FileAssociation\FileAssociationInfo.cs" />
@@ -206,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ClipPropertiesForm.resx">
       <DependentUpon>ClipPropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComboBox\PopupComboBox.resx">
+      <DependentUpon>PopupComboBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormBalance.resx">
       <DependentUpon>FormBalance.cs</DependentUpon>
@@ -312,6 +337,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\1386909293_auction_hammer_gavel.png" />
+    <None Include="Resources\1386909646_519838-50_Cloud_Arrow_Up.png" />
+    <None Include="Resources\1386947558_anchor.png" />
     <Content Include="Rtf2Html\Itenso.Rtf.Converter.Html.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

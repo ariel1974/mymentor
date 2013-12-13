@@ -225,7 +225,6 @@ namespace SoundStudio
         private FontDialog fontDialog1;
         private TabPage tabPage3;
         private TableLayoutPanel tableLayoutPanel3;
-        public RichTextBox richTextBox3;
         private TabPage tabPage4;
         public Label label1;
         private AudioDjStudio.AudioDjStudio audioDjStudio1;
@@ -252,7 +251,68 @@ namespace SoundStudio
         public Label lblLoginUser;
         public Button buttonStartRecOverwrite;
         private ToolStripMenuItem mnuLoginDifferentUser;
-
+        private ImageList imageList1;
+        private Timer timerRecordIcon;
+        private bool b_recordIconRed;
+        private TableLayoutPanel tableLayoutPanel5;
+        private GroupBox groupBox3;
+        private TextBox textBox8;
+        private TextBox textBox7;
+        private Label label12;
+        private GroupBox groupBox5;
+        private CheckBox sop_teacher1l;
+        private CheckBox sop_studentl;
+        private CheckBox sop_teacher2l;
+        private CheckBox sop_teacherAndStudentl;
+        private GroupBox groupBox4;
+        private CheckBox sop_teacher1;
+        private CheckBox sop_student;
+        private CheckBox sop_teacher2;
+        private CheckBox sop_teacherAndStudent;
+        private GroupBox groupBox6;
+        private CheckBox loc_par;
+        private CheckBox loc_wor;
+        private CheckBox loc_sec;
+        private CheckBox loc_sen;
+        private GroupBox groupBox7;
+        private CheckBox def_sen;
+        private CheckBox def_par;
+        private CheckBox def_wor;
+        private CheckBox def_sec;
+        private Label label13;
+        private TextBox textBox3;
+        private Label label15;
+        private ComboBox comboBox1;
+        private Label label16;
+        private Label label19;
+        private TextBox textBox6;
+        private Label label20;
+        private TextBox textBox5;
+        private Label label21;
+        private TextBox textBox4;
+        private Label label22;
+        private TextBox textBox1;
+        private MaskedTextBox maskedTextBox1;
+        private Label label23;
+        private Panel panel4;
+        private Button button1;
+        private Panel panel6;
+        public RichTextBox richTextBox3;
+        private Panel panel7;
+        private GroupBox groupBox8;
+        private ToolStripSeparator toolStripMenuItem14;
+        private ToolStripMenuItem mnuAnchors;
+        private ToolStripMenuItem mnuAnchors_RemoveAll;
+        private ToolStripSeparator toolStripMenuItem15;
+        private ToolStripMenuItem mnuAnchors_RemoveParagraphs;
+        private ToolStripMenuItem mnuAnchors_RemoveSentenses;
+        private ToolStripMenuItem mnuAnchors_RemoveSections;
+        private ToolStripMenuItem mnuAnchors_RemoveWords;
+        public Label label14;
+        private PresentationControls.CheckBoxComboBox comboBoxAutoDevideSen;
+        public Label label24;
+        public Button buttonAutoDevide;
+        private PresentationControls.CheckBoxComboBox comboBoxAutoDevidePar;
         private string m_strExportPathname;
 
         // Reverb internal DSP
@@ -346,6 +406,8 @@ namespace SoundStudio
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            PresentationControls.CheckBoxProperties checkBoxProperties1 = new PresentationControls.CheckBoxProperties();
+            PresentationControls.CheckBoxProperties checkBoxProperties2 = new PresentationControls.CheckBoxProperties();
             this.Frame4 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Label2 = new System.Windows.Forms.Label();
@@ -366,7 +428,6 @@ namespace SoundStudio
             this.buttonPlay = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonPlaySelection = new System.Windows.Forms.Button();
-            this.Picture1 = new System.Windows.Forms.PictureBox();
             this.LabelStatus = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.TimerReload = new System.Windows.Forms.Timer(this.components);
@@ -378,7 +439,6 @@ namespace SoundStudio
             this.buttonStartRecOverwrite = new System.Windows.Forms.Button();
             this.buttonStartRecAppend = new System.Windows.Forms.Button();
             this.buttonStopRecording = new System.Windows.Forms.Button();
-            this.buttonStartRecNew = new System.Windows.Forms.Button();
             this.audioSoundRecorder1 = new AudioSoundRecorder.AudioSoundRecorder();
             this.timerRecordingDone = new System.Windows.Forms.Timer(this.components);
             this.label18 = new System.Windows.Forms.Label();
@@ -387,33 +447,19 @@ namespace SoundStudio
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.ToolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tbrNew = new System.Windows.Forms.ToolStripButton();
-            this.tbrOpen = new System.Windows.Forms.ToolStripButton();
-            this.tbrSave = new System.Windows.Forms.ToolStripButton();
             this.ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbrSmallerFont = new System.Windows.Forms.ToolStripButton();
-            this.tbrBiggerFont = new System.Windows.Forms.ToolStripButton();
-            this.tbrFont = new System.Windows.Forms.ToolStripButton();
             this.ToolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbrRight = new System.Windows.Forms.ToolStripButton();
-            this.tbrLeft = new System.Windows.Forms.ToolStripButton();
             this.ToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbrBold = new System.Windows.Forms.ToolStripButton();
-            this.tbrItalic = new System.Windows.Forms.ToolStripButton();
-            this.tbrUnderline = new System.Windows.Forms.ToolStripButton();
             this.ToolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbrParagraph = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbrSentense = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbrSection = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbrWord = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbrProperties = new System.Windows.Forms.ToolStripButton();
-            this.tbrParse = new System.Windows.Forms.ToolStripButton();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -423,16 +469,57 @@ namespace SoundStudio
             this.label10 = new System.Windows.Forms.Label();
             this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
             this.buttonRestartScheduling = new System.Windows.Forms.Button();
-            this.buttonHammer = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonStartDJPlay = new System.Windows.Forms.Button();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownInterval = new System.Windows.Forms.NumericUpDown();
             this.buttonScheduleAnchor = new System.Windows.Forms.Button();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.sop_teacher1l = new System.Windows.Forms.CheckBox();
+            this.sop_studentl = new System.Windows.Forms.CheckBox();
+            this.sop_teacher2l = new System.Windows.Forms.CheckBox();
+            this.sop_teacherAndStudentl = new System.Windows.Forms.CheckBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.sop_teacher1 = new System.Windows.Forms.CheckBox();
+            this.sop_student = new System.Windows.Forms.CheckBox();
+            this.sop_teacher2 = new System.Windows.Forms.CheckBox();
+            this.sop_teacherAndStudent = new System.Windows.Forms.CheckBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.loc_par = new System.Windows.Forms.CheckBox();
+            this.loc_wor = new System.Windows.Forms.CheckBox();
+            this.loc_sec = new System.Windows.Forms.CheckBox();
+            this.loc_sen = new System.Windows.Forms.CheckBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.def_sen = new System.Windows.Forms.CheckBox();
+            this.def_par = new System.Windows.Forms.CheckBox();
+            this.def_wor = new System.Windows.Forms.CheckBox();
+            this.def_sec = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -448,9 +535,18 @@ namespace SoundStudio
             this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFile_Publish = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuLoginDifferentUser = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFile_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.טקסטToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuText_Goto = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuAnchors = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAnchors_RemoveAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuAnchors_RemoveParagraphs = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAnchors_RemoveSentenses = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAnchors_RemoveSections = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAnchors_RemoveWords = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAudio = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAudioOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAudioLoad = new System.Windows.Forms.ToolStripMenuItem();
@@ -499,16 +595,43 @@ namespace SoundStudio
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.lblLoginUser = new System.Windows.Forms.Label();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.timerRecordIcon = new System.Windows.Forms.Timer(this.components);
+            this.label24 = new System.Windows.Forms.Label();
+            this.tbrNew = new System.Windows.Forms.ToolStripButton();
+            this.tbrOpen = new System.Windows.Forms.ToolStripButton();
+            this.tbrSave = new System.Windows.Forms.ToolStripButton();
+            this.tbrSmallerFont = new System.Windows.Forms.ToolStripButton();
+            this.tbrBiggerFont = new System.Windows.Forms.ToolStripButton();
+            this.tbrFont = new System.Windows.Forms.ToolStripButton();
+            this.tbrRight = new System.Windows.Forms.ToolStripButton();
+            this.tbrLeft = new System.Windows.Forms.ToolStripButton();
+            this.tbrBold = new System.Windows.Forms.ToolStripButton();
+            this.tbrItalic = new System.Windows.Forms.ToolStripButton();
+            this.tbrUnderline = new System.Windows.Forms.ToolStripButton();
+            this.tbrParagraph = new System.Windows.Forms.ToolStripButton();
+            this.tbrSentense = new System.Windows.Forms.ToolStripButton();
+            this.tbrSection = new System.Windows.Forms.ToolStripButton();
+            this.tbrWord = new System.Windows.Forms.ToolStripButton();
+            this.tbrProperties = new System.Windows.Forms.ToolStripButton();
+            this.tbrParse = new System.Windows.Forms.ToolStripButton();
+            this.buttonAutoDevide = new System.Windows.Forms.Button();
+            this.buttonStartRecNew = new System.Windows.Forms.Button();
+            this.buttonHammer = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Picture1 = new System.Windows.Forms.PictureBox();
+            this.comboBoxAutoDevidePar = new PresentationControls.CheckBoxComboBox();
+            this.comboBoxAutoDevideSen = new PresentationControls.CheckBoxComboBox();
             this.timePickerCurrentWord = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
-            this.mnuLoginDifferentUser = new System.Windows.Forms.ToolStripMenuItem();
             this.Frame4.SuspendLayout();
             this.framePlayback.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Picture1)).BeginInit();
             this.FrameRecording.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.ToolStrip1.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -517,11 +640,21 @@ namespace SoundStudio
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
+            this.panel6.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture1)).BeginInit();
             this.SuspendLayout();
             // 
             // Frame4
@@ -757,10 +890,10 @@ namespace SoundStudio
             this.framePlayback.Controls.Add(this.buttonPlaySelection);
             this.framePlayback.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.framePlayback.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.framePlayback.Location = new System.Drawing.Point(750, 245);
+            this.framePlayback.Location = new System.Drawing.Point(736, 245);
             this.framePlayback.Name = "framePlayback";
             this.framePlayback.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.framePlayback.Size = new System.Drawing.Size(409, 76);
+            this.framePlayback.Size = new System.Drawing.Size(423, 95);
             this.framePlayback.TabIndex = 15;
             this.framePlayback.TabStop = false;
             this.framePlayback.Text = "ניגון";
@@ -771,7 +904,7 @@ namespace SoundStudio
             this.buttonPause.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonPause.Location = new System.Drawing.Point(218, 27);
             this.buttonPause.Name = "buttonPause";
-            this.buttonPause.Size = new System.Drawing.Size(85, 28);
+            this.buttonPause.Size = new System.Drawing.Size(85, 43);
             this.buttonPause.TabIndex = 10;
             this.buttonPause.Text = "השהה";
             this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
@@ -786,7 +919,7 @@ namespace SoundStudio
             this.buttonPlay.Location = new System.Drawing.Point(309, 27);
             this.buttonPlay.Name = "buttonPlay";
             this.buttonPlay.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonPlay.Size = new System.Drawing.Size(94, 28);
+            this.buttonPlay.Size = new System.Drawing.Size(90, 43);
             this.buttonPlay.TabIndex = 9;
             this.buttonPlay.Text = "נגן";
             this.buttonPlay.UseVisualStyleBackColor = false;
@@ -802,7 +935,7 @@ namespace SoundStudio
             this.buttonStop.Location = new System.Drawing.Point(6, 27);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonStop.Size = new System.Drawing.Size(101, 28);
+            this.buttonStop.Size = new System.Drawing.Size(101, 43);
             this.buttonStop.TabIndex = 8;
             this.buttonStop.Text = "עצור";
             this.buttonStop.UseVisualStyleBackColor = false;
@@ -818,26 +951,11 @@ namespace SoundStudio
             this.buttonPlaySelection.Location = new System.Drawing.Point(113, 27);
             this.buttonPlaySelection.Name = "buttonPlaySelection";
             this.buttonPlaySelection.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonPlaySelection.Size = new System.Drawing.Size(99, 28);
+            this.buttonPlaySelection.Size = new System.Drawing.Size(99, 43);
             this.buttonPlaySelection.TabIndex = 7;
             this.buttonPlaySelection.Text = "נגן בחירה";
             this.buttonPlaySelection.UseVisualStyleBackColor = false;
             this.buttonPlaySelection.Click += new System.EventHandler(this.buttonPlaySelection_Click);
-            // 
-            // Picture1
-            // 
-            this.Picture1.BackColor = System.Drawing.Color.Black;
-            this.Picture1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Picture1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Picture1.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Picture1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.Picture1.Location = new System.Drawing.Point(0, 0);
-            this.Picture1.Name = "Picture1";
-            this.Picture1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Picture1.Size = new System.Drawing.Size(1176, 154);
-            this.Picture1.TabIndex = 13;
-            this.Picture1.TabStop = false;
-            this.Picture1.Visible = false;
             // 
             // LabelStatus
             // 
@@ -925,10 +1043,10 @@ namespace SoundStudio
             this.buttonStartRecOverwrite.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonStartRecOverwrite.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStartRecOverwrite.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartRecOverwrite.Location = new System.Drawing.Point(260, 31);
+            this.buttonStartRecOverwrite.Location = new System.Drawing.Point(288, 31);
             this.buttonStartRecOverwrite.Name = "buttonStartRecOverwrite";
             this.buttonStartRecOverwrite.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonStartRecOverwrite.Size = new System.Drawing.Size(162, 28);
+            this.buttonStartRecOverwrite.Size = new System.Drawing.Size(142, 43);
             this.buttonStartRecOverwrite.TabIndex = 7;
             this.buttonStartRecOverwrite.Text = "התחל ממיקום נבחר";
             this.buttonStartRecOverwrite.UseVisualStyleBackColor = false;
@@ -940,10 +1058,10 @@ namespace SoundStudio
             this.buttonStartRecAppend.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonStartRecAppend.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStartRecAppend.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartRecAppend.Location = new System.Drawing.Point(147, 31);
+            this.buttonStartRecAppend.Location = new System.Drawing.Point(175, 31);
             this.buttonStartRecAppend.Name = "buttonStartRecAppend";
             this.buttonStartRecAppend.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonStartRecAppend.Size = new System.Drawing.Size(107, 28);
+            this.buttonStartRecAppend.Size = new System.Drawing.Size(107, 43);
             this.buttonStartRecAppend.TabIndex = 6;
             this.buttonStartRecAppend.Text = "התחל הוספה";
             this.buttonStartRecAppend.UseVisualStyleBackColor = false;
@@ -956,29 +1074,14 @@ namespace SoundStudio
             this.buttonStopRecording.Enabled = false;
             this.buttonStopRecording.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStopRecording.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStopRecording.Location = new System.Drawing.Point(14, 31);
+            this.buttonStopRecording.Location = new System.Drawing.Point(42, 31);
             this.buttonStopRecording.Name = "buttonStopRecording";
             this.buttonStopRecording.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonStopRecording.Size = new System.Drawing.Size(127, 28);
+            this.buttonStopRecording.Size = new System.Drawing.Size(127, 43);
             this.buttonStopRecording.TabIndex = 5;
             this.buttonStopRecording.Text = "עצור הקלטה";
             this.buttonStopRecording.UseVisualStyleBackColor = false;
             this.buttonStopRecording.Click += new System.EventHandler(this.buttonStopRecording_Click);
-            // 
-            // buttonStartRecNew
-            // 
-            this.buttonStartRecNew.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonStartRecNew.Cursor = System.Windows.Forms.Cursors.Default;
-            this.buttonStartRecNew.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStartRecNew.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartRecNew.Location = new System.Drawing.Point(428, 31);
-            this.buttonStartRecNew.Name = "buttonStartRecNew";
-            this.buttonStartRecNew.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonStartRecNew.Size = new System.Drawing.Size(120, 28);
-            this.buttonStartRecNew.TabIndex = 4;
-            this.buttonStartRecNew.Text = "התחל חדש";
-            this.buttonStartRecNew.UseVisualStyleBackColor = false;
-            this.buttonStartRecNew.Click += new System.EventHandler(this.buttonStartRecNew_Click);
             // 
             // audioSoundRecorder1
             // 
@@ -1053,6 +1156,7 @@ namespace SoundStudio
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage1.Controls.Add(this.tableLayoutPanel2);
             this.tabPage1.Location = new System.Drawing.Point(4, 46);
             this.tabPage1.Name = "tabPage1";
@@ -1060,33 +1164,32 @@ namespace SoundStudio
             this.tabPage1.Size = new System.Drawing.Size(1168, 404);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "1 - טקסט";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 82.68793F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.31207F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 148F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 149F));
             this.tableLayoutPanel2.Controls.Add(this.ToolStrip1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox1, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox2, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel7, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1162, 398);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // ToolStrip1
             // 
-            this.tableLayoutPanel2.SetColumnSpan(this.ToolStrip1, 2);
+            this.tableLayoutPanel2.SetColumnSpan(this.ToolStrip1, 4);
             this.ToolStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ToolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbrNew,
@@ -1114,254 +1217,62 @@ namespace SoundStudio
             this.toolStripSeparator8,
             this.tbrProperties,
             this.tbrParse});
-            this.ToolStrip1.Location = new System.Drawing.Point(282, 40);
+            this.ToolStrip1.Location = new System.Drawing.Point(0, 80);
             this.ToolStrip1.Name = "ToolStrip1";
-            this.ToolStrip1.Size = new System.Drawing.Size(880, 28);
+            this.ToolStrip1.Size = new System.Drawing.Size(1162, 27);
             this.ToolStrip1.TabIndex = 32;
             this.ToolStrip1.Text = "ToolStrip1";
-            // 
-            // tbrNew
-            // 
-            this.tbrNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrNew.Image = ((System.Drawing.Image)(resources.GetObject("tbrNew.Image")));
-            this.tbrNew.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrNew.Name = "tbrNew";
-            this.tbrNew.Size = new System.Drawing.Size(23, 25);
-            this.tbrNew.Text = "New";
-            this.tbrNew.ToolTipText = "חדש";
-            this.tbrNew.Click += new System.EventHandler(this.tbrNew_Click);
-            // 
-            // tbrOpen
-            // 
-            this.tbrOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbrOpen.Image")));
-            this.tbrOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrOpen.Name = "tbrOpen";
-            this.tbrOpen.Size = new System.Drawing.Size(23, 25);
-            this.tbrOpen.Text = "Open";
-            this.tbrOpen.ToolTipText = "פתח";
-            this.tbrOpen.Click += new System.EventHandler(this.tbrOpen_Click);
-            // 
-            // tbrSave
-            // 
-            this.tbrSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrSave.Image = ((System.Drawing.Image)(resources.GetObject("tbrSave.Image")));
-            this.tbrSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrSave.Name = "tbrSave";
-            this.tbrSave.Size = new System.Drawing.Size(23, 25);
-            this.tbrSave.Text = "Save";
-            this.tbrSave.ToolTipText = "שמור";
-            this.tbrSave.Click += new System.EventHandler(this.tbrSave_Click);
             // 
             // ToolStripSeparator1
             // 
             this.ToolStripSeparator1.Name = "ToolStripSeparator1";
-            this.ToolStripSeparator1.Size = new System.Drawing.Size(6, 28);
-            // 
-            // tbrSmallerFont
-            // 
-            this.tbrSmallerFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tbrSmallerFont.Image = ((System.Drawing.Image)(resources.GetObject("tbrSmallerFont.Image")));
-            this.tbrSmallerFont.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrSmallerFont.Name = "tbrSmallerFont";
-            this.tbrSmallerFont.Size = new System.Drawing.Size(24, 25);
-            this.tbrSmallerFont.Text = "-A";
-            this.tbrSmallerFont.Click += new System.EventHandler(this.tbrSmallerFont_Click);
-            // 
-            // tbrBiggerFont
-            // 
-            this.tbrBiggerFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tbrBiggerFont.Image = ((System.Drawing.Image)(resources.GetObject("tbrBiggerFont.Image")));
-            this.tbrBiggerFont.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrBiggerFont.Name = "tbrBiggerFont";
-            this.tbrBiggerFont.Size = new System.Drawing.Size(27, 25);
-            this.tbrBiggerFont.Text = "+A";
-            this.tbrBiggerFont.ToolTipText = "הגדל טקסט";
-            this.tbrBiggerFont.Click += new System.EventHandler(this.tbrBiggerFont_Click);
-            // 
-            // tbrFont
-            // 
-            this.tbrFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrFont.Image = ((System.Drawing.Image)(resources.GetObject("tbrFont.Image")));
-            this.tbrFont.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrFont.Name = "tbrFont";
-            this.tbrFont.Size = new System.Drawing.Size(23, 25);
-            this.tbrFont.Text = "Font";
-            this.tbrFont.ToolTipText = "גופן";
-            this.tbrFont.Click += new System.EventHandler(this.tbrFont_Click);
+            this.ToolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // ToolStripSeparator4
             // 
             this.ToolStripSeparator4.Name = "ToolStripSeparator4";
-            this.ToolStripSeparator4.Size = new System.Drawing.Size(6, 28);
-            // 
-            // tbrRight
-            // 
-            this.tbrRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrRight.Image = ((System.Drawing.Image)(resources.GetObject("tbrRight.Image")));
-            this.tbrRight.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrRight.Name = "tbrRight";
-            this.tbrRight.Size = new System.Drawing.Size(23, 25);
-            this.tbrRight.Text = "Right";
-            this.tbrRight.ToolTipText = "ישר לימין";
-            this.tbrRight.Click += new System.EventHandler(this.tbrRight_Click);
-            // 
-            // tbrLeft
-            // 
-            this.tbrLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrLeft.Image = ((System.Drawing.Image)(resources.GetObject("tbrLeft.Image")));
-            this.tbrLeft.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrLeft.Name = "tbrLeft";
-            this.tbrLeft.Size = new System.Drawing.Size(23, 25);
-            this.tbrLeft.Text = "Left";
-            this.tbrLeft.ToolTipText = "יישר לשמאל";
-            this.tbrLeft.Click += new System.EventHandler(this.tbrLeft_Click);
+            this.ToolStripSeparator4.Size = new System.Drawing.Size(6, 27);
             // 
             // ToolStripSeparator2
             // 
             this.ToolStripSeparator2.Name = "ToolStripSeparator2";
-            this.ToolStripSeparator2.Size = new System.Drawing.Size(6, 28);
-            // 
-            // tbrBold
-            // 
-            this.tbrBold.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrBold.Image = ((System.Drawing.Image)(resources.GetObject("tbrBold.Image")));
-            this.tbrBold.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrBold.Name = "tbrBold";
-            this.tbrBold.Size = new System.Drawing.Size(23, 25);
-            this.tbrBold.Text = "Bold";
-            this.tbrBold.ToolTipText = "מודגש";
-            this.tbrBold.Click += new System.EventHandler(this.tbrBold_Click);
-            // 
-            // tbrItalic
-            // 
-            this.tbrItalic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrItalic.Image = ((System.Drawing.Image)(resources.GetObject("tbrItalic.Image")));
-            this.tbrItalic.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrItalic.Name = "tbrItalic";
-            this.tbrItalic.Size = new System.Drawing.Size(23, 25);
-            this.tbrItalic.Text = "Italic";
-            this.tbrItalic.ToolTipText = "נטוי";
-            this.tbrItalic.Click += new System.EventHandler(this.tbrItalic_Click);
-            // 
-            // tbrUnderline
-            // 
-            this.tbrUnderline.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrUnderline.Image = ((System.Drawing.Image)(resources.GetObject("tbrUnderline.Image")));
-            this.tbrUnderline.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrUnderline.Name = "tbrUnderline";
-            this.tbrUnderline.Size = new System.Drawing.Size(23, 25);
-            this.tbrUnderline.Text = "Underline";
-            this.tbrUnderline.ToolTipText = "קו תחתי";
-            this.tbrUnderline.Click += new System.EventHandler(this.tbrUnderline_Click);
+            this.ToolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
             // ToolStripSeparator3
             // 
             this.ToolStripSeparator3.Name = "ToolStripSeparator3";
-            this.ToolStripSeparator3.Size = new System.Drawing.Size(6, 28);
-            // 
-            // tbrParagraph
-            // 
-            this.tbrParagraph.BackColor = System.Drawing.Color.Red;
-            this.tbrParagraph.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tbrParagraph.ForeColor = System.Drawing.Color.White;
-            this.tbrParagraph.Image = ((System.Drawing.Image)(resources.GetObject("tbrParagraph.Image")));
-            this.tbrParagraph.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrParagraph.Name = "tbrParagraph";
-            this.tbrParagraph.Size = new System.Drawing.Size(25, 25);
-            this.tbrParagraph.Text = "[3]";
-            this.tbrParagraph.ToolTipText = "חלק פסקה";
-            this.tbrParagraph.Click += new System.EventHandler(this.tbrParagraph_Click);
+            this.ToolStripSeparator3.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 28);
-            // 
-            // tbrSentense
-            // 
-            this.tbrSentense.BackColor = System.Drawing.Color.Violet;
-            this.tbrSentense.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tbrSentense.ForeColor = System.Drawing.Color.White;
-            this.tbrSentense.Image = ((System.Drawing.Image)(resources.GetObject("tbrSentense.Image")));
-            this.tbrSentense.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrSentense.Name = "tbrSentense";
-            this.tbrSentense.Size = new System.Drawing.Size(25, 25);
-            this.tbrSentense.Text = "[2]";
-            this.tbrSentense.ToolTipText = "חלק משפט";
-            this.tbrSentense.Click += new System.EventHandler(this.tbrSentense_Click);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 28);
-            // 
-            // tbrSection
-            // 
-            this.tbrSection.BackColor = System.Drawing.Color.LimeGreen;
-            this.tbrSection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tbrSection.ForeColor = System.Drawing.Color.White;
-            this.tbrSection.Image = ((System.Drawing.Image)(resources.GetObject("tbrSection.Image")));
-            this.tbrSection.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrSection.Name = "tbrSection";
-            this.tbrSection.Size = new System.Drawing.Size(25, 25);
-            this.tbrSection.Text = "[1]";
-            this.tbrSection.ToolTipText = "חלק קטע";
-            this.tbrSection.Click += new System.EventHandler(this.tbrSection_Click);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 28);
-            // 
-            // tbrWord
-            // 
-            this.tbrWord.BackColor = System.Drawing.Color.Yellow;
-            this.tbrWord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tbrWord.Image = ((System.Drawing.Image)(resources.GetObject("tbrWord.Image")));
-            this.tbrWord.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrWord.Name = "tbrWord";
-            this.tbrWord.Size = new System.Drawing.Size(25, 25);
-            this.tbrWord.Text = "[0]";
-            this.tbrWord.ToolTipText = "התחל מילה";
-            this.tbrWord.Click += new System.EventHandler(this.tbrWord_Click);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 28);
-            // 
-            // tbrProperties
-            // 
-            this.tbrProperties.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrProperties.Image = ((System.Drawing.Image)(resources.GetObject("tbrProperties.Image")));
-            this.tbrProperties.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrProperties.Name = "tbrProperties";
-            this.tbrProperties.Size = new System.Drawing.Size(23, 25);
-            this.tbrProperties.Text = "toolStripButton11";
-            this.tbrProperties.ToolTipText = "מאפייני שיעור";
-            // 
-            // tbrParse
-            // 
-            this.tbrParse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrParse.Image = ((System.Drawing.Image)(resources.GetObject("tbrParse.Image")));
-            this.tbrParse.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrParse.Name = "tbrParse";
-            this.tbrParse.Size = new System.Drawing.Size(23, 25);
-            this.tbrParse.Text = "toolStripButton10";
-            this.tbrParse.ToolTipText = "בדוק תקינות";
-            this.tbrParse.Click += new System.EventHandler(this.tbrParse_Click);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 27);
             // 
             // richTextBox1
             // 
             this.tableLayoutPanel2.SetColumnSpan(this.richTextBox1, 5);
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.richTextBox1.Location = new System.Drawing.Point(4, 72);
+            this.richTextBox1.Location = new System.Drawing.Point(4, 111);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox1.Name = "richTextBox1";
             this.tableLayoutPanel2.SetRowSpan(this.richTextBox1, 2);
-            this.richTextBox1.Size = new System.Drawing.Size(1154, 322);
+            this.richTextBox1.Size = new System.Drawing.Size(1154, 283);
             this.richTextBox1.TabIndex = 31;
             this.richTextBox1.Text = "";
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
@@ -1369,12 +1280,49 @@ namespace SoundStudio
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(619, 3);
+            this.richTextBox2.Location = new System.Drawing.Point(333, 3);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(100, 34);
             this.richTextBox2.TabIndex = 33;
             this.richTextBox2.Text = "";
             this.richTextBox2.Visible = false;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.groupBox8);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel7.Location = new System.Drawing.Point(439, 3);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(720, 74);
+            this.panel7.TabIndex = 34;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.comboBoxAutoDevidePar);
+            this.groupBox8.Controls.Add(this.buttonAutoDevide);
+            this.groupBox8.Controls.Add(this.label24);
+            this.groupBox8.Controls.Add(this.comboBoxAutoDevideSen);
+            this.groupBox8.Controls.Add(this.label14);
+            this.groupBox8.Font = new System.Drawing.Font("Arial", 12F);
+            this.groupBox8.Location = new System.Drawing.Point(3, 3);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(711, 68);
+            this.groupBox8.TabIndex = 0;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "חלוקה אוטומטית";
+            // 
+            // label14
+            // 
+            this.label14.BackColor = System.Drawing.SystemColors.Control;
+            this.label14.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label14.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label14.Location = new System.Drawing.Point(625, 31);
+            this.label14.Name = "label14";
+            this.label14.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label14.Size = new System.Drawing.Size(75, 21);
+            this.label14.TabIndex = 14;
+            this.label14.Text = "סוף פסקה";
             // 
             // tabPage2
             // 
@@ -1438,16 +1386,16 @@ namespace SoundStudio
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Controls.Add(this.groupBox1, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.richTextBox3, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.groupBox2, 1, 3);
+            this.tableLayoutPanel3.Controls.Add(this.panel6, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 4;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 135F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 135F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 145F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1162, 398);
             this.tableLayoutPanel3.TabIndex = 0;
@@ -1464,10 +1412,10 @@ namespace SoundStudio
             this.groupBox1.Controls.Add(this.buttonStartDJPlay);
             this.groupBox1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.Location = new System.Drawing.Point(605, 301);
+            this.groupBox1.Location = new System.Drawing.Point(605, 256);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox1.Size = new System.Drawing.Size(554, 92);
+            this.groupBox1.Size = new System.Drawing.Size(554, 139);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "תזמון קטעים";
@@ -1475,7 +1423,7 @@ namespace SoundStudio
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(195, 64);
+            this.label10.Location = new System.Drawing.Point(195, 104);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(122, 18);
             this.label10.TabIndex = 26;
@@ -1488,7 +1436,7 @@ namespace SoundStudio
             this.LabelCurrentSchedulingTimer.Cursor = System.Windows.Forms.Cursors.Default;
             this.LabelCurrentSchedulingTimer.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelCurrentSchedulingTimer.ForeColor = System.Drawing.Color.Black;
-            this.LabelCurrentSchedulingTimer.Location = new System.Drawing.Point(342, 64);
+            this.LabelCurrentSchedulingTimer.Location = new System.Drawing.Point(342, 104);
             this.LabelCurrentSchedulingTimer.Name = "LabelCurrentSchedulingTimer";
             this.LabelCurrentSchedulingTimer.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.LabelCurrentSchedulingTimer.Size = new System.Drawing.Size(108, 22);
@@ -1506,31 +1454,16 @@ namespace SoundStudio
             this.buttonRestartScheduling.Location = new System.Drawing.Point(311, 25);
             this.buttonRestartScheduling.Name = "buttonRestartScheduling";
             this.buttonRestartScheduling.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonRestartScheduling.Size = new System.Drawing.Size(131, 28);
+            this.buttonRestartScheduling.Size = new System.Drawing.Size(131, 41);
             this.buttonRestartScheduling.TabIndex = 12;
             this.buttonRestartScheduling.Text = "חזור להתחלה";
             this.buttonRestartScheduling.UseVisualStyleBackColor = false;
             this.buttonRestartScheduling.Click += new System.EventHandler(this.button1_Click);
             // 
-            // buttonHammer
-            // 
-            this.buttonHammer.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonHammer.Cursor = System.Windows.Forms.Cursors.Default;
-            this.buttonHammer.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHammer.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonHammer.Location = new System.Drawing.Point(212, 25);
-            this.buttonHammer.Name = "buttonHammer";
-            this.buttonHammer.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonHammer.Size = new System.Drawing.Size(93, 28);
-            this.buttonHammer.TabIndex = 11;
-            this.buttonHammer.Text = "פטיש";
-            this.buttonHammer.UseVisualStyleBackColor = false;
-            this.buttonHammer.Click += new System.EventHandler(this.buttonHammer_Click);
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(469, 65);
+            this.label9.Location = new System.Drawing.Point(469, 105);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(76, 18);
             this.label9.TabIndex = 24;
@@ -1545,28 +1478,11 @@ namespace SoundStudio
             this.buttonStartDJPlay.Location = new System.Drawing.Point(448, 25);
             this.buttonStartDJPlay.Name = "buttonStartDJPlay";
             this.buttonStartDJPlay.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonStartDJPlay.Size = new System.Drawing.Size(94, 28);
+            this.buttonStartDJPlay.Size = new System.Drawing.Size(94, 41);
             this.buttonStartDJPlay.TabIndex = 9;
             this.buttonStartDJPlay.Text = "התחל";
             this.buttonStartDJPlay.UseVisualStyleBackColor = false;
             this.buttonStartDJPlay.Click += new System.EventHandler(this.buttonStartDJPlay_Click);
-            // 
-            // richTextBox3
-            // 
-            this.tableLayoutPanel3.SetColumnSpan(this.richTextBox3, 2);
-            this.richTextBox3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.richTextBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox3.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.richTextBox3.HideSelection = false;
-            this.richTextBox3.Location = new System.Drawing.Point(4, 4);
-            this.richTextBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.ReadOnly = true;
-            this.tableLayoutPanel3.SetRowSpan(this.richTextBox3, 3);
-            this.richTextBox3.Size = new System.Drawing.Size(1154, 290);
-            this.richTextBox3.TabIndex = 32;
-            this.richTextBox3.Text = "";
-            this.richTextBox3.SelectionChanged += new System.EventHandler(this.richTextBox3_SelectionChanged);
             // 
             // groupBox2
             // 
@@ -1575,7 +1491,7 @@ namespace SoundStudio
             this.groupBox2.Controls.Add(this.numericUpDownInterval);
             this.groupBox2.Controls.Add(this.buttonScheduleAnchor);
             this.groupBox2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(225, 301);
+            this.groupBox2.Location = new System.Drawing.Point(225, 256);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(353, 94);
             this.groupBox2.TabIndex = 35;
@@ -1638,14 +1554,501 @@ namespace SoundStudio
             this.buttonScheduleAnchor.UseVisualStyleBackColor = false;
             this.buttonScheduleAnchor.Click += new System.EventHandler(this.buttonScheduleAnchor_Click);
             // 
+            // panel6
+            // 
+            this.tableLayoutPanel3.SetColumnSpan(this.panel6, 2);
+            this.panel6.Controls.Add(this.richTextBox3);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(3, 3);
+            this.panel6.Name = "panel6";
+            this.tableLayoutPanel3.SetRowSpan(this.panel6, 3);
+            this.panel6.Size = new System.Drawing.Size(1156, 247);
+            this.panel6.TabIndex = 36;
+            // 
+            // richTextBox3
+            // 
+            this.richTextBox3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.richTextBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox3.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.richTextBox3.HideSelection = false;
+            this.richTextBox3.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.richTextBox3.Name = "richTextBox3";
+            this.richTextBox3.ReadOnly = true;
+            this.richTextBox3.Size = new System.Drawing.Size(1156, 247);
+            this.richTextBox3.TabIndex = 33;
+            this.richTextBox3.Text = "";
+            this.richTextBox3.SelectionChanged += new System.EventHandler(this.richTextBox3_SelectionChanged);
+            this.richTextBox3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.richTextBox3_MouseMove);
+            // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.tableLayoutPanel5);
             this.tabPage4.Location = new System.Drawing.Point(4, 46);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(1168, 404);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "4 - פרסום";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.BackColor = System.Drawing.SystemColors.Control;
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.30822F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.69178F));
+            this.tableLayoutPanel5.Controls.Add(this.groupBox3, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.panel4, 1, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 97.77228F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2.227723F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1168, 404);
+            this.tableLayoutPanel5.TabIndex = 0;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.textBox8);
+            this.groupBox3.Controls.Add(this.textBox7);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.groupBox5);
+            this.groupBox3.Controls.Add(this.groupBox4);
+            this.groupBox3.Controls.Add(this.groupBox6);
+            this.groupBox3.Controls.Add(this.groupBox7);
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.textBox3);
+            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Controls.Add(this.comboBox1);
+            this.groupBox3.Controls.Add(this.label16);
+            this.groupBox3.Controls.Add(this.label19);
+            this.groupBox3.Controls.Add(this.textBox6);
+            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.textBox5);
+            this.groupBox3.Controls.Add(this.label21);
+            this.groupBox3.Controls.Add(this.textBox4);
+            this.groupBox3.Controls.Add(this.label22);
+            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.maskedTextBox1);
+            this.groupBox3.Controls.Add(this.label23);
+            this.groupBox3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(239, 4);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Size = new System.Drawing.Size(925, 387);
+            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabStop = false;
+            // 
+            // textBox8
+            // 
+            this.textBox8.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBox8.Location = new System.Drawing.Point(560, 347);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
+            this.textBox8.Size = new System.Drawing.Size(237, 26);
+            this.textBox8.TabIndex = 56;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBox7.Location = new System.Drawing.Point(465, 384);
+            this.textBox7.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.ReadOnly = true;
+            this.textBox7.Size = new System.Drawing.Size(333, 26);
+            this.textBox7.TabIndex = 55;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(838, 387);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(60, 18);
+            this.label12.TabIndex = 54;
+            this.label12.Text = "פורסם ב";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.sop_teacher1l);
+            this.groupBox5.Controls.Add(this.sop_studentl);
+            this.groupBox5.Controls.Add(this.sop_teacher2l);
+            this.groupBox5.Controls.Add(this.sop_teacherAndStudentl);
+            this.groupBox5.Location = new System.Drawing.Point(47, 25);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(169, 161);
+            this.groupBox5.TabIndex = 53;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "נעילות לימוד";
+            // 
+            // sop_teacher1l
+            // 
+            this.sop_teacher1l.AutoSize = true;
+            this.sop_teacher1l.Location = new System.Drawing.Point(62, 35);
+            this.sop_teacher1l.Name = "sop_teacher1l";
+            this.sop_teacher1l.Size = new System.Drawing.Size(71, 22);
+            this.sop_teacher1l.TabIndex = 46;
+            this.sop_teacher1l.Text = "מורה 1";
+            this.sop_teacher1l.UseVisualStyleBackColor = true;
+            // 
+            // sop_studentl
+            // 
+            this.sop_studentl.AutoSize = true;
+            this.sop_studentl.Location = new System.Drawing.Point(68, 119);
+            this.sop_studentl.Name = "sop_studentl";
+            this.sop_studentl.Size = new System.Drawing.Size(65, 22);
+            this.sop_studentl.TabIndex = 47;
+            this.sop_studentl.Text = "תלמיד";
+            this.sop_studentl.UseVisualStyleBackColor = true;
+            // 
+            // sop_teacher2l
+            // 
+            this.sop_teacher2l.AutoSize = true;
+            this.sop_teacher2l.Location = new System.Drawing.Point(62, 91);
+            this.sop_teacher2l.Name = "sop_teacher2l";
+            this.sop_teacher2l.Size = new System.Drawing.Size(71, 22);
+            this.sop_teacher2l.TabIndex = 48;
+            this.sop_teacher2l.Text = "מורה 2";
+            this.sop_teacher2l.UseVisualStyleBackColor = true;
+            // 
+            // sop_teacherAndStudentl
+            // 
+            this.sop_teacherAndStudentl.AutoSize = true;
+            this.sop_teacherAndStudentl.Location = new System.Drawing.Point(30, 63);
+            this.sop_teacherAndStudentl.Name = "sop_teacherAndStudentl";
+            this.sop_teacherAndStudentl.Size = new System.Drawing.Size(103, 22);
+            this.sop_teacherAndStudentl.TabIndex = 49;
+            this.sop_teacherAndStudentl.Text = "מורה ותלמיד";
+            this.sop_teacherAndStudentl.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.sop_teacher1);
+            this.groupBox4.Controls.Add(this.sop_student);
+            this.groupBox4.Controls.Add(this.sop_teacher2);
+            this.groupBox4.Controls.Add(this.sop_teacherAndStudent);
+            this.groupBox4.Location = new System.Drawing.Point(47, 207);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(169, 154);
+            this.groupBox4.TabIndex = 52;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "אפשרויות לימוד";
+            // 
+            // sop_teacher1
+            // 
+            this.sop_teacher1.AutoSize = true;
+            this.sop_teacher1.Location = new System.Drawing.Point(62, 35);
+            this.sop_teacher1.Name = "sop_teacher1";
+            this.sop_teacher1.Size = new System.Drawing.Size(71, 22);
+            this.sop_teacher1.TabIndex = 39;
+            this.sop_teacher1.Text = "מורה 1";
+            this.sop_teacher1.UseVisualStyleBackColor = true;
+            // 
+            // sop_student
+            // 
+            this.sop_student.AutoSize = true;
+            this.sop_student.Location = new System.Drawing.Point(68, 119);
+            this.sop_student.Name = "sop_student";
+            this.sop_student.Size = new System.Drawing.Size(65, 22);
+            this.sop_student.TabIndex = 40;
+            this.sop_student.Text = "תלמיד";
+            this.sop_student.UseVisualStyleBackColor = true;
+            // 
+            // sop_teacher2
+            // 
+            this.sop_teacher2.AutoSize = true;
+            this.sop_teacher2.Location = new System.Drawing.Point(62, 91);
+            this.sop_teacher2.Name = "sop_teacher2";
+            this.sop_teacher2.Size = new System.Drawing.Size(71, 22);
+            this.sop_teacher2.TabIndex = 41;
+            this.sop_teacher2.Text = "מורה 2";
+            this.sop_teacher2.UseVisualStyleBackColor = true;
+            // 
+            // sop_teacherAndStudent
+            // 
+            this.sop_teacherAndStudent.AutoSize = true;
+            this.sop_teacherAndStudent.Location = new System.Drawing.Point(30, 63);
+            this.sop_teacherAndStudent.Name = "sop_teacherAndStudent";
+            this.sop_teacherAndStudent.Size = new System.Drawing.Size(103, 22);
+            this.sop_teacherAndStudent.TabIndex = 42;
+            this.sop_teacherAndStudent.Text = "מורה ותלמיד";
+            this.sop_teacherAndStudent.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.loc_par);
+            this.groupBox6.Controls.Add(this.loc_wor);
+            this.groupBox6.Controls.Add(this.loc_sec);
+            this.groupBox6.Controls.Add(this.loc_sen);
+            this.groupBox6.Location = new System.Drawing.Point(244, 25);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(164, 161);
+            this.groupBox6.TabIndex = 51;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "נעילות מקטעים";
+            // 
+            // loc_par
+            // 
+            this.loc_par.AutoSize = true;
+            this.loc_par.Location = new System.Drawing.Point(52, 28);
+            this.loc_par.Name = "loc_par";
+            this.loc_par.Size = new System.Drawing.Size(64, 22);
+            this.loc_par.TabIndex = 34;
+            this.loc_par.Text = "פסקה";
+            this.loc_par.UseVisualStyleBackColor = true;
+            // 
+            // loc_wor
+            // 
+            this.loc_wor.AutoSize = true;
+            this.loc_wor.Location = new System.Drawing.Point(56, 112);
+            this.loc_wor.Name = "loc_wor";
+            this.loc_wor.Size = new System.Drawing.Size(60, 22);
+            this.loc_wor.TabIndex = 35;
+            this.loc_wor.Text = "מילים";
+            this.loc_wor.UseVisualStyleBackColor = true;
+            // 
+            // loc_sec
+            // 
+            this.loc_sec.AutoSize = true;
+            this.loc_sec.Location = new System.Drawing.Point(63, 84);
+            this.loc_sec.Name = "loc_sec";
+            this.loc_sec.Size = new System.Drawing.Size(53, 22);
+            this.loc_sec.TabIndex = 36;
+            this.loc_sec.Text = "קטע";
+            this.loc_sec.UseVisualStyleBackColor = true;
+            // 
+            // loc_sen
+            // 
+            this.loc_sen.AutoSize = true;
+            this.loc_sen.Location = new System.Drawing.Point(50, 56);
+            this.loc_sen.Name = "loc_sen";
+            this.loc_sen.Size = new System.Drawing.Size(66, 22);
+            this.loc_sen.TabIndex = 37;
+            this.loc_sen.Text = "משפט";
+            this.loc_sen.UseVisualStyleBackColor = true;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.def_sen);
+            this.groupBox7.Controls.Add(this.def_par);
+            this.groupBox7.Controls.Add(this.def_wor);
+            this.groupBox7.Controls.Add(this.def_sec);
+            this.groupBox7.Location = new System.Drawing.Point(244, 207);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(164, 151);
+            this.groupBox7.TabIndex = 50;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "מקטעי ברירת מחדל";
+            // 
+            // def_sen
+            // 
+            this.def_sen.AutoSize = true;
+            this.def_sen.Location = new System.Drawing.Point(50, 60);
+            this.def_sen.Name = "def_sen";
+            this.def_sen.Size = new System.Drawing.Size(66, 22);
+            this.def_sen.TabIndex = 32;
+            this.def_sen.Text = "משפט";
+            this.def_sen.UseVisualStyleBackColor = true;
+            // 
+            // def_par
+            // 
+            this.def_par.AutoSize = true;
+            this.def_par.Location = new System.Drawing.Point(52, 32);
+            this.def_par.Name = "def_par";
+            this.def_par.Size = new System.Drawing.Size(64, 22);
+            this.def_par.TabIndex = 29;
+            this.def_par.Text = "פסקה";
+            this.def_par.UseVisualStyleBackColor = true;
+            // 
+            // def_wor
+            // 
+            this.def_wor.AutoSize = true;
+            this.def_wor.Location = new System.Drawing.Point(56, 116);
+            this.def_wor.Name = "def_wor";
+            this.def_wor.Size = new System.Drawing.Size(60, 22);
+            this.def_wor.TabIndex = 30;
+            this.def_wor.Text = "מילים";
+            this.def_wor.UseVisualStyleBackColor = true;
+            // 
+            // def_sec
+            // 
+            this.def_sec.AutoSize = true;
+            this.def_sec.Location = new System.Drawing.Point(63, 88);
+            this.def_sec.Name = "def_sec";
+            this.def_sec.Size = new System.Drawing.Size(53, 22);
+            this.def_sec.TabIndex = 31;
+            this.def_sec.Text = "קטע";
+            this.def_sec.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Arial", 12F);
+            this.label13.Location = new System.Drawing.Point(837, 132);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(41, 18);
+            this.label13.TabIndex = 43;
+            this.label13.Text = "תיאור";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBox3.Location = new System.Drawing.Point(465, 129);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(332, 70);
+            this.textBox3.TabIndex = 44;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(836, 348);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(37, 18);
+            this.label15.TabIndex = 21;
+            this.label15.Text = "משך";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Font = new System.Drawing.Font("Arial", 12F);
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "PENDING",
+            "PUBLISHED"});
+            this.comboBox1.Location = new System.Drawing.Point(618, 313);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(180, 26);
+            this.comboBox1.TabIndex = 17;
+            this.comboBox1.Text = "PENDING";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Arial", 12F);
+            this.label16.Location = new System.Drawing.Point(837, 315);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(56, 18);
+            this.label16.TabIndex = 16;
+            this.label16.Text = "סטאטוס";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Arial", 12F);
+            this.label19.Location = new System.Drawing.Point(838, 282);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(37, 18);
+            this.label19.TabIndex = 14;
+            this.label19.Text = "תגים";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBox6.Location = new System.Drawing.Point(520, 279);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(278, 26);
+            this.textBox6.TabIndex = 15;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Arial", 12F);
+            this.label20.Location = new System.Drawing.Point(838, 246);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(80, 18);
+            this.label20.TabIndex = 12;
+            this.label20.Text = "תת קטגוריה";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBox5.Location = new System.Drawing.Point(520, 243);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(278, 26);
+            this.textBox5.TabIndex = 13;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Arial", 12F);
+            this.label21.Location = new System.Drawing.Point(838, 210);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(56, 18);
+            this.label21.TabIndex = 10;
+            this.label21.Text = "קטגוריה";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBox4.Location = new System.Drawing.Point(520, 207);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(278, 26);
+            this.textBox4.TabIndex = 11;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Arial", 12F);
+            this.label22.Location = new System.Drawing.Point(836, 30);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(66, 18);
+            this.label22.TabIndex = 1;
+            this.label22.Text = "שם שיעור";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBox1.Location = new System.Drawing.Point(550, 27);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(246, 26);
+            this.textBox1.TabIndex = 2;
+            // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Font = new System.Drawing.Font("Arial", 12F);
+            this.maskedTextBox1.Location = new System.Drawing.Point(742, 63);
+            this.maskedTextBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.maskedTextBox1.Mask = "0.00";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(55, 26);
+            this.maskedTextBox1.TabIndex = 3;
+            this.maskedTextBox1.Text = "100";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Arial", 12F);
+            this.label23.Location = new System.Drawing.Point(836, 66);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(41, 18);
+            this.label23.TabIndex = 4;
+            this.label23.Text = "גרסה";
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.button1);
+            this.panel4.Location = new System.Drawing.Point(3, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(224, 389);
+            this.panel4.TabIndex = 11;
             // 
             // panel1
             // 
@@ -1764,6 +2167,13 @@ namespace SoundStudio
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
             this.toolStripMenuItem12.Size = new System.Drawing.Size(197, 6);
             // 
+            // mnuLoginDifferentUser
+            // 
+            this.mnuLoginDifferentUser.Name = "mnuLoginDifferentUser";
+            this.mnuLoginDifferentUser.Size = new System.Drawing.Size(200, 22);
+            this.mnuLoginDifferentUser.Text = "התחבר כמשתמש אחר";
+            this.mnuLoginDifferentUser.Click += new System.EventHandler(this.mnuLoginDifferentUser_Click);
+            // 
             // mnuFile_Exit
             // 
             this.mnuFile_Exit.Name = "mnuFile_Exit";
@@ -1774,7 +2184,9 @@ namespace SoundStudio
             // טקסטToolStripMenuItem
             // 
             this.טקסטToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuText_Goto});
+            this.mnuText_Goto,
+            this.toolStripMenuItem14,
+            this.mnuAnchors});
             this.טקסטToolStripMenuItem.Name = "טקסטToolStripMenuItem";
             this.טקסטToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.טקסטToolStripMenuItem.Text = "טקסט";
@@ -1785,6 +2197,64 @@ namespace SoundStudio
             this.mnuText_Goto.Size = new System.Drawing.Size(150, 22);
             this.mnuText_Goto.Text = "גש למספר תו";
             this.mnuText_Goto.Click += new System.EventHandler(this.mnuText_Goto_Click);
+            // 
+            // toolStripMenuItem14
+            // 
+            this.toolStripMenuItem14.Name = "toolStripMenuItem14";
+            this.toolStripMenuItem14.Size = new System.Drawing.Size(147, 6);
+            // 
+            // mnuAnchors
+            // 
+            this.mnuAnchors.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuAnchors_RemoveAll,
+            this.toolStripMenuItem15,
+            this.mnuAnchors_RemoveParagraphs,
+            this.mnuAnchors_RemoveSentenses,
+            this.mnuAnchors_RemoveSections,
+            this.mnuAnchors_RemoveWords});
+            this.mnuAnchors.Name = "mnuAnchors";
+            this.mnuAnchors.Size = new System.Drawing.Size(150, 22);
+            this.mnuAnchors.Text = "עוגנים";
+            // 
+            // mnuAnchors_RemoveAll
+            // 
+            this.mnuAnchors_RemoveAll.Name = "mnuAnchors_RemoveAll";
+            this.mnuAnchors_RemoveAll.Size = new System.Drawing.Size(177, 22);
+            this.mnuAnchors_RemoveAll.Text = "נקה כל העוגנים";
+            this.mnuAnchors_RemoveAll.Click += new System.EventHandler(this.mnuAnchors_RemoveAll_Click);
+            // 
+            // toolStripMenuItem15
+            // 
+            this.toolStripMenuItem15.Name = "toolStripMenuItem15";
+            this.toolStripMenuItem15.Size = new System.Drawing.Size(174, 6);
+            // 
+            // mnuAnchors_RemoveParagraphs
+            // 
+            this.mnuAnchors_RemoveParagraphs.Name = "mnuAnchors_RemoveParagraphs";
+            this.mnuAnchors_RemoveParagraphs.Size = new System.Drawing.Size(177, 22);
+            this.mnuAnchors_RemoveParagraphs.Text = "הסר עוגני פסקאות";
+            this.mnuAnchors_RemoveParagraphs.Click += new System.EventHandler(this.mnuAnchors_RemoveParagraphs_Click);
+            // 
+            // mnuAnchors_RemoveSentenses
+            // 
+            this.mnuAnchors_RemoveSentenses.Name = "mnuAnchors_RemoveSentenses";
+            this.mnuAnchors_RemoveSentenses.Size = new System.Drawing.Size(177, 22);
+            this.mnuAnchors_RemoveSentenses.Text = "הסר עוגני משפטים";
+            this.mnuAnchors_RemoveSentenses.Click += new System.EventHandler(this.mnuAnchors_RemoveSentenses_Click);
+            // 
+            // mnuAnchors_RemoveSections
+            // 
+            this.mnuAnchors_RemoveSections.Name = "mnuAnchors_RemoveSections";
+            this.mnuAnchors_RemoveSections.Size = new System.Drawing.Size(177, 22);
+            this.mnuAnchors_RemoveSections.Text = "הסר עוגני קטעים";
+            this.mnuAnchors_RemoveSections.Click += new System.EventHandler(this.mnuAnchors_RemoveSections_Click);
+            // 
+            // mnuAnchors_RemoveWords
+            // 
+            this.mnuAnchors_RemoveWords.Name = "mnuAnchors_RemoveWords";
+            this.mnuAnchors_RemoveWords.Size = new System.Drawing.Size(177, 22);
+            this.mnuAnchors_RemoveWords.Text = "הסר עוגני מילים";
+            this.mnuAnchors_RemoveWords.Click += new System.EventHandler(this.mnuAnchors_RemoveWords_Click);
             // 
             // mnuAudio
             // 
@@ -2155,22 +2625,346 @@ namespace SoundStudio
             this.lblLoginUser.TabIndex = 26;
             this.lblLoginUser.Text = "הנך מחובר כ";
             // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "1386908105_Record Button2.png");
+            this.imageList1.Images.SetKeyName(1, "1386908112_Record Button1.png");
+            // 
+            // timerRecordIcon
+            // 
+            this.timerRecordIcon.Interval = 500;
+            this.timerRecordIcon.Tick += new System.EventHandler(this.timerRecordIcon_Tick);
+            // 
+            // label24
+            // 
+            this.label24.BackColor = System.Drawing.SystemColors.Control;
+            this.label24.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label24.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label24.Location = new System.Drawing.Point(350, 34);
+            this.label24.Name = "label24";
+            this.label24.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label24.Size = new System.Drawing.Size(75, 21);
+            this.label24.TabIndex = 17;
+            this.label24.Text = "סוף משפט";
+            // 
+            // tbrNew
+            // 
+            this.tbrNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrNew.Image = ((System.Drawing.Image)(resources.GetObject("tbrNew.Image")));
+            this.tbrNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrNew.Name = "tbrNew";
+            this.tbrNew.Size = new System.Drawing.Size(23, 24);
+            this.tbrNew.Text = "New";
+            this.tbrNew.ToolTipText = "חדש";
+            this.tbrNew.Click += new System.EventHandler(this.tbrNew_Click);
+            // 
+            // tbrOpen
+            // 
+            this.tbrOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbrOpen.Image")));
+            this.tbrOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrOpen.Name = "tbrOpen";
+            this.tbrOpen.Size = new System.Drawing.Size(23, 24);
+            this.tbrOpen.Text = "Open";
+            this.tbrOpen.ToolTipText = "פתח";
+            this.tbrOpen.Click += new System.EventHandler(this.tbrOpen_Click);
+            // 
+            // tbrSave
+            // 
+            this.tbrSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrSave.Image = ((System.Drawing.Image)(resources.GetObject("tbrSave.Image")));
+            this.tbrSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrSave.Name = "tbrSave";
+            this.tbrSave.Size = new System.Drawing.Size(23, 24);
+            this.tbrSave.Text = "Save";
+            this.tbrSave.ToolTipText = "שמור";
+            this.tbrSave.Click += new System.EventHandler(this.tbrSave_Click);
+            // 
+            // tbrSmallerFont
+            // 
+            this.tbrSmallerFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tbrSmallerFont.Image = ((System.Drawing.Image)(resources.GetObject("tbrSmallerFont.Image")));
+            this.tbrSmallerFont.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrSmallerFont.Name = "tbrSmallerFont";
+            this.tbrSmallerFont.Size = new System.Drawing.Size(24, 24);
+            this.tbrSmallerFont.Text = "-A";
+            this.tbrSmallerFont.Click += new System.EventHandler(this.tbrSmallerFont_Click);
+            // 
+            // tbrBiggerFont
+            // 
+            this.tbrBiggerFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tbrBiggerFont.Image = ((System.Drawing.Image)(resources.GetObject("tbrBiggerFont.Image")));
+            this.tbrBiggerFont.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrBiggerFont.Name = "tbrBiggerFont";
+            this.tbrBiggerFont.Size = new System.Drawing.Size(27, 24);
+            this.tbrBiggerFont.Text = "+A";
+            this.tbrBiggerFont.ToolTipText = "הגדל טקסט";
+            this.tbrBiggerFont.Click += new System.EventHandler(this.tbrBiggerFont_Click);
+            // 
+            // tbrFont
+            // 
+            this.tbrFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrFont.Image = ((System.Drawing.Image)(resources.GetObject("tbrFont.Image")));
+            this.tbrFont.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrFont.Name = "tbrFont";
+            this.tbrFont.Size = new System.Drawing.Size(23, 24);
+            this.tbrFont.Text = "Font";
+            this.tbrFont.ToolTipText = "גופן";
+            this.tbrFont.Click += new System.EventHandler(this.tbrFont_Click);
+            // 
+            // tbrRight
+            // 
+            this.tbrRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrRight.Image = ((System.Drawing.Image)(resources.GetObject("tbrRight.Image")));
+            this.tbrRight.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrRight.Name = "tbrRight";
+            this.tbrRight.Size = new System.Drawing.Size(23, 24);
+            this.tbrRight.Text = "Right";
+            this.tbrRight.ToolTipText = "ישר לימין";
+            this.tbrRight.Click += new System.EventHandler(this.tbrRight_Click);
+            // 
+            // tbrLeft
+            // 
+            this.tbrLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrLeft.Image = ((System.Drawing.Image)(resources.GetObject("tbrLeft.Image")));
+            this.tbrLeft.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrLeft.Name = "tbrLeft";
+            this.tbrLeft.Size = new System.Drawing.Size(23, 24);
+            this.tbrLeft.Text = "Left";
+            this.tbrLeft.ToolTipText = "יישר לשמאל";
+            this.tbrLeft.Click += new System.EventHandler(this.tbrLeft_Click);
+            // 
+            // tbrBold
+            // 
+            this.tbrBold.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrBold.Image = ((System.Drawing.Image)(resources.GetObject("tbrBold.Image")));
+            this.tbrBold.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrBold.Name = "tbrBold";
+            this.tbrBold.Size = new System.Drawing.Size(23, 24);
+            this.tbrBold.Text = "Bold";
+            this.tbrBold.ToolTipText = "מודגש";
+            this.tbrBold.Click += new System.EventHandler(this.tbrBold_Click);
+            // 
+            // tbrItalic
+            // 
+            this.tbrItalic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrItalic.Image = ((System.Drawing.Image)(resources.GetObject("tbrItalic.Image")));
+            this.tbrItalic.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrItalic.Name = "tbrItalic";
+            this.tbrItalic.Size = new System.Drawing.Size(23, 24);
+            this.tbrItalic.Text = "Italic";
+            this.tbrItalic.ToolTipText = "נטוי";
+            this.tbrItalic.Click += new System.EventHandler(this.tbrItalic_Click);
+            // 
+            // tbrUnderline
+            // 
+            this.tbrUnderline.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrUnderline.Image = ((System.Drawing.Image)(resources.GetObject("tbrUnderline.Image")));
+            this.tbrUnderline.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrUnderline.Name = "tbrUnderline";
+            this.tbrUnderline.Size = new System.Drawing.Size(23, 24);
+            this.tbrUnderline.Text = "Underline";
+            this.tbrUnderline.ToolTipText = "קו תחתי";
+            this.tbrUnderline.Click += new System.EventHandler(this.tbrUnderline_Click);
+            // 
+            // tbrParagraph
+            // 
+            this.tbrParagraph.BackColor = System.Drawing.Color.Red;
+            this.tbrParagraph.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tbrParagraph.ForeColor = System.Drawing.Color.White;
+            this.tbrParagraph.Image = ((System.Drawing.Image)(resources.GetObject("tbrParagraph.Image")));
+            this.tbrParagraph.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrParagraph.Name = "tbrParagraph";
+            this.tbrParagraph.Size = new System.Drawing.Size(25, 24);
+            this.tbrParagraph.Text = "[3]";
+            this.tbrParagraph.ToolTipText = "חלק פסקה";
+            this.tbrParagraph.Click += new System.EventHandler(this.tbrParagraph_Click);
+            // 
+            // tbrSentense
+            // 
+            this.tbrSentense.BackColor = System.Drawing.Color.Violet;
+            this.tbrSentense.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tbrSentense.ForeColor = System.Drawing.Color.White;
+            this.tbrSentense.Image = ((System.Drawing.Image)(resources.GetObject("tbrSentense.Image")));
+            this.tbrSentense.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrSentense.Name = "tbrSentense";
+            this.tbrSentense.Size = new System.Drawing.Size(25, 24);
+            this.tbrSentense.Text = "[2]";
+            this.tbrSentense.ToolTipText = "חלק משפט";
+            this.tbrSentense.Click += new System.EventHandler(this.tbrSentense_Click);
+            // 
+            // tbrSection
+            // 
+            this.tbrSection.BackColor = System.Drawing.Color.LimeGreen;
+            this.tbrSection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tbrSection.ForeColor = System.Drawing.Color.White;
+            this.tbrSection.Image = ((System.Drawing.Image)(resources.GetObject("tbrSection.Image")));
+            this.tbrSection.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrSection.Name = "tbrSection";
+            this.tbrSection.Size = new System.Drawing.Size(25, 24);
+            this.tbrSection.Text = "[1]";
+            this.tbrSection.ToolTipText = "חלק קטע";
+            this.tbrSection.Click += new System.EventHandler(this.tbrSection_Click);
+            // 
+            // tbrWord
+            // 
+            this.tbrWord.BackColor = System.Drawing.Color.Yellow;
+            this.tbrWord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tbrWord.Image = ((System.Drawing.Image)(resources.GetObject("tbrWord.Image")));
+            this.tbrWord.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrWord.Name = "tbrWord";
+            this.tbrWord.Size = new System.Drawing.Size(25, 24);
+            this.tbrWord.Text = "[0]";
+            this.tbrWord.ToolTipText = "התחל מילה";
+            this.tbrWord.Click += new System.EventHandler(this.tbrWord_Click);
+            // 
+            // tbrProperties
+            // 
+            this.tbrProperties.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrProperties.Image = ((System.Drawing.Image)(resources.GetObject("tbrProperties.Image")));
+            this.tbrProperties.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrProperties.Name = "tbrProperties";
+            this.tbrProperties.Size = new System.Drawing.Size(23, 24);
+            this.tbrProperties.Text = "toolStripButton11";
+            this.tbrProperties.ToolTipText = "מאפייני שיעור";
+            // 
+            // tbrParse
+            // 
+            this.tbrParse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbrParse.Image = ((System.Drawing.Image)(resources.GetObject("tbrParse.Image")));
+            this.tbrParse.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrParse.Name = "tbrParse";
+            this.tbrParse.Size = new System.Drawing.Size(23, 24);
+            this.tbrParse.Text = "toolStripButton10";
+            this.tbrParse.ToolTipText = "בדוק תקינות";
+            this.tbrParse.Click += new System.EventHandler(this.tbrParse_Click);
+            // 
+            // buttonAutoDevide
+            // 
+            this.buttonAutoDevide.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonAutoDevide.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonAutoDevide.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonAutoDevide.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAutoDevide.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonAutoDevide.Image = global::MyMentor.Properties.Resources._1386947558_anchor;
+            this.buttonAutoDevide.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonAutoDevide.Location = new System.Drawing.Point(7, 20);
+            this.buttonAutoDevide.Name = "buttonAutoDevide";
+            this.buttonAutoDevide.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.buttonAutoDevide.Size = new System.Drawing.Size(113, 42);
+            this.buttonAutoDevide.TabIndex = 18;
+            this.buttonAutoDevide.Text = "קבע עוגנים";
+            this.buttonAutoDevide.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonAutoDevide.UseVisualStyleBackColor = false;
+            this.buttonAutoDevide.Click += new System.EventHandler(this.buttonAutoDevide_Click);
+            // 
+            // buttonStartRecNew
+            // 
+            this.buttonStartRecNew.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonStartRecNew.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonStartRecNew.BackgroundImage")));
+            this.buttonStartRecNew.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonStartRecNew.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonStartRecNew.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonStartRecNew.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonStartRecNew.Location = new System.Drawing.Point(432, 32);
+            this.buttonStartRecNew.Name = "buttonStartRecNew";
+            this.buttonStartRecNew.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.buttonStartRecNew.Size = new System.Drawing.Size(116, 42);
+            this.buttonStartRecNew.TabIndex = 4;
+            this.buttonStartRecNew.Text = "התחל חדש";
+            this.buttonStartRecNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonStartRecNew.UseVisualStyleBackColor = false;
+            this.buttonStartRecNew.Click += new System.EventHandler(this.buttonStartRecNew_Click);
+            // 
+            // buttonHammer
+            // 
+            this.buttonHammer.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonHammer.BackgroundImage = global::MyMentor.Properties.Resources._1386909293_auction_hammer_gavel;
+            this.buttonHammer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonHammer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonHammer.Enabled = false;
+            this.buttonHammer.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHammer.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonHammer.Location = new System.Drawing.Point(261, 25);
+            this.buttonHammer.Name = "buttonHammer";
+            this.buttonHammer.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.buttonHammer.Size = new System.Drawing.Size(44, 41);
+            this.buttonHammer.TabIndex = 11;
+            this.buttonHammer.UseVisualStyleBackColor = false;
+            this.buttonHammer.Click += new System.EventHandler(this.buttonHammer_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::MyMentor.Properties.Resources._1386909646_519838_50_Cloud_Arrow_Up;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button1.Font = new System.Drawing.Font("Arial", 12F);
+            this.button1.Location = new System.Drawing.Point(36, 327);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(124, 44);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "פרסם שיעור";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // Picture1
+            // 
+            this.Picture1.BackColor = System.Drawing.Color.Black;
+            this.Picture1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Picture1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Picture1.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Picture1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.Picture1.Location = new System.Drawing.Point(0, 0);
+            this.Picture1.Name = "Picture1";
+            this.Picture1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.Picture1.Size = new System.Drawing.Size(1176, 154);
+            this.Picture1.TabIndex = 13;
+            this.Picture1.TabStop = false;
+            this.Picture1.Visible = false;
+            // 
+            // comboBoxAutoDevidePar
+            // 
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxAutoDevidePar.CheckBoxProperties = checkBoxProperties1;
+            this.comboBoxAutoDevidePar.DisplayMemberSingleItem = "";
+            this.comboBoxAutoDevidePar.FormattingEnabled = true;
+            this.comboBoxAutoDevidePar.Items.AddRange(new object[] {
+            "ENTER",
+            "שני ENTER",
+            "אחרי 2 משפטים",
+            "אחרי 3 משפטים",
+            "אחרי 4 משפטים"});
+            this.comboBoxAutoDevidePar.Location = new System.Drawing.Point(431, 31);
+            this.comboBoxAutoDevidePar.Name = "comboBoxAutoDevidePar";
+            this.comboBoxAutoDevidePar.Size = new System.Drawing.Size(188, 26);
+            this.comboBoxAutoDevidePar.TabIndex = 19;
+            // 
+            // comboBoxAutoDevideSen
+            // 
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxAutoDevideSen.CheckBoxProperties = checkBoxProperties2;
+            this.comboBoxAutoDevideSen.DisplayMemberSingleItem = "";
+            this.comboBoxAutoDevideSen.FormattingEnabled = true;
+            this.comboBoxAutoDevideSen.Items.AddRange(new object[] {
+            "נקודותיים (:)",
+            "נקודה (.)",
+            "ENTER"});
+            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(153, 31);
+            this.comboBoxAutoDevideSen.Name = "comboBoxAutoDevideSen";
+            this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(191, 26);
+            this.comboBoxAutoDevideSen.TabIndex = 16;
+            // 
             // timePickerCurrentWord
             // 
-            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 56);
+            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 96);
             this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
             this.timePickerCurrentWord.Name = "timePickerCurrentWord";
             this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
             this.timePickerCurrentWord.TabIndex = 25;
             this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
             this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
-            // 
-            // mnuLoginDifferentUser
-            // 
-            this.mnuLoginDifferentUser.Name = "mnuLoginDifferentUser";
-            this.mnuLoginDifferentUser.Size = new System.Drawing.Size(200, 22);
-            this.mnuLoginDifferentUser.Text = "התחבר כמשתמש אחר";
-            this.mnuLoginDifferentUser.Click += new System.EventHandler(this.mnuLoginDifferentUser_Click);
             // 
             // FormMain
             // 
@@ -2197,7 +2991,6 @@ namespace SoundStudio
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.Frame4.ResumeLayout(false);
             this.framePlayback.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Picture1)).EndInit();
             this.FrameRecording.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -2205,6 +2998,8 @@ namespace SoundStudio
             this.tableLayoutPanel2.PerformLayout();
             this.ToolStrip1.ResumeLayout(false);
             this.ToolStrip1.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -2215,12 +3010,27 @@ namespace SoundStudio
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
+            this.panel6.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Picture1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2894,6 +3704,9 @@ namespace SoundStudio
                     return;
             }
 
+            //start record icon toggle timer
+            timerRecordIcon.Enabled = true;
+
             // set the flag for "new" mode
             m_bRecAppendMode = false;
 
@@ -2918,6 +3731,7 @@ namespace SoundStudio
 
         private void buttonStopRecording_Click(object sender, System.EventArgs e)
         {
+            timerRecordIcon.Enabled = false;
             // stop recording
             audioSoundRecorder1.Stop();
         }
@@ -4780,6 +5594,13 @@ namespace SoundStudio
 
         private void buttonStartDJPlay_Click(object sender, EventArgs e)
         {
+            //((Bitmap)pictureBox1.Image).MakeTransparent();
+            //pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            //pictureBox1.BackColor = System.Drawing.Color.Transparent; 
+
+            //richTextBox3.Controls.Add(pictureBox1);
+
+
             Int32 nDurationInMs = audioSoundEditor1.GetSoundDuration();
             if (nDurationInMs == 0)
             {
@@ -4788,6 +5609,7 @@ namespace SoundStudio
 
             if (buttonStartDJPlay.Text == "התחל" || buttonStartDJPlay.Text == "המשך")
             {
+                buttonHammer.Enabled = true;
                 audioSoundEditor1.PlaySoundRange((int)timePickerCurrentWord.Value.TotalMilliseconds, -1);
                 buttonStartDJPlay.Text = "עצור";
 
@@ -4797,6 +5619,7 @@ namespace SoundStudio
             }
             else if (buttonStartDJPlay.Text == "עצור")
             {
+                buttonHammer.Enabled = false;
                 buttonRestartScheduling.Enabled = true;
                 timePickerCurrentWord.Enabled = true;
                 timerUpdateTimePickerSpinner.Enabled = false;
@@ -4806,6 +5629,9 @@ namespace SoundStudio
 
             //djLineTimer.Enabled = true;
         }
+
+        [DllImport("user32.dll")]
+        static extern bool HideCaret(IntPtr hWnd);
 
         private void djLineTimer_Tick(object sender, EventArgs e)
         {
@@ -5012,7 +5838,7 @@ namespace SoundStudio
         {
             var name = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemNameGet(e.nUniqueID);
 
-            if (name.StartsWith("W|") )
+            if (name.StartsWith("W|"))
             {
                 //other anchor -- get its name W|12
                 int index = int.Parse(name.Split('|')[1]);
@@ -5079,6 +5905,269 @@ namespace SoundStudio
             }
 
         }
+
+        private void timerRecordIcon_Tick(object sender, EventArgs e)
+        {
+            if (b_recordIconRed)
+            {
+                buttonStartRecNew.BackgroundImage = imageList1.Images[1];
+                buttonStartRecNew.Refresh();
+            }
+            else
+            {
+                buttonStartRecNew.BackgroundImage = imageList1.Images[0];
+                buttonStartRecNew.Refresh();
+            }
+            b_recordIconRed = !b_recordIconRed;
+        }
+
+        private void richTextBox3_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void richTextBox3_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void mnuAnchors_RemoveAll_Click(object sender, EventArgs e)
+        {
+            RemoveAnchor(AnchorType.Paragraph);
+            RemoveAnchor(AnchorType.Sentence);
+            RemoveAnchor(AnchorType.Section);
+            RemoveAnchor(AnchorType.Word);
+        }
+
+        private void mnuAnchors_RemoveSentenses_Click(object sender, EventArgs e)
+        {
+            RemoveAnchor(AnchorType.Sentence);
+
+        }
+
+
+        private void AddAnchor(AnchorType type, int index)
+        {
+            string anchor = "";
+
+            switch (type)
+            {
+                case AnchorType.Paragraph:
+                    anchor = Clip.PAR_SIGN;
+                    break;
+                case AnchorType.Sentence:
+                    anchor = Clip.SEN_SIGN;
+                    break;
+                case AnchorType.Section:
+                    anchor = Clip.SEC_SIGN;
+                    break;
+                case AnchorType.Word:
+                    anchor = Clip.WRD_SIGN;
+                    break;
+            }
+
+            richTextBox1.SelectionStart = index;
+            richTextBox1.SelectionLength = 0;
+            richTextBox1.SelectedText = anchor;
+
+        }
+
+        private void RemoveAnchor(AnchorType type)
+        {
+            richTextBox2.Rtf = richTextBox1.Rtf;
+            string anchor = "";
+
+            switch (type)
+            {
+                case AnchorType.Paragraph:
+                    anchor = Clip.PAR_SIGN;
+                    break;
+                case AnchorType.Sentence:
+                    anchor = Clip.SEN_SIGN;
+                    break;
+                case AnchorType.Section:
+                    anchor = Clip.SEC_SIGN;
+                    break;
+                case AnchorType.Word:
+                    anchor = Clip.WRD_SIGN;
+                    break;
+            }
+
+            int index = richTextBox2.Find(anchor, 0, RichTextBoxFinds.None);
+
+            while (index >= 0)
+            {
+                richTextBox1.SelectionStart = index;
+                richTextBox1.SelectionLength = 3;
+                richTextBox1.SelectedText = "";
+
+                index = richTextBox2.Find(anchor, index + 3, RichTextBoxFinds.None);
+            }
+        }
+
+        private void mnuAnchors_RemoveParagraphs_Click(object sender, EventArgs e)
+        {
+            RemoveAnchor(AnchorType.Paragraph);
+
+        }
+
+        private void mnuAnchors_RemoveSections_Click(object sender, EventArgs e)
+        {
+            RemoveAnchor(AnchorType.Section);
+        }
+
+        private void mnuAnchors_RemoveWords_Click(object sender, EventArgs e)
+        {
+            RemoveAnchor(AnchorType.Word);
+        }
+
+        private void buttonAutoDevide_Click(object sender, EventArgs e)
+        {
+            var parDelimiters = comboBoxAutoDevidePar.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select( w => w.Trim()).ToList<string>();
+            var senDelimiters = comboBoxAutoDevideSen.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Trim()).ToList<string>();
+
+            if (parDelimiters.Count() == 0)
+            {
+                MessageBox.Show("יש לבחור לפחות אפשרות עוגן פסקה אחת", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+
+            if (senDelimiters.Count() == 0)
+            {
+                MessageBox.Show("יש לבחור לפחות אפשרות עוגן משפט אחת", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+
+            if (parDelimiters.Exists(a => a == "ENTER") && senDelimiters.Exists(a => a == "ENTER"))
+            {
+                MessageBox.Show("בחירה לא חוקית", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+
+            if (parDelimiters.Exists(a => a == "שני ENTER") && senDelimiters.Exists(a => a == "שני ENTER"))
+            {
+                MessageBox.Show("בחירה לא חוקית", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+
+            RemoveAnchor(AnchorType.Paragraph);
+            RemoveAnchor(AnchorType.Sentence);
+            RemoveAnchor(AnchorType.Section);
+            RemoveAnchor(AnchorType.Word);
+
+            int index = 0;
+            int enterKeys = 0;
+            int sentenses = 0;
+
+            while (index < richTextBox1.TextLength)
+            {
+                richTextBox1.SelectionStart = index;
+                richTextBox1.SelectionLength = 1;
+
+                index++;
+
+                //enter
+                if (richTextBox1.SelectedText.ToCharArray()[0] == (char)10)
+                {
+                    enterKeys++;
+
+                    if (parDelimiters.Exists(a => a == "ENTER"))
+                    {
+                        AddAnchor(AnchorType.Paragraph, index - 1);
+                        index+=3;
+                        continue;
+                    }
+
+                    if (parDelimiters.Exists(a => a == "שני ENTER") && enterKeys % 2 == 0)
+                    {
+                        AddAnchor(AnchorType.Paragraph, index - 1);
+                        index += 3;
+                        continue;
+                    }
+
+                    if (senDelimiters.Exists(a => a == "ENTER"))
+                    {
+                        sentenses += 1;
+
+                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
+                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
+                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                        {
+                            AddAnchor(AnchorType.Paragraph, index - 1);
+                            index += 3;
+                            sentenses = 0;
+                            continue;
+                        }
+
+                        AddAnchor(AnchorType.Sentence, index - 1);
+                        index += 3;
+                        continue;
+                    }
+
+                    if (senDelimiters.Exists(a => a == "שני ENTER") && enterKeys % 2 == 0)
+                    {
+                        sentenses += 1;
+
+                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
+                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
+                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                        {
+                            AddAnchor(AnchorType.Paragraph, index - 1);
+                            index += 3;
+                            sentenses = 0;
+                            continue;
+                        }
+
+                        AddAnchor(AnchorType.Sentence, index - 1);
+                        index += 3;
+                        continue;
+                    }
+                }
+
+                if (richTextBox1.SelectedText == ":" && senDelimiters.Exists(a => a == "נקודותיים (:)"))
+                {
+                    sentenses += 1;
+
+                    if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
+                        (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
+                        (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                    {
+                        AddAnchor(AnchorType.Paragraph, index - 1);
+                        index += 3;
+                        sentenses = 0;
+                        continue;
+                    }
+
+                    AddAnchor(AnchorType.Sentence, index - 1);
+                    index += 3;
+                    continue;
+                }
+
+                if (richTextBox1.SelectedText == "." && senDelimiters.Exists(a => a == "נקודה (.)"))
+                {
+                    sentenses += 1;
+
+                    if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
+                        (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
+                        (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                    {
+                        AddAnchor(AnchorType.Paragraph, index - 1);
+                        index += 3;
+                        sentenses = 0;
+                        continue;
+                    }
+
+                    AddAnchor(AnchorType.Sentence, index - 1);
+                    index += 3;
+                    continue;
+                }
+
+                
+
+            }
+
+        }
+
 
 
     }

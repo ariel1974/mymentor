@@ -59,5 +59,35 @@ namespace MyMentor.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1386909293_auction_hammer_gavel {
+            get {
+                object obj = ResourceManager.GetObject("1386909293_auction_hammer_gavel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1386909646_519838_50_Cloud_Arrow_Up {
+            get {
+                object obj = ResourceManager.GetObject("1386909646_519838-50_Cloud_Arrow_Up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1386947558_anchor {
+            get {
+                object obj = ResourceManager.GetObject("1386947558_anchor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

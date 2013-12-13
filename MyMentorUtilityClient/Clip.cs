@@ -20,18 +20,9 @@ namespace MyMentorUtilityClient
     public class Clip
     {
         public const string PAR_SIGN = "[3]";
-        public const string PAR_SIGN_OPEN = "{{";
-        public const string PAR_SIGN_CLOSE = "}}";
-
-        public const string SEN_SIGN_OPEN = "((";
-        public const string SEN_SIGN_CLOSE = "))";
-
-        public const string SEC_SIGN_OPEN = "<<";
-        public const string SEC_SIGN_CLOSE = ">>";
-
-        public const string WOR_SIGN_OPEN = "[[";
-        public const string WOR_SIGN_CLOSE = "]]";
-
+        public const string SEN_SIGN = "[2]";
+        public const string SEC_SIGN = "[1]";
+        public const string WRD_SIGN = "[0]";
 
         private static Clip instance;
 

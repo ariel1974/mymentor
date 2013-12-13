@@ -210,6 +210,9 @@
     <Compile Include="PublishForm.Designer.cs">
       <DependentUpon>PublishForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="RichTextBoxExt\RichTextBoxExt.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TimeSpanFormatter.cs" />
     <Compile Include="TimeSpinner\NumericUpDownEx.cs">
       <SubType>Component</SubType>

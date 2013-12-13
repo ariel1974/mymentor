@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -16,6 +18,44 @@ namespace MyMentorUtilityClient
         {
             return RemovePunctation(value, false);
         }
+
+        public static String RemoveNikud(this String s)
+        {
+            String normalizedString = s.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < normalizedString.Length; i++)
+            {
+                Char c = normalizedString[i];
+
+                Debug.WriteLine(string.Format("{0}:{1} char:{2}", c.ToString(), CharUnicodeInfo.GetUnicodeCategory(c).ToString(), (int)c));
+
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark
+                    || ((int)c >= 1423 && (int)c <= (1423 + 27)))
+                    stringBuilder.Append(c);
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        public static String RemoveTeamim(this String s)
+        {
+            String normalizedString = s.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < normalizedString.Length; i++)
+            {
+                Char c = normalizedString[i];
+
+                Debug.WriteLine(string.Format("{0}:{1} char:{2}", c.ToString(), CharUnicodeInfo.GetUnicodeCategory(c).ToString(), (int)c));
+
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark
+                    || ((int)c < 1423 || (int)c > (1423 + 27)))
+                    stringBuilder.Append(c);
+            }
+
+            return stringBuilder.ToString();
+        } 
 
         public static string RemovePunctation(this string value, bool saveSectionSigns)
         {

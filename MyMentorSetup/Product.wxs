@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" 
-     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-
-  <Product Id="{FCF466FF-922F-4A38-856A-10F5876FE3ED}" Name="MyMentor Studio v2.0" Language="1033" Version="1.0.0.3" Manufacturer="MyMentor" UpgradeCode="0ab14caa-679a-404c-b05f-e60f94506be7">
-    <Package Id="{307D7425-5786-4C65-A96D-F3DF2AA10925}" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="{E0F66803-91BF-4571-B8B2-D442D5513E1D}" Name="MyMentor Studio V2" Language="1033" Version="1.0.0.3" Manufacturer="MyMentor" UpgradeCode="b9c3a138-662d-4eb9-a1cf-90b8778b1109">
+    <Package Id="{8793907F-A2D7-4701-BE6E-90865B83E80A}" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
     <UI>
       <UIRef Id="WixUI_Minimal" />
@@ -13,8 +11,7 @@
         Event="DoAction"
         Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
     </UI>
-
-    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch MyMentor Studio v2.0" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch MyMentor Studio V2" />
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <PropertyRef Id="NETFRAMEWORK45"/>
@@ -27,14 +24,12 @@
 
     <Feature Id="ProductFeature" Title="MyMentorSetup" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
-      <ComponentGroupRef Id="Rtf2Html" />
     </Feature>
 
-    <Feature Id='Complete' Title='MyMentor Studio v2.0' Description='The complete package.'
+    <Feature Id='Complete' Title='MyMentor Studio' Description='The complete package.'
         Display='expand' Level='1' ConfigurableDirectory='INSTALLFOLDER'>
       <Feature Id='MainProgram' Title='Program' Description='The main executable.' Level='1'>
         <ComponentRef Id='MainExecutable' />
-        <ComponentRef Id='ThirdParty' />
         <ComponentRef Id="ApplicationShortcut" />
       </Feature>
     </Feature>
@@ -45,10 +40,10 @@
     </Condition>
 
     <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="ApplicationShortcut" Guid="{B26DF39A-CFDB-4E72-85AB-54A1FA29B1A5}">
+      <Component Id="ApplicationShortcut" Guid="{0BA3BCE3-B7F2-4BFA-8F74-C5FD86B8B088}">
         <Shortcut Id="ApplicationStartMenuShortcut"
-             Name="MyMentor Studio v2.0"
-           Description="MyMentor Studio v2.0"
+             Name="MyMentor Studio V2"
+           Description="MyMentor Studio V2"
             Target="[INSTALLFOLDER]MyMentor.exe"
                   WorkingDirectory="INSTALLFOLDER"/>
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
@@ -61,50 +56,29 @@
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="MyMentor Studio v2.0">
-          <Directory Id="RFT2HTMLFOLDER" Name="Rtf2Html">
-          </Directory>
-        </Directory>
-        </Directory>
+        <Directory Id="INSTALLFOLDER" Name="MyMentor Studio V2" />
+      </Directory>
       <Directory Id="DesktopFolder"  SourceName="Desktop"/>
       <Directory Id="ProgramMenuFolder">
-        <Directory Id="ApplicationProgramsFolder" Name="MyMentor Studio v2.0"/>
+        <Directory Id="ApplicationProgramsFolder" Name="MyMentor Studio V2"/>
       </Directory>
     </Directory>
   </Fragment>
 
   <Fragment>
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <Component Id="MainExecutable" Guid='{CFD2CA42-4DDD-4F14-B93F-5F0BFE335CBA}'>
-        <File Id='MyMentorexe' Name='MyMentor.exe' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.exe' KeyPath='yes'>
+      <Component Id="MainExecutable" Guid='{F0A69F95-BEC1-4B58-8546-966F08413F5F}'>
+        <File Id='MyMentorUtilityClientexe' Name='MyMentor.exe' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.exe' KeyPath='yes'>
           <Shortcut Id="desktop" Directory="DesktopFolder" Name="MyMentor Studio" WorkingDirectory="TARGETDIR" Icon="MyMentor.exe" IconIndex="0" Advertise="yes" />
         </File>
         <File Id='MyMentorUtilityClientexeconfig' Name='MyMentor.exe.config' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.exe.config' KeyPath='no'/>
-        <File Id='MyMentorUtilityClientpdb' Name='MyMentor.pdb' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.pdb' KeyPath='no'/>
+        <File Id='MyMentorUtilityClientpdb' Name='MyMentorUtilityClient.pdb' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.pdb' KeyPath='no'/>
         <File Id='IonicZipdll' Name='Ionic.Zip.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Ionic.Zip.dll' KeyPath='no'/>
         <File Id='NewtonsoftJsondll' Name='Newtonsoft.Json.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Newtonsoft.Json.dll' KeyPath='no'/>
         <File Id='Parsedll' Name='Parse.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.dll' KeyPath='no'/>
         <File Id='ParseNetFx45dll' Name='Parse.NetFx45.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.NetFx45.dll' KeyPath='no'/>
-        <File Id='HtmlAgilityPackdll' Name='HtmlAgilityPack.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\HtmlAgilityPack.dll' KeyPath='no'/>
 
       </Component>
     </ComponentGroup>
-    <ComponentGroup Id="Rtf2Html" Directory="RFT2HTMLFOLDER">
-      <Component Id="ThirdParty" Guid='{41D99439-CE79-4A67-87B4-B36600755610}'>
-        <File Id='Itenso.Rtf.Converter.Html.dll' Name='Itenso.Rtf.Converter.Html.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Rtf.Converter.Html.dll' KeyPath='no'/>
-        <File Id='Itenso.Rtf.Interpreter.dll' Name='Itenso.Rtf.Interpreter.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Rtf.Interpreter.dll' KeyPath='no'/>
-        <File Id='Itenso.Rtf.Parser.dll' Name='Itenso.Rtf.Parser.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Rtf.Parser.dll' KeyPath='no'/>
-        <File Id='Itenso.Sys.dll' Name='Itenso.Sys.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Sys.dll' KeyPath='no'/>
-        <File Id='log4net.dll' Name='log4net.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\log4net.dll' KeyPath='no'/>
-        <File Id='Rtf2Html.exe' Name='Rtf2Html.exe' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Rtf2Html.exe' KeyPath='no'/>
-        <File Id='Rtf2Html.exe.config' Name='Rtf2Html.exe.config' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Rtf2Html.exe.config' KeyPath='no'/>
-        <File Id='nunit.core.dll' Name='nunit.core.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\nunit.core.dll' KeyPath='no'/>
-        <File Id='nunit.framework.dll' Name='nunit.framework.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\nunit.framework.dll' KeyPath='no'/>
-        <File Id='nunit.util.dll' Name='nunit.util.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\nunit.util.dll' KeyPath='no'/>
-        <File Id='nunitconsolerunnerdll' Name='nunit-console-runner.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\nunit-console-runner.dll' KeyPath='no'/>
-      </Component>
-    </ComponentGroup>
   </Fragment>
-  
-  
 </Wix>

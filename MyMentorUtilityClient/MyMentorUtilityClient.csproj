@@ -49,6 +49,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>1386994963_118644.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AudioDjStudio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dd52dbb299cc1b2, processorArchitecture=MSIL" />
     <Reference Include="AudioSoundEditor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dd52dbb299cc1b2, processorArchitecture=MSIL">
@@ -66,14 +69,17 @@
       <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Parse">
-      <HintPath>..\packages\parse.1.2.1\lib\net45\Parse.dll</HintPath>
+    <Reference Include="Parse, Version=1.2.10.0, Culture=neutral, PublicKeyToken=ba48c3a442de616e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Parse.1.2.10\lib\net45\Parse.dll</HintPath>
     </Reference>
-    <Reference Include="Parse.NetFx45">
-      <HintPath>..\packages\parse.1.2.1\lib\net45\Parse.NetFx45.dll</HintPath>
+    <Reference Include="Parse.NetFx45, Version=1.2.10.0, Culture=neutral, PublicKeyToken=ba48c3a442de616e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Parse.1.2.10\lib\net45\Parse.NetFx45.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -202,6 +208,9 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ParseObjects\Cat_Kria.cs" />
+    <Compile Include="ParseObjects\WorldContentType.cs" />
+    <Compile Include="ParseTables.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublishForm.cs">
@@ -212,6 +221,12 @@
     </Compile>
     <Compile Include="RichTextBoxExt\RichTextBoxExt.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SevenSegments\SevenSegment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SevenSegments\SevenSegmentArray.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="TimeSpanFormatter.cs" />
     <Compile Include="TimeSpinner\NumericUpDownEx.cs">
@@ -343,6 +358,8 @@
     <None Include="Resources\1386909293_auction_hammer_gavel.png" />
     <None Include="Resources\1386909646_519838-50_Cloud_Arrow_Up.png" />
     <None Include="Resources\1386947558_anchor.png" />
+    <Content Include="1386994963_118644.ico" />
+    <None Include="Resources\1386908112_Record Button1.png" />
     <Content Include="Rtf2Html\Itenso.Rtf.Converter.Html.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

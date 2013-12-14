@@ -121,10 +121,13 @@
   <data name="1386909646_519838-50_Cloud_Arrow_Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1386909646_519838-50_Cloud_Arrow_Up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="1386947558_anchor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1386947558_anchor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="1386909293_auction_hammer_gavel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1386909293_auction_hammer_gavel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1386947558_anchor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1386947558_anchor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1386908112_Record Button1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1386908112_Record Button1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

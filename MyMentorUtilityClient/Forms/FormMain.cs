@@ -13,6 +13,7 @@ using MyMentorUtilityClient;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using Parse;
+using MyMentor;
 
 namespace SoundStudio
 {
@@ -98,7 +99,6 @@ namespace SoundStudio
         #region More Controls
         private bool m_bRecAppendMode;
         private bool m_bRecOverwriteMode;
-
         private IntPtr m_hWndVuMeterLeft;
         private IntPtr m_hWndVuMeterRight;
         private TableLayoutPanel tableLayoutPanel1;
@@ -185,10 +185,11 @@ namespace SoundStudio
 
         #region Clip SetUp
 
-        private TimeSpan m_setStartTime = TimeSpan.Zero;
+        private TimeSpan n_hammerLastTimePressed = TimeSpan.Zero;
         private Word m_selectedScheduledWord = null;
         private bool m_selectedAnchor = false;
-        private bool m_selectedSilentAnchor = false;
+        private bool m_selectedStartAnchor = false;
+        private bool m_selectedEndAnchor = false;
         private bool m_skipSelectionChange = false;
         private int m_waveFormTabIndex = 1;
         private Chapter m_chapter = null;
@@ -212,6 +213,7 @@ namespace SoundStudio
 
         #endregion
         private const string START_PAUSE_SECTION_ANCHOR = "[התחלה]";
+        private const string END_PAUSE_SECTION_ANCHOR = "[סוף]";
         private ToolStripMenuItem עזרהToolStripMenuItem;
         private ToolStripMenuItem mnuHelp_About;
         private ToolStripSeparator toolStripMenuItem13;
@@ -226,7 +228,7 @@ namespace SoundStudio
         public Label label1;
         private AudioDjStudio.AudioDjStudio audioDjStudio1;
         public GroupBox groupBox1;
-        public Button buttonStartDJPlay;
+        public Button buttonStartSchedulingPlayback;
         private Timer djLineTimer;
         private GroupBox groupBox2;
         private Label label9;
@@ -246,7 +248,6 @@ namespace SoundStudio
         private Label label11;
         private ToolStripButton tbrProperties;
         public Label lblLoginUser;
-        public Button buttonStartRecOverwrite;
         private ToolStripMenuItem mnuLoginDifferentUser;
         private ImageList imageList1;
         private Timer timerRecordIcon;
@@ -283,10 +284,7 @@ namespace SoundStudio
         private Label label16;
         private Label label19;
         private TextBox textBox6;
-        private Label label20;
-        private TextBox textBox5;
         private Label label21;
-        private TextBox textBox4;
         private Label label22;
         private TextBox textBox1;
         private MaskedTextBox maskedTextBox1;
@@ -316,7 +314,22 @@ namespace SoundStudio
         private RichTextBox richTextBox4;
         private string m_strExportPathname;
         private Label label25;
+        private GroupBox groupBox9;
+        private Label label26;
+        private Label label27;
+        private NumericUpDown numericUpDownBufferRecord;
+        public Button buttonRecOverwritePlayback;
+        private PictureBox pictureBox1;
+        private Timer timerStartRecordingAfterPlayingBuffer;
         private TimeSpan m_rem_anchorFixRecording = TimeSpan.Zero;
+        private DmitryBrant.CustomControls.SevenSegment sevenSegment1;
+        private Timer timerRefreshLedDisplay;
+        public Label LabelCurrentWordDuration;
+        private Label label29;
+        private ComboBox comboKria;
+        private Label label20;
+        private ComboBox comboWorldContentType;
+        private int m_intRecordingDuration = 0;
 
         // Reverb internal DSP
         private void ReverbCallback(IntPtr bufferSamples, Int32 bufferSamplesLength, Int32 nUserData)
@@ -439,7 +452,12 @@ namespace SoundStudio
             this.timerDisplayWaveform = new System.Windows.Forms.Timer(this.components);
             this.audioSoundEditor1 = new AudioSoundEditor.AudioSoundEditor();
             this.FrameRecording = new System.Windows.Forms.GroupBox();
-            this.buttonStartRecOverwrite = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.numericUpDownBufferRecord = new System.Windows.Forms.NumericUpDown();
+            this.buttonRecOverwritePlayback = new System.Windows.Forms.Button();
             this.buttonStartRecAppend = new System.Windows.Forms.Button();
             this.buttonStopRecording = new System.Windows.Forms.Button();
             this.buttonStartRecNew = new System.Windows.Forms.Button();
@@ -490,13 +508,16 @@ namespace SoundStudio
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.LabelCurrentWordDuration = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
             this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.buttonHammer = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.buttonStartDJPlay = new System.Windows.Forms.Button();
+            this.buttonStartSchedulingPlayback = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label25 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownInterval = new System.Windows.Forms.NumericUpDown();
@@ -506,6 +527,7 @@ namespace SoundStudio
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.comboKria = new System.Windows.Forms.ComboBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -536,10 +558,7 @@ namespace SoundStudio
             this.label16 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
@@ -624,13 +643,20 @@ namespace SoundStudio
             this.lblLoginUser = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.timerRecordIcon = new System.Windows.Forms.Timer(this.components);
+            this.timerStartRecordingAfterPlayingBuffer = new System.Windows.Forms.Timer(this.components);
+            this.timerRefreshLedDisplay = new System.Windows.Forms.Timer(this.components);
             this.comboBoxAutoDevidePar = new PresentationControls.CheckBoxComboBox();
             this.comboBoxAutoDevideSen = new PresentationControls.CheckBoxComboBox();
+            this.sevenSegment1 = new DmitryBrant.CustomControls.SevenSegment();
             this.timePickerCurrentWord = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
-            this.label25 = new System.Windows.Forms.Label();
+            this.comboWorldContentType = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.Frame4.SuspendLayout();
             this.framePlayback.SuspendLayout();
             this.FrameRecording.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBufferRecord)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -679,14 +705,12 @@ namespace SoundStudio
             this.Frame4.Controls.Add(this.LabelRangeDuration);
             this.Frame4.Controls.Add(this.LabelTotalDuration);
             this.Frame4.Controls.Add(this.Label8);
-            this.Frame4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Frame4.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Frame4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Frame4.Location = new System.Drawing.Point(3, 135);
+            this.Frame4.Location = new System.Drawing.Point(3, 25);
             this.Frame4.Name = "Frame4";
             this.Frame4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.tableLayoutPanel1.SetRowSpan(this.Frame4, 2);
-            this.Frame4.Size = new System.Drawing.Size(551, 214);
+            this.Frame4.Size = new System.Drawing.Size(551, 208);
             this.Frame4.TabIndex = 17;
             this.Frame4.TabStop = false;
             this.Frame4.Text = "מיקום";
@@ -895,10 +919,10 @@ namespace SoundStudio
             this.framePlayback.Controls.Add(this.buttonPlaySelection);
             this.framePlayback.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.framePlayback.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.framePlayback.Location = new System.Drawing.Point(736, 245);
+            this.framePlayback.Location = new System.Drawing.Point(3, 245);
             this.framePlayback.Name = "framePlayback";
             this.framePlayback.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.framePlayback.Size = new System.Drawing.Size(423, 95);
+            this.framePlayback.Size = new System.Drawing.Size(551, 95);
             this.framePlayback.TabIndex = 15;
             this.framePlayback.TabStop = false;
             this.framePlayback.Text = "ניגון";
@@ -907,7 +931,7 @@ namespace SoundStudio
             // 
             this.buttonPause.Enabled = false;
             this.buttonPause.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPause.Location = new System.Drawing.Point(218, 27);
+            this.buttonPause.Location = new System.Drawing.Point(349, 25);
             this.buttonPause.Name = "buttonPause";
             this.buttonPause.Size = new System.Drawing.Size(85, 43);
             this.buttonPause.TabIndex = 10;
@@ -921,7 +945,7 @@ namespace SoundStudio
             this.buttonPlay.Enabled = false;
             this.buttonPlay.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonPlay.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonPlay.Location = new System.Drawing.Point(309, 27);
+            this.buttonPlay.Location = new System.Drawing.Point(440, 25);
             this.buttonPlay.Name = "buttonPlay";
             this.buttonPlay.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.buttonPlay.Size = new System.Drawing.Size(90, 43);
@@ -937,7 +961,7 @@ namespace SoundStudio
             this.buttonStop.Enabled = false;
             this.buttonStop.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStop.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStop.Location = new System.Drawing.Point(6, 27);
+            this.buttonStop.Location = new System.Drawing.Point(137, 25);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.buttonStop.Size = new System.Drawing.Size(101, 43);
@@ -953,7 +977,7 @@ namespace SoundStudio
             this.buttonPlaySelection.Enabled = false;
             this.buttonPlaySelection.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonPlaySelection.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonPlaySelection.Location = new System.Drawing.Point(113, 27);
+            this.buttonPlaySelection.Location = new System.Drawing.Point(244, 25);
             this.buttonPlaySelection.Name = "buttonPlaySelection";
             this.buttonPlaySelection.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.buttonPlaySelection.Size = new System.Drawing.Size(99, 43);
@@ -1020,42 +1044,107 @@ namespace SoundStudio
             this.audioSoundEditor1.SoundLoadingStarted += new AudioSoundEditor.AudioSoundEditor.EventHandler(this.audioSoundEditor1_SoundLoadingStarted);
             this.audioSoundEditor1.SoundLoadingPerc += new AudioSoundEditor.AudioSoundEditor.SoundLoadingPercEventHandler(this.audioSoundEditor1_SoundLoadingPerc);
             this.audioSoundEditor1.SoundLoadingDone += new AudioSoundEditor.AudioSoundEditor.SoundLoadingDoneEventHandler(this.audioSoundEditor1_SoundLoadingDone);
-            this.audioSoundEditor1.WaveAnalyzerMouseNotification += new AudioSoundEditor.AudioSoundEditor.WaveAnalyzerMouseNotificationEventHandler(this.audioSoundEditor1_WaveAnalyzerMouseNotification);
             this.audioSoundEditor1.WaveAnalyzerLineMoving += new AudioSoundEditor.AudioSoundEditor.WaveAnalyzerLineMovingEventHandler(this.audioSoundEditor1_WaveAnalyzerLineMoving);
-            this.audioSoundEditor1.WaveAnalyzerHorzLineMoving += new AudioSoundEditor.AudioSoundEditor.WaveAnalyzerHorzLineMovingEventHandler(this.audioSoundEditor1_WaveAnalyzerHorzLineMoving);
             this.audioSoundEditor1.WaveAnalyzerGraphicItemClick += new AudioSoundEditor.AudioSoundEditor.WaveAnalyzerGraphicItemClickEventHandler(this.audioSoundEditor1_WaveAnalyzerGraphicItemClick);
             // 
             // FrameRecording
             // 
             this.FrameRecording.BackColor = System.Drawing.SystemColors.Control;
-            this.FrameRecording.Controls.Add(this.buttonStartRecOverwrite);
+            this.FrameRecording.Controls.Add(this.pictureBox1);
+            this.FrameRecording.Controls.Add(this.groupBox9);
             this.FrameRecording.Controls.Add(this.buttonStartRecAppend);
             this.FrameRecording.Controls.Add(this.buttonStopRecording);
             this.FrameRecording.Controls.Add(this.buttonStartRecNew);
             this.FrameRecording.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FrameRecording.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FrameRecording.Location = new System.Drawing.Point(608, 135);
+            this.FrameRecording.Location = new System.Drawing.Point(608, 25);
             this.FrameRecording.Name = "FrameRecording";
             this.FrameRecording.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.FrameRecording.Size = new System.Drawing.Size(551, 80);
+            this.tableLayoutPanel1.SetRowSpan(this.FrameRecording, 2);
+            this.FrameRecording.Size = new System.Drawing.Size(551, 315);
             this.FrameRecording.TabIndex = 24;
             this.FrameRecording.TabStop = false;
             this.FrameRecording.Text = "הקלטה";
             // 
-            // buttonStartRecOverwrite
+            // pictureBox1
             // 
-            this.buttonStartRecOverwrite.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonStartRecOverwrite.Cursor = System.Windows.Forms.Cursors.Default;
-            this.buttonStartRecOverwrite.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStartRecOverwrite.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartRecOverwrite.Location = new System.Drawing.Point(288, 31);
-            this.buttonStartRecOverwrite.Name = "buttonStartRecOverwrite";
-            this.buttonStartRecOverwrite.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonStartRecOverwrite.Size = new System.Drawing.Size(142, 43);
-            this.buttonStartRecOverwrite.TabIndex = 7;
-            this.buttonStartRecOverwrite.Text = "התחל ממיקום נבחר";
-            this.buttonStartRecOverwrite.UseVisualStyleBackColor = false;
-            this.buttonStartRecOverwrite.Click += new System.EventHandler(this.buttonStartRecOverwrite_Click);
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox1.Image = global::MyMentor.Properties.Resources._1386908112_Record_Button1;
+            this.pictureBox1.Location = new System.Drawing.Point(51, 37);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(36, 36);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 33;
+            this.pictureBox1.TabStop = false;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.sevenSegment1);
+            this.groupBox9.Controls.Add(this.label26);
+            this.groupBox9.Controls.Add(this.label27);
+            this.groupBox9.Controls.Add(this.numericUpDownBufferRecord);
+            this.groupBox9.Controls.Add(this.buttonRecOverwritePlayback);
+            this.groupBox9.Location = new System.Drawing.Point(238, 95);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(298, 123);
+            this.groupBox9.TabIndex = 32;
+            this.groupBox9.TabStop = false;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(91, 90);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(28, 18);
+            this.label26.TabIndex = 36;
+            this.label26.Text = "שנ\'";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(180, 89);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(102, 18);
+            this.label27.TabIndex = 35;
+            this.label27.Text = "היסט עליון נגינה";
+            // 
+            // numericUpDownBufferRecord
+            // 
+            this.numericUpDownBufferRecord.Location = new System.Drawing.Point(125, 85);
+            this.numericUpDownBufferRecord.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownBufferRecord.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownBufferRecord.Name = "numericUpDownBufferRecord";
+            this.numericUpDownBufferRecord.Size = new System.Drawing.Size(49, 26);
+            this.numericUpDownBufferRecord.TabIndex = 34;
+            this.numericUpDownBufferRecord.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // buttonRecOverwritePlayback
+            // 
+            this.buttonRecOverwritePlayback.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonRecOverwritePlayback.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonRecOverwritePlayback.Enabled = false;
+            this.buttonRecOverwritePlayback.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRecOverwritePlayback.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonRecOverwritePlayback.Location = new System.Drawing.Point(91, 25);
+            this.buttonRecOverwritePlayback.Name = "buttonRecOverwritePlayback";
+            this.buttonRecOverwritePlayback.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.buttonRecOverwritePlayback.Size = new System.Drawing.Size(188, 43);
+            this.buttonRecOverwritePlayback.TabIndex = 33;
+            this.buttonRecOverwritePlayback.Text = "הקלט במקום הנבחר";
+            this.buttonRecOverwritePlayback.UseVisualStyleBackColor = false;
+            this.buttonRecOverwritePlayback.Click += new System.EventHandler(this.buttonRecOverwritePlayback_Click);
             // 
             // buttonStartRecAppend
             // 
@@ -1063,12 +1152,12 @@ namespace SoundStudio
             this.buttonStartRecAppend.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonStartRecAppend.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStartRecAppend.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartRecAppend.Location = new System.Drawing.Point(175, 31);
+            this.buttonStartRecAppend.Location = new System.Drawing.Point(109, 31);
             this.buttonStartRecAppend.Name = "buttonStartRecAppend";
             this.buttonStartRecAppend.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonStartRecAppend.Size = new System.Drawing.Size(107, 43);
+            this.buttonStartRecAppend.Size = new System.Drawing.Size(184, 43);
             this.buttonStartRecAppend.TabIndex = 6;
-            this.buttonStartRecAppend.Text = "התחל הוספה";
+            this.buttonStartRecAppend.Text = "המשך הקלטה מסוף הקטע";
             this.buttonStartRecAppend.UseVisualStyleBackColor = false;
             this.buttonStartRecAppend.Click += new System.EventHandler(this.buttonStartRecAppend_Click);
             // 
@@ -1079,7 +1168,7 @@ namespace SoundStudio
             this.buttonStopRecording.Enabled = false;
             this.buttonStopRecording.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStopRecording.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStopRecording.Location = new System.Drawing.Point(42, 31);
+            this.buttonStopRecording.Location = new System.Drawing.Point(299, 31);
             this.buttonStopRecording.Name = "buttonStopRecording";
             this.buttonStopRecording.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.buttonStopRecording.Size = new System.Drawing.Size(127, 43);
@@ -1091,18 +1180,16 @@ namespace SoundStudio
             // buttonStartRecNew
             // 
             this.buttonStartRecNew.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonStartRecNew.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonStartRecNew.BackgroundImage")));
             this.buttonStartRecNew.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonStartRecNew.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonStartRecNew.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonStartRecNew.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartRecNew.Location = new System.Drawing.Point(432, 32);
+            this.buttonStartRecNew.Location = new System.Drawing.Point(437, 31);
             this.buttonStartRecNew.Name = "buttonStartRecNew";
             this.buttonStartRecNew.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.buttonStartRecNew.Size = new System.Drawing.Size(116, 42);
+            this.buttonStartRecNew.Size = new System.Drawing.Size(111, 42);
             this.buttonStartRecNew.TabIndex = 4;
             this.buttonStartRecNew.Text = "התחל חדש";
-            this.buttonStartRecNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonStartRecNew.UseVisualStyleBackColor = false;
             this.buttonStartRecNew.Click += new System.EventHandler(this.buttonStartRecNew_Click);
             // 
@@ -1130,13 +1217,16 @@ namespace SoundStudio
             this.audioSoundRecorder1.EncodeWmaCBR = -1;
             this.audioSoundRecorder1.EncodeWmaMode = AudioSoundRecorder.enumWmaEncodeModes.WMA_ENCODE_VBR_QUALITY;
             this.audioSoundRecorder1.EncodeWmaVBRQuality = 100;
-            this.audioSoundRecorder1.Location = new System.Drawing.Point(407, 437);
+            this.audioSoundRecorder1.Location = new System.Drawing.Point(448, 0);
             this.audioSoundRecorder1.Name = "audioSoundRecorder1";
             this.audioSoundRecorder1.SilenceThreshold = ((short)(0));
             this.audioSoundRecorder1.Size = new System.Drawing.Size(48, 48);
             this.audioSoundRecorder1.TabIndex = 25;
             this.audioSoundRecorder1.RecordingStarted += new AudioSoundRecorder.AudioSoundRecorder.EventHandler(this.audioSoundRecorder1_RecordingStarted);
+            this.audioSoundRecorder1.RecordingPaused += new AudioSoundRecorder.AudioSoundRecorder.EventHandler(this.audioSoundRecorder1_RecordingPaused);
+            this.audioSoundRecorder1.RecordingResumed += new AudioSoundRecorder.AudioSoundRecorder.EventHandler(this.audioSoundRecorder1_RecordingResumed);
             this.audioSoundRecorder1.RecordingStopped += new AudioSoundRecorder.AudioSoundRecorder.RecordingStoppedEventHandler(this.audioSoundRecorder1_RecordingStopped);
+            this.audioSoundRecorder1.RecordingDuration += new AudioSoundRecorder.AudioSoundRecorder.RecordingDurationEventHandler(this.audioSoundRecorder1_RecordingDuration);
             this.audioSoundRecorder1.VUMeterValueChange += new AudioSoundRecorder.AudioSoundRecorder.VUMeterValueChangeEventHandler(this.audioSoundRecorder1_VUMeterValueChange);
             // 
             // timerRecordingDone
@@ -1148,7 +1238,7 @@ namespace SoundStudio
             this.label18.BackColor = System.Drawing.Color.Black;
             this.label18.Location = new System.Drawing.Point(3, 1);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(15, 207);
+            this.label18.Size = new System.Drawing.Size(15, 312);
             this.label18.TabIndex = 60;
             // 
             // label17
@@ -1156,7 +1246,7 @@ namespace SoundStudio
             this.label17.BackColor = System.Drawing.Color.Black;
             this.label17.Location = new System.Drawing.Point(20, 1);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(15, 207);
+            this.label17.Size = new System.Drawing.Size(15, 312);
             this.label17.TabIndex = 59;
             // 
             // tabControl1
@@ -1194,7 +1284,7 @@ namespace SoundStudio
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 82.68793F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.31207F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 154F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
             this.tableLayoutPanel2.Controls.Add(this.ToolStrip1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox1, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox2, 1, 0);
@@ -1496,7 +1586,7 @@ namespace SoundStudio
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(337, 3);
+            this.richTextBox2.Location = new System.Drawing.Point(350, 3);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(100, 34);
             this.richTextBox2.TabIndex = 33;
@@ -1507,9 +1597,9 @@ namespace SoundStudio
             // 
             this.panel7.Controls.Add(this.groupBox8);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(443, 3);
+            this.panel7.Location = new System.Drawing.Point(456, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(716, 74);
+            this.panel7.Size = new System.Drawing.Size(703, 74);
             this.panel7.TabIndex = 34;
             // 
             // groupBox8
@@ -1534,12 +1624,10 @@ namespace SoundStudio
             this.buttonAutoDevide.Cursor = System.Windows.Forms.Cursors.Default;
             this.buttonAutoDevide.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAutoDevide.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonAutoDevide.Image = global::MyMentor.Properties.Resources._1386947558_anchor;
-            this.buttonAutoDevide.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonAutoDevide.Location = new System.Drawing.Point(23, 20);
+            this.buttonAutoDevide.Location = new System.Drawing.Point(20, 19);
             this.buttonAutoDevide.Name = "buttonAutoDevide";
             this.buttonAutoDevide.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.buttonAutoDevide.Size = new System.Drawing.Size(113, 42);
+            this.buttonAutoDevide.Size = new System.Drawing.Size(85, 42);
             this.buttonAutoDevide.TabIndex = 18;
             this.buttonAutoDevide.Text = "קבע עוגנים";
             this.buttonAutoDevide.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1552,7 +1640,7 @@ namespace SoundStudio
             this.label24.Cursor = System.Windows.Forms.Cursors.Default;
             this.label24.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label24.Location = new System.Drawing.Point(350, 34);
+            this.label24.Location = new System.Drawing.Point(317, 34);
             this.label24.Name = "label24";
             this.label24.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label24.Size = new System.Drawing.Size(75, 21);
@@ -1574,7 +1662,7 @@ namespace SoundStudio
             // 
             // richTextBox4
             // 
-            this.richTextBox4.Location = new System.Drawing.Point(210, 3);
+            this.richTextBox4.Location = new System.Drawing.Point(226, 3);
             this.richTextBox4.Name = "richTextBox4";
             this.richTextBox4.Size = new System.Drawing.Size(76, 34);
             this.richTextBox4.TabIndex = 35;
@@ -1602,13 +1690,13 @@ namespace SoundStudio
             this.tableLayoutPanel1.Controls.Add(this.Frame4, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.FrameRecording, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.framePlayback, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.framePlayback, 2, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 62.5F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1162, 398);
@@ -1620,10 +1708,10 @@ namespace SoundStudio
             this.panel2.Controls.Add(this.label18);
             this.panel2.Controls.Add(this.label17);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(560, 135);
+            this.panel2.Location = new System.Drawing.Point(560, 25);
             this.panel2.Name = "panel2";
             this.tableLayoutPanel1.SetRowSpan(this.panel2, 2);
-            this.panel2.Size = new System.Drawing.Size(42, 214);
+            this.panel2.Size = new System.Drawing.Size(42, 324);
             this.panel2.TabIndex = 18;
             // 
             // tabPage3
@@ -1661,13 +1749,15 @@ namespace SoundStudio
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.LabelCurrentWordDuration);
+            this.groupBox1.Controls.Add(this.label29);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.timePickerCurrentWord);
             this.groupBox1.Controls.Add(this.LabelCurrentSchedulingTimer);
             this.groupBox1.Controls.Add(this.buttonRestartScheduling);
             this.groupBox1.Controls.Add(this.buttonHammer);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.buttonStartDJPlay);
+            this.groupBox1.Controls.Add(this.buttonStartSchedulingPlayback);
             this.groupBox1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox1.Location = new System.Drawing.Point(605, 256);
@@ -1678,10 +1768,34 @@ namespace SoundStudio
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "תזמון קטעים";
             // 
+            // LabelCurrentWordDuration
+            // 
+            this.LabelCurrentWordDuration.BackColor = System.Drawing.Color.White;
+            this.LabelCurrentWordDuration.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LabelCurrentWordDuration.Cursor = System.Windows.Forms.Cursors.Default;
+            this.LabelCurrentWordDuration.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelCurrentWordDuration.ForeColor = System.Drawing.Color.Black;
+            this.LabelCurrentWordDuration.Location = new System.Drawing.Point(71, 108);
+            this.LabelCurrentWordDuration.Name = "LabelCurrentWordDuration";
+            this.LabelCurrentWordDuration.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.LabelCurrentWordDuration.Size = new System.Drawing.Size(108, 22);
+            this.LabelCurrentWordDuration.TabIndex = 29;
+            this.LabelCurrentWordDuration.Text = "00:00:00.000";
+            this.LabelCurrentWordDuration.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(198, 109);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(103, 18);
+            this.label29.TabIndex = 28;
+            this.label29.Text = "אורך קטע נבחר";
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(195, 104);
+            this.label10.Location = new System.Drawing.Point(195, 80);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(122, 18);
             this.label10.TabIndex = 26;
@@ -1744,20 +1858,20 @@ namespace SoundStudio
             this.label9.TabIndex = 24;
             this.label9.Text = "מיקום נוכחי";
             // 
-            // buttonStartDJPlay
+            // buttonStartSchedulingPlayback
             // 
-            this.buttonStartDJPlay.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonStartDJPlay.Cursor = System.Windows.Forms.Cursors.Default;
-            this.buttonStartDJPlay.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStartDJPlay.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartDJPlay.Location = new System.Drawing.Point(448, 25);
-            this.buttonStartDJPlay.Name = "buttonStartDJPlay";
-            this.buttonStartDJPlay.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonStartDJPlay.Size = new System.Drawing.Size(94, 41);
-            this.buttonStartDJPlay.TabIndex = 9;
-            this.buttonStartDJPlay.Text = "התחל";
-            this.buttonStartDJPlay.UseVisualStyleBackColor = false;
-            this.buttonStartDJPlay.Click += new System.EventHandler(this.buttonStartDJPlay_Click);
+            this.buttonStartSchedulingPlayback.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonStartSchedulingPlayback.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonStartSchedulingPlayback.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonStartSchedulingPlayback.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonStartSchedulingPlayback.Location = new System.Drawing.Point(448, 25);
+            this.buttonStartSchedulingPlayback.Name = "buttonStartSchedulingPlayback";
+            this.buttonStartSchedulingPlayback.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.buttonStartSchedulingPlayback.Size = new System.Drawing.Size(94, 41);
+            this.buttonStartSchedulingPlayback.TabIndex = 9;
+            this.buttonStartSchedulingPlayback.Text = "התחל";
+            this.buttonStartSchedulingPlayback.UseVisualStyleBackColor = false;
+            this.buttonStartSchedulingPlayback.Click += new System.EventHandler(this.buttonStartSchedulingPlayback_Click);
             // 
             // groupBox2
             // 
@@ -1774,10 +1888,20 @@ namespace SoundStudio
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "בדיקת מעברים";
             // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Arial", 9F);
+            this.label25.Location = new System.Drawing.Point(104, 108);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(236, 15);
+            this.label25.TabIndex = 29;
+            this.label25.Text = "* יש להקליק על העוגנים בטקסט לאפשור הבדיקה";
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(18, 43);
+            this.label11.Location = new System.Drawing.Point(19, 49);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(28, 18);
             this.label11.TabIndex = 28;
@@ -1786,7 +1910,7 @@ namespace SoundStudio
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(107, 42);
+            this.label7.Location = new System.Drawing.Point(108, 48);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(107, 18);
             this.label7.TabIndex = 27;
@@ -1794,7 +1918,7 @@ namespace SoundStudio
             // 
             // numericUpDownInterval
             // 
-            this.numericUpDownInterval.Location = new System.Drawing.Point(52, 38);
+            this.numericUpDownInterval.Location = new System.Drawing.Point(53, 44);
             this.numericUpDownInterval.Maximum = new decimal(new int[] {
             5,
             0,
@@ -1824,7 +1948,7 @@ namespace SoundStudio
             this.buttonScheduleAnchor.Location = new System.Drawing.Point(229, 38);
             this.buttonScheduleAnchor.Name = "buttonScheduleAnchor";
             this.buttonScheduleAnchor.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonScheduleAnchor.Size = new System.Drawing.Size(94, 28);
+            this.buttonScheduleAnchor.Size = new System.Drawing.Size(94, 38);
             this.buttonScheduleAnchor.TabIndex = 10;
             this.buttonScheduleAnchor.Text = "התחל";
             this.buttonScheduleAnchor.UseVisualStyleBackColor = false;
@@ -1887,6 +2011,9 @@ namespace SoundStudio
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.comboWorldContentType);
+            this.groupBox3.Controls.Add(this.comboKria);
             this.groupBox3.Controls.Add(this.textBox8);
             this.groupBox3.Controls.Add(this.textBox7);
             this.groupBox3.Controls.Add(this.label12);
@@ -1901,10 +2028,7 @@ namespace SoundStudio
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.label19);
             this.groupBox3.Controls.Add(this.textBox6);
-            this.groupBox3.Controls.Add(this.label20);
-            this.groupBox3.Controls.Add(this.textBox5);
             this.groupBox3.Controls.Add(this.label21);
-            this.groupBox3.Controls.Add(this.textBox4);
             this.groupBox3.Controls.Add(this.label22);
             this.groupBox3.Controls.Add(this.textBox1);
             this.groupBox3.Controls.Add(this.maskedTextBox1);
@@ -1917,6 +2041,15 @@ namespace SoundStudio
             this.groupBox3.Size = new System.Drawing.Size(925, 387);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
+            // 
+            // comboKria
+            // 
+            this.comboKria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboKria.FormattingEnabled = true;
+            this.comboKria.Location = new System.Drawing.Point(618, 187);
+            this.comboKria.Name = "comboKria";
+            this.comboKria.Size = new System.Drawing.Size(180, 26);
+            this.comboKria.TabIndex = 57;
             // 
             // textBox8
             // 
@@ -2236,26 +2369,6 @@ namespace SoundStudio
             this.textBox6.Size = new System.Drawing.Size(278, 26);
             this.textBox6.TabIndex = 15;
             // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Arial", 12F);
-            this.label20.Location = new System.Drawing.Point(838, 226);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(80, 18);
-            this.label20.TabIndex = 12;
-            this.label20.Text = "תת קטגוריה";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox5.Location = new System.Drawing.Point(520, 223);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(278, 26);
-            this.textBox5.TabIndex = 13;
-            // 
             // label21
             // 
             this.label21.AutoSize = true;
@@ -2263,18 +2376,9 @@ namespace SoundStudio
             this.label21.Location = new System.Drawing.Point(838, 190);
             this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(56, 18);
+            this.label21.Size = new System.Drawing.Size(47, 18);
             this.label21.TabIndex = 10;
-            this.label21.Text = "קטגוריה";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox4.Location = new System.Drawing.Point(520, 187);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(278, 26);
-            this.textBox4.TabIndex = 11;
+            this.label21.Text = "קריאה";
             // 
             // label22
             // 
@@ -2888,7 +2992,7 @@ namespace SoundStudio
             // timerUpdateTimePickerSpinner
             // 
             this.timerUpdateTimePickerSpinner.Interval = 50;
-            this.timerUpdateTimePickerSpinner.Tick += new System.EventHandler(this.timerUpdateSpinnerControl_Tick);
+            this.timerUpdateTimePickerSpinner.Tick += new System.EventHandler(this.timerCheckPlaybackDuringScheduling_Tick);
             // 
             // tableLayoutPanel4
             // 
@@ -2945,6 +3049,16 @@ namespace SoundStudio
             this.timerRecordIcon.Interval = 500;
             this.timerRecordIcon.Tick += new System.EventHandler(this.timerRecordIcon_Tick);
             // 
+            // timerStartRecordingAfterPlayingBuffer
+            // 
+            this.timerStartRecordingAfterPlayingBuffer.Interval = 50;
+            this.timerStartRecordingAfterPlayingBuffer.Tick += new System.EventHandler(this.timerStartRecordingAfterPlayingBuffer_Tick);
+            // 
+            // timerRefreshLedDisplay
+            // 
+            this.timerRefreshLedDisplay.Interval = 1000;
+            this.timerRefreshLedDisplay.Tick += new System.EventHandler(this.timerRefreshLedDisplay_Tick);
+            // 
             // comboBoxAutoDevidePar
             // 
             checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -2972,14 +3086,33 @@ namespace SoundStudio
             "נקודותיים (:)",
             "נקודה (.)",
             "ENTER"});
-            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(153, 31);
+            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(120, 31);
             this.comboBoxAutoDevideSen.Name = "comboBoxAutoDevideSen";
             this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(191, 26);
             this.comboBoxAutoDevideSen.TabIndex = 16;
             // 
+            // sevenSegment1
+            // 
+            this.sevenSegment1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sevenSegment1.ColorBackground = System.Drawing.Color.DarkGray;
+            this.sevenSegment1.ColorDark = System.Drawing.Color.DimGray;
+            this.sevenSegment1.ColorLight = System.Drawing.Color.Lime;
+            this.sevenSegment1.CustomPattern = 0;
+            this.sevenSegment1.DecimalOn = false;
+            this.sevenSegment1.DecimalShow = true;
+            this.sevenSegment1.ElementWidth = 10;
+            this.sevenSegment1.ItalicFactor = 0F;
+            this.sevenSegment1.Location = new System.Drawing.Point(17, 25);
+            this.sevenSegment1.Name = "sevenSegment1";
+            this.sevenSegment1.Padding = new System.Windows.Forms.Padding(4);
+            this.sevenSegment1.Size = new System.Drawing.Size(38, 64);
+            this.sevenSegment1.TabIndex = 37;
+            this.sevenSegment1.TabStop = false;
+            this.sevenSegment1.Value = null;
+            // 
             // timePickerCurrentWord
             // 
-            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 96);
+            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 72);
             this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
             this.timePickerCurrentWord.Name = "timePickerCurrentWord";
             this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
@@ -2987,15 +3120,25 @@ namespace SoundStudio
             this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
             this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
             // 
-            // label25
+            // comboWorldContentType
             // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Arial", 9F);
-            this.label25.Location = new System.Drawing.Point(104, 108);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(236, 15);
-            this.label25.TabIndex = 29;
-            this.label25.Text = "* יש להקליק על העוגנים בטקסט לאפשור הבדיקה";
+            this.comboWorldContentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboWorldContentType.FormattingEnabled = true;
+            this.comboWorldContentType.Location = new System.Drawing.Point(616, 219);
+            this.comboWorldContentType.Name = "comboWorldContentType";
+            this.comboWorldContentType.Size = new System.Drawing.Size(180, 26);
+            this.comboWorldContentType.TabIndex = 58;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Arial", 12F);
+            this.label20.Location = new System.Drawing.Point(838, 222);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(63, 18);
+            this.label20.TabIndex = 59;
+            this.label20.Text = "עולם תוכן";
             // 
             // FormMain
             // 
@@ -3012,7 +3155,6 @@ namespace SoundStudio
             this.Name = "FormMain";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MyMentor";
             this.Load += new System.EventHandler(this.FormMain_Load);
@@ -3023,6 +3165,11 @@ namespace SoundStudio
             this.Frame4.ResumeLayout(false);
             this.framePlayback.ResumeLayout(false);
             this.FrameRecording.ResumeLayout(false);
+            this.FrameRecording.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBufferRecord)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -3181,10 +3328,9 @@ namespace SoundStudio
             TimerMenuEnabler.Enabled = true;
             tableLayoutPanel4.RowStyles[1].Height = 0;
 
-
-            //audioSoundEditor1.EncodeFormats.FormatToUse = enumEncodingFormats.ENCODING_FORMAT_MP3;
-            //audioSoundEditor1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_PRESETS;
-            //audioSoundEditor1.EncodeFormats.MP3.Preset = enumMp3EncodePresets.MP3_PRESET_STANDARD;
+            audioSoundEditor1.EncodeFormats.FormatToUse = enumEncodingFormats.ENCODING_FORMAT_MP3;
+            audioSoundEditor1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_PRESETS;
+            audioSoundEditor1.EncodeFormats.MP3.Preset = enumMp3EncodePresets.MP3_PRESET_STANDARD;
 
         }
 
@@ -3569,7 +3715,7 @@ namespace SoundStudio
             LabelStatus.Text = "Status: Idle";
             LabelStatus.Refresh();
 
-            buttonStartDJPlay.Text = "התחל";
+            buttonStartSchedulingPlayback.Text = "התחל";
             buttonRestartScheduling.Enabled = true;
             timePickerCurrentWord.Enabled = true;
 
@@ -3586,6 +3732,11 @@ namespace SoundStudio
             }
 
             FrameRecording.Enabled = true;
+
+            if (m_bRecOverwriteMode)
+            {
+                timerStartRecordingAfterPlayingBuffer.Enabled = true;
+            }
         }
 
         private void audioSoundEditor1_SoundPlaybackPlaying(object sender, System.EventArgs e)
@@ -3604,7 +3755,7 @@ namespace SoundStudio
             LabelStatus.Refresh();
 
             int mm = audioSoundEditor1.GetPlaybackPosition();
-            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, mm, mm);
+            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, mm, mm);
 
         }
 
@@ -3668,11 +3819,17 @@ namespace SoundStudio
             {
                 // check if this is not only a position selection
                 if ((e.nEndPosInMs - e.nBeginPosInMs) > 0)
+                {
                     // selection can be played
                     buttonPlaySelection.Enabled = true;
+                    buttonRecOverwritePlayback.Enabled = false;
+                }
                 else
+                {
                     // selection cannot be played because it's simply a position selection
                     buttonPlaySelection.Enabled = false;
+                    buttonRecOverwritePlayback.Enabled = true;
+                }
 
                 // display formatted strings
                 LabelSelectionBegin.Text = audioSoundEditor1.GetFormattedTime(e.nBeginPosInMs, true, true);
@@ -3743,9 +3900,6 @@ namespace SoundStudio
                     return;
             }
 
-            //start record icon toggle timer
-            timerRecordIcon.Enabled = true;
-
             // set the flag for "new" mode
             m_bRecAppendMode = false;
 
@@ -3780,7 +3934,7 @@ namespace SoundStudio
             buttonStartRecNew.Enabled = false;
             buttonStartRecAppend.Enabled = false;
             buttonStopRecording.Enabled = true;
-
+            timerRecordIcon.Enabled = true;
             framePlayback.Enabled = false;
         }
 
@@ -3788,6 +3942,7 @@ namespace SoundStudio
         {
             // force loading the recording session into the editor
             timerRecordingDone.Enabled = true;
+            timerRecordIcon.Enabled = false;
 
             buttonStartRecNew.Enabled = true;
             buttonStartRecAppend.Enabled = true;
@@ -3811,11 +3966,11 @@ namespace SoundStudio
             {
                 m_bRecOverwriteMode = false;
                 TimeSpan startSelectionTime = TimeSpan.Parse(LabelSelectionBegin.Text);
-                //TimeSpan endSelectionTime = TimeSpan.Parse(LabelSelectionEnd.Text);
+                TimeSpan endSelectionTime = TimeSpan.Parse(LabelSelectionEnd.Text);
 
                 // overwrite mode
                 audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_OVERWRITE);
-                audioSoundEditor1.SetOverwritePos((int)startSelectionTime.TotalMilliseconds, audioDjStudio1.GetSoundDuration(0));
+                audioSoundEditor1.SetOverwritePos((int)startSelectionTime.TotalMilliseconds, -1);// (int)endSelectionTime.TotalMilliseconds);
             }
             else if (m_bRecAppendMode)
                 // append mode
@@ -4671,6 +4826,9 @@ namespace SoundStudio
                     break;
                 }
             }
+
+         
+
         }
 
         private void PaintAnchor(AnchorType type, int index)
@@ -5063,8 +5221,15 @@ namespace SoundStudio
             DevideText();
         }
 
-        private void FormMain_Shown(object sender, EventArgs e)
+        private async void FormMain_Shown(object sender, EventArgs e)
         {
+            this.comboKria.DisplayMember = "Value";
+            this.comboKria.ValueMember = "ObjectId";
+            this.comboKria.DataSource = new BindingSource(await ParseTables.GetKriot(), null);
+            this.comboWorldContentType.DisplayMember = "Value";
+            this.comboWorldContentType.ValueMember = "ObjectId";
+            this.comboWorldContentType.DataSource = new BindingSource(await ParseTables.GetWorldContentTypes(), null);
+
             richTextBox1.Focus();
             if (ParseUser.CurrentUser == null)
             {
@@ -5237,7 +5402,8 @@ namespace SoundStudio
 
         }
 
-        private short m_uniqueLine = -1;
+        private short m_guidLineUniqueId = -1;
+        private short m_endLineUniqueId = -1;
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -5247,6 +5413,10 @@ namespace SoundStudio
             richTextBox3.SelectionStart = 0;
             richTextBox3.SelectionLength = 0;
             richTextBox3.SelectedText = START_PAUSE_SECTION_ANCHOR;
+
+            m_skipSelectionChange = true;
+            richTextBox3.AppendText(END_PAUSE_SECTION_ANCHOR);
+            m_skipSelectionChange = false;
 
             m_selectedScheduledWord = null;
             m_selectedAnchor = false;
@@ -5265,7 +5435,7 @@ namespace SoundStudio
             if (tabControl1.SelectedIndex == 1
                 && m_waveFormTabIndex != 1)
             {
-                m_uniqueLine = -1;
+                m_guidLineUniqueId = -1;
                 m_waveFormTabIndex = 1;
                 audioSoundEditor1.DisplayWaveformAnalyzer.MouseSelectionEnable(true);
 
@@ -5279,8 +5449,9 @@ namespace SoundStudio
                     }
                 }
 
-                //remove guid line
-                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_uniqueLine);
+                //remove guid line & end line
+                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_endLineUniqueId);
+                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_guidLineUniqueId);
                 audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
             }
             //scheduler step
@@ -5289,27 +5460,12 @@ namespace SoundStudio
                 DevideText();
 
                 richTextBox3.SelectionStart = 0;
-                //richTextBox3.SelectionLength = m_selectedScheduledWord.Length;
-
-                //if (m_chapter.Paragraphs != null)
-                //{
-                //    m_selectedScheduledWord = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(sc => sc.Sections)
-                //    .SelectMany(w => w.Words).FirstOrDefault();
-
-                //    if (m_selectedScheduledWord != null)
-                //    {
-                //        m_skipSelectionChange = true;
-                //        richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
-                //        richTextBox3.SelectionLength = m_selectedScheduledWord.Length;
-                //        m_skipSelectionChange = false;
-                //    }
-                //}
 
                 if (m_waveFormTabIndex != 2)
                 {
                     m_waveFormTabIndex = 2;
 
-                    m_uniqueLine = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("MyLine", "KooKoo", 0,
+                    m_guidLineUniqueId = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("MyLine", "", 0,
                         new WANALYZER_VERTICAL_LINE { color = Color.Yellow, nWidth = 1, nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT, nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DASH_DOT, nHighCap = enumLineCaps.LINE_CAP_SQUARE, nLowCap = enumLineCaps.LINE_CAP_SQUARE, nTranspFactor = 0 });
 
                     if (m_chapter.Paragraphs != null)
@@ -5319,7 +5475,7 @@ namespace SoundStudio
                         {
                             if (word.StartTime.TotalMilliseconds > 0)
                             {
-                                word.GraphicItemUnique = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("W|" + word.Index, word.Content,
+                                word.GraphicItemUnique = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("WS|" + word.Index, word.Content,
                                     (int)word.StartTime.TotalMilliseconds == 0 ? 50 : (int)word.StartTime.TotalMilliseconds,
                                     new WANALYZER_VERTICAL_LINE
                                     {
@@ -5333,6 +5489,23 @@ namespace SoundStudio
                                     });
                             }
                         }
+                    }
+
+                    if (m_chapter.LastWord != null && m_chapter.LastWord.EndTime > TimeSpan.Zero)
+                    {
+                        m_endLineUniqueId = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("EndLine", "",
+                            (int)(m_chapter.LastWord.StartTime.TotalMilliseconds + m_chapter.LastWord.Duration.TotalMilliseconds),
+                                                new WANALYZER_VERTICAL_LINE
+                                                {
+                                                    color = Color.PeachPuff,
+                                                    nWidth = 2,
+                                                    nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT,
+                                                    nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DOT,
+                                                    nHighCap = enumLineCaps.LINE_CAP_SQUARE,
+                                                    nLowCap = enumLineCaps.LINE_CAP_SQUARE,
+                                                    nTranspFactor = 50
+                                                });
+                        ;
                     }
 
                     audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(false, -1, -1);
@@ -5380,6 +5553,9 @@ namespace SoundStudio
 
             richTextBox1.Rtf = null;
             Clip.Current.IsDirty = false;
+
+            audioSoundRecorder1.RecordedSound.FreeMemory();
+            audioSoundEditor1.LoadSoundFromRecordingSession(audioSoundRecorder1.Handle);
 
             DevideText();
         }
@@ -5521,29 +5697,63 @@ namespace SoundStudio
 
             int selectionIndex = Math.Max(0, richTextBox3.SelectionStart - START_PAUSE_SECTION_ANCHOR.Length);
 
-            if (selectionIndex == 0) // pause anchor
+            if (selectionIndex == 0) // start anchor
             {
                 //set current word start time when clicking word offline
                 timePickerCurrentWord.Value = TimeSpan.Zero;
                 timePickerCurrentWord.Enabled = false;
 
+                m_skipSelectionChange = true;
                 richTextBox3.SelectionStart = 0;
                 richTextBox3.SelectionLength = START_PAUSE_SECTION_ANCHOR.Length;
+                m_skipSelectionChange = false;
 
                 m_selectedAnchor = false;
-                m_selectedSilentAnchor = true;
+                m_selectedStartAnchor = true;
+                m_selectedEndAnchor = false;
 
-                //take first work
-                m_selectedScheduledWord = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(sc => sc.Sections)
-                    .SelectMany(w => w.Words).Where(ww => ww.Index == 0).FirstOrDefault();
+                //take first word
+                m_selectedScheduledWord = m_chapter.FirstWord;
+                LabelCurrentWordDuration.Text = audioSoundEditor1.FromMsToFormattedTime((int)m_selectedScheduledWord.StartTime.TotalMilliseconds, true, true);
 
                 //move line to start
-                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
+                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
 
+            }
+            //end anchor
+            else if (selectionIndex > richTextBox1.TextLength && m_chapter.Paragraphs != null)
+            {
+                m_skipSelectionChange = true;
+                richTextBox3.SelectionStart = richTextBox3.TextLength - END_PAUSE_SECTION_ANCHOR.Length;
+                richTextBox3.SelectionLength = END_PAUSE_SECTION_ANCHOR.Length;
+                m_skipSelectionChange = false;
+
+                m_selectedAnchor = false;
+                m_selectedStartAnchor = false;
+                m_selectedEndAnchor = true;
+
+                //set current word start time when clicking word offline
+                timePickerCurrentWord.Value = m_chapter.LastWord.StartTime + m_chapter.LastWord.Duration;
+                timePickerCurrentWord.Enabled = true;
+
+                LabelCurrentWordDuration.Text = audioSoundEditor1.FromMsToFormattedTime(
+                    (int)audioSoundEditor1.GetSoundDuration() - (int)timePickerCurrentWord.Value.TotalMilliseconds, //rest of the file
+                    true, true);
+
+                //set as null
+                m_selectedScheduledWord = null;
+
+                //move line
+                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, 
+                    (int)timePickerCurrentWord.Value.TotalMilliseconds,
+                    (int)timePickerCurrentWord.Value.TotalMilliseconds);
             }
             else if (m_chapter.Paragraphs != null)
             {
-                m_selectedSilentAnchor = false;
+                //clicked on any other parts in the clip
+
+                m_selectedStartAnchor = false;
+                m_selectedEndAnchor = false;
 
                 var savePreviousWord = m_selectedScheduledWord;
 
@@ -5567,10 +5777,12 @@ namespace SoundStudio
                         if ((m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration).TotalSeconds >= interval.TotalSeconds)
                         {
                             timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration - interval;
+                            timePickerCurrentWord.Enabled = false;
+                            LabelCurrentWordDuration.Text = "00:00:00.000";
                         }
 
                         //move line
-                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
+                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
 
                         m_selectedAnchor = true;
 
@@ -5578,49 +5790,29 @@ namespace SoundStudio
                     }
                     else
                     {
-                        //in case last word
-                        if (savePreviousWord == m_selectedScheduledWord
-                            && m_selectedScheduledWord == m_chapter.LastWord)
-                        {
-                            if (audioSoundEditor1.GetPlaybackStatus() == enumPlaybackStatus.PLAYBACK_PLAYING)
-                            {
-                                buttonHammer.Enabled = false;
-                                m_selectedScheduledWord.Duration = m_setStartTime - m_selectedScheduledWord.StartTime;
+                        //select the word
+                        richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
+                        richTextBox3.SelectionLength = m_selectedScheduledWord.Length;
 
-                                Debug.WriteLine(string.Format("Setting '{0}' with duration : {1}", m_selectedScheduledWord.Content, m_selectedScheduledWord.DurationText));
-                            }
-                            else
-                            {
-                                //set current word start time when clicking word offline
-                                timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime;
-                                timePickerCurrentWord.Enabled = true;
-                            }
+                        //in case set start time during scheduling
+                        if (n_hammerLastTimePressed != TimeSpan.Zero && audioSoundEditor1.GetPlaybackStatus() == enumPlaybackStatus.PLAYBACK_PLAYING)
+                        {
+                            m_selectedScheduledWord.StartTime = n_hammerLastTimePressed;
+
+                            Debug.WriteLine(string.Format("Setting '{0}' with start time : {1}", m_selectedScheduledWord.Content, m_selectedScheduledWord.StartTimeText));
+
+                            n_hammerLastTimePressed = TimeSpan.Zero;
                         }
-                        else
+                        else if (audioSoundEditor1.GetPlaybackStatus() != enumPlaybackStatus.PLAYBACK_PLAYING)
                         {
-                            //select the word
-                            richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
-                            richTextBox3.SelectionLength = m_selectedScheduledWord.Length;
-
-                            //in case set start time during scheduling
-                            if (m_setStartTime != TimeSpan.Zero && audioSoundEditor1.GetPlaybackStatus() == enumPlaybackStatus.PLAYBACK_PLAYING)
-                            {
-                                m_selectedScheduledWord.StartTime = m_setStartTime;
-
-                                Debug.WriteLine(string.Format("Setting '{0}' with start time : {1}", m_selectedScheduledWord.Content, m_selectedScheduledWord.StartTimeText));
-
-                                m_setStartTime = TimeSpan.Zero;
-                            }
-                            else if (audioSoundEditor1.GetPlaybackStatus() != enumPlaybackStatus.PLAYBACK_PLAYING)
-                            {
-                                //set current word start time when clicking word offline
-                                timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime;
-                                timePickerCurrentWord.Enabled = true;
-                            }
+                            //set current word start time when clicking word offline
+                            timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime;
+                            LabelCurrentWordDuration.Text = audioSoundEditor1.FromMsToFormattedTime((int)m_selectedScheduledWord.Duration.TotalMilliseconds, true, true);
+                            timePickerCurrentWord.Enabled = true;
                         }
 
                         //move guid line
-                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds);
+                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds);
                         m_selectedAnchor = false;
                         buttonScheduleAnchor.Enabled = false;
                     }
@@ -5637,7 +5829,7 @@ namespace SoundStudio
             label7.Text = string.Format("{0}:{1}", e.nPositionInMs, e.bIsSilent);
         }
 
-        private void buttonStartDJPlay_Click(object sender, EventArgs e)
+        private void buttonStartSchedulingPlayback_Click(object sender, EventArgs e)
         {
             Int32 nDurationInMs = audioSoundEditor1.GetSoundDuration();
             if (nDurationInMs == 0)
@@ -5645,24 +5837,24 @@ namespace SoundStudio
                 return;
             }
 
-            if (buttonStartDJPlay.Text == "התחל" || buttonStartDJPlay.Text == "המשך")
+            if (buttonStartSchedulingPlayback.Text == "התחל" || buttonStartSchedulingPlayback.Text == "המשך")
             {
                 buttonHammer.Enabled = true;
-                audioSoundEditor1.PlaySoundRange((int)timePickerCurrentWord.Value.TotalMilliseconds, -1);
-                buttonStartDJPlay.Text = "עצור";
+                audioSoundEditor1.PlaySoundRange((int)TimeSpan.Parse(LabelCurrentSchedulingTimer.Text).TotalMilliseconds, -1);
+                buttonStartSchedulingPlayback.Text = "עצור";
 
                 buttonRestartScheduling.Enabled = false;
                 timerUpdateTimePickerSpinner.Enabled = true;
                 timePickerCurrentWord.Enabled = false;
             }
-            else if (buttonStartDJPlay.Text == "עצור")
+            else if (buttonStartSchedulingPlayback.Text == "עצור")
             {
                 buttonHammer.Enabled = false;
                 buttonRestartScheduling.Enabled = true;
                 timePickerCurrentWord.Enabled = true;
                 timerUpdateTimePickerSpinner.Enabled = false;
                 audioSoundEditor1.StopSound();
-                buttonStartDJPlay.Text = "המשך";
+                buttonStartSchedulingPlayback.Text = "המשך";
             }
 
             //djLineTimer.Enabled = true;
@@ -5675,7 +5867,7 @@ namespace SoundStudio
         {
             //double position = 0;
             //audioDjStudio1.SoundPositionGet(0, ref position, false);
-            //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, (int)position, (int)position);
+            //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, (int)position, (int)position);
         }
 
         private void audioDjStudio1_SoundDone(object sender, AudioDjStudio.PlayerEventArgs e)
@@ -5690,17 +5882,24 @@ namespace SoundStudio
         /// <param name="e"></param>
         private void buttonHammer_Click(object sender, EventArgs e)
         {
+            //
+            // PLAYBACK
             if (audioSoundEditor1.GetPlaybackStatus() == enumPlaybackStatus.PLAYBACK_PLAYING)
             {
-                m_setStartTime = timePickerCurrentWord.Value;
+                n_hammerLastTimePressed = TimeSpan.Parse(LabelCurrentSchedulingTimer.Text);// timePickerCurrentWord.Value;
 
-                var saveIt = m_setStartTime;
+                //it resets when it pass the selected event
+                var saveIt = n_hammerLastTimePressed;
 
                 //in case current on silent part
-                if (m_selectedSilentAnchor)
+                if (m_selectedStartAnchor)
                 {
                     //goto to first word in chapter
                     richTextBox3.SelectionStart = START_PAUSE_SECTION_ANCHOR.Length + 1;
+                }
+                else if (m_selectedEndAnchor)
+                {
+                    // do nothing for now
                 }
                 else
                 {
@@ -5708,11 +5907,41 @@ namespace SoundStudio
                     richTextBox3.SelectionStart = richTextBox3.SelectionStart + richTextBox3.SelectionLength + 3;
                 }
 
-                //in case the last word we dont want to draw another ending line
-                if (m_selectedScheduledWord != m_chapter.LastWord)
+                //add line in case it doesn't exists
+                if (m_selectedScheduledWord != null && m_selectedScheduledWord.GraphicItemUnique > 0)
                 {
-                    //add line 
-                    m_selectedScheduledWord.GraphicItemUnique = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("W|" + m_selectedScheduledWord.Index, m_selectedScheduledWord.Content,
+                    //set new position
+                    audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_selectedScheduledWord.GraphicItemUnique,
+                        (int)saveIt.TotalMilliseconds == 0 ? 50 : (int)saveIt.TotalMilliseconds, (int)saveIt.TotalMilliseconds == 0 ? 50 : (int)saveIt.TotalMilliseconds);
+                }
+                else if (m_selectedScheduledWord == null && m_selectedEndAnchor)
+                {
+                    m_chapter.LastWord.Duration = saveIt - m_chapter.LastWord.StartTime;
+
+                    //create new anchor line
+                    audioSoundEditor1.DisplayWaveformAnalyzer
+                    .GraphicItemVerticalLineAdd("EndLine", "",
+                    (int)saveIt.TotalMilliseconds,
+                    new WANALYZER_VERTICAL_LINE
+                    {
+                        color = Color.PeachPuff,
+                        nWidth = 2,
+                        nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT,
+                        nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DOT,
+                        nHighCap = enumLineCaps.LINE_CAP_SQUARE,
+                        nLowCap = enumLineCaps.LINE_CAP_SQUARE,
+                        nTranspFactor = 50
+                    });
+
+                    buttonHammer.Enabled = false;
+                }
+                else
+                {
+                    //create new anchor line
+                    m_selectedScheduledWord.GraphicItemUnique =
+                        audioSoundEditor1.DisplayWaveformAnalyzer
+                        .GraphicItemVerticalLineAdd("WS|" + m_selectedScheduledWord.Index, m_selectedScheduledWord.Content,
+
                         (int)saveIt.TotalMilliseconds == 0 ? 50 : (int)saveIt.TotalMilliseconds,
                         new WANALYZER_VERTICAL_LINE
                         {
@@ -5725,19 +5954,68 @@ namespace SoundStudio
                             nTranspFactor = 50
                         });
                 }
+
+
             }
         }
 
         private void timePickerSpinner1_ValueChanged(object sender, EventArgs e)
         {
-
-            if (m_selectedScheduledWord != null && !m_selectedAnchor && !m_selectedSilentAnchor)
+            if (!m_selectedAnchor && !m_selectedStartAnchor
+                && audioSoundEditor1.GetPlaybackStatus() != enumPlaybackStatus.PLAYBACK_PLAYING)
             {
-                m_selectedScheduledWord.StartTime = timePickerCurrentWord.Value;
+                //end anchor
+                if (m_selectedEndAnchor && m_chapter.LastWord != null)
+                {
+                    if (timePickerCurrentWord.Value < m_chapter.LastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, 500)))
+                    {
+                        timePickerCurrentWord.Value = m_chapter.LastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, 500));
+                        return;
+                    }
 
-                //move relevet line
-                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_selectedScheduledWord.GraphicItemUnique,
-                    (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
+                    //set duration to last word
+                    m_chapter.LastWord.Duration = timePickerCurrentWord.Value - m_chapter.LastWord.StartTime;
+
+                    //move relevet line
+                    audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_endLineUniqueId,
+                        (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
+                }
+                else
+                {
+                    if (m_selectedScheduledWord != null)
+                    {
+                        if (m_selectedScheduledWord.PreviousWord != null &&
+                            timePickerCurrentWord.Value <= m_selectedScheduledWord.PreviousWord.StartTime + new TimeSpan(0, 0, 0, 0, 500))
+                        {
+                            timePickerCurrentWord.Value = m_selectedScheduledWord.PreviousWord.StartTime + new TimeSpan(0, 0, 0, 0, 500);
+                            return;
+                        }
+
+                        if (m_selectedScheduledWord.NextWord != null &&
+                            timePickerCurrentWord.Value >= m_selectedScheduledWord.NextWord.StartTime + new TimeSpan(0, 0, 0, 0, 500))
+                        {
+                            timePickerCurrentWord.Value = m_selectedScheduledWord.NextWord.StartTime + new TimeSpan(0, 0, 0, 0, 500);
+                            return;
+                        }
+
+                        //in all other cases we talk about start time
+                        m_selectedScheduledWord.StartTime = timePickerCurrentWord.Value;
+
+                        //move relevet line
+                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_selectedScheduledWord.GraphicItemUnique,
+                            (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
+
+                        //if its the last word move the red line also
+                        if (m_selectedScheduledWord.NextWord == null)
+                        {
+                            //move relevet line
+                            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_endLineUniqueId,
+                                (int)(timePickerCurrentWord.Value.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds) ,
+                                 (int)(timePickerCurrentWord.Value.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds));
+                        }
+
+                    }
+                }
             }
         }
 
@@ -5751,19 +6029,38 @@ namespace SoundStudio
 
             if (name == "MyLine")
             {
-                timePickerCurrentWord.Value = new TimeSpan(0, 0, 0, 0, e.nPosInMs);
+                //timePickerCurrentWord.Value = new TimeSpan(0, 0, 0, 0, e.nPosInMs);
             }
-            else if (name.StartsWith("W|"))
+            else if (name == "EndLine")
             {
-                //other anchor -- get its name W|12
+                var pos = m_chapter.LastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, 500));
+
+                if (m_chapter.LastWord != null &&
+                        new TimeSpan(0, 0, 0, 0, e.nPosInMs) <= pos)
+                {
+                    m_chapter.LastWord.Duration = pos - m_chapter.LastWord.StartTime;
+
+                    audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(e.nUniqueID,
+                        (int)pos.TotalMilliseconds, (int)pos.TotalMilliseconds);
+                }
+                else
+                {
+                    m_chapter.LastWord.Duration = new TimeSpan(0, 0, 0, 0, e.nPosInMs) - m_chapter.LastWord.StartTime;
+                }
+
+            }
+            else if (name.StartsWith("WS|"))
+            {
+                //other anchor -- get its name WS|12
                 int index = int.Parse(audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemNameGet(e.nUniqueID).Split('|')[1]);
 
                 var word = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).Where(w => w.Index == index).FirstOrDefault();
 
+                //if the user tried to move the line illegally
                 if (word.NextWord != null &&
-                    new TimeSpan(0, 0, 0, 0, e.nPosInMs) >= word.NextWord.StartTime.Subtract(new TimeSpan(0,0,0,0,500)))
+                    new TimeSpan(0, 0, 0, 0, e.nPosInMs) >= word.NextWord.StartTime.Subtract(new TimeSpan(0, 0, 0, 0, 500)))
                 {
-                    audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(e.nUniqueID, (int) word.NextWord.StartTime.TotalMilliseconds - 500, (int) word.NextWord.StartTime.TotalMilliseconds - 500);
+                    audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(e.nUniqueID, (int)word.NextWord.StartTime.TotalMilliseconds - 500, (int)word.NextWord.StartTime.TotalMilliseconds - 500);
                     word.StartTime = new TimeSpan(0, 0, 0, 0, (int)word.NextWord.StartTime.TotalMilliseconds - 500);
                 }
                 else if (word.PreviousWord != null &&
@@ -5774,30 +6071,21 @@ namespace SoundStudio
                 }
                 else
                 {
+                    //set word new start time
                     word.StartTime = new TimeSpan(0, 0, 0, 0, e.nPosInMs);
+
+                    //if this is the last word move its duration also
+                    if (word.NextWord == null)
+                    {
+                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_endLineUniqueId,
+                            (int)(word.StartTime + word.Duration).TotalMilliseconds,
+                             (int)(word.StartTime + word.Duration).TotalMilliseconds);
+                    }
                 }
             }
         }
 
-        private void audioSoundEditor1_WaveAnalyzerHorzLineMoving(object sender, WaveAnalyzerHorzLineMovingEventArgs e)
-        {
-
-        }
-
-        private void mnuLoadTest_Click(object sender, EventArgs e)
-        {
-            audioSoundEditor1.LoadSound(@"C:\Users\Administrator\Documents\7923.mp3");
-        }
-
-        private void audioSoundEditor1_WaveAnalyzerMouseNotification(object sender, WaveAnalyzerMouseNotificationEventArgs e)
-        {
-            if (e.nAction == enumMouseActions.MOUSE_ACTION_LEFT_CLICK)
-            {
-                
-            }
-        }
-
-        private void timerUpdateSpinnerControl_Tick(object sender, EventArgs e)
+        private void timerCheckPlaybackDuringScheduling_Tick(object sender, EventArgs e)
         {
             if (audioSoundEditor1.GetPlaybackStatus() != enumPlaybackStatus.PLAYBACK_PLAYING) // in case anchor fixing
             {
@@ -5812,8 +6100,8 @@ namespace SoundStudio
             //during playing check if the current position moved over to the next word
             if (m_chapter.Paragraphs != null && !m_selectedAnchor)
             {
-                //in case slient part
-                if (m_selectedSilentAnchor)
+                //in case start part
+                if (m_selectedStartAnchor)
                 {
                     if (position >= m_chapter.FirstWord.StartTime && m_chapter.FirstWord.StartTime > TimeSpan.Zero)
                     {
@@ -5822,23 +6110,49 @@ namespace SoundStudio
                         richTextBox3.SelectionStart = m_chapter.FirstWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + 1;
                     }
                 }
+                else if (m_selectedEndAnchor)
+                {
+                    //Do nothing for now
+                }
                 else
                 {
-                    //get next word
-                    if (m_selectedScheduledWord!=null && 
+                    //get next word in case timer moving and pass next start time word
+                    //catch all the words until the last one
+                    if (m_selectedScheduledWord != null &&
                         m_selectedScheduledWord.NextWord != null
                         && position >= m_selectedScheduledWord.NextWord.StartTime
                         && m_selectedScheduledWord.NextWord.NextWord != null
                         && position < m_selectedScheduledWord.NextWord.NextWord.StartTime)
                     {
                         //set time picker
-                        timePickerCurrentWord.Value = position;
+                        timePickerCurrentWord.Value = m_selectedScheduledWord.NextWord.StartTime;// position;
 
                         richTextBox3.SelectionStart = m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
                     }
-                    else
+                    // catch the last word as the last one
+                    else if (m_selectedScheduledWord != null &&
+                        m_selectedScheduledWord.NextWord != null
+                        && position >= m_selectedScheduledWord.NextWord.StartTime
+                        && position < m_selectedScheduledWord.NextWord.StartTime + m_selectedScheduledWord.NextWord.Duration
+                        && m_selectedScheduledWord.NextWord.NextWord == null
+                        )
                     {
+                        //set time picker
+                        timePickerCurrentWord.Value = m_selectedScheduledWord.NextWord.StartTime;// position;
 
+                        richTextBox3.SelectionStart = m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
+                    }
+                    // catch when passed the red line end border 
+                    else if (m_selectedScheduledWord != null &&
+                        m_selectedScheduledWord.NextWord == null &&
+                        m_selectedScheduledWord.Duration > TimeSpan.Zero
+                        && position >= m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration
+                        )
+                    {
+                        //set time picker
+                        timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration;
+
+                        richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + m_selectedScheduledWord.Length + 1;
                     }
                 }
             }
@@ -5857,8 +6171,22 @@ namespace SoundStudio
                     foreach (var word in words)
                     {
                         word.StartTime = TimeSpan.Zero;
-                        //word.Duration = TimeSpan.Zero;
+                        word.Duration = TimeSpan.Zero;
                     }
+
+                    //remove graphics
+                    foreach (Word word in words)
+                    {
+                        if (word.GraphicItemUnique > -1)
+                        {
+                            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(word.GraphicItemUnique);
+                            word.GraphicItemUnique = -1;
+                        }
+                    }
+
+                    //remove guid line
+                    audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_endLineUniqueId);
+                    audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
                 }
 
             }
@@ -5866,11 +6194,11 @@ namespace SoundStudio
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_uniqueLine, 0, 0);
+            //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, 0, 0);
             LabelCurrentSchedulingTimer.Text = audioSoundEditor1.FromMsToFormattedTime(0, true, true);// GetFormattedTime(e.nBeginPosInMs, true, true);
             //timePickerCurrentWord.Value = TimeSpan.Zero;
             richTextBox3.SelectionStart = 4;
-            buttonStartDJPlay.Text = "התחל";
+            buttonStartSchedulingPlayback.Text = "התחל";
             buttonHammer.Enabled = true;
         }
 
@@ -5900,9 +6228,9 @@ namespace SoundStudio
         {
             var name = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemNameGet(e.nUniqueID);
 
-            if (name.StartsWith("W|"))
+            if (name.StartsWith("WS|"))
             {
-                //other anchor -- get its name W|12
+                //other anchor -- get its name WS|12
                 int index = int.Parse(name.Split('|')[1]);
 
                 var word = m_chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).Where(w => w.Index == index).FirstOrDefault();
@@ -5914,6 +6242,13 @@ namespace SoundStudio
                 else
                 {
                     richTextBox3.SelectionStart = word.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + 1;
+                }
+            }
+            else if (name == "EndLine")
+            {
+                if (e.nButton == enumMouseButtons.MOUSE_BTN_LEFT)
+                {
+                    richTextBox3.SelectionStart = m_chapter.LastWord.RealCharIndex + m_chapter.LastWord.Length + START_PAUSE_SECTION_ANCHOR.Length + 1;
                 }
             }
         }
@@ -5938,17 +6273,6 @@ namespace SoundStudio
 
         private void buttonStartRecOverwrite_Click(object sender, EventArgs e)
         {
-            // create a fresh new recording session
-            audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_OVERWRITE);
-
-            // set the flag for "append" mode
-            m_bRecOverwriteMode = true;
-            TimeSpan startSelectionTime = TimeSpan.Parse(LabelSelectionBegin.Text);
-
-            audioSoundRecorder1.SetOverwritePos((int)startSelectionTime.TotalMilliseconds);
-
-            // start recording in memory from system default input device and input channel
-            audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
         }
 
         private void mnuLoginDifferentUser_Click(object sender, EventArgs e)
@@ -5972,13 +6296,13 @@ namespace SoundStudio
         {
             if (b_recordIconRed)
             {
-                buttonStartRecNew.BackgroundImage = imageList1.Images[1];
-                buttonStartRecNew.Refresh();
+                pictureBox1.Image = imageList1.Images[1];
+                pictureBox1.Refresh();
             }
             else
             {
-                buttonStartRecNew.BackgroundImage = imageList1.Images[0];
-                buttonStartRecNew.Refresh();
+                pictureBox1.Image = imageList1.Images[0];
+                pictureBox1.Refresh();
             }
             b_recordIconRed = !b_recordIconRed;
         }
@@ -6093,7 +6417,7 @@ namespace SoundStudio
 
         private void buttonAutoDevide_Click(object sender, EventArgs e)
         {
-            var parDelimiters = comboBoxAutoDevidePar.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select( w => w.Trim()).ToList<string>();
+            var parDelimiters = comboBoxAutoDevidePar.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Trim()).ToList<string>();
             var senDelimiters = comboBoxAutoDevideSen.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Trim()).ToList<string>();
 
             if (parDelimiters.Count() == 0)
@@ -6284,6 +6608,77 @@ namespace SoundStudio
         private void mnuRemoveTeamim_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = richTextBox1.Text.RemoveTeamim();
+        }
+
+        private void buttonRecOverwritePlayback_Click(object sender, EventArgs e)
+        {
+            buttonRecOverwritePlayback.Enabled = false;
+
+            // get the position selected on the waveform analyzer, if any
+            bool bSelectionAvailable = false;
+            Int32 nBeginSelectionInMs = 0;
+            Int32 nEndSelectionInMs = 0;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+            TimeSpan buffer = new TimeSpan(0, 0, (int)numericUpDownBufferRecord.Value);
+
+            int nBeginPlaying = Math.Max(0, nBeginSelectionInMs - (int)buffer.TotalMilliseconds);
+
+            // if a selection is available
+            if (bSelectionAvailable)
+            {
+                // play selected range only
+                audioSoundEditor1.PlaySoundRange(nBeginPlaying, nBeginSelectionInMs);
+                sevenSegment1.Value = numericUpDownBufferRecord.Value.ToString();
+                timerRefreshLedDisplay.Enabled = true;
+                m_bRecOverwriteMode = true;
+            }
+        }
+
+        private void timerStartRecordingAfterPlayingBuffer_Tick(object sender, EventArgs e)
+        {
+            timerStartRecordingAfterPlayingBuffer.Enabled = false;
+
+            if (m_bRecOverwriteMode)
+            {
+                // create a fresh new recording session
+                audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_OVERWRITE);
+                TimeSpan startSelectionTime = TimeSpan.Parse(LabelSelectionBegin.Text);
+
+                audioSoundRecorder1.SetOverwritePos((int)startSelectionTime.TotalMilliseconds);
+
+                // start recording in memory from system default input device and input channel
+                audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
+
+            }
+        }
+
+        private void audioSoundRecorder1_RecordingPaused(object sender, EventArgs e)
+        {
+            timerRecordIcon.Enabled = false;
+        }
+
+        private void audioSoundRecorder1_RecordingResumed(object sender, EventArgs e)
+        {
+            timerRecordIcon.Enabled = true;
+
+        }
+
+        private void audioSoundRecorder1_RecordingDuration(object sender, AudioSoundRecorder.RecordingDurationEventArgs e)
+        {
+            m_intRecordingDuration = e.nDuration;
+        }
+
+        private void timerRefreshLedDisplay_Tick(object sender, EventArgs e)
+        {
+            int val = int.Parse(sevenSegment1.Value);
+
+            sevenSegment1.Value = (val - 1).ToString();
+
+            if (val - 1 == 0)
+            {
+                timerRefreshLedDisplay.Enabled = false;
+            }
         }
 
     }

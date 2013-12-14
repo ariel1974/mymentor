@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrendanGrant.Helpers.FileAssociation;
 using Microsoft.Win32;
+using MyMentor;
+using MyMentor.ParseObjects;
 using Parse;
 
 namespace MyMentorUtilityClient
@@ -18,6 +20,8 @@ namespace MyMentorUtilityClient
         [STAThread]
         static void Main(string[] args)
         {
+            ParseObject.RegisterSubclass<Cat_Kria>();
+            ParseObject.RegisterSubclass<WorldContentType>();
             ParseClient.Initialize("qvC0Pgq7QGSqntpqnA75vGnNUBewQ08DplQcJtMI", "65j2W36stF0GXUhJwAEuTwJp6geDEWeaUSSFyHKg");
 
             Application.EnableVisualStyles();
@@ -61,7 +65,6 @@ namespace MyMentorUtilityClient
             //pai.DefaultIcon = new ProgramIcon(@"C:\SomePath\SomeIcon.ico");
 
             Application.Run(new SoundStudio.FormMain());
-            //Application.Run(new ModeSelection(args));
         }
     }
 }

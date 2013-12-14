@@ -63,6 +63,16 @@ namespace MyMentor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1386908112_Record_Button1 {
+            get {
+                object obj = ResourceManager.GetObject("1386908112_Record Button1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _1386909293_auction_hammer_gavel {
             get {
                 object obj = ResourceManager.GetObject("1386909293_auction_hammer_gavel", resourceCulture);

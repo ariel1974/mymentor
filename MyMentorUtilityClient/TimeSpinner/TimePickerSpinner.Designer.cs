@@ -57,10 +57,15 @@
             this.seconds.Format = null;
             this.seconds.Location = new System.Drawing.Point(43, 3);
             this.seconds.Maximum = new decimal(new int[] {
-            59,
+            60,
             0,
             0,
             0});
+            this.seconds.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
             this.seconds.Name = "seconds";
             this.seconds.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.seconds.Size = new System.Drawing.Size(34, 20);

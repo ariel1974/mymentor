@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,29 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>528, 17</value>
-  </metadata>
-  <metadata name="TimerReload.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>668, 17</value>
-  </metadata>
-  <metadata name="TimerMenuEnabler.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>788, 17</value>
-  </metadata>
-  <metadata name="timerDisplayWaveform.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 56</value>
-  </metadata>
-  <metadata name="timerRecordingDone.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>335, 56</value>
-  </metadata>
-  <metadata name="ToolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 95</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="tbrNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAK0SURBVDhPVZJLTxNhFIZnpT+FxChE48LEjSFpFTQhipi4
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAK0SURBVDhPVZJLTxNhFIZnpT+FxChE48LEjSFpFTQhipi4
         kVu5JEaJCxcmkhLEBAIuvMbExLhy4QYD5aJtaYC2tHJTmF5UBFqgQKG29DJfOxdezzcttH7Jk9NJ533m
         nDMj8GN4PNlwrd9jrRnw/DWaPRJVpvOMVy+r6Z9h1X0u8eLD6een6j6d0EOlp+qpczqaZPuiKKqxdBax
         VJH9JIchEEmicyiM2wPBzJV7oycL0fy52uuK8vDMugxvSIE3rMCzrsC1lsPk7yzG/WlkFcASlND5OYTm
@@ -157,7 +139,7 @@
   <data name="tbrOpen.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIQSURBVDhP3Y/NaxNBHIbn4L03/wQP1tSP2Kh48CKIIHgR
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAIQSURBVDhP3Y/NaxNBHIbn4L03/wQP1tSP2Kh48CKIIHgR
         PagnEbQElAgFRYg9pI0IkdLYg4ilWCrYWvEDQTwsnhpb202btdkmaW3aGrrBZr+/N/s6267SePAqOMzD
         zBye9/0N+U/WwrtovvrmjLP6B+X3R5cqLzt2L72ItrXwMdrGMCd2hTohuWcxy/ebAHy6A7bvrlnHOtNl
         r01etH5Rm7lhVicTVf71ofOhTgj3qlPyPRPWegb6cj/0lSEY1XH4rkizNPieSpG3324DgiDY/ESMC3VC
@@ -172,7 +154,7 @@
   <data name="tbrSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKrSURBVDhPjZLZTxNRGMX7D/lAl8El/hc+GsNW6AIEEJFN
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAKrSURBVDhPjZLZTxNRGMX7D/lAl8El/hc+GsNW6AIEEJFN
         q4kPagSJRiOLVAthFUV2O4CmilCoWDCYAi1dEEqBrkCndDt+c6s8EcIkJzczc8/vnJn7STgNX67Q8E1y
         LW8hBTjtUJzT6tKclge9Y7pUPIkrpVO4XMIju2g8eLWUX5Bpxq5JxItT861LriiWXAJiiTQEUvQ4hdBR
         EruhOPyRBLsX4inshRPQ6XRpvdWZuPHItM+pR/IlnNZoW3JGca/Ph2iczLSx4MkcAgcJ7JIhEk0ycJhW
@@ -190,7 +172,7 @@
   <data name="tbrSmallerFont.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
         YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
         0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
         bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
@@ -205,7 +187,7 @@
   <data name="tbrBiggerFont.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
         YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
         0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
         bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
@@ -220,7 +202,7 @@
   <data name="tbrFont.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHISURBVDhPYxi8wL79uoNz141Wj95bU5w7b/bbt9yY4NBy
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAHISURBVDhPYxi8wL79uoNz141Wj95bU5w7b/bbt9yY4NBy
         fZZl0aUuq6QjvAwM/xmhSrED25brwRnLHt2buOfl//5dz/93b3/+P37+/d8Odde2Gaed4YIqww3M6i/K
         hE29vSt72cNPRUtvfM1f8vC7XfnlGfbx+zmgSvAD6/Ir5fnLHn13bb+11rHm6oKmdU/+W+WcmwmVxg9M
         Ci4pJc+89yh68u37xlnnQkwzzzfUrHwENODCUqgS3CA0dBWzU/21VVn957+bpJ1NA/nXKPFMR+Wyh/8d
@@ -234,7 +216,7 @@
   <data name="tbrRight.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD4SURBVDhP3ZA9q4IAAAAFh4YCCSSKKIQyjELoA1KhD9TC
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAD4SURBVDhP3ZA9q4IAAAAFh4YCCSSKKIQyjELoA1KhD9TC
         ChRRiEKU0MHBwSH6+/eW9wPe4vJuPzhO+Ed8v18+nw91XVNVFWVZkuc5aZryfD6Jogjf9/E8D9u2+dUa
         4v1+kyQJj8eDMAy53++cz2eOxyOmabLZbBooKIqCLMt4vV7EcUwQBFyvVxzHYb/fs9vtWK1WLBYLVFVt
         +MHlcuF0OmFZFtvtFl3X0TSNyWTCaDSi3+83UHC73XBdl8PhgGEYrNdrlssls9kMRVEYDof0ej263S6d
@@ -244,7 +226,7 @@
   <data name="tbrLeft.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD6SURBVDhP3ZDBioIAAAX7ACGCCCKIDhWKYhiFESqSFVmi
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAD6SURBVDhP3ZDBioIAAAX7ACGCCCKIDhWKYhiFESqSFVmi
         VIIpUoQRgoIdot+fvexhz8t62bk/3jCNf8Tn8+H9fvN6vSjLkjzPybKM6/VKHMecz2d832e327Farfie
         /SFVVVEUBc/nk/v9TpqmRFHE8XjkcDiw2WxqeP3J4/HgdruRJAlhGBIEAa7r4jgOpmmi6zqapiHLMqPR
         qAaby+XC6XTC8zy22y22bbNcLpnNZqiqiiiKNTfY7/es12ssy2KxWDCdTlEUhfF4zGAwoNfr0el0aLVa
@@ -254,7 +236,7 @@
   <data name="tbrBold.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAE5SURBVDhP3ZExioNQEIbtbFJoo4WSbKGBFCGFChYJxCgG
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAE5SURBVDhP3ZExioNQEIbtbFJoo4WSbKGBFCGFChYJxCgG
         IdFCC61UiIFICgmC5TtCjuARcgSP4BFyBI8w+wwPYdnEfveDaX7mn5n/PeqfUVVVgqstyxKKoujyPEen
         0+mRJEkXhmHteR5DWj9zu93Q5XIBXA2RqN4cBAHs9/uWSJ+5Xq8oyzJI03QY4LouwgWGYQCRPnM+n1Ec
         xxBF0WtAf7Zpmk/btkHX9frVNAbOi7AZfN9/Hg4HtNvtWsuyQNO04aJRcF6EzeA4zmBQFKXG22E+n7ez
@@ -265,7 +247,7 @@
   <data name="tbrItalic.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACzSURBVDhP3Y6xCYUwEEAdw8pSTCEYRBS0MGAERchHC1Ew
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAACzSURBVDhP3Y6xCYUwEEAdw8pSTCEYRBS0MGAERchHC1Ew
         pM8SjuAIf4Q/QkZxBDe4n+IGiJa+8h1397yXo7Xet227lFKwLMs1jqPBkTtSytMugxBCoXJnXddknmcY
         huFCdY9pmg6bDW3bflHdw34+u66Dqqo+qNzp+z7hnENZls/yGWNH0zRAKX2Wn2XZWRQFEELu5+d5XtsD
         EEURoHInTdM9jmMThqEJgsD4vv/D0TvxvD//aDPvFosN6QAAAABJRU5ErkJggg==
@@ -274,7 +256,7 @@
   <data name="tbrUnderline.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEHSURBVDhPYxhcoLy8PAGI3wPx/9LS0n6oMBgkJiauj46O
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAEHSURBVDhPYxhcoLy8PAGI3wPx/9LS0n6oMBgkJiauj46O
         /h8SElIAFcIOgBr3l5SU/Idy4SA+Pl4gKCjoPJSLGxQWFu7Py8vDMAAEPD0990OZuEFubu7+jIwMrAY4
         OjoSNiA1NXU/0L9YDbCwsCBsQEJCwv7IyEisBujq6hI2ICIiYn9gYCBWA1RVVQkb4Ofn1+/t7f3f3t4+
         ACoEBsrKyg5ycnIoUYsVuLu7K5ibm78H4vP6+voKIDGQZhkZmfPi4uJgPkEA1Kygp6c3X0NDY7+iouJ+
@@ -285,7 +267,7 @@
   <data name="tbrParagraph.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIcSURBVDhPdZNNa5NREIX9P27UpmkMRVCorSi40agUXImi
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAIcSURBVDhPdZNNa5NREIX9P27UpmkMRVCorSi40agUXImi
         BD82CgUpuFAIii6K/0DRjUuNUmptTGJjW0HxI8VWtCptSU3etKYxbfJ45r750BgP3EDunTlz5sy8WzDU
         qrCxAaUSLC5BwYNKxT39C8W648MnqOpCCcvjz7gbOQKPnkBeJOsiNGJLqLlIoZ3AHjZ1sV7m6eVhRnfu
         ItMVonhpCLKzsLameJGYyg5oEZQleSUPt0aYDvWS6g6RHDgAcamxllTAqWkjqnug0yDxVmEiyctDR0kG
@@ -300,7 +282,7 @@
   <data name="tbrSentense.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
         YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
         0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
         bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
@@ -315,7 +297,7 @@
   <data name="tbrSection.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
         YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
         0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
         bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
@@ -330,7 +312,7 @@
   <data name="tbrWord.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEcSURBVDhPjZI/zkVAFMVFRUUlYgWWYAlKKkp2oBKdUqlU
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAEcSURBVDhPjZI/zkVAFMVFRUUlYgWWYAlKKkp2oBKdUqlU
         2gGlUmkH6JQ6Sp37cueNeZ+PEb9k4s/JPTn3zhXgH9u20bd3nAzqugZd16FpGvK97zs5T5wMXNcFQRDI
         CYIA1nWlCp9LC2VZgiRJxORvGh4XA2QcR7Asi6VxHAfmeabqt7XjeWtwkGUZS6MoClRVRZUfxOBpUH3f
         n9L4vg/LslCV08IdmEaWZWKiaRpM00T+vzLAhLgfcRyDKIpgGAZVXhp0XQemabI2wjBkbT8a4B5EUcQK
@@ -341,7 +323,7 @@
   <data name="tbrProperties.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKNSURBVDhPbVLrS9NRGN6/ENmXNKdfJSGtPiTCpqijmyQK
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAKNSURBVDhPbVLrS9NRGN6/ENmXNKdfJSGtPiTCpqijmyQK
         FhhGabhq+62F5oekUkxK7eYtnB8MS0K8/DaXl6WJeN3ykqWtkgVCRgSVhBblh6fznKlz2QMvHM55n+e8
         7/O+mn9hsVhSRFRaFeuY2WxeYvDMO76tpW2FoigRIrGitLRspfHhY3T3Pse4+6UMnnnHN+Ywd43mhyRb
         rE11dTY4e8bRqM6joP4Lzt9bkpFz6xOqmt/A0T0K5jA3SISqfFB7X6OscQEnSr6jsOEX1mGuXkaiaQ7m
@@ -358,22 +340,13 @@
   <data name="tbrParse.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADkSURBVDhPpZI7DsIwEERzFO6QC9GlT50i1+AQSKGgTk9D
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAADkSURBVDhPpZI7DsIwEERzFO6QC9GlT50i1+AQSKGgTk9D
         GcUHSIvEBYyfyVr+bAKIkaYZz+yu165yzPN8dByNMTYmGmerrcQ0TQdnvA+3wTbnxtanOiEaZ3jwrrE3
         EBwf3bUrgjnx4E2KUPWbsLC9tH4SH+ZejKYZhf3YW7A8l6CR8TthOdqdYxIEFBKNDFnGT8w5te5Csh8L
         aN2FaoE4sNcdqgXi0F536AtoS5Qg2OoelshT5M8oU4Ct7uEZgRvlp4+El4wPg7+/MkCgKqNpHwuNMzxF
         OAb3YjlsOCZauHNAVb0AfVNCjSWNJ/MAAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>760, 56</value>
-  </metadata>
-  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>124, 95</value>
-  </metadata>
-  <metadata name="fontDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>260, 95</value>
-  </metadata>
   <data name="audioDjStudio1.Fader" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFBBdWRpb0RqU3R1ZGlvLCBWZXJzaW9uPTEuMC4wLjAsIEN1bHR1
@@ -386,21 +359,12 @@
         YWRlT3V0TW9kZXMBAAAAB3ZhbHVlX18ACAIAAAAAAAAACw==
 </value>
   </data>
-  <metadata name="djLineTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>875, 56</value>
-  </metadata>
-  <metadata name="timerUpdateTimePickerSpinner.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>197, 17</value>
-  </metadata>
-  <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>418, 17</value>
-  </metadata>
   <data name="imageList1.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACM
-        FgAAAk1TRnQBSQFMAgEBAgEAAZwBBAGcAQQBIAEAASABAAT/AREBAAj/AUIBTQE2BwABNgMAASgDAAGA
+        FgAAAk1TRnQBSQFMAgEBAgEAATgBBAE8AQQBIAEAASABAAT/AREBEAj/AUIBTQE2BwABNgMAASgDAAGA
         AwABIAMAAQEBAAEQBgABIB4AAf8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/
         AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8YAAH/AX8B/wF/Af8BfwH/AX8B/wF/
         Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/
@@ -496,21 +460,9 @@
         AQcB4AIAAQcIAAHgAgABBwHgAgABBwgAAeACAAEHAeACAAEHCAAB4AIAAQcB4AIAAQcIAAHgAgABBwHg
         AgABBwgAAfACAAEPAfACAAEPCAAB8AIAAQ8B8AIAAQ8IAAH4AgABHwH4AgABHwgAAfwCAAE/AfwCAAE/
         CAAB/AIAAT8B/AIAAT8IAAH/AgAC/wIAAf8IAAH/AYABAQL/AYABAQH/CAAB/wHgAQcC/wHgAQcB/wgA
-        CP8IAAj/CAAI/wgACP8IAAs=
+        CP8IAAj/CAAI/wgACP8eAAs=
 </value>
   </data>
-  <metadata name="timerRecordIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>193, 56</value>
-  </metadata>
-  <metadata name="timerStartRecordingAfterPlayingBuffer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>500, 56</value>
-  </metadata>
-  <metadata name="timerRefreshLedDisplay.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>137</value>
-  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAYAwAAAAAEAIAAoGAMAZgAAACQwAAABACAAqBwAAI4YAwAwQAAAAQAgACgyAAA2NQMADBAAAAEA
@@ -5146,5 +5098,2663 @@
         ////////gAAAAf//////////wAAAA///////////wAAAA///////////4AAAB///////////8AAAD///
         ////////+AAAH////////////AAAP////////////wAA/////////////8AD//////8=
 </value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>MyMentor</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FormMain</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;audioDjStudio1.Name" xml:space="preserve">
+    <value>audioDjStudio1</value>
+  </data>
+  <data name="&gt;&gt;audioDjStudio1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;audioDjStudio1.Type" xml:space="preserve">
+    <value>AudioDjStudio.AudioDjStudio, AudioDjStudio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dd52dbb299cc1b2</value>
+  </data>
+  <data name="&gt;&gt;audioDjStudio1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;audioSoundEditor1.Name" xml:space="preserve">
+    <value>audioSoundEditor1</value>
+  </data>
+  <data name="&gt;&gt;audioSoundEditor1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;audioSoundEditor1.Type" xml:space="preserve">
+    <value>AudioSoundEditor.AudioSoundEditor, AudioSoundEditor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dd52dbb299cc1b2</value>
+  </data>
+  <data name="&gt;&gt;audioSoundEditor1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;audioSoundRecorder1.Name" xml:space="preserve">
+    <value>audioSoundRecorder1</value>
+  </data>
+  <data name="&gt;&gt;audioSoundRecorder1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;audioSoundRecorder1.Type" xml:space="preserve">
+    <value>AudioSoundRecorder.AudioSoundRecorder, AudioSoundRecorder, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dd52dbb299cc1b2</value>
+  </data>
+  <data name="&gt;&gt;audioSoundRecorder1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonAutoDevide.Name" xml:space="preserve">
+    <value>buttonAutoDevide</value>
+  </data>
+  <data name="&gt;&gt;buttonAutoDevide.Parent" xml:space="preserve">
+    <value>groupBox8</value>
+  </data>
+  <data name="&gt;&gt;buttonAutoDevide.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAutoDevide.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;buttonHammer.Name" xml:space="preserve">
+    <value>buttonHammer</value>
+  </data>
+  <data name="&gt;&gt;buttonHammer.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;buttonHammer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonHammer.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;buttonPause.Name" xml:space="preserve">
+    <value>buttonPause</value>
+  </data>
+  <data name="&gt;&gt;buttonPause.Parent" xml:space="preserve">
+    <value>framePlayback</value>
+  </data>
+  <data name="&gt;&gt;buttonPause.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonPause.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonPlay.Name" xml:space="preserve">
+    <value>buttonPlay</value>
+  </data>
+  <data name="&gt;&gt;buttonPlay.Parent" xml:space="preserve">
+    <value>framePlayback</value>
+  </data>
+  <data name="&gt;&gt;buttonPlay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonPlay.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;buttonPlaySelection.Name" xml:space="preserve">
+    <value>buttonPlaySelection</value>
+  </data>
+  <data name="&gt;&gt;buttonPlaySelection.Parent" xml:space="preserve">
+    <value>framePlayback</value>
+  </data>
+  <data name="&gt;&gt;buttonPlaySelection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonPlaySelection.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;buttonRecOverwritePlayback.Name" xml:space="preserve">
+    <value>buttonRecOverwritePlayback</value>
+  </data>
+  <data name="&gt;&gt;buttonRecOverwritePlayback.Parent" xml:space="preserve">
+    <value>groupBox9</value>
+  </data>
+  <data name="&gt;&gt;buttonRecOverwritePlayback.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonRecOverwritePlayback.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;buttonRestartScheduling.Name" xml:space="preserve">
+    <value>buttonRestartScheduling</value>
+  </data>
+  <data name="&gt;&gt;buttonRestartScheduling.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;buttonRestartScheduling.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonRestartScheduling.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;buttonScheduleAnchor.Name" xml:space="preserve">
+    <value>buttonScheduleAnchor</value>
+  </data>
+  <data name="&gt;&gt;buttonScheduleAnchor.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;buttonScheduleAnchor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonScheduleAnchor.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;buttonStartRecAppend.Name" xml:space="preserve">
+    <value>buttonStartRecAppend</value>
+  </data>
+  <data name="&gt;&gt;buttonStartRecAppend.Parent" xml:space="preserve">
+    <value>FrameRecording</value>
+  </data>
+  <data name="&gt;&gt;buttonStartRecAppend.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonStartRecAppend.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;buttonStartRecNew.Name" xml:space="preserve">
+    <value>buttonStartRecNew</value>
+  </data>
+  <data name="&gt;&gt;buttonStartRecNew.Parent" xml:space="preserve">
+    <value>FrameRecording</value>
+  </data>
+  <data name="&gt;&gt;buttonStartRecNew.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonStartRecNew.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;buttonStartSchedulingPlayback.Name" xml:space="preserve">
+    <value>buttonStartSchedulingPlayback</value>
+  </data>
+  <data name="&gt;&gt;buttonStartSchedulingPlayback.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;buttonStartSchedulingPlayback.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonStartSchedulingPlayback.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;buttonStop.Name" xml:space="preserve">
+    <value>buttonStop</value>
+  </data>
+  <data name="&gt;&gt;buttonStop.Parent" xml:space="preserve">
+    <value>framePlayback</value>
+  </data>
+  <data name="&gt;&gt;buttonStop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonStop.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;buttonStopRecording.Name" xml:space="preserve">
+    <value>buttonStopRecording</value>
+  </data>
+  <data name="&gt;&gt;buttonStopRecording.Parent" xml:space="preserve">
+    <value>FrameRecording</value>
+  </data>
+  <data name="&gt;&gt;buttonStopRecording.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonStopRecording.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.Name" xml:space="preserve">
+    <value>comboBox1</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAutoDevidePar.Name" xml:space="preserve">
+    <value>comboBoxAutoDevidePar</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAutoDevidePar.Parent" xml:space="preserve">
+    <value>groupBox8</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAutoDevidePar.Type" xml:space="preserve">
+    <value>PresentationControls.CheckBoxComboBox, MyMentor, Version=7.1.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAutoDevidePar.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAutoDevideSen.Name" xml:space="preserve">
+    <value>comboBoxAutoDevideSen</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAutoDevideSen.Parent" xml:space="preserve">
+    <value>groupBox8</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAutoDevideSen.Type" xml:space="preserve">
+    <value>PresentationControls.CheckBoxComboBox, MyMentor, Version=7.1.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;comboBoxAutoDevideSen.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;comboKria.Name" xml:space="preserve">
+    <value>comboKria</value>
+  </data>
+  <data name="&gt;&gt;comboKria.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;comboKria.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboKria.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;comboWorldContentType.Name" xml:space="preserve">
+    <value>comboWorldContentType</value>
+  </data>
+  <data name="&gt;&gt;comboWorldContentType.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;comboWorldContentType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboWorldContentType.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;def_par.Name" xml:space="preserve">
+    <value>def_par</value>
+  </data>
+  <data name="&gt;&gt;def_par.Parent" xml:space="preserve">
+    <value>groupBox7</value>
+  </data>
+  <data name="&gt;&gt;def_par.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;def_par.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;def_sec.Name" xml:space="preserve">
+    <value>def_sec</value>
+  </data>
+  <data name="&gt;&gt;def_sec.Parent" xml:space="preserve">
+    <value>groupBox7</value>
+  </data>
+  <data name="&gt;&gt;def_sec.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;def_sec.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;def_sen.Name" xml:space="preserve">
+    <value>def_sen</value>
+  </data>
+  <data name="&gt;&gt;def_sen.Parent" xml:space="preserve">
+    <value>groupBox7</value>
+  </data>
+  <data name="&gt;&gt;def_sen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;def_sen.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;def_wor.Name" xml:space="preserve">
+    <value>def_wor</value>
+  </data>
+  <data name="&gt;&gt;def_wor.Parent" xml:space="preserve">
+    <value>groupBox7</value>
+  </data>
+  <data name="&gt;&gt;def_wor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;def_wor.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;djLineTimer.Name" xml:space="preserve">
+    <value>djLineTimer</value>
+  </data>
+  <data name="&gt;&gt;djLineTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fontDialog1.Name" xml:space="preserve">
+    <value>fontDialog1</value>
+  </data>
+  <data name="&gt;&gt;fontDialog1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FontDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Frame4.Name" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;Frame4.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;Frame4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Frame4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;framePlayback.Name" xml:space="preserve">
+    <value>framePlayback</value>
+  </data>
+  <data name="&gt;&gt;framePlayback.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;framePlayback.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;framePlayback.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;FrameRecording.Name" xml:space="preserve">
+    <value>FrameRecording</value>
+  </data>
+  <data name="&gt;&gt;FrameRecording.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;FrameRecording.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FrameRecording.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;groupBox3.Name" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;groupBox3.Parent" xml:space="preserve">
+    <value>tableLayoutPanel5</value>
+  </data>
+  <data name="&gt;&gt;groupBox3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.Name" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;groupBox5.Name" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;groupBox5.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;groupBox5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox5.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;groupBox6.Name" xml:space="preserve">
+    <value>groupBox6</value>
+  </data>
+  <data name="&gt;&gt;groupBox6.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;groupBox6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox6.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;groupBox7.Name" xml:space="preserve">
+    <value>groupBox7</value>
+  </data>
+  <data name="&gt;&gt;groupBox7.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;groupBox7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox7.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;groupBox8.Name" xml:space="preserve">
+    <value>groupBox8</value>
+  </data>
+  <data name="&gt;&gt;groupBox8.Parent" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;groupBox8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox8.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;groupBox9.Name" xml:space="preserve">
+    <value>groupBox9</value>
+  </data>
+  <data name="&gt;&gt;groupBox9.Parent" xml:space="preserve">
+    <value>FrameRecording</value>
+  </data>
+  <data name="&gt;&gt;groupBox9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox9.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;imageList1.Name" xml:space="preserve">
+    <value>imageList1</value>
+  </data>
+  <data name="&gt;&gt;imageList1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label12.Name" xml:space="preserve">
+    <value>label12</value>
+  </data>
+  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;label12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;label14.Name" xml:space="preserve">
+    <value>label14</value>
+  </data>
+  <data name="&gt;&gt;label14.Parent" xml:space="preserve">
+    <value>groupBox8</value>
+  </data>
+  <data name="&gt;&gt;label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
+  </data>
+  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
+  </data>
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;label17.Name" xml:space="preserve">
+    <value>label17</value>
+  </data>
+  <data name="&gt;&gt;label17.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;label17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label18.Name" xml:space="preserve">
+    <value>label18</value>
+  </data>
+  <data name="&gt;&gt;label18.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;label18.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label19.Name" xml:space="preserve">
+    <value>label19</value>
+  </data>
+  <data name="&gt;&gt;label19.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;label19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;Label2.Name" xml:space="preserve">
+    <value>Label2</value>
+  </data>
+  <data name="&gt;&gt;Label2.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;Label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label20.Name" xml:space="preserve">
+    <value>label20</value>
+  </data>
+  <data name="&gt;&gt;label20.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;label20.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label21.Name" xml:space="preserve">
+    <value>label21</value>
+  </data>
+  <data name="&gt;&gt;label21.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;label21.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;label22.Name" xml:space="preserve">
+    <value>label22</value>
+  </data>
+  <data name="&gt;&gt;label22.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;label22.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;label23.Name" xml:space="preserve">
+    <value>label23</value>
+  </data>
+  <data name="&gt;&gt;label23.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;label23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;label24.Name" xml:space="preserve">
+    <value>label24</value>
+  </data>
+  <data name="&gt;&gt;label24.Parent" xml:space="preserve">
+    <value>groupBox8</value>
+  </data>
+  <data name="&gt;&gt;label24.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label25.Name" xml:space="preserve">
+    <value>label25</value>
+  </data>
+  <data name="&gt;&gt;label25.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;label25.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label26.Name" xml:space="preserve">
+    <value>label26</value>
+  </data>
+  <data name="&gt;&gt;label26.Parent" xml:space="preserve">
+    <value>groupBox9</value>
+  </data>
+  <data name="&gt;&gt;label26.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label27.Name" xml:space="preserve">
+    <value>label27</value>
+  </data>
+  <data name="&gt;&gt;label27.Parent" xml:space="preserve">
+    <value>groupBox9</value>
+  </data>
+  <data name="&gt;&gt;label27.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label27.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label29.Name" xml:space="preserve">
+    <value>label29</value>
+  </data>
+  <data name="&gt;&gt;label29.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label29.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label29.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;Label3.Name" xml:space="preserve">
+    <value>Label3</value>
+  </data>
+  <data name="&gt;&gt;Label3.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;Label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;Label4.Name" xml:space="preserve">
+    <value>Label4</value>
+  </data>
+  <data name="&gt;&gt;Label4.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;Label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;Label5.Name" xml:space="preserve">
+    <value>Label5</value>
+  </data>
+  <data name="&gt;&gt;Label5.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;Label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label5.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;Label6.Name" xml:space="preserve">
+    <value>Label6</value>
+  </data>
+  <data name="&gt;&gt;Label6.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;Label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label6.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;Label8.Name" xml:space="preserve">
+    <value>Label8</value>
+  </data>
+  <data name="&gt;&gt;Label8.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;Label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label8.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;LabelCurrentSchedulingTimer.Name" xml:space="preserve">
+    <value>LabelCurrentSchedulingTimer</value>
+  </data>
+  <data name="&gt;&gt;LabelCurrentSchedulingTimer.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;LabelCurrentSchedulingTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelCurrentSchedulingTimer.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;LabelCurrentWordDuration.Name" xml:space="preserve">
+    <value>LabelCurrentWordDuration</value>
+  </data>
+  <data name="&gt;&gt;LabelCurrentWordDuration.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;LabelCurrentWordDuration.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelCurrentWordDuration.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeBegin.Name" xml:space="preserve">
+    <value>LabelRangeBegin</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeBegin.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeBegin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeBegin.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeDuration.Name" xml:space="preserve">
+    <value>LabelRangeDuration</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeDuration.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeDuration.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeDuration.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeEnd.Name" xml:space="preserve">
+    <value>LabelRangeEnd</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeEnd.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeEnd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelRangeEnd.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionBegin.Name" xml:space="preserve">
+    <value>LabelSelectionBegin</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionBegin.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionBegin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionBegin.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionDuration.Name" xml:space="preserve">
+    <value>LabelSelectionDuration</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionDuration.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionDuration.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionDuration.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionEnd.Name" xml:space="preserve">
+    <value>LabelSelectionEnd</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionEnd.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionEnd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectionEnd.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;LabelStatus.Name" xml:space="preserve">
+    <value>LabelStatus</value>
+  </data>
+  <data name="&gt;&gt;LabelStatus.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;LabelStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelStatus.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;LabelTotalDuration.Name" xml:space="preserve">
+    <value>LabelTotalDuration</value>
+  </data>
+  <data name="&gt;&gt;LabelTotalDuration.Parent" xml:space="preserve">
+    <value>Frame4</value>
+  </data>
+  <data name="&gt;&gt;LabelTotalDuration.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelTotalDuration.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;lblLoginUser.Name" xml:space="preserve">
+    <value>lblLoginUser</value>
+  </data>
+  <data name="&gt;&gt;lblLoginUser.Parent" xml:space="preserve">
+    <value>panel5</value>
+  </data>
+  <data name="&gt;&gt;lblLoginUser.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblLoginUser.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;loc_par.Name" xml:space="preserve">
+    <value>loc_par</value>
+  </data>
+  <data name="&gt;&gt;loc_par.Parent" xml:space="preserve">
+    <value>groupBox6</value>
+  </data>
+  <data name="&gt;&gt;loc_par.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;loc_par.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;loc_sec.Name" xml:space="preserve">
+    <value>loc_sec</value>
+  </data>
+  <data name="&gt;&gt;loc_sec.Parent" xml:space="preserve">
+    <value>groupBox6</value>
+  </data>
+  <data name="&gt;&gt;loc_sec.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;loc_sec.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;loc_sen.Name" xml:space="preserve">
+    <value>loc_sen</value>
+  </data>
+  <data name="&gt;&gt;loc_sen.Parent" xml:space="preserve">
+    <value>groupBox6</value>
+  </data>
+  <data name="&gt;&gt;loc_sen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;loc_sen.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;loc_wor.Name" xml:space="preserve">
+    <value>loc_wor</value>
+  </data>
+  <data name="&gt;&gt;loc_wor.Parent" xml:space="preserve">
+    <value>groupBox6</value>
+  </data>
+  <data name="&gt;&gt;loc_wor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;loc_wor.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;maskedTextBox1.Name" xml:space="preserve">
+    <value>maskedTextBox1</value>
+  </data>
+  <data name="&gt;&gt;maskedTextBox1.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;maskedTextBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;maskedTextBox1.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;menuFile.Name" xml:space="preserve">
+    <value>menuFile</value>
+  </data>
+  <data name="&gt;&gt;menuFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors.Name" xml:space="preserve">
+    <value>mnuAnchors</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors_RemoveAll.Name" xml:space="preserve">
+    <value>mnuAnchors_RemoveAll</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors_RemoveAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors_RemoveParagraphs.Name" xml:space="preserve">
+    <value>mnuAnchors_RemoveParagraphs</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors_RemoveParagraphs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors_RemoveSections.Name" xml:space="preserve">
+    <value>mnuAnchors_RemoveSections</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors_RemoveSections.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors_RemoveSentenses.Name" xml:space="preserve">
+    <value>mnuAnchors_RemoveSentenses</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors_RemoveSentenses.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors_RemoveWords.Name" xml:space="preserve">
+    <value>mnuAnchors_RemoveWords</value>
+  </data>
+  <data name="&gt;&gt;mnuAnchors_RemoveWords.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudio.Name" xml:space="preserve">
+    <value>mnuAudio</value>
+  </data>
+  <data name="&gt;&gt;mnuAudio.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioEffects.Name" xml:space="preserve">
+    <value>mnuAudioEffects</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioEffects.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioEffects_Equalizer.Name" xml:space="preserve">
+    <value>mnuAudioEffects_Equalizer</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioEffects_Equalizer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioEffects_Pitch.Name" xml:space="preserve">
+    <value>mnuAudioEffects_Pitch</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioEffects_Pitch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioEffects_PlaybackRate.Name" xml:space="preserve">
+    <value>mnuAudioEffects_PlaybackRate</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioEffects_PlaybackRate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioEffects_Tempo.Name" xml:space="preserve">
+    <value>mnuAudioEffects_Tempo</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioEffects_Tempo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioLoad.Name" xml:space="preserve">
+    <value>mnuAudioLoad</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioLoad.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioOptions.Name" xml:space="preserve">
+    <value>mnuAudioOptions</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioOptions_AppendSoundFile.Name" xml:space="preserve">
+    <value>mnuAudioOptions_AppendSoundFile</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioOptions_AppendSoundFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioOptions_ApplyBackgroundSound.Name" xml:space="preserve">
+    <value>mnuAudioOptions_ApplyBackgroundSound</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioOptions_ApplyBackgroundSound.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioOptions_InsertSilent.Name" xml:space="preserve">
+    <value>mnuAudioOptions_InsertSilent</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioOptions_InsertSilent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioOptions_InsertSoundFile.Name" xml:space="preserve">
+    <value>mnuAudioOptions_InsertSoundFile</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioOptions_InsertSoundFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart.Name" xml:space="preserve">
+    <value>mnuAudioSelectedPart</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Copy.Name" xml:space="preserve">
+    <value>mnuAudioSelectedPart_Copy</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Copy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Cut.Name" xml:space="preserve">
+    <value>mnuAudioSelectedPart_Cut</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Cut.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Delete.Name" xml:space="preserve">
+    <value>mnuAudioSelectedPart_Delete</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Delete.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Paste.Name" xml:space="preserve">
+    <value>mnuAudioSelectedPart_Paste</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Paste.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_PasteInsertMode.Name" xml:space="preserve">
+    <value>mnuAudioSelectedPart_PasteInsertMode</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_PasteInsertMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Reduce.Name" xml:space="preserve">
+    <value>mnuAudioSelectedPart_Reduce</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Reduce.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Remove.Name" xml:space="preserve">
+    <value>mnuAudioSelectedPart_Remove</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_Remove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_SelectAll.Name" xml:space="preserve">
+    <value>mnuAudioSelectedPart_SelectAll</value>
+  </data>
+  <data name="&gt;&gt;mnuAudioSelectedPart_SelectAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_Exit.Name" xml:space="preserve">
+    <value>mnuFile_Exit</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_Exit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_NewClip.Name" xml:space="preserve">
+    <value>mnuFile_NewClip</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_NewClip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_Open.Name" xml:space="preserve">
+    <value>mnuFile_Open</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_Open.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_Parse.Name" xml:space="preserve">
+    <value>mnuFile_Parse</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_Parse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_Save.Name" xml:space="preserve">
+    <value>mnuFile_Save</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_Save.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_SaveAs.Name" xml:space="preserve">
+    <value>mnuFile_SaveAs</value>
+  </data>
+  <data name="&gt;&gt;mnuFile_SaveAs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuHelp_About.Name" xml:space="preserve">
+    <value>mnuHelp_About</value>
+  </data>
+  <data name="&gt;&gt;mnuHelp_About.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuHelp_ShowJSON.Name" xml:space="preserve">
+    <value>mnuHelp_ShowJSON</value>
+  </data>
+  <data name="&gt;&gt;mnuHelp_ShowJSON.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuLoginDifferentUser.Name" xml:space="preserve">
+    <value>mnuLoginDifferentUser</value>
+  </data>
+  <data name="&gt;&gt;mnuLoginDifferentUser.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuRemoveNikud.Name" xml:space="preserve">
+    <value>mnuRemoveNikud</value>
+  </data>
+  <data name="&gt;&gt;mnuRemoveNikud.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuRemoveSchedule.Name" xml:space="preserve">
+    <value>mnuRemoveSchedule</value>
+  </data>
+  <data name="&gt;&gt;mnuRemoveSchedule.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuRemoveTeamim.Name" xml:space="preserve">
+    <value>mnuRemoveTeamim</value>
+  </data>
+  <data name="&gt;&gt;mnuRemoveTeamim.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuText_Goto.Name" xml:space="preserve">
+    <value>mnuText_Goto</value>
+  </data>
+  <data name="&gt;&gt;mnuText_Goto.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuZoom.Name" xml:space="preserve">
+    <value>mnuZoom</value>
+  </data>
+  <data name="&gt;&gt;mnuZoom.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuZoom_AllClip.Name" xml:space="preserve">
+    <value>mnuZoom_AllClip</value>
+  </data>
+  <data name="&gt;&gt;mnuZoom_AllClip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuZoom_In.Name" xml:space="preserve">
+    <value>mnuZoom_In</value>
+  </data>
+  <data name="&gt;&gt;mnuZoom_In.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuZoom_Out.Name" xml:space="preserve">
+    <value>mnuZoom_Out</value>
+  </data>
+  <data name="&gt;&gt;mnuZoom_Out.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mnuZoom_Selection.Name" xml:space="preserve">
+    <value>mnuZoom_Selection</value>
+  </data>
+  <data name="&gt;&gt;mnuZoom_Selection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownBufferRecord.Name" xml:space="preserve">
+    <value>numericUpDownBufferRecord</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownBufferRecord.Parent" xml:space="preserve">
+    <value>groupBox9</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownBufferRecord.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownBufferRecord.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownInterval.Name" xml:space="preserve">
+    <value>numericUpDownInterval</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownInterval.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownInterval.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog1.Name" xml:space="preserve">
+    <value>openFileDialog1</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;panel3.Name" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;panel3.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;panel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;panel4.Name" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
+    <value>tableLayoutPanel5</value>
+  </data>
+  <data name="&gt;&gt;panel4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel4.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;panel5.Name" xml:space="preserve">
+    <value>panel5</value>
+  </data>
+  <data name="&gt;&gt;panel5.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;panel5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel5.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;panel6.Name" xml:space="preserve">
+    <value>panel6</value>
+  </data>
+  <data name="&gt;&gt;panel6.Parent" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;panel6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel6.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;panel7.Name" xml:space="preserve">
+    <value>panel7</value>
+  </data>
+  <data name="&gt;&gt;panel7.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;panel7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel7.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;Picture1.Name" xml:space="preserve">
+    <value>Picture1</value>
+  </data>
+  <data name="&gt;&gt;Picture1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;Picture1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Picture1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
+    <value>pictureBox1</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
+    <value>FrameRecording</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Name" xml:space="preserve">
+    <value>progressBar1</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.Name" xml:space="preserve">
+    <value>richTextBox1</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;richTextBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;richTextBox2.Name" xml:space="preserve">
+    <value>richTextBox2</value>
+  </data>
+  <data name="&gt;&gt;richTextBox2.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;richTextBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;richTextBox2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;richTextBox3.Name" xml:space="preserve">
+    <value>richTextBox3</value>
+  </data>
+  <data name="&gt;&gt;richTextBox3.Parent" xml:space="preserve">
+    <value>panel6</value>
+  </data>
+  <data name="&gt;&gt;richTextBox3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;richTextBox3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;richTextBox4.Name" xml:space="preserve">
+    <value>richTextBox4</value>
+  </data>
+  <data name="&gt;&gt;richTextBox4.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;richTextBox4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;richTextBox4.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog1.Name" xml:space="preserve">
+    <value>saveFileDialog1</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sevenSegment1.Name" xml:space="preserve">
+    <value>sevenSegment1</value>
+  </data>
+  <data name="&gt;&gt;sevenSegment1.Parent" xml:space="preserve">
+    <value>groupBox9</value>
+  </data>
+  <data name="&gt;&gt;sevenSegment1.Type" xml:space="preserve">
+    <value>DmitryBrant.CustomControls.SevenSegment, MyMentor, Version=7.1.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;sevenSegment1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;sop_student.Name" xml:space="preserve">
+    <value>sop_student</value>
+  </data>
+  <data name="&gt;&gt;sop_student.Parent" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;sop_student.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sop_student.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;sop_studentl.Name" xml:space="preserve">
+    <value>sop_studentl</value>
+  </data>
+  <data name="&gt;&gt;sop_studentl.Parent" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;sop_studentl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sop_studentl.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher1.Name" xml:space="preserve">
+    <value>sop_teacher1</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher1.Parent" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher1l.Name" xml:space="preserve">
+    <value>sop_teacher1l</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher1l.Parent" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher1l.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher1l.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher2.Name" xml:space="preserve">
+    <value>sop_teacher2</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher2.Parent" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher2l.Name" xml:space="preserve">
+    <value>sop_teacher2l</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher2l.Parent" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher2l.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sop_teacher2l.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;sop_teacherAndStudent.Name" xml:space="preserve">
+    <value>sop_teacherAndStudent</value>
+  </data>
+  <data name="&gt;&gt;sop_teacherAndStudent.Parent" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;sop_teacherAndStudent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sop_teacherAndStudent.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;sop_teacherAndStudentl.Name" xml:space="preserve">
+    <value>sop_teacherAndStudentl</value>
+  </data>
+  <data name="&gt;&gt;sop_teacherAndStudentl.Parent" xml:space="preserve">
+    <value>groupBox5</value>
+  </data>
+  <data name="&gt;&gt;sop_teacherAndStudentl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sop_teacherAndStudentl.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Name" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.Name" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.Parent" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel4.Name" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel5.Name" xml:space="preserve">
+    <value>tableLayoutPanel5</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel5.Parent" xml:space="preserve">
+    <value>tabPage4</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel5.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Name" xml:space="preserve">
+    <value>tabPage3</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tabPage4.Name" xml:space="preserve">
+    <value>tabPage4</value>
+  </data>
+  <data name="&gt;&gt;tabPage4.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabPage4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage4.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;tbrBiggerFont.Name" xml:space="preserve">
+    <value>tbrBiggerFont</value>
+  </data>
+  <data name="&gt;&gt;tbrBiggerFont.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrBold.Name" xml:space="preserve">
+    <value>tbrBold</value>
+  </data>
+  <data name="&gt;&gt;tbrBold.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrFont.Name" xml:space="preserve">
+    <value>tbrFont</value>
+  </data>
+  <data name="&gt;&gt;tbrFont.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrItalic.Name" xml:space="preserve">
+    <value>tbrItalic</value>
+  </data>
+  <data name="&gt;&gt;tbrItalic.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrLeft.Name" xml:space="preserve">
+    <value>tbrLeft</value>
+  </data>
+  <data name="&gt;&gt;tbrLeft.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrNew.Name" xml:space="preserve">
+    <value>tbrNew</value>
+  </data>
+  <data name="&gt;&gt;tbrNew.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrOpen.Name" xml:space="preserve">
+    <value>tbrOpen</value>
+  </data>
+  <data name="&gt;&gt;tbrOpen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrParagraph.Name" xml:space="preserve">
+    <value>tbrParagraph</value>
+  </data>
+  <data name="&gt;&gt;tbrParagraph.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrParse.Name" xml:space="preserve">
+    <value>tbrParse</value>
+  </data>
+  <data name="&gt;&gt;tbrParse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrProperties.Name" xml:space="preserve">
+    <value>tbrProperties</value>
+  </data>
+  <data name="&gt;&gt;tbrProperties.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrRight.Name" xml:space="preserve">
+    <value>tbrRight</value>
+  </data>
+  <data name="&gt;&gt;tbrRight.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrSave.Name" xml:space="preserve">
+    <value>tbrSave</value>
+  </data>
+  <data name="&gt;&gt;tbrSave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrSection.Name" xml:space="preserve">
+    <value>tbrSection</value>
+  </data>
+  <data name="&gt;&gt;tbrSection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrSentense.Name" xml:space="preserve">
+    <value>tbrSentense</value>
+  </data>
+  <data name="&gt;&gt;tbrSentense.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrSmallerFont.Name" xml:space="preserve">
+    <value>tbrSmallerFont</value>
+  </data>
+  <data name="&gt;&gt;tbrSmallerFont.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrUnderline.Name" xml:space="preserve">
+    <value>tbrUnderline</value>
+  </data>
+  <data name="&gt;&gt;tbrUnderline.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbrWord.Name" xml:space="preserve">
+    <value>tbrWord</value>
+  </data>
+  <data name="&gt;&gt;tbrWord.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
+    <value>textBox1</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;textBox3.Name" xml:space="preserve">
+    <value>textBox3</value>
+  </data>
+  <data name="&gt;&gt;textBox3.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;textBox3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox3.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;textBox6.Name" xml:space="preserve">
+    <value>textBox6</value>
+  </data>
+  <data name="&gt;&gt;textBox6.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;textBox6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox6.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;textBox7.Name" xml:space="preserve">
+    <value>textBox7</value>
+  </data>
+  <data name="&gt;&gt;textBox7.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;textBox7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox7.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;textBox8.Name" xml:space="preserve">
+    <value>textBox8</value>
+  </data>
+  <data name="&gt;&gt;textBox8.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;textBox8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox8.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;timePickerCurrentWord.Name" xml:space="preserve">
+    <value>timePickerCurrentWord</value>
+  </data>
+  <data name="&gt;&gt;timePickerCurrentWord.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;timePickerCurrentWord.Type" xml:space="preserve">
+    <value>MyMentorUtilityClient.TimeSpinner.TimePickerSpinner, MyMentor, Version=7.1.3.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;timePickerCurrentWord.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;timerDisplayWaveform.Name" xml:space="preserve">
+    <value>timerDisplayWaveform</value>
+  </data>
+  <data name="&gt;&gt;timerDisplayWaveform.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TimerMenuEnabler.Name" xml:space="preserve">
+    <value>TimerMenuEnabler</value>
+  </data>
+  <data name="&gt;&gt;TimerMenuEnabler.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;timerRecordIcon.Name" xml:space="preserve">
+    <value>timerRecordIcon</value>
+  </data>
+  <data name="&gt;&gt;timerRecordIcon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;timerRecordingDone.Name" xml:space="preserve">
+    <value>timerRecordingDone</value>
+  </data>
+  <data name="&gt;&gt;timerRecordingDone.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;timerRefreshLedDisplay.Name" xml:space="preserve">
+    <value>timerRefreshLedDisplay</value>
+  </data>
+  <data name="&gt;&gt;timerRefreshLedDisplay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TimerReload.Name" xml:space="preserve">
+    <value>TimerReload</value>
+  </data>
+  <data name="&gt;&gt;TimerReload.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;timerStartRecordingAfterPlayingBuffer.Name" xml:space="preserve">
+    <value>timerStartRecordingAfterPlayingBuffer</value>
+  </data>
+  <data name="&gt;&gt;timerStartRecordingAfterPlayingBuffer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;timerUpdateTimePickerSpinner.Name" xml:space="preserve">
+    <value>timerUpdateTimePickerSpinner</value>
+  </data>
+  <data name="&gt;&gt;timerUpdateTimePickerSpinner.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStrip1.Name" xml:space="preserve">
+    <value>ToolStrip1</value>
+  </data>
+  <data name="&gt;&gt;ToolStrip1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;ToolStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStrip1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem10.Name" xml:space="preserve">
+    <value>toolStripMenuItem10</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem11.Name" xml:space="preserve">
+    <value>toolStripMenuItem11</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem12.Name" xml:space="preserve">
+    <value>toolStripMenuItem12</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem13.Name" xml:space="preserve">
+    <value>toolStripMenuItem13</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem14.Name" xml:space="preserve">
+    <value>toolStripMenuItem14</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem15.Name" xml:space="preserve">
+    <value>toolStripMenuItem15</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
+    <value>toolStripMenuItem2</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
+    <value>toolStripMenuItem3</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
+    <value>toolStripMenuItem4</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem5.Name" xml:space="preserve">
+    <value>toolStripMenuItem5</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem6.Name" xml:space="preserve">
+    <value>toolStripMenuItem6</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem7.Name" xml:space="preserve">
+    <value>toolStripMenuItem7</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem8.Name" xml:space="preserve">
+    <value>toolStripMenuItem8</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem9.Name" xml:space="preserve">
+    <value>toolStripMenuItem9</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator1.Name" xml:space="preserve">
+    <value>ToolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator2.Name" xml:space="preserve">
+    <value>ToolStripSeparator2</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator3.Name" xml:space="preserve">
+    <value>ToolStripSeparator3</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator4.Name" xml:space="preserve">
+    <value>ToolStripSeparator4</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator5.Name" xml:space="preserve">
+    <value>toolStripSeparator5</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator6.Name" xml:space="preserve">
+    <value>toolStripSeparator6</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator7.Name" xml:space="preserve">
+    <value>toolStripSeparator7</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator8.Name" xml:space="preserve">
+    <value>toolStripSeparator8</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;טקסטToolStripMenuItem.Name" xml:space="preserve">
+    <value>טקסטToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;טקסטToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;עזרהToolStripMenuItem.Name" xml:space="preserve">
+    <value>עזרהToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;עזרהToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;תזמוןToolStripMenuItem.Name" xml:space="preserve">
+    <value>תזמוןToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;תזמוןToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>פרסם שיעור</value>
+  </data>
+  <data name="buttonAutoDevide.Text" xml:space="preserve">
+    <value>קבע עוגנים</value>
+  </data>
+  <data name="buttonPause.Text" xml:space="preserve">
+    <value>השהה</value>
+  </data>
+  <data name="buttonPlay.Text" xml:space="preserve">
+    <value>נגן</value>
+  </data>
+  <data name="buttonPlaySelection.Text" xml:space="preserve">
+    <value>נגן בחירה</value>
+  </data>
+  <data name="buttonRecOverwritePlayback.Text" xml:space="preserve">
+    <value>הקלט במקום הנבחר</value>
+  </data>
+  <data name="buttonRestartScheduling.Text" xml:space="preserve">
+    <value>חזור להתחלה</value>
+  </data>
+  <data name="buttonScheduleAnchor.Text" xml:space="preserve">
+    <value>התחל</value>
+  </data>
+  <data name="buttonStartRecAppend.Text" xml:space="preserve">
+    <value>המשך הקלטה מסוף הקטע</value>
+  </data>
+  <data name="buttonStartRecNew.Text" xml:space="preserve">
+    <value>התחל חדש</value>
+  </data>
+  <data name="buttonStartSchedulingPlayback.Text" xml:space="preserve">
+    <value>התחל</value>
+  </data>
+  <data name="buttonStop.Text" xml:space="preserve">
+    <value>עצור</value>
+  </data>
+  <data name="buttonStopRecording.Text" xml:space="preserve">
+    <value>עצור הקלטה</value>
+  </data>
+  <data name="comboBox1.Items" xml:space="preserve">
+    <value>PENDING</value>
+  </data>
+  <data name="comboBox1.Items1" xml:space="preserve">
+    <value>PUBLISHED</value>
+  </data>
+  <data name="comboBox1.Text" xml:space="preserve">
+    <value>PENDING</value>
+  </data>
+  <data name="comboBoxAutoDevidePar.Items" xml:space="preserve">
+    <value>ENTER</value>
+  </data>
+  <data name="comboBoxAutoDevidePar.Items1" xml:space="preserve">
+    <value>שני ENTER</value>
+  </data>
+  <data name="comboBoxAutoDevidePar.Items2" xml:space="preserve">
+    <value>אחרי 2 משפטים</value>
+  </data>
+  <data name="comboBoxAutoDevidePar.Items3" xml:space="preserve">
+    <value>אחרי 3 משפטים</value>
+  </data>
+  <data name="comboBoxAutoDevidePar.Items4" xml:space="preserve">
+    <value>אחרי 4 משפטים</value>
+  </data>
+  <data name="comboBoxAutoDevideSen.Items" xml:space="preserve">
+    <value>נקודותיים (:)</value>
+  </data>
+  <data name="comboBoxAutoDevideSen.Items1" xml:space="preserve">
+    <value>נקודה (.)</value>
+  </data>
+  <data name="comboBoxAutoDevideSen.Items2" xml:space="preserve">
+    <value>ENTER</value>
+  </data>
+  <data name="def_par.Text" xml:space="preserve">
+    <value>פסקה</value>
+  </data>
+  <data name="def_sec.Text" xml:space="preserve">
+    <value>קטע</value>
+  </data>
+  <data name="def_sen.Text" xml:space="preserve">
+    <value>משפט</value>
+  </data>
+  <data name="def_wor.Text" xml:space="preserve">
+    <value>מילים</value>
+  </data>
+  <data name="Frame4.Text" xml:space="preserve">
+    <value>מיקום</value>
+  </data>
+  <data name="framePlayback.Text" xml:space="preserve">
+    <value>ניגון</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>תזמון קטעים</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>בדיקת מעברים</value>
+  </data>
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>אפשרויות לימוד</value>
+  </data>
+  <data name="groupBox5.Text" xml:space="preserve">
+    <value>נעילות לימוד</value>
+  </data>
+  <data name="groupBox6.Text" xml:space="preserve">
+    <value>נעילות מקטעים</value>
+  </data>
+  <data name="groupBox7.Text" xml:space="preserve">
+    <value>מקטעי ברירת מחדל</value>
+  </data>
+  <data name="groupBox8.Text" xml:space="preserve">
+    <value>Automatic parsing</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>התחלה קטע נבחר</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>שנ'</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>פורסם ב</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>תיאור</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>סוף פסקה</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>משך</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>סטאטוס</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>תגים</value>
+  </data>
+  <data name="Label2.Text" xml:space="preserve">
+    <value>בחירה</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>עולם תוכן</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>קריאה</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>שם שיעור</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>גרסה</value>
+  </data>
+  <data name="label24.Text" xml:space="preserve">
+    <value>סוף משפט</value>
+  </data>
+  <data name="label25.Text" xml:space="preserve">
+    <value>* יש להקליק על העוגנים בטקסט לאפשור הבדיקה</value>
+  </data>
+  <data name="label26.Text" xml:space="preserve">
+    <value>שנ'</value>
+  </data>
+  <data name="label27.Text" xml:space="preserve">
+    <value>היסט עליון נגינה</value>
+  </data>
+  <data name="label29.Text" xml:space="preserve">
+    <value>אורך קטע נבחר</value>
+  </data>
+  <data name="Label3.Text" xml:space="preserve">
+    <value>תחום גלוי</value>
+  </data>
+  <data name="Label4.Text" xml:space="preserve">
+    <value>התחלה</value>
+  </data>
+  <data name="Label5.Text" xml:space="preserve">
+    <value>סוף</value>
+  </data>
+  <data name="Label6.Text" xml:space="preserve">
+    <value>משך</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>היסט עליון/תחתון</value>
+  </data>
+  <data name="Label8.Text" xml:space="preserve">
+    <value>אורך הקלטה</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>מיקום נוכחי</value>
+  </data>
+  <data name="LabelCurrentSchedulingTimer.Text" xml:space="preserve">
+    <value>00:00:00.000</value>
+  </data>
+  <data name="LabelCurrentWordDuration.Text" xml:space="preserve">
+    <value>00:00:00.000</value>
+  </data>
+  <data name="LabelRangeBegin.Text" xml:space="preserve">
+    <value>00:00:00.000</value>
+  </data>
+  <data name="LabelRangeDuration.Text" xml:space="preserve">
+    <value>00:00:00.000</value>
+  </data>
+  <data name="LabelRangeEnd.Text" xml:space="preserve">
+    <value>00:00:00.000</value>
+  </data>
+  <data name="LabelSelectionBegin.Text" xml:space="preserve">
+    <value>00:00:00.000</value>
+  </data>
+  <data name="LabelSelectionDuration.Text" xml:space="preserve">
+    <value>00:00:00.000</value>
+  </data>
+  <data name="LabelSelectionEnd.Text" xml:space="preserve">
+    <value>00:00:00.000</value>
+  </data>
+  <data name="LabelStatus.Text" xml:space="preserve">
+    <value>Status: Idle</value>
+  </data>
+  <data name="LabelTotalDuration.Text" xml:space="preserve">
+    <value>00:00:00.000</value>
+  </data>
+  <data name="lblLoginUser.Text" xml:space="preserve">
+    <value>הנך מחובר כ</value>
+  </data>
+  <data name="loc_par.Text" xml:space="preserve">
+    <value>פסקה</value>
+  </data>
+  <data name="loc_sec.Text" xml:space="preserve">
+    <value>קטע</value>
+  </data>
+  <data name="loc_sen.Text" xml:space="preserve">
+    <value>משפט</value>
+  </data>
+  <data name="loc_wor.Text" xml:space="preserve">
+    <value>מילים</value>
+  </data>
+  <data name="maskedTextBox1.Mask" xml:space="preserve">
+    <value>0.00</value>
+  </data>
+  <data name="maskedTextBox1.Text" xml:space="preserve">
+    <value>100</value>
+  </data>
+  <data name="menuFile.Text" xml:space="preserve">
+    <value>קובץ</value>
+  </data>
+  <data name="menuStrip1.Text" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="mnuAnchors.Text" xml:space="preserve">
+    <value>עוגנים</value>
+  </data>
+  <data name="mnuAnchors_RemoveAll.Text" xml:space="preserve">
+    <value>נקה כל העוגנים</value>
+  </data>
+  <data name="mnuAnchors_RemoveParagraphs.Text" xml:space="preserve">
+    <value>הסר עוגני פסקאות</value>
+  </data>
+  <data name="mnuAnchors_RemoveSections.Text" xml:space="preserve">
+    <value>הסר עוגני קטעים</value>
+  </data>
+  <data name="mnuAnchors_RemoveSentenses.Text" xml:space="preserve">
+    <value>הסר עוגני משפטים</value>
+  </data>
+  <data name="mnuAnchors_RemoveWords.Text" xml:space="preserve">
+    <value>הסר עוגני מילים</value>
+  </data>
+  <data name="mnuAudio.Text" xml:space="preserve">
+    <value>הקלטת שמע</value>
+  </data>
+  <data name="mnuAudioEffects.Text" xml:space="preserve">
+    <value>אפקטים</value>
+  </data>
+  <data name="mnuAudioEffects_Equalizer.Text" xml:space="preserve">
+    <value>Equalizer</value>
+  </data>
+  <data name="mnuAudioEffects_Pitch.Text" xml:space="preserve">
+    <value>ערוך Pitch</value>
+  </data>
+  <data name="mnuAudioEffects_PlaybackRate.Text" xml:space="preserve">
+    <value>ערוך Playback Rate</value>
+  </data>
+  <data name="mnuAudioEffects_Tempo.Text" xml:space="preserve">
+    <value>ערוך Tempo</value>
+  </data>
+  <data name="mnuAudioLoad.Text" xml:space="preserve">
+    <value>טען קובץ שמע</value>
+  </data>
+  <data name="mnuAudioOptions.Text" xml:space="preserve">
+    <value>אפשרויות</value>
+  </data>
+  <data name="mnuAudioOptions_AppendSoundFile.Text" xml:space="preserve">
+    <value>הוסף קובץ שמע</value>
+  </data>
+  <data name="mnuAudioOptions_ApplyBackgroundSound.Text" xml:space="preserve">
+    <value>שלב קובץ שמע ברקע</value>
+  </data>
+  <data name="mnuAudioOptions_InsertSilent.Text" xml:space="preserve">
+    <value>הכנס קטע שקט</value>
+  </data>
+  <data name="mnuAudioOptions_InsertSoundFile.Text" xml:space="preserve">
+    <value>הכנס קובץ שמע</value>
+  </data>
+  <data name="mnuAudioSelectedPart.Text" xml:space="preserve">
+    <value>קטע נבחר</value>
+  </data>
+  <data name="mnuAudioSelectedPart_Copy.Text" xml:space="preserve">
+    <value>העתק</value>
+  </data>
+  <data name="mnuAudioSelectedPart_Cut.Text" xml:space="preserve">
+    <value>גזור</value>
+  </data>
+  <data name="mnuAudioSelectedPart_Delete.Text" xml:space="preserve">
+    <value>מחק בחירה</value>
+  </data>
+  <data name="mnuAudioSelectedPart_Paste.Text" xml:space="preserve">
+    <value>הדבק</value>
+  </data>
+  <data name="mnuAudioSelectedPart_PasteInsertMode.Text" xml:space="preserve">
+    <value>הדבק לקטע הנבחר</value>
+  </data>
+  <data name="mnuAudioSelectedPart_Reduce.Text" xml:space="preserve">
+    <value>צמצם לבחירה</value>
+  </data>
+  <data name="mnuAudioSelectedPart_Remove.Text" xml:space="preserve">
+    <value>הסר בחירה</value>
+  </data>
+  <data name="mnuAudioSelectedPart_SelectAll.Text" xml:space="preserve">
+    <value>בחר הכל</value>
+  </data>
+  <data name="mnuFile_Exit.Text" xml:space="preserve">
+    <value>יציאה</value>
+  </data>
+  <data name="mnuFile_NewClip.Text" xml:space="preserve">
+    <value>שיעור חדש</value>
+  </data>
+  <data name="mnuFile_Open.Text" xml:space="preserve">
+    <value>פתח שיעור</value>
+  </data>
+  <data name="mnuFile_Parse.Text" xml:space="preserve">
+    <value>בדוק תקינות</value>
+  </data>
+  <data name="mnuFile_Save.Text" xml:space="preserve">
+    <value>שמור שיעור</value>
+  </data>
+  <data name="mnuFile_SaveAs.Text" xml:space="preserve">
+    <value>שמור שיעור בשם...</value>
+  </data>
+  <data name="mnuHelp_About.Text" xml:space="preserve">
+    <value>אודות</value>
+  </data>
+  <data name="mnuHelp_ShowJSON.Text" xml:space="preserve">
+    <value>הצג נתוני DEBUG</value>
+  </data>
+  <data name="mnuLoginDifferentUser.Text" xml:space="preserve">
+    <value>התחבר כמשתמש אחר</value>
+  </data>
+  <data name="mnuRemoveNikud.Text" xml:space="preserve">
+    <value>הסר ניקוד</value>
+  </data>
+  <data name="mnuRemoveSchedule.Text" xml:space="preserve">
+    <value>נקה תזמונים</value>
+  </data>
+  <data name="mnuRemoveTeamim.Text" xml:space="preserve">
+    <value>הסר טעמים</value>
+  </data>
+  <data name="mnuText_Goto.Text" xml:space="preserve">
+    <value>גש למספר תו</value>
+  </data>
+  <data name="mnuZoom.Text" xml:space="preserve">
+    <value>זום</value>
+  </data>
+  <data name="mnuZoom_AllClip.Text" xml:space="preserve">
+    <value>זום לכל הקטע</value>
+  </data>
+  <data name="mnuZoom_In.Text" xml:space="preserve">
+    <value>זום פנימה</value>
+  </data>
+  <data name="mnuZoom_Out.Text" xml:space="preserve">
+    <value>זום החוצה</value>
+  </data>
+  <data name="mnuZoom_Selection.Text" xml:space="preserve">
+    <value>זום לקטע הנבחר</value>
+  </data>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="richTextBox2.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="richTextBox3.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="richTextBox4.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="sop_student.Text" xml:space="preserve">
+    <value>תלמיד</value>
+  </data>
+  <data name="sop_studentl.Text" xml:space="preserve">
+    <value>תלמיד</value>
+  </data>
+  <data name="sop_teacher1.Text" xml:space="preserve">
+    <value>מורה 1</value>
+  </data>
+  <data name="sop_teacher1l.Text" xml:space="preserve">
+    <value>מורה 1</value>
+  </data>
+  <data name="sop_teacher2.Text" xml:space="preserve">
+    <value>מורה 2</value>
+  </data>
+  <data name="sop_teacher2l.Text" xml:space="preserve">
+    <value>מורה 2</value>
+  </data>
+  <data name="sop_teacherAndStudent.Text" xml:space="preserve">
+    <value>מורה ותלמיד</value>
+  </data>
+  <data name="sop_teacherAndStudentl.Text" xml:space="preserve">
+    <value>מורה ותלמיד</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>1 - טקסט</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>2 - הקלטה</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>3 - תזמון</value>
+  </data>
+  <data name="tabPage4.Text" xml:space="preserve">
+    <value>4 - פרסום</value>
+  </data>
+  <data name="tbrBiggerFont.Text" xml:space="preserve">
+    <value>+A</value>
+  </data>
+  <data name="tbrBiggerFont.ToolTipText" xml:space="preserve">
+    <value>הגדל טקסט</value>
+  </data>
+  <data name="tbrBold.Text" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+  <data name="tbrBold.ToolTipText" xml:space="preserve">
+    <value>מודגש</value>
+  </data>
+  <data name="tbrFont.Text" xml:space="preserve">
+    <value>Font</value>
+  </data>
+  <data name="tbrFont.ToolTipText" xml:space="preserve">
+    <value>גופן</value>
+  </data>
+  <data name="tbrItalic.Text" xml:space="preserve">
+    <value>Italic</value>
+  </data>
+  <data name="tbrItalic.ToolTipText" xml:space="preserve">
+    <value>נטוי</value>
+  </data>
+  <data name="tbrLeft.Text" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="tbrLeft.ToolTipText" xml:space="preserve">
+    <value>יישר לשמאל</value>
+  </data>
+  <data name="tbrNew.Text" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="tbrNew.ToolTipText" xml:space="preserve">
+    <value>חדש</value>
+  </data>
+  <data name="tbrOpen.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="tbrOpen.ToolTipText" xml:space="preserve">
+    <value>פתח</value>
+  </data>
+  <data name="tbrParagraph.Text" xml:space="preserve">
+    <value>[3]</value>
+  </data>
+  <data name="tbrParagraph.ToolTipText" xml:space="preserve">
+    <value>חלק פסקה</value>
+  </data>
+  <data name="tbrParse.Text" xml:space="preserve">
+    <value>toolStripButton10</value>
+  </data>
+  <data name="tbrParse.ToolTipText" xml:space="preserve">
+    <value>בדוק תקינות</value>
+  </data>
+  <data name="tbrProperties.Text" xml:space="preserve">
+    <value>toolStripButton11</value>
+  </data>
+  <data name="tbrProperties.ToolTipText" xml:space="preserve">
+    <value>מאפייני שיעור</value>
+  </data>
+  <data name="tbrRight.Text" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="tbrRight.ToolTipText" xml:space="preserve">
+    <value>ישר לימין</value>
+  </data>
+  <data name="tbrSave.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="tbrSave.ToolTipText" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="tbrSection.Text" xml:space="preserve">
+    <value>[1]</value>
+  </data>
+  <data name="tbrSection.ToolTipText" xml:space="preserve">
+    <value>חלק קטע</value>
+  </data>
+  <data name="tbrSentense.Text" xml:space="preserve">
+    <value>[2]</value>
+  </data>
+  <data name="tbrSentense.ToolTipText" xml:space="preserve">
+    <value>חלק משפט</value>
+  </data>
+  <data name="tbrSmallerFont.Text" xml:space="preserve">
+    <value>-A</value>
+  </data>
+  <data name="tbrUnderline.Text" xml:space="preserve">
+    <value>Underline</value>
+  </data>
+  <data name="tbrUnderline.ToolTipText" xml:space="preserve">
+    <value>קו תחתי</value>
+  </data>
+  <data name="tbrWord.Text" xml:space="preserve">
+    <value>[0]</value>
+  </data>
+  <data name="tbrWord.ToolTipText" xml:space="preserve">
+    <value>התחל מילה</value>
+  </data>
+  <data name="ToolStrip1.Text" xml:space="preserve">
+    <value>ToolStrip1</value>
+  </data>
+  <data name="טקסטToolStripMenuItem.Text" xml:space="preserve">
+    <value>טקסט</value>
+  </data>
+  <data name="עזרהToolStripMenuItem.Text" xml:space="preserve">
+    <value>עזרה</value>
+  </data>
+  <data name="תזמוןToolStripMenuItem.Text" xml:space="preserve">
+    <value>תזמון</value>
   </data>
 </root>

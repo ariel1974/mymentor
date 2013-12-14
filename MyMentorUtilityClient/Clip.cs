@@ -14,11 +14,18 @@ using Microsoft.Win32;
 using MyMentorUtilityClient.Json;
 using Newtonsoft.Json;
 using Parse;
+using SoundStudio;
 
 namespace MyMentorUtilityClient
 {
     public class Clip
     {
+
+        private static Regex m_regexParagraphs = new Regex(@"(.+?)(\[3\]|$)", RegexOptions.Compiled | RegexOptions.Singleline);
+        private static Regex m_regexSentenses = new Regex(@"(.+?)(\[2\]|$)", RegexOptions.Compiled | RegexOptions.Singleline);
+        private static Regex m_regexSections = new Regex(@"(.+?)(\[1\]|$)", RegexOptions.Compiled | RegexOptions.Singleline);
+        private static Regex m_regexWords = new Regex(@"(.+?)(\[0\]|$)", RegexOptions.Compiled | RegexOptions.Singleline);
+
         public const string PAR_SIGN = "[3]";
         public const string SEN_SIGN = "[2]";
         public const string SEC_SIGN = "[1]";
@@ -88,7 +95,255 @@ namespace MyMentorUtilityClient
         [JsonProperty("chapter")]
         public Chapter Chapter { get; set; }
 
+        /// <summary>
+        /// Holds the content non stripped
+        /// </summary>
+        public string Text { get; set; }
+
         public string RtfText { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Devide()
+        {
+            try
+            {
+                var paragraphs_local = new List<Paragraph>();
+                int paragraphIndex = -1;
+                int sectionIndex = -1;
+                int sentenceIndex = -1;
+                int wordIndex = -1;
+
+                int innerSentenceIndex = -1;
+                int innerSectionIndex = -1;
+
+                TimeSpan nextStartTime = TimeSpan.Zero;
+                TimeSpan nextParagraphDuration = TimeSpan.Zero;
+                TimeSpan nextSentenceDuration = TimeSpan.Zero;
+                TimeSpan nextSectionDuration = TimeSpan.Zero;
+
+                Word previousWord = null;
+                Word firstWord = null;
+                Word lastWord = null;
+
+                int bufferIndex = 0;
+
+                List<SectionMatch> matchesParagraphs = m_regexParagraphs.Matches(this.Text).Cast<Match>()
+                            .Select(m => m.Groups[1])
+                            .Select(m => new SectionMatch()
+                            {
+                                CharIndex = m.Index,
+                                Length = m.Length,
+                                Value = m.Value
+                            })
+                            .ToList();
+
+                if (matchesParagraphs.Count == 0)
+                {
+                    matchesParagraphs.Add(new SectionMatch()
+                    {
+                        CharIndex = 0,
+                        Length = this.Text.Length,
+                        Value = this.Text
+                    });
+                }
+
+                foreach (SectionMatch matchParagraph in matchesParagraphs)
+                {
+                    paragraphIndex++;
+                    innerSentenceIndex = -1;
+
+                    TimeSpan start = TimeSpan.Zero;
+                    TimeSpan duration = TimeSpan.Zero;
+
+                    paragraphs_local.Add(new Paragraph
+                    {
+                        Content = matchParagraph.StrippedValue,
+                        RealCharIndex = matchParagraph.CharIndex,
+                        CharIndex = matchParagraph.CharIndex - bufferIndex,
+                        Index = paragraphIndex,
+                        Sentences = new List<Sentence>()
+                    });
+
+                    bufferIndex += 3;
+
+                    List<SectionMatch> matchesSentenses = m_regexSentenses.Matches(matchParagraph.Value).Cast<Match>()
+                        .Select(m => m.Groups[1])
+                        .Select(m => new SectionMatch()
+                        {
+                            CharIndex = m.Index,
+                            Length = m.Length,
+                            Value = m.Value
+                        })
+                        .ToList();
+
+                    if (matchesSentenses.Count == 0)
+                    {
+                        matchesSentenses.Add(matchParagraph);
+                    }
+
+                    foreach (SectionMatch matchSentense in matchesSentenses)
+                    {
+                        start = TimeSpan.Zero;
+                        duration = TimeSpan.Zero;
+
+                        sentenceIndex++;
+                        innerSentenceIndex++;
+                        innerSectionIndex = -1;
+
+                        int sectionsOffset = 0;
+                        int wordsOffset = 0;
+
+                        if (innerSentenceIndex > 0)
+                        {
+                            sectionsOffset = Math.Max(0, paragraphs_local[paragraphIndex].Sentences.Take(innerSentenceIndex).SelectMany(p => p.Sections).Count() * 3 - 3);
+                            wordsOffset = Math.Max(0, paragraphs_local[paragraphIndex].Sentences.Take(innerSentenceIndex).SelectMany(p => p.Sections).SelectMany(w => w.Words).Count() * 3);
+                        }
+
+                        paragraphs_local[paragraphIndex].Sentences.Add(new Sentence
+                        {   //                     5                               +           15    - 4   - (4 * 1) - 2
+                            Content = matchSentense.StrippedValue,
+                            RealCharIndex = paragraphs_local[paragraphIndex].RealCharIndex + matchSentense.CharIndex,
+                            CharIndex = paragraphs_local[paragraphIndex].CharIndex + matchSentense.CharIndex - wordsOffset,// - Math.Max(0, 3 * innerSentenceIndex ),
+                            Index = sentenceIndex,
+                            Sections = new List<Section>()
+                        });
+
+                        bufferIndex += innerSentenceIndex == 0 ? 0 : 3;
+
+                        List<SectionMatch> matchesSections = m_regexSections.Matches(matchSentense.Value).Cast<Match>()
+                            .Select(m => m.Groups[1])
+                            .Select(m => new SectionMatch()
+                            {
+                                CharIndex = m.Index,
+                                Length = m.Length,
+                                Value = m.Value
+                            })
+                            .ToList();
+
+                        if (matchesSentenses.Count == 0)
+                        {
+                            matchesSentenses.Add(matchSentense);
+                        }
+
+                        foreach (SectionMatch matchSection in matchesSections)
+                        {
+                            int innerWordIndex = -1;
+                            sectionIndex++;
+                            innerSectionIndex++;
+
+                            start = TimeSpan.Zero;
+                            duration = TimeSpan.Zero;
+
+                            int groupWordsBuffer = Math.Max(0, paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.SelectMany(s => s.Words).Count() * 3);
+
+                            paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections.Add(new Section
+                            {
+                                Content = matchSection.StrippedValue,
+                                RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].RealCharIndex + matchSection.CharIndex,
+                                CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].CharIndex + matchSection.CharIndex
+                                - groupWordsBuffer,
+                                Index = sectionIndex,
+                                Words = new List<Word>(),
+                            });
+
+                            bufferIndex += innerSectionIndex == 0 ? 0 : 3;
+
+                            List<SectionMatch> matchesWords = m_regexWords.Matches(matchSection.Value).Cast<Match>()
+                                .Select(m => m.Groups[1])
+                                .Select(m => new SectionMatch()
+                                {
+                                    CharIndex = m.Index,
+                                    Length = m.Length,
+                                    Value = m.Value
+                                })
+                                .ToList();
+
+                            if (matchesWords.Count == 0)
+                            {
+                                matchesWords.Add(matchSection);
+                            }
+
+                            foreach (SectionMatch matchWord in matchesWords)
+                            {
+                                wordIndex++;
+                                innerWordIndex++;
+
+                                Word ex_word = null;
+
+                                if (this.Chapter != null &&
+                                    this.Chapter.Paragraphs != null)
+                                {
+                                    ex_word = this.Chapter.Paragraphs.SelectMany(s => s.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).FirstOrDefault(w => w.Index == wordIndex);
+
+                                    if (ex_word != null)
+                                    {
+                                        start = ex_word.StartTime;
+
+                                        if (ex_word.NextWord == null)
+                                        {
+                                            duration = ex_word.Duration;
+                                        }
+                                    }
+                                }
+
+                                var newWord = new Word
+                                {
+                                    RealCharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].RealCharIndex + matchWord.CharIndex,
+                                    CharIndex = paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].CharIndex + matchWord.CharIndex
+                                    - (3 * Math.Max(0, paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Count())),
+                                    Index = wordIndex,
+                                    Content = matchWord.Value,
+                                    StartTime = start
+                                };
+
+                                //in case last word grab the duration
+                                if (ex_word != null && ex_word.NextWord == null)
+                                {
+                                    newWord.Duration = duration;
+                                }
+
+                                //set previous word
+                                if (previousWord != null)
+                                {
+                                    newWord.PreviousWord = previousWord;
+                                }
+
+                                paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Add(newWord);
+
+                                //set next word to previous one
+                                if (wordIndex > 0)
+                                {
+                                    previousWord.NextWord = newWord;
+                                }
+                                else
+                                {
+                                    firstWord = newWord;
+                                }
+
+                                previousWord = newWord;
+                                lastWord = newWord;
+                                //save first word
+
+                                bufferIndex += innerWordIndex == 0 ? 0 : 3;
+                            }
+                        }
+                    }
+                }
+
+                //set is last to the last word (for duration manually);
+                this.Chapter = new Chapter();
+                this.Chapter.FirstWord = firstWord;
+                this.Chapter.LastWord = lastWord;
+                this.Chapter.Content = this.Text;
+                this.Chapter.Paragraphs = paragraphs_local;
+            }
+            catch (ApplicationException ex)
+            {
+                throw new ApplicationException();
+            }
+        }
 
 
         /// <summary>
@@ -107,6 +362,17 @@ namespace MyMentorUtilityClient
             }
 
             instance.FileName = fileName;
+
+            //for older versions
+            if (string.IsNullOrEmpty(instance.Text))
+            {
+                System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
+                rtBox.Rtf = instance.RtfText;
+                instance.Text = rtBox.Text;
+                rtBox.Dispose();
+            }
+
+            instance.Devide();
         }
 
         private void Save()

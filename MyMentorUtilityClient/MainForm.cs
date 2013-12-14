@@ -1939,7 +1939,7 @@ namespace MyMentorUtilityClient
         public long XmlDuration
         {
             get { return Duration.Ticks; }
-            //set { Duration = new TimeSpan(value); }
+            set { Duration = new TimeSpan(value); }
         }
     }
 

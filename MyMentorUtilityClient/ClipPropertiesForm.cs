@@ -38,7 +38,7 @@ namespace MyMentorUtilityClient
                 return;
             }
 
-            Clip.Current.Title = textBox1.Text;
+            Clip.Current.Name = textBox1.Text;
             Clip.Current.Description = textBox3.Text;
             Clip.Current.Version = maskedTextBox1.Text;
             Clip.Current.Category = textBox4.Text;
@@ -79,7 +79,7 @@ namespace MyMentorUtilityClient
                 }
 
                 saveFileDialog1.InitialDirectory = di.FullName;
-                saveFileDialog1.FileName = Clip.Current.Title.ToValidFileName();
+                saveFileDialog1.FileName = Clip.Current.Name.ToValidFileName();
 
                 saveFileDialog1.DefaultExt = "mmnx";
                 saveFileDialog1.Filter = "MyMentor Source Files|*.mmnx";
@@ -116,7 +116,7 @@ namespace MyMentorUtilityClient
 
         private void ClipPropertiesForm_Load(object sender, EventArgs e)
         {
-            textBox1.Text = Clip.Current.Title;
+            textBox1.Text = Clip.Current.Name;
             textBox3.Text = Clip.Current.Description;
             maskedTextBox1.Text = Clip.Current.Version;
             textBox4.Text = Clip.Current.Category;

@@ -74,6 +74,7 @@
         <File Id='MyMentorUtilityClientexeconfig' Name='MyMentor.exe.config' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.exe.config' KeyPath='no'/>
         <File Id='MyMentorUtilityClientpdb' Name='MyMentorUtilityClient.pdb' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.pdb' KeyPath='no'/>
         <File Id='IonicZipdll' Name='Ionic.Zip.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Ionic.Zip.dll' KeyPath='no'/>
+        <File Id='NAudio' Name='NAudio.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\NAudio.dll' KeyPath='no'/>        
         <File Id='NewtonsoftJsondll' Name='Newtonsoft.Json.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Newtonsoft.Json.dll' KeyPath='no'/>
         <File Id='Parsedll' Name='Parse.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.dll' KeyPath='no'/>
         <File Id='ParseNetFx45dll' Name='Parse.NetFx45.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.NetFx45.dll' KeyPath='no'/>

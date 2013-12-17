@@ -253,7 +253,6 @@ namespace SoundStudio
         private bool b_recordIconRed;
         private TableLayoutPanel tableLayoutPanel5;
         private GroupBox groupBox3;
-        private TextBox textBox8;
         private TextBox textBox7;
         private Label label12;
         private GroupBox groupBox5;
@@ -277,19 +276,18 @@ namespace SoundStudio
         private CheckBox def_wor;
         private CheckBox def_sec;
         private Label label13;
-        private TextBox textBox3;
+        private TextBox tbClipDescription;
         private Label label15;
-        private ComboBox comboBox1;
         private Label label16;
         private Label label19;
-        private TextBox textBox6;
+        private TextBox tbKeywords;
         private Label label21;
         private Label label22;
-        private TextBox textBox1;
+        private TextBox tbClipName;
         private MaskedTextBox maskedTextBox1;
         private Label label23;
         private Panel panel4;
-        private Button button1;
+        private Button buttonPublish;
         private Panel panel6;
         public RichTextBox richTextBox3;
         private Panel panel7;
@@ -328,6 +326,12 @@ namespace SoundStudio
         private ComboBox comboKria;
         private Label label20;
         private ComboBox comboWorldContentType;
+        private Panel panel8;
+        private GroupBox groupBox10;
+        private Label label28;
+        private LinkLabel linkLabel1;
+        private ComboBox comboStatus;
+        public Label LabelTotalDuration2;
         private int m_intRecordingDuration = 0;
 
         // Reverb internal DSP
@@ -453,7 +457,6 @@ namespace SoundStudio
             this.FrameRecording = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.sevenSegment1 = new DmitryBrant.CustomControls.SevenSegment();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.numericUpDownBufferRecord = new System.Windows.Forms.NumericUpDown();
@@ -495,15 +498,17 @@ namespace SoundStudio
             this.tbrProperties = new System.Windows.Forms.ToolStripButton();
             this.tbrParse = new System.Windows.Forms.ToolStripButton();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.comboBoxAutoDevidePar = new PresentationControls.CheckBoxComboBox();
             this.buttonAutoDevide = new System.Windows.Forms.Button();
-            this.label24 = new System.Windows.Forms.Label();
-            this.comboBoxAutoDevideSen = new PresentationControls.CheckBoxComboBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.richTextBox4 = new System.Windows.Forms.RichTextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label28 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -513,7 +518,6 @@ namespace SoundStudio
             this.LabelCurrentWordDuration = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.timePickerCurrentWord = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
             this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
             this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.buttonHammer = new System.Windows.Forms.Button();
@@ -533,7 +537,6 @@ namespace SoundStudio
             this.label20 = new System.Windows.Forms.Label();
             this.comboWorldContentType = new System.Windows.Forms.ComboBox();
             this.comboKria = new System.Windows.Forms.ComboBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -557,19 +560,18 @@ namespace SoundStudio
             this.def_wor = new System.Windows.Forms.CheckBox();
             this.def_sec = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbClipDescription = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.tbKeywords = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbClipName = new System.Windows.Forms.TextBox();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonPublish = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Picture1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -650,6 +652,12 @@ namespace SoundStudio
             this.timerRecordIcon = new System.Windows.Forms.Timer(this.components);
             this.timerStartRecordingAfterPlayingBuffer = new System.Windows.Forms.Timer(this.components);
             this.timerRefreshLedDisplay = new System.Windows.Forms.Timer(this.components);
+            this.comboStatus = new System.Windows.Forms.ComboBox();
+            this.comboBoxAutoDevidePar = new PresentationControls.CheckBoxComboBox();
+            this.comboBoxAutoDevideSen = new PresentationControls.CheckBoxComboBox();
+            this.sevenSegment1 = new DmitryBrant.CustomControls.SevenSegment();
+            this.timePickerCurrentWord = new MyMentorUtilityClient.TimeSpinner.TimePickerSpinner();
+            this.LabelTotalDuration2 = new System.Windows.Forms.Label();
             this.Frame4.SuspendLayout();
             this.framePlayback.SuspendLayout();
             this.FrameRecording.SuspendLayout();
@@ -662,6 +670,8 @@ namespace SoundStudio
             this.ToolStrip1.SuspendLayout();
             this.panel7.SuspendLayout();
             this.groupBox8.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -1110,25 +1120,6 @@ namespace SoundStudio
             this.groupBox9.TabIndex = 32;
             this.groupBox9.TabStop = false;
             // 
-            // sevenSegment1
-            // 
-            this.sevenSegment1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sevenSegment1.ColorBackground = System.Drawing.Color.DarkGray;
-            this.sevenSegment1.ColorDark = System.Drawing.Color.DimGray;
-            this.sevenSegment1.ColorLight = System.Drawing.Color.Lime;
-            this.sevenSegment1.CustomPattern = 107;
-            this.sevenSegment1.DecimalOn = false;
-            this.sevenSegment1.DecimalShow = true;
-            this.sevenSegment1.ElementWidth = 10;
-            this.sevenSegment1.ItalicFactor = 0F;
-            this.sevenSegment1.Location = new System.Drawing.Point(18, 25);
-            this.sevenSegment1.Name = "sevenSegment1";
-            this.sevenSegment1.Padding = new System.Windows.Forms.Padding(4);
-            this.sevenSegment1.Size = new System.Drawing.Size(53, 82);
-            this.sevenSegment1.TabIndex = 37;
-            this.sevenSegment1.TabStop = false;
-            this.sevenSegment1.Value = "5";
-            // 
             // label26
             // 
             this.label26.AutoSize = true;
@@ -1283,18 +1274,18 @@ namespace SoundStudio
             // 
             this.label18.BackColor = System.Drawing.Color.Black;
             this.label18.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label18.Location = new System.Drawing.Point(3, 1);
+            this.label18.Location = new System.Drawing.Point(3, 5);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(15, 312);
+            this.label18.Size = new System.Drawing.Size(15, 194);
             this.label18.TabIndex = 60;
             // 
             // label17
             // 
             this.label17.BackColor = System.Drawing.Color.Black;
             this.label17.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label17.Location = new System.Drawing.Point(20, 1);
+            this.label17.Location = new System.Drawing.Point(20, 5);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(15, 312);
+            this.label17.Size = new System.Drawing.Size(15, 194);
             this.label17.TabIndex = 59;
             // 
             // tabControl1
@@ -1331,13 +1322,12 @@ namespace SoundStudio
             this.tableLayoutPanel2.ColumnCount = 4;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85.12881F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.87119F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 176F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.tableLayoutPanel2.Controls.Add(this.ToolStrip1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox1, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.richTextBox2, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel7, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.richTextBox4, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel8, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -1632,28 +1622,21 @@ namespace SoundStudio
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
-            // richTextBox2
-            // 
-            this.richTextBox2.Location = new System.Drawing.Point(334, 3);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(100, 34);
-            this.richTextBox2.TabIndex = 33;
-            this.richTextBox2.Text = "";
-            this.richTextBox2.Visible = false;
-            // 
             // panel7
             // 
             this.panel7.Controls.Add(this.groupBox8);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(440, 3);
+            this.panel7.Location = new System.Drawing.Point(439, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(719, 74);
+            this.panel7.Size = new System.Drawing.Size(720, 74);
             this.panel7.TabIndex = 34;
             // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.comboBoxAutoDevidePar);
             this.groupBox8.Controls.Add(this.buttonAutoDevide);
+            this.groupBox8.Controls.Add(this.richTextBox2);
+            this.groupBox8.Controls.Add(this.richTextBox4);
             this.groupBox8.Controls.Add(this.label24);
             this.groupBox8.Controls.Add(this.comboBoxAutoDevideSen);
             this.groupBox8.Controls.Add(this.label14);
@@ -1664,23 +1647,6 @@ namespace SoundStudio
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "חלוקה אוטומטית";
-            // 
-            // comboBoxAutoDevidePar
-            // 
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxAutoDevidePar.CheckBoxProperties = checkBoxProperties1;
-            this.comboBoxAutoDevidePar.DisplayMemberSingleItem = "";
-            this.comboBoxAutoDevidePar.FormattingEnabled = true;
-            this.comboBoxAutoDevidePar.Items.AddRange(new object[] {
-            "ENTER",
-            "שני ENTER",
-            "אחרי 2 משפטים",
-            "אחרי 3 משפטים",
-            "אחרי 4 משפטים"});
-            this.comboBoxAutoDevidePar.Location = new System.Drawing.Point(431, 31);
-            this.comboBoxAutoDevidePar.Name = "comboBoxAutoDevidePar";
-            this.comboBoxAutoDevidePar.Size = new System.Drawing.Size(188, 26);
-            this.comboBoxAutoDevidePar.TabIndex = 19;
             // 
             // buttonAutoDevide
             // 
@@ -1696,9 +1662,26 @@ namespace SoundStudio
             this.buttonAutoDevide.Size = new System.Drawing.Size(85, 42);
             this.buttonAutoDevide.TabIndex = 18;
             this.buttonAutoDevide.Text = "קבע עוגנים";
-            this.buttonAutoDevide.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonAutoDevide.UseVisualStyleBackColor = false;
             this.buttonAutoDevide.Click += new System.EventHandler(this.buttonAutoDevide_Click);
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(134, 13);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(26, 23);
+            this.richTextBox2.TabIndex = 33;
+            this.richTextBox2.Text = "";
+            this.richTextBox2.Visible = false;
+            // 
+            // richTextBox4
+            // 
+            this.richTextBox4.Location = new System.Drawing.Point(166, 13);
+            this.richTextBox4.Name = "richTextBox4";
+            this.richTextBox4.Size = new System.Drawing.Size(28, 23);
+            this.richTextBox4.TabIndex = 35;
+            this.richTextBox4.Text = "";
+            this.richTextBox4.Visible = false;
             // 
             // label24
             // 
@@ -1714,21 +1697,6 @@ namespace SoundStudio
             this.label24.TabIndex = 17;
             this.label24.Text = "סוף משפט";
             // 
-            // comboBoxAutoDevideSen
-            // 
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxAutoDevideSen.CheckBoxProperties = checkBoxProperties2;
-            this.comboBoxAutoDevideSen.DisplayMemberSingleItem = "";
-            this.comboBoxAutoDevideSen.FormattingEnabled = true;
-            this.comboBoxAutoDevideSen.Items.AddRange(new object[] {
-            "נקודותיים (:)",
-            "נקודה (.)",
-            "ENTER"});
-            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(120, 31);
-            this.comboBoxAutoDevideSen.Name = "comboBoxAutoDevideSen";
-            this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(191, 26);
-            this.comboBoxAutoDevideSen.TabIndex = 16;
-            // 
             // label14
             // 
             this.label14.BackColor = System.Drawing.SystemColors.Control;
@@ -1743,14 +1711,47 @@ namespace SoundStudio
             this.label14.TabIndex = 14;
             this.label14.Text = "סוף פסקה";
             // 
-            // richTextBox4
+            // panel8
             // 
-            this.richTextBox4.Location = new System.Drawing.Point(232, 3);
-            this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.Size = new System.Drawing.Size(76, 34);
-            this.richTextBox4.TabIndex = 35;
-            this.richTextBox4.Text = "";
-            this.richTextBox4.Visible = false;
+            this.tableLayoutPanel2.SetColumnSpan(this.panel8, 3);
+            this.panel8.Controls.Add(this.groupBox10);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel8.Location = new System.Drawing.Point(3, 3);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(430, 74);
+            this.panel8.TabIndex = 35;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.linkLabel1);
+            this.groupBox10.Controls.Add(this.label28);
+            this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox10.Font = new System.Drawing.Font("Arial", 12F);
+            this.groupBox10.Location = new System.Drawing.Point(0, 0);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(430, 74);
+            this.groupBox10.TabIndex = 0;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "טקסטים מוכנים";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(51, 34);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(55, 18);
+            this.linkLabel1.TabIndex = 1;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "לחץ כאן";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(101, 34);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(311, 18);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "באפשרותך להתחיל ע\"י הבאת טקסט מוכן, לחיפוש ";
             // 
             // tabPage2
             // 
@@ -1790,11 +1791,11 @@ namespace SoundStudio
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.label18);
             this.panel2.Controls.Add(this.label17);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(560, 25);
             this.panel2.Name = "panel2";
             this.tableLayoutPanel1.SetRowSpan(this.panel2, 2);
-            this.panel2.Size = new System.Drawing.Size(42, 324);
+            this.panel2.Size = new System.Drawing.Size(42, 208);
             this.panel2.TabIndex = 18;
             // 
             // tabPage3
@@ -1886,16 +1887,6 @@ namespace SoundStudio
             this.label10.Size = new System.Drawing.Size(122, 18);
             this.label10.TabIndex = 26;
             this.label10.Text = "התחלה קטע נבחר";
-            // 
-            // timePickerCurrentWord
-            // 
-            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 72);
-            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
-            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
-            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
-            this.timePickerCurrentWord.TabIndex = 25;
-            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
             // 
             // LabelCurrentSchedulingTimer
             // 
@@ -2116,10 +2107,11 @@ namespace SoundStudio
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.LabelTotalDuration2);
+            this.groupBox3.Controls.Add(this.comboStatus);
             this.groupBox3.Controls.Add(this.label20);
             this.groupBox3.Controls.Add(this.comboWorldContentType);
             this.groupBox3.Controls.Add(this.comboKria);
-            this.groupBox3.Controls.Add(this.textBox8);
             this.groupBox3.Controls.Add(this.textBox7);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.groupBox5);
@@ -2127,15 +2119,14 @@ namespace SoundStudio
             this.groupBox3.Controls.Add(this.groupBox6);
             this.groupBox3.Controls.Add(this.groupBox7);
             this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.textBox3);
+            this.groupBox3.Controls.Add(this.tbClipDescription);
             this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.comboBox1);
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.label19);
-            this.groupBox3.Controls.Add(this.textBox6);
+            this.groupBox3.Controls.Add(this.tbKeywords);
             this.groupBox3.Controls.Add(this.label21);
             this.groupBox3.Controls.Add(this.label22);
-            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.tbClipName);
             this.groupBox3.Controls.Add(this.maskedTextBox1);
             this.groupBox3.Controls.Add(this.label23);
             this.groupBox3.Font = new System.Drawing.Font("Arial", 12F);
@@ -2152,7 +2143,7 @@ namespace SoundStudio
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Arial", 12F);
             this.label20.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label20.Location = new System.Drawing.Point(838, 222);
+            this.label20.Location = new System.Drawing.Point(818, 222);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(63, 18);
@@ -2163,9 +2154,9 @@ namespace SoundStudio
             // 
             this.comboWorldContentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboWorldContentType.FormattingEnabled = true;
-            this.comboWorldContentType.Location = new System.Drawing.Point(616, 219);
+            this.comboWorldContentType.Location = new System.Drawing.Point(620, 219);
             this.comboWorldContentType.Name = "comboWorldContentType";
-            this.comboWorldContentType.Size = new System.Drawing.Size(180, 26);
+            this.comboWorldContentType.Size = new System.Drawing.Size(178, 26);
             this.comboWorldContentType.TabIndex = 58;
             // 
             // comboKria
@@ -2176,16 +2167,6 @@ namespace SoundStudio
             this.comboKria.Name = "comboKria";
             this.comboKria.Size = new System.Drawing.Size(180, 26);
             this.comboKria.TabIndex = 57;
-            // 
-            // textBox8
-            // 
-            this.textBox8.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox8.Location = new System.Drawing.Point(560, 327);
-            this.textBox8.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(237, 26);
-            this.textBox8.TabIndex = 56;
             // 
             // textBox7
             // 
@@ -2441,54 +2422,40 @@ namespace SoundStudio
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Arial", 12F);
             this.label13.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label13.Location = new System.Drawing.Point(837, 110);
+            this.label13.Location = new System.Drawing.Point(818, 110);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(41, 18);
             this.label13.TabIndex = 43;
             this.label13.Text = "תיאור";
             // 
-            // textBox3
+            // tbClipDescription
             // 
-            this.textBox3.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox3.Location = new System.Drawing.Point(465, 107);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(332, 70);
-            this.textBox3.TabIndex = 44;
+            this.tbClipDescription.Font = new System.Drawing.Font("Arial", 12F);
+            this.tbClipDescription.Location = new System.Drawing.Point(466, 107);
+            this.tbClipDescription.Margin = new System.Windows.Forms.Padding(4);
+            this.tbClipDescription.Multiline = true;
+            this.tbClipDescription.Name = "tbClipDescription";
+            this.tbClipDescription.Size = new System.Drawing.Size(332, 70);
+            this.tbClipDescription.TabIndex = 44;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label15.Location = new System.Drawing.Point(836, 328);
+            this.label15.Location = new System.Drawing.Point(818, 328);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(37, 18);
+            this.label15.Size = new System.Drawing.Size(74, 18);
             this.label15.TabIndex = 21;
-            this.label15.Text = "משך";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Font = new System.Drawing.Font("Arial", 12F);
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "PENDING",
-            "PUBLISHED"});
-            this.comboBox1.Location = new System.Drawing.Point(618, 293);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(180, 26);
-            this.comboBox1.TabIndex = 17;
-            this.comboBox1.Text = "PENDING";
+            this.label15.Text = "משך שיעור";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Arial", 12F);
             this.label16.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label16.Location = new System.Drawing.Point(837, 295);
+            this.label16.Location = new System.Drawing.Point(818, 295);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(56, 18);
@@ -2500,28 +2467,28 @@ namespace SoundStudio
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Arial", 12F);
             this.label19.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label19.Location = new System.Drawing.Point(838, 262);
+            this.label19.Location = new System.Drawing.Point(818, 261);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(37, 18);
+            this.label19.Size = new System.Drawing.Size(84, 18);
             this.label19.TabIndex = 14;
-            this.label19.Text = "תגים";
+            this.label19.Text = "מילות מפתח";
             // 
-            // textBox6
+            // tbKeywords
             // 
-            this.textBox6.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox6.Location = new System.Drawing.Point(520, 259);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(278, 26);
-            this.textBox6.TabIndex = 15;
+            this.tbKeywords.Font = new System.Drawing.Font("Arial", 12F);
+            this.tbKeywords.Location = new System.Drawing.Point(466, 258);
+            this.tbKeywords.Margin = new System.Windows.Forms.Padding(4);
+            this.tbKeywords.Name = "tbKeywords";
+            this.tbKeywords.Size = new System.Drawing.Size(332, 26);
+            this.tbKeywords.TabIndex = 15;
             // 
             // label21
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Arial", 12F);
             this.label21.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label21.Location = new System.Drawing.Point(838, 190);
+            this.label21.Location = new System.Drawing.Point(818, 190);
             this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(47, 18);
@@ -2533,26 +2500,26 @@ namespace SoundStudio
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Arial", 12F);
             this.label22.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label22.Location = new System.Drawing.Point(836, 30);
+            this.label22.Location = new System.Drawing.Point(818, 30);
             this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(66, 18);
             this.label22.TabIndex = 1;
             this.label22.Text = "שם שיעור";
             // 
-            // textBox1
+            // tbClipName
             // 
-            this.textBox1.Font = new System.Drawing.Font("Arial", 12F);
-            this.textBox1.Location = new System.Drawing.Point(550, 27);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(246, 26);
-            this.textBox1.TabIndex = 2;
+            this.tbClipName.Font = new System.Drawing.Font("Arial", 12F);
+            this.tbClipName.Location = new System.Drawing.Point(466, 27);
+            this.tbClipName.Margin = new System.Windows.Forms.Padding(4);
+            this.tbClipName.Name = "tbClipName";
+            this.tbClipName.Size = new System.Drawing.Size(332, 26);
+            this.tbClipName.TabIndex = 2;
             // 
             // maskedTextBox1
             // 
             this.maskedTextBox1.Font = new System.Drawing.Font("Arial", 12F);
-            this.maskedTextBox1.Location = new System.Drawing.Point(742, 63);
+            this.maskedTextBox1.Location = new System.Drawing.Point(743, 63);
             this.maskedTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.maskedTextBox1.Mask = "0.00";
             this.maskedTextBox1.Name = "maskedTextBox1";
@@ -2565,7 +2532,7 @@ namespace SoundStudio
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Arial", 12F);
             this.label23.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label23.Location = new System.Drawing.Point(836, 66);
+            this.label23.Location = new System.Drawing.Point(818, 66);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(41, 18);
@@ -2574,25 +2541,26 @@ namespace SoundStudio
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.button1);
+            this.panel4.Controls.Add(this.buttonPublish);
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(224, 389);
             this.panel4.TabIndex = 11;
             // 
-            // button1
+            // buttonPublish
             // 
-            this.button1.BackgroundImage = global::MyMentor.Properties.Resources._1386909646_519838_50_Cloud_Arrow_Up;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button1.Font = new System.Drawing.Font("Arial", 12F);
-            this.button1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.button1.Location = new System.Drawing.Point(36, 327);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(124, 44);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "פרסם שיעור";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonPublish.BackgroundImage = global::MyMentor.Properties.Resources._1386909646_519838_50_Cloud_Arrow_Up;
+            this.buttonPublish.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonPublish.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonPublish.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.buttonPublish.Location = new System.Drawing.Point(36, 329);
+            this.buttonPublish.Name = "buttonPublish";
+            this.buttonPublish.Size = new System.Drawing.Size(139, 42);
+            this.buttonPublish.TabIndex = 0;
+            this.buttonPublish.Text = "פרסם שיעור";
+            this.buttonPublish.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonPublish.UseVisualStyleBackColor = true;
+            this.buttonPublish.Click += new System.EventHandler(this.buttonPublish_Click);
             // 
             // panel1
             // 
@@ -2688,6 +2656,7 @@ namespace SoundStudio
             // 
             // mnuFile_SaveAs
             // 
+            this.mnuFile_SaveAs.Enabled = false;
             this.mnuFile_SaveAs.Name = "mnuFile_SaveAs";
             this.mnuFile_SaveAs.Size = new System.Drawing.Size(200, 22);
             this.mnuFile_SaveAs.Text = "שמור שיעור בשם...";
@@ -3212,6 +3181,92 @@ namespace SoundStudio
             this.timerRefreshLedDisplay.Interval = 1000;
             this.timerRefreshLedDisplay.Tick += new System.EventHandler(this.timerRefreshLedDisplay_Tick);
             // 
+            // comboStatus
+            // 
+            this.comboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboStatus.FormattingEnabled = true;
+            this.comboStatus.Location = new System.Drawing.Point(620, 291);
+            this.comboStatus.Name = "comboStatus";
+            this.comboStatus.Size = new System.Drawing.Size(178, 26);
+            this.comboStatus.TabIndex = 60;
+            // 
+            // comboBoxAutoDevidePar
+            // 
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxAutoDevidePar.CheckBoxProperties = checkBoxProperties1;
+            this.comboBoxAutoDevidePar.DisplayMemberSingleItem = "";
+            this.comboBoxAutoDevidePar.FormattingEnabled = true;
+            this.comboBoxAutoDevidePar.Items.AddRange(new object[] {
+            "ENTER",
+            "שני ENTER",
+            "אחרי 2 משפטים",
+            "אחרי 3 משפטים",
+            "אחרי 4 משפטים"});
+            this.comboBoxAutoDevidePar.Location = new System.Drawing.Point(431, 31);
+            this.comboBoxAutoDevidePar.Name = "comboBoxAutoDevidePar";
+            this.comboBoxAutoDevidePar.Size = new System.Drawing.Size(188, 26);
+            this.comboBoxAutoDevidePar.TabIndex = 19;
+            // 
+            // comboBoxAutoDevideSen
+            // 
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxAutoDevideSen.CheckBoxProperties = checkBoxProperties2;
+            this.comboBoxAutoDevideSen.DisplayMemberSingleItem = "";
+            this.comboBoxAutoDevideSen.FormattingEnabled = true;
+            this.comboBoxAutoDevideSen.Items.AddRange(new object[] {
+            "נקודותיים (:)",
+            "נקודה (.)",
+            "ENTER"});
+            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(120, 31);
+            this.comboBoxAutoDevideSen.Name = "comboBoxAutoDevideSen";
+            this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(191, 26);
+            this.comboBoxAutoDevideSen.TabIndex = 16;
+            // 
+            // sevenSegment1
+            // 
+            this.sevenSegment1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sevenSegment1.ColorBackground = System.Drawing.Color.DarkGray;
+            this.sevenSegment1.ColorDark = System.Drawing.Color.DimGray;
+            this.sevenSegment1.ColorLight = System.Drawing.Color.Lime;
+            this.sevenSegment1.CustomPattern = 107;
+            this.sevenSegment1.DecimalOn = false;
+            this.sevenSegment1.DecimalShow = true;
+            this.sevenSegment1.ElementWidth = 10;
+            this.sevenSegment1.ItalicFactor = 0F;
+            this.sevenSegment1.Location = new System.Drawing.Point(18, 25);
+            this.sevenSegment1.Name = "sevenSegment1";
+            this.sevenSegment1.Padding = new System.Windows.Forms.Padding(4);
+            this.sevenSegment1.Size = new System.Drawing.Size(53, 82);
+            this.sevenSegment1.TabIndex = 37;
+            this.sevenSegment1.TabStop = false;
+            this.sevenSegment1.Value = "5";
+            // 
+            // timePickerCurrentWord
+            // 
+            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 72);
+            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
+            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
+            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
+            this.timePickerCurrentWord.TabIndex = 25;
+            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
+            // 
+            // LabelTotalDuration2
+            // 
+            this.LabelTotalDuration2.BackColor = System.Drawing.Color.White;
+            this.LabelTotalDuration2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LabelTotalDuration2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.LabelTotalDuration2.Font = new System.Drawing.Font("Arial", 12F);
+            this.LabelTotalDuration2.ForeColor = System.Drawing.Color.Black;
+            this.LabelTotalDuration2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.LabelTotalDuration2.Location = new System.Drawing.Point(689, 328);
+            this.LabelTotalDuration2.Name = "LabelTotalDuration2";
+            this.LabelTotalDuration2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.LabelTotalDuration2.Size = new System.Drawing.Size(108, 22);
+            this.LabelTotalDuration2.TabIndex = 61;
+            this.LabelTotalDuration2.Text = "00:00:00.000";
+            this.LabelTotalDuration2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // FormMain
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 19);
@@ -3250,6 +3305,9 @@ namespace SoundStudio
             this.ToolStrip1.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -3626,6 +3684,19 @@ namespace SoundStudio
             // reset the timer
             TimerReload.Enabled = false;
 
+            mnuFile_NewClip.Enabled = true;
+            mnuFile_Open.Enabled = true;
+            mnuFile_Save.Enabled = true;
+
+            tbrNew.Enabled = true;
+            tbrOpen.Enabled = true;
+            tbrSave.Enabled = true;
+
+            if (Clip.Current.Saved)
+            {
+                mnuFile_SaveAs.Enabled = true;
+            }
+
             // get updated sound duration
             Int32 nDurationInMs = audioSoundEditor1.GetSoundDuration();
             if (nDurationInMs == 0)
@@ -3641,12 +3712,16 @@ namespace SoundStudio
                 LabelSelectionEnd.Text = "00:00:00.000";
                 LabelSelectionDuration.Text = "00:00:00.000";
                 LabelTotalDuration.Text = "00:00:00.000";
+                LabelTotalDuration2.Text = "00:00:00.000";
                 return;
             }
 
             // display updated sound duration
             LabelTotalDuration.Text = audioSoundEditor1.GetFormattedTime(nDurationInMs, true, true);
             LabelTotalDuration.Refresh();
+
+            LabelTotalDuration2.Text = audioSoundEditor1.GetFormattedTime(nDurationInMs, true, true);
+            LabelTotalDuration2.Refresh();
 
             // check if the song was loaded from a previous recording session
             if (audioSoundRecorder1.RecordedSound.GetDuration() > 0)
@@ -3731,6 +3806,8 @@ namespace SoundStudio
 
             Cursor.Current = Cursors.Default;
 
+            Clip.Current.Saved = true;
+
             if (e.nResult != enumErrorCodes.ERR_NOERROR)
                 MessageBox.Show(e.nResult.ToString());
             else
@@ -3778,6 +3855,9 @@ namespace SoundStudio
                 Int32 nDuration = audioSoundEditor1.GetSoundDuration();
                 LabelTotalDuration.Text = audioSoundEditor1.GetFormattedTime(nDuration, true, true);
                 LabelTotalDuration.Refresh();
+
+                LabelTotalDuration2.Text = audioSoundEditor1.GetFormattedTime(nDuration, true, true);
+                LabelTotalDuration2.Refresh();
             }
         }
 
@@ -3951,6 +4031,15 @@ namespace SoundStudio
             LabelStatus.Text = "Status: Idle";
             LabelStatus.Refresh();
             progressBar1.Visible = false;
+
+            mnuFile_NewClip.Enabled = false;
+            mnuFile_Open.Enabled = false;
+            mnuFile_Save.Enabled = false;
+
+            tbrNew.Enabled = false;
+            tbrOpen.Enabled = false;
+            tbrSave.Enabled = false;
+            mnuFile_SaveAs.Enabled = false;
 
             // force analysis of the loaded sound
             if (e.bResult == true)
@@ -4187,6 +4276,7 @@ namespace SoundStudio
             LabelSelectionEnd.Text = "00:00:00.000";
             LabelSelectionDuration.Text = "00:00:00.000";
             LabelTotalDuration.Text = "00:00:00.000";
+            LabelTotalDuration2.Text = "00:00:00.000";
 
             openFileDialog1.Filter =
                 "Supported Sounds (*.mp3;*.mp2;*.wav;*.ogg;*.aiff;*.wma;*.wmv;*.asx;*.asf;" +
@@ -4974,8 +5064,18 @@ namespace SoundStudio
             Save(false);
         }
 
+        private void SavePropertiesToClip()
+        {
+            //set properties
+            Clip.Current.Name = tbClipName.Text;
+            Clip.Current.Description = tbClipDescription.Text;
+            Clip.Current.Status = (string)comboStatus.SelectedValue;
+        }
+
         private void Save(bool isSaveAs)
         {
+            SavePropertiesToClip();
+
             if (Clip.Current.IsNew || (!Clip.Current.IsNew && isSaveAs))
             {
                 if (isSaveAs)
@@ -4994,7 +5094,7 @@ namespace SoundStudio
                     }
 
                     saveFileDialog1.InitialDirectory = di.FullName;
-                    saveFileDialog1.FileName = Clip.Current.Title.ToValidFileName();
+                    saveFileDialog1.FileName = Clip.Current.Name.ToValidFileName();
                 }
                 saveFileDialog1.DefaultExt = "mmnx";
                 saveFileDialog1.Filter = "MyMentor Source Files|*.mmnx";
@@ -5013,12 +5113,14 @@ namespace SoundStudio
                     Clip.Current.FileName = saveFileDialog1.FileName;
                     Clip.Current.RtfText = richTextBox1.Rtf;
                     this.Text = "MyMentor - " + Clip.Current.FileName;
+
                     Clip.Current.Save(audioSoundEditor1);
 
                     if (audioSoundEditor1.GetSoundDuration() <= 0)
                     {
                         MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                         mnuFile_SaveAs.Enabled = true;
+                        Clip.Current.Saved = true;
                     }
                     else
                     {
@@ -5034,12 +5136,14 @@ namespace SoundStudio
             {
                 //Clip.Current.FontSize = float.Parse(toolStripComboBox1.Text.Replace("pt", string.Empty));
                 //Clip.Current.FontName = richTextBox1.Font.Name;
+
                 Clip.Current.Save(audioSoundEditor1);
 
                 if (audioSoundEditor1.GetSoundDuration() <= 0)
                 {
                     MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     mnuFile_SaveAs.Enabled = true;
+                    Clip.Current.Saved = true;
                 }
                 else
                 {
@@ -5059,6 +5163,9 @@ namespace SoundStudio
             this.comboKria.DisplayMember = "Value";
             this.comboKria.ValueMember = "ObjectId";
             this.comboKria.DataSource = new BindingSource(await ParseTables.GetKriot(), null);
+            this.comboStatus.DisplayMember = "Status";
+            this.comboStatus.ValueMember = "ObjectId";
+            this.comboStatus.DataSource = new BindingSource(await ParseTables.GetStatuses(), null);
             this.comboWorldContentType.DisplayMember = "Value";
             this.comboWorldContentType.ValueMember = "ObjectId";
             this.comboWorldContentType.DataSource = new BindingSource(await ParseTables.GetWorldContentTypes(), null);
@@ -5097,11 +5204,11 @@ namespace SoundStudio
             }
             else
             {
-                Clip.Current.Title = "שיעור 1";
+                Clip.Current.Name = "שיעור 1";
                 Clip.Current.IsDirty = false;
                 Clip.Current.IsNew = true;
                 Clip.Current.ID = Guid.NewGuid();
-                this.Text = "MyMentor - " + Clip.Current.Title;
+                this.Text = "MyMentor - " + Clip.Current.Name;
             }
 
         }
@@ -5169,16 +5276,25 @@ namespace SoundStudio
 
             this.Text = "MyMentor - " + file;
 
+            //set properties
+            tbClipName.Text = Clip.Current.Name;
+            tbClipDescription.Text = Clip.Current.Description;
+
             richTextBox1.Rtf = Clip.Current.RtfText;
 
             tabControl1.SelectedIndex = 0;
-            audioSoundEditor1.DeleteRange(0, -1);
+            mnuFile_SaveAs.Enabled = true;
 
             Clip.Current.Devide();
 
             if (File.Exists(Path.ChangeExtension(file, ".mp3")))
             {
-                audioSoundEditor1.LoadSound(Path.ChangeExtension(file, ".mp3"));
+                enumErrorCodes error = audioSoundEditor1.LoadSound(Path.ChangeExtension(file, ".mp3"));
+
+                if (error != enumErrorCodes.ERR_NOERROR)
+                {
+                    MessageBox.Show(string.Format("נסיון טעינה של קובץ המוזיקה נכשל בגלל הסיבה :{0}\n\nאנא נסה שוב מאוחר יותר", error.ToString() ), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                }
             }
 
             Clip.Current.IsDirty = false;
@@ -5228,16 +5344,22 @@ namespace SoundStudio
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //copy text and insert pause anchor
+            //copy text and insert start anchor
             richTextBox3.Clear();
             richTextBox3.Rtf = richTextBox1.Rtf;
+
+            //add end anchor
+            m_skipSelectionChange = true;
+            richTextBox3.AppendText(END_PAUSE_SECTION_ANCHOR);
+
+            //add start anchor
             richTextBox3.SelectionStart = 0;
             richTextBox3.SelectionLength = 0;
             richTextBox3.SelectedText = START_PAUSE_SECTION_ANCHOR;
-
-            m_skipSelectionChange = true;
-            richTextBox3.AppendText(END_PAUSE_SECTION_ANCHOR);
             m_skipSelectionChange = false;
+
+            richTextBox3.SelectionStart = 0;
+            richTextBox3.SelectionLength = 0;
 
             m_selectedScheduledWord = null;
             m_selectedAnchor = false;
@@ -5301,7 +5423,7 @@ namespace SoundStudio
                                     new WANALYZER_VERTICAL_LINE
                                     {
                                         color = Color.White,
-                                        nWidth = 2,
+                                        nWidth = 5,
                                         nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT,
                                         nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DOT,
                                         nHighCap = enumLineCaps.LINE_CAP_SQUARE,
@@ -5319,7 +5441,7 @@ namespace SoundStudio
                                                 new WANALYZER_VERTICAL_LINE
                                                 {
                                                     color = Color.PeachPuff,
-                                                    nWidth = 2,
+                                                    nWidth = 5,
                                                     nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT,
                                                     nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DOT,
                                                     nHighCap = enumLineCaps.LINE_CAP_SQUARE,
@@ -5363,20 +5485,21 @@ namespace SoundStudio
 
             Clip.Current = null;
             Clip.Current.AutoIncrementVersion = true;
-            Clip.Current.Title = "שיעור 1";
+            Clip.Current.Name = "שיעור 1";
             Clip.Current.Version = "1.00";
             Clip.Current.Status = "PENDING";
             Clip.Current.ID = Guid.NewGuid();
             Clip.Current.IsNew = true;
             Clip.Current.RightAlignment = true;
 
-            this.Text = "MyMentor - " + Clip.Current.Title;
+            this.Text = "MyMentor - " + Clip.Current.Name;
 
             richTextBox1.Rtf = null;
             Clip.Current.IsDirty = false;
 
             audioSoundRecorder1.RecordedSound.FreeMemory();
-            audioSoundEditor1.LoadSoundFromRecordingSession(audioSoundRecorder1.Handle);
+            audioSoundEditor1.CloseSound();
+            TimerReload.Enabled = true;
 
             Clip.Current.Text = richTextBox1.Text;
             Clip.Current.Devide();
@@ -6084,13 +6207,13 @@ namespace SoundStudio
                 MessageBox.Show("לא קיימת הקלטה לביצוע תזמון", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 e.Cancel = true;
             }
-            else if (e.TabPageIndex == 3 &&
-                audioSoundEditor1.GetSoundDuration() <= 0)
-            {
-                // ask the user if he wants to go on
-                MessageBox.Show("יש לבצע הקלטה ותזמון לשיעור לפני פרסומו", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                e.Cancel = true;
-            }
+            //else if (e.TabPageIndex == 3 &&
+            //    audioSoundEditor1.GetSoundDuration() <= 0)
+            //{
+            //    // ask the user if he wants to go on
+            //    MessageBox.Show("יש לבצע הקלטה ותזמון לשיעור לפני פרסומו", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            //    e.Cancel = true;
+            //}
         }
 
         private void buttonStartRecOverwrite_Click(object sender, EventArgs e)
@@ -6506,6 +6629,53 @@ namespace SoundStudio
         private void numericUpDownBufferRecord_ValueChanged(object sender, EventArgs e)
         {
             sevenSegment1.Value = numericUpDownBufferRecord.Value.ToString();
+        }
+
+        private async void buttonPublish_Click(object sender, EventArgs e)
+        {
+            if (audioSoundEditor1.GetSoundDuration() <= 0)
+            {
+                // ask the user if he wants to go on
+                MessageBox.Show("יש לבצע הקלטה ותזמון לשיעור לפני פרסומו", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+
+            SavePropertiesToClip();
+
+            if (Clip.Current.SaveJson(Clip.Current.ExtractJson()) && Clip.Current.ExtractHtml())
+            {
+                if (Clip.Current.Publish(audioSoundEditor1))
+                {
+                    LabelStatus.Text = "מעלה...אנא המתן";
+
+                    bool result = await Clip.Current.UploadAsync(new Progress<ParseUploadProgressEventArgs>(ev =>
+                    {
+                        progressBar1.Value = Convert.ToInt32(ev.Progress * 100);
+                    }));
+
+                    if (result)
+                    {
+                        if (Clip.Current.AutoIncrementVersion)
+                        {
+                            try
+                            {
+                                Clip.Current.Version = Convert.ToString(Convert.ToDouble(Clip.Current.Version) + 0.01);
+                            }
+                            catch
+                            {
+
+                            }
+
+                            //Clip.Current.Save();
+                        }
+
+                        LabelStatus.Text = "Status: Idle";
+                        progressBar1.Value = 0;
+                        MessageBox.Show("הסרטון פורסם בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    }
+                }
+            }
+
         }
 
     }

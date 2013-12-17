@@ -28,7 +28,7 @@ namespace MyMentorUtilityClient
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Clip.Current.Title)
+            if (string.IsNullOrEmpty(Clip.Current.Name)
                 || string.IsNullOrEmpty(Clip.Current.Description)
                 || string.IsNullOrEmpty(Clip.Current.Category)
                 || string.IsNullOrEmpty(Clip.Current.SubCategory)
@@ -53,7 +53,7 @@ namespace MyMentorUtilityClient
 
             if (Clip.Current.SaveJson(Clip.Current.ExtractJson()) && Clip.Current.ExtractHtml())
             {
-                if (Clip.Current.Publish())
+                if (Clip.Current.Publish(null))
                 {
                     label12.Text = "מעלה...אנא המתן";
                     

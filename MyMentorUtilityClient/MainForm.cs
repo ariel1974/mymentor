@@ -816,11 +816,11 @@ namespace MyMentorUtilityClient
             }
             else
             {
-                Clip.Current.Title = "שיעור 1";
+                Clip.Current.Name = "שיעור 1";
                 Clip.Current.IsDirty = false;
                 Clip.Current.IsNew = true;
                 Clip.Current.ID = Guid.NewGuid();
-                this.Text = "MyMentor - " + Clip.Current.Title;
+                this.Text = "MyMentor - " + Clip.Current.Name;
             }
         }
 
@@ -1050,7 +1050,7 @@ namespace MyMentorUtilityClient
                     }
 
                     saveFileDialog1.InitialDirectory = di.FullName;
-                    saveFileDialog1.FileName = Clip.Current.Title.ToValidFileName();
+                    saveFileDialog1.FileName = Clip.Current.Name.ToValidFileName();
                 }
                 saveFileDialog1.DefaultExt = "mmnx";
                 saveFileDialog1.Filter = "MyMentor Source Files|*.mmnx";
@@ -1096,14 +1096,14 @@ namespace MyMentorUtilityClient
         {
             Clip.Current = null;
             Clip.Current.AutoIncrementVersion = true;
-            Clip.Current.Title = "שיעור 1";
+            Clip.Current.Name = "שיעור 1";
             Clip.Current.Version = "1.00";
             Clip.Current.Status = "PENDING";
             Clip.Current.ID = Guid.NewGuid();
             Clip.Current.IsNew = true;
             Clip.Current.RightAlignment = true;
 
-            this.Text = "MyMentor - " + Clip.Current.Title;
+            this.Text = "MyMentor - " + Clip.Current.Name;
 
             m_disableScanningText = true;
             richTextBox1.Rtf = Clip.Current.RtfText;

@@ -11,7 +11,9 @@ using System.Xml.Serialization;
 using HtmlAgilityPack;
 using Ionic.Zip;
 using Microsoft.Win32;
+using MyMentor.ParseObjects;
 using MyMentorUtilityClient.Json;
+using NAudio.Wave;
 using Newtonsoft.Json;
 using Parse;
 using SoundStudio;
@@ -61,7 +63,7 @@ namespace MyMentorUtilityClient
 
         public string FileName { get; set; }
         public Guid ID { get; set; }
-        public string Title { get; set; }
+        public string Name { get; set; }
         public bool RightAlignment { get; set; }
         public string Description { get; set; }
         public string Version { get; set; }
@@ -89,8 +91,12 @@ namespace MyMentorUtilityClient
 
         [XmlIgnore]
         public bool IsNew { get; set; }
+
         [XmlIgnore]
         public bool IsDirty { get; set; }
+
+        [XmlIgnore]
+        public bool Saved { get; set; }
 
         [JsonProperty("chapter")]
         public Chapter Chapter { get; set; }
@@ -400,7 +406,31 @@ namespace MyMentorUtilityClient
             }
         }
 
-        public bool Publish()
+        private bool CutPreviewFile()
+        {
+             using (Mp3FileReader rdr = new Mp3FileReader(Path.ChangeExtension(this.FileName, ".mp3")))
+            {
+                int count = 1;
+                Mp3Frame objmp3Frame = rdr.ReadNextFrame();
+                System.IO.FileStream _fs = new System.IO.FileStream(Path.ChangeExtension(this.FileName, "_preview.mp3"), System.IO.FileMode.Create, System.IO.FileAccess.Write);
+
+                while (objmp3Frame != null)
+                {
+                    if (count > 500) //retrieve a sample of 500 frames
+                        break;
+
+                    _fs.Write(objmp3Frame.RawData, 0, objmp3Frame.RawData.Length);
+                    count = count + 1;
+                    objmp3Frame = rdr.ReadNextFrame();
+                }
+
+                _fs.Close();
+            }
+
+            return true;
+        }
+
+        public bool Publish(AudioSoundEditor.AudioSoundEditor editor)
         {
             string tempPath = System.IO.Path.GetTempPath();
 
@@ -424,8 +454,12 @@ namespace MyMentorUtilityClient
             FileInfo info = new FileInfo(this.MmnFileName);
             this.ClipSize = info.Length;
 
+            //cut file
+            CutPreviewFile();
+
             return true;
         }
+
 
         public async Task<bool> UploadAsync(IProgress<ParseUploadProgressEventArgs> progress)
         {
@@ -434,30 +468,48 @@ namespace MyMentorUtilityClient
             ParseFile file = new ParseFile(string.Format("{0}.mmn", this.ID.ToString()), bytes);
             await file.SaveAsync(progress);
 
-            var user = ParseUser.CurrentUser;
-
             //check if exists clip
-            var query = ParseObject.GetQuery("Clips").WhereEqualTo("clipId", this.ID.ToString());
+            var query = ParseObject.GetQuery("ClipsV2").WhereEqualTo("clipId", this.ID.ToString());
 
             ParseObject clip = await query.FirstOrDefaultAsync();
 
             if (clip == null)
             {
-                clip = new ParseObject("Clips");
+                clip = new ParseObject("ClipsV2");
+                clip["clipId"] = this.ID.ToString();
             }
 
-            clip["clipId"] = this.ID.ToString();
-            clip["clipTitle"] = this.Title;
-            clip["clipDescription"] = this.Description;
-            clip["clipVersion"] = this.Version;
+            //clip.ID = this.ID.ToString();
+            //clip.Name = this.Name;
+            //clip.Description = this.Description;
+            //clip.Status = ParseObject.CreateWithoutData("ClipStatus", this.Status);
+
+            clip["name"] = this.Name;
+            clip["description"] = this.Description;
+            clip["version"] = this.Version;
+            clip["clipType"] = "שיעור";
             clip["clipSize"] = this.ClipSize;
             //clip["fontName"] = this.FontFileName;
-            clip["status"] = this.Status;
-            clip["category"] = this.Category;
-            clip["subCategory"] = this.SubCategory;
-            clip["keywords"] = this.Tags;
+
+            clip["status"] = ParseObject.CreateWithoutData("ClipStatus", this.Status);
+
+            //clip["category"] = this.Category;
+            //clip["subCategory"] = this.SubCategory;
+            //clip["keywords"] = this.Tags;
             clip["clipFile"] = file;
-            clip["createdByUser"] = user.Username;
+            //clip["createdByUser"] = user.Username;
+
+            var preview = Path.ChangeExtension(this.FileName, "_preview.mp3");
+
+            if (File.Exists(preview))
+            {
+                //read file content
+                byte[] pbytes = File.ReadAllBytes(preview);
+                ParseFile pfile = new ParseFile("preview.mp3", pbytes);
+                await pfile.SaveAsync();
+
+                clip["audioPreview"] = pfile;
+            }
 
             var ACL = new ParseACL(ParseUser.CurrentUser)
             {
@@ -542,7 +594,7 @@ namespace MyMentorUtilityClient
             HtmlDocument doc = new HtmlDocument();
             doc.Load(path);
 
-            doc.DocumentNode.SelectNodes("html").FirstOrDefault().Attributes.Add("style", "direction:" + (this.RightAlignment ? "rtl" : "ltr") );
+            doc.DocumentNode.SelectNodes("html").FirstOrDefault().Attributes.Add("style", "direction:" + (this.RightAlignment ? "rtl" : "ltr"));
 
             doc.Save(path);
 
@@ -567,7 +619,7 @@ namespace MyMentorUtilityClient
         {
             jsonClip clip = new jsonClip();
             clip.id = this.ID.ToString();
-            clip.title = this.Title;
+            clip.name = this.Name;
             clip.description = this.Description;
             clip.clipVersion = this.Version;
             clip.fontSize = this.FontSize;

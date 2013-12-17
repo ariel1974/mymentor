@@ -28,5 +28,14 @@ namespace MyMentor
             return await query.FindAsync();
         }
 
+        public static async Task<IEnumerable<ClipStatus>> GetStatuses()
+        {
+            var query = from cat in new ParseQuery<ClipStatus>()
+                        where cat.IsVisibleToMentor == true
+                        select cat;
+
+            return await query.FindAsync();
+        }
+
     }
 }

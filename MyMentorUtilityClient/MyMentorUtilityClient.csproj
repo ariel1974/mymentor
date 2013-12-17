@@ -69,6 +69,9 @@
       <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="NAudio">
+      <HintPath>..\packages\NAudio.1.7\lib\net35\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -168,6 +171,12 @@
     <Compile Include="Forms\FormPitch.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FormReadyTexts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormReadyTexts.Designer.cs">
+      <DependentUpon>FormReadyTexts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormSilence.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,6 +218,8 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ParseObjects\Cat_Kria.cs" />
+    <Compile Include="ParseObjects\ClipStatus.cs" />
+    <Compile Include="ParseObjects\ClipsV2.cs" />
     <Compile Include="ParseObjects\WorldContentType.cs" />
     <Compile Include="ParseTables.cs" />
     <Compile Include="Program.cs" />
@@ -288,6 +299,9 @@
     <EmbeddedResource Include="Forms\FormPitch.resx">
       <DependentUpon>FormPitch.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormReadyTexts.resx">
+      <DependentUpon>FormReadyTexts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormSilence.resx">
       <DependentUpon>FormSilence.cs</DependentUpon>

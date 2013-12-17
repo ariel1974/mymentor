@@ -39,8 +39,9 @@ namespace MyMentorUtilityClient.Json
         public learningOptions lockedLearningOptions { get; set; }
         public string category { get; set; }
         public string subCategory { get; set; }
-        public string tags { get; set; }
-
+        public string keywords { get; set; }
+        public bool isNikudIncluded { get; set; }
+        public bool isTeamimIncluded { get; set; }
         //[JsonIgnore]
         //public TimeSpan duration { get; set; }
 
@@ -54,5 +55,7 @@ namespace MyMentorUtilityClient.Json
         //}
         //public int length { get; set; }
         public Chapter chapter { get; set; }
+        public Chapter onlyNikudChapter { get; set; }
+        public Chapter onlyTeamimChapter { get; set; }
     }
 }

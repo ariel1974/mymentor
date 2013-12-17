@@ -19,6 +19,58 @@ namespace MyMentorUtilityClient
             return RemovePunctation(value, false);
         }
 
+        public static bool IsNikudExists(this string s)
+        {
+            String normalizedString = s.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
+            var result = false;
+
+            for (int i = 0; i < normalizedString.Length; i++)
+            {
+                Char c = normalizedString[i];
+
+                Debug.WriteLine(string.Format("{0}:{1} char:{2}", c.ToString(), CharUnicodeInfo.GetUnicodeCategory(c).ToString(), (int)c));
+
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark
+                    || ((int)c >= 1423 && (int)c <= (1423 + 27)))
+                {
+                    stringBuilder.Append(c);
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+        public static bool IsTeamimExists(this string s)
+        {
+            String normalizedString = s.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
+            var result = false;
+
+            for (int i = 0; i < normalizedString.Length; i++)
+            {
+                Char c = normalizedString[i];
+
+                Debug.WriteLine(string.Format("{0}:{1} char:{2}", c.ToString(), CharUnicodeInfo.GetUnicodeCategory(c).ToString(), (int)c));
+
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark
+                    || ((int)c < 1423 || (int)c > (1423 + 27)))
+                {
+                    stringBuilder.Append(c);
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
         public static String RemoveNikud(this String s)
         {
             String normalizedString = s.Normalize(NormalizationForm.FormD);

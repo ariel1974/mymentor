@@ -43,7 +43,7 @@ namespace MyMentorUtilityClient
             Clip.Current.Version = maskedTextBox1.Text;
             Clip.Current.Category = textBox4.Text;
             Clip.Current.SubCategory = textBox5.Text;
-            Clip.Current.Tags = textBox6.Text;
+            Clip.Current.Keywords = textBox6.Text;
             Clip.Current.AudioFileName = textBox2.Text;
             Clip.Current.Status = comboBox1.Text;
             //Clip.Current.Duration = timePickerSpinner1.Value;
@@ -122,7 +122,7 @@ namespace MyMentorUtilityClient
             textBox4.Text = Clip.Current.Category;
             textBox2.Text = Clip.Current.AudioFileName;
             textBox5.Text = Clip.Current.SubCategory;
-            textBox6.Text = Clip.Current.Tags;
+            textBox6.Text = Clip.Current.Keywords;
             comboBox1.Text = Clip.Current.Status;
             textBox8.Text = Clip.Current.Chapter.Duration.ToString(@"hh\:mm\:ss\.fff");
             checkBox1.Checked = Clip.Current.AutoIncrementVersion;

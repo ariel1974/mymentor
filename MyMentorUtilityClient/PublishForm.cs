@@ -32,7 +32,7 @@ namespace MyMentorUtilityClient
                 || string.IsNullOrEmpty(Clip.Current.Description)
                 || string.IsNullOrEmpty(Clip.Current.Category)
                 || string.IsNullOrEmpty(Clip.Current.SubCategory)
-                || string.IsNullOrEmpty(Clip.Current.Tags)
+                || string.IsNullOrEmpty(Clip.Current.Keywords)
                 || string.IsNullOrEmpty(Clip.Current.Status))
             {
                 MessageBox.Show("אנא השלם את מאפייני השיעור", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);

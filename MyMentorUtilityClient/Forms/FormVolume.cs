@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 using AudioSoundEditor;
 
-namespace SoundStudio
+namespace MyMentor
 {
 	/// <summary>
 	/// Summary description for FormVolume.

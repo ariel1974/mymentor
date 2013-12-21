@@ -1,4 +1,4 @@
-﻿namespace MyMentorUtilityClient.TimeSpinner
+﻿namespace MyMentor.TimeSpinner
 {
     partial class TimePickerSpinner
     {
@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.minutes = new MyMentorUtilityClient.TimeSpinner.NumericUpDownEx();
-            this.seconds = new MyMentorUtilityClient.TimeSpinner.NumericUpDownEx();
-            this.milliseconds = new MyMentorUtilityClient.TimeSpinner.NumericUpDownEx();
+            this.minutes = new MyMentor.TimeSpinner.NumericUpDownEx();
+            this.seconds = new MyMentor.TimeSpinner.NumericUpDownEx();
+            this.milliseconds = new MyMentor.TimeSpinner.NumericUpDownEx();
             ((System.ComponentModel.ISupportInitialize)(this.minutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.milliseconds)).BeginInit();

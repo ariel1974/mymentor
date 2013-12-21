@@ -8,9 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Parse;
-using SoundStudio;
 
-namespace MyMentorUtilityClient
+namespace MyMentor
 {
     public partial class LoginForm : Form
     {

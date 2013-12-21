@@ -6999,7 +6999,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;timePickerCurrentWord.Type" xml:space="preserve">
-    <value>MyMentorUtilityClient.TimeSpinner.TimePickerSpinner, MyMentor, Version=7.1.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MyMentor.TimeSpinner.TimePickerSpinner, MyMentor, Version=7.1.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timePickerCurrentWord.ZOrder" xml:space="preserve">
     <value>3</value>

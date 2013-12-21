@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MyMentorUtilityClient.TimeSpinner
+namespace MyMentor.TimeSpinner
 {
     public partial class NumericUpDownEx : NumericUpDown
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyMentor.Properties {
+namespace MyMentor.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace MyMentor.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Strings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace MyMentor.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyMentor.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyMentor.Resources.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,51 +61,47 @@ namespace MyMentor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1386908112_Record_Button1 {
-            get {
-                object obj = ResourceManager.GetObject("1386908112_Record Button1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1386909293_auction_hammer_gavel {
-            get {
-                object obj = ResourceManager.GetObject("1386909293_auction_hammer_gavel", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1386909646_519838_50_Cloud_Arrow_Up {
-            get {
-                object obj = ResourceManager.GetObject("1386909646_519838-50_Cloud_Arrow_Up", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1386947558_anchor {
-            get {
-                object obj = ResourceManager.GetObject("1386947558_anchor", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to קובץ.
         /// </summary>
         internal static string mnuFile {
             get {
                 return ResourceManager.GetString("mnuFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 - טקסט.
+        /// </summary>
+        internal static string tabControl1_tab0 {
+            get {
+                return ResourceManager.GetString("tabControl1.tab0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2 - הקלטה.
+        /// </summary>
+        internal static string tabControl1_tab1 {
+            get {
+                return ResourceManager.GetString("tabControl1.tab1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3 - תזמון.
+        /// </summary>
+        internal static string tabControl1_tab2 {
+            get {
+                return ResourceManager.GetString("tabControl1.tab2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4 - פרסום.
+        /// </summary>
+        internal static string tabControl1_tab3 {
+            get {
+                return ResourceManager.GetString("tabControl1.tab3", resourceCulture);
             }
         }
     }

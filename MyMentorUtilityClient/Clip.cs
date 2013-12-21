@@ -11,14 +11,13 @@ using System.Xml.Serialization;
 using HtmlAgilityPack;
 using Ionic.Zip;
 using Microsoft.Win32;
+using MyMentor.Json;
 using MyMentor.ParseObjects;
-using MyMentorUtilityClient.Json;
 using NAudio.Wave;
 using Newtonsoft.Json;
 using Parse;
-using SoundStudio;
 
-namespace MyMentorUtilityClient
+namespace MyMentor
 {
     public class Clip
     {
@@ -51,6 +50,7 @@ namespace MyMentorUtilityClient
                     instance.LockedSections = new sections();
                     instance.DefaultLearningOptions = new learningOptions();
                     instance.LockedLearningOptions = new learningOptions();
+                    instance.ReadingDates = new List<DateTime>();
                 }
 
                 return instance;
@@ -67,14 +67,16 @@ namespace MyMentorUtilityClient
         public bool RightAlignment { get; set; }
         public string Description { get; set; }
         public string Version { get; set; }
-        public float FontSize { get; set; }
-        public string FontName { get; set; }
-        public string Category { get; set; }
-        public string SubCategory { get; set; }
+        public string Category1 { get; set; }
+        public string Category2 { get; set; }
+        public string Category3 { get; set; }
+        public string Category4 { get; set; }
         public string Keywords { get; set; }
+        public List<DateTime> ReadingDates { get; set; }
         public string Status { get; set; }
         public string AudioFileName { get; set; }
         public long ClipSize { get; set; }
+        public string ClipType { get; set; }
         public sections DefaultSections { get; set; }
         public sections LockedSections { get; set; }
         public learningOptions DefaultLearningOptions { get; set; }
@@ -446,6 +448,17 @@ namespace MyMentorUtilityClient
                 rtBox.Dispose();
             }
 
+            if (string.IsNullOrEmpty(instance.ClipType))
+            {
+                //set as clip
+                instance.ClipType = "piL85bMGtR";
+            }
+
+            if (instance.ReadingDates == null)
+            {
+                instance.ReadingDates = new List<DateTime>();
+            }
+
             instance.Devide();
         }
 
@@ -560,24 +573,38 @@ namespace MyMentorUtilityClient
                 clip["clipId"] = this.ID.ToString();
             }
 
-            //clip.ID = this.ID.ToString();
-            //clip.Name = this.Name;
-            //clip.Description = this.Description;
-            //clip.Status = ParseObject.CreateWithoutData("ClipStatus", this.Status);
-
             clip["name"] = this.Name;
+            clip["clipSourceText"] = this.Text;
             clip["description"] = this.Description;
             clip["version"] = this.Version;
-            clip["clipType"] = "שיעור";
+            clip["clipType"] = ParseObject.CreateWithoutData("ClipType", this.ClipType);
             clip["clipSize"] = this.ClipSize;
-            //clip["fontName"] = this.FontFileName;
 
             clip["status"] = ParseObject.CreateWithoutData("ClipStatus", this.Status);
 
-            //clip["category"] = this.Category;
-            //clip["subCategory"] = this.SubCategory;
-            //clip["keywords"] = this.Tags;
+            if (!string.IsNullOrEmpty(this.Category1))
+            {
+                clip["category1"] = ParseObject.CreateWithoutData("Category1", this.Category1);
+            }
+
+            if (!string.IsNullOrEmpty(this.Category2))
+            {
+                clip["category2"] = ParseObject.CreateWithoutData("Category2", this.Category2);
+            }
+
+            if (!string.IsNullOrEmpty(this.Category3))
+            {
+                clip["category3"] = ParseObject.CreateWithoutData("Category3", this.Category3);
+            }
+
+            if (!string.IsNullOrEmpty(this.Category4))
+            {
+                clip["category4"] = ParseObject.CreateWithoutData("Category4", this.Category4);
+            }
+
+            clip["keywords"] = this.Keywords.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
             clip["clipFile"] = file;
+            clip["readingDates"] = this.ReadingDates;
             //clip["createdByUser"] = user.Username;
 
             var preview = Path.ChangeExtension(this.FileName, "_preview.mp3");
@@ -789,21 +816,21 @@ namespace MyMentorUtilityClient
             clip.name = this.Name;
             clip.description = this.Description;
             clip.clipVersion = this.Version;
-            clip.fontSize = this.FontSize;
-            clip.fontName = this.FontName;
             clip.chapter = this.Chapter;
             clip.isNikudIncluded = this.IsNikudIncluded;
             clip.isTeamimIncluded = this.IsTeamimIncluded;
             clip.onlyNikudChapter = this.OnlyNikudChapter;
             clip.onlyTeamimChapter = this.OnlyTeamimChapter;
-            clip.schemaVersion = "2.01";
+            clip.schemaVersion = "2.03";
             //clip.duration = this.Duration;
             clip.defaultSections = this.DefaultSections;
             clip.lockedSections = this.LockedSections;
             clip.defaultLearningOptions = this.DefaultLearningOptions;
             clip.lockedLearningOptions = this.LockedLearningOptions;
-            clip.category = this.Category;
-            clip.subCategory = this.SubCategory;
+            clip.category1 = this.Category1;
+            clip.category2 = this.Category2;
+            clip.category3 = this.Category3;
+            clip.category4 = this.Category4;
             clip.keywords = this.Keywords;
 
             //clip.paragraphs = this.Paragraphs;

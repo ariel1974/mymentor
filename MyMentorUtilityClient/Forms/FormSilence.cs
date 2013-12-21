@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-namespace SoundStudio
+namespace MyMentor
 {
 	/// <summary>
 	/// Summary description for FormSilence.

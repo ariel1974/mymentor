@@ -133,7 +133,7 @@
     <value>335, 56</value>
   </metadata>
   <metadata name="ToolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 95</value>
+    <value>1176, 56</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="tbrNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -435,33 +435,6 @@
         3uLd5Mjf5uPo5eDa5+Hrz9vt6e/qosO/GvjJ+sj5F/sC+uMHcCCoBAA7AAAAAAAAAAAA
 </value>
   </data>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>760, 56</value>
-  </metadata>
-  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>124, 95</value>
-  </metadata>
-  <metadata name="fontDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>260, 95</value>
-  </metadata>
-  <data name="audioDjStudio1.Fader" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFBBdWRpb0RqU3R1ZGlvLCBWZXJzaW9uPTEuMC4wLjAsIEN1bHR1
-        cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49NmRkNTJkYmIyOTljYzFiMgUBAAAAGUF1ZGlvRGpTdHVk
-        aW8uRmFkZXJPYmplY3QJAAAAEG1fYkZhZGVJbkVuYWJsZWQRbV9iRmFkZU91dEVuYWJsZWQTbV9uRmFk
-        ZVN0YXJ0RnJvbUVuZBBtX25GYWRlT3V0TGVuZ3RoD21fbkZhZGVJbkxlbmd0aBBtX25GYWRlSW5TZWVr
-        UG9zGm1fbkZhZGVJbkRlbGF5RnJvbU1peFN0YXJ0G21fbkZhZGVPdXREZWxheUZyb21NaXhTdGFydA5t
-        X25GYWRlT3V0TW9kZQAAAAAAAAAABAEBCAgICAgIHkF1ZGlvRGpTdHVkaW8uZW51bUZhZGVPdXRNb2Rl
-        cwIAAAACAAAAAQGYOgAAiBMAALgLAACIEwAAAAAAAOgDAAAF/f///x5BdWRpb0RqU3R1ZGlvLmVudW1G
-        YWRlT3V0TW9kZXMBAAAAB3ZhbHVlX18ACAIAAAAAAAAACw==
-</value>
-  </data>
-  <metadata name="djLineTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>875, 56</value>
-  </metadata>
-  <metadata name="timerUpdateTimePickerSpinner.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>197, 17</value>
-  </metadata>
   <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>418, 17</value>
   </metadata>
@@ -470,7 +443,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACM
-        FgAAAk1TRnQBSQFMAgEBAgEAAQQBBQEEAQUBIAEAASABAAT/AREBAAj/AUIBTQE2BwABNgMAASgDAAGA
+        FgAAAk1TRnQBSQFMAgEBAgEAAXwBCAF8AQgBIAEAASABAAT/AREBAAj/AUIBTQE2BwABNgMAASgDAAGA
         AwABIAMAAQEBAAEQBgABIB4AAf8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/
         AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8YAAH/AX8B/wF/Af8BfwH/AX8B/wF/
         Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/
@@ -569,6 +542,33 @@
         CP8IAAj/CAAI/wgACP8IAAs=
 </value>
   </data>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>760, 56</value>
+  </metadata>
+  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 95</value>
+  </metadata>
+  <metadata name="fontDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>153, 95</value>
+  </metadata>
+  <data name="audioDjStudio1.Fader" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFBBdWRpb0RqU3R1ZGlvLCBWZXJzaW9uPTEuMC4wLjAsIEN1bHR1
+        cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49NmRkNTJkYmIyOTljYzFiMgUBAAAAGUF1ZGlvRGpTdHVk
+        aW8uRmFkZXJPYmplY3QJAAAAEG1fYkZhZGVJbkVuYWJsZWQRbV9iRmFkZU91dEVuYWJsZWQTbV9uRmFk
+        ZVN0YXJ0RnJvbUVuZBBtX25GYWRlT3V0TGVuZ3RoD21fbkZhZGVJbkxlbmd0aBBtX25GYWRlSW5TZWVr
+        UG9zGm1fbkZhZGVJbkRlbGF5RnJvbU1peFN0YXJ0G21fbkZhZGVPdXREZWxheUZyb21NaXhTdGFydA5t
+        X25GYWRlT3V0TW9kZQAAAAAAAAAABAEBCAgICAgIHkF1ZGlvRGpTdHVkaW8uZW51bUZhZGVPdXRNb2Rl
+        cwIAAAACAAAAAQGYOgAAiBMAALgLAACIEwAAAAAAAOgDAAAF/f///x5BdWRpb0RqU3R1ZGlvLmVudW1G
+        YWRlT3V0TW9kZXMBAAAAB3ZhbHVlX18ACAIAAAAAAAAACw==
+</value>
+  </data>
+  <metadata name="djLineTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>875, 56</value>
+  </metadata>
+  <metadata name="timerUpdateTimePickerSpinner.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>197, 17</value>
+  </metadata>
   <metadata name="timerRecordIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>193, 56</value>
   </metadata>
@@ -577,6 +577,9 @@
   </metadata>
   <metadata name="timerRefreshLedDisplay.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="timerPreStartFixPlayback.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>990, 56</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>137</value>

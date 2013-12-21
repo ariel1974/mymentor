@@ -1,4 +1,4 @@
-﻿namespace MyMentorUtilityClient.TimeSpinner
+﻿namespace MyMentor.TimeSpinner
 {
     partial class NumericUpDownEx
     {

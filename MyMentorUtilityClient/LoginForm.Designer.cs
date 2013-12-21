@@ -1,4 +1,4 @@
-﻿namespace MyMentorUtilityClient
+﻿namespace MyMentor
 {
     partial class LoginForm
     {

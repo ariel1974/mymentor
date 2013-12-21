@@ -57,5 +57,29 @@ namespace MyMentor.Properties {
                 this["RecentFiles"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TestSound {
+            get {
+                return ((bool)(this["TestSound"]));
+            }
+            set {
+                this["TestSound"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("he-il")]
+        public string CultureInfo {
+            get {
+                return ((string)(this["CultureInfo"]));
+            }
+            set {
+                this["CultureInfo"] = value;
+            }
+        }
     }
 }

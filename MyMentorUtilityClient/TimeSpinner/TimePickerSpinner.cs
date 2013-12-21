@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 
-namespace MyMentorUtilityClient.TimeSpinner
+namespace MyMentor.TimeSpinner
 {
     public partial class TimePickerSpinner : UserControl
     {

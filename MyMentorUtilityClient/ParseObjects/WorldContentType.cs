@@ -16,5 +16,12 @@ namespace MyMentor.ParseObjects
             get { return GetProperty<string>(); }
             set { SetProperty<string>(value); }
         }
+
+        [ParseFieldName("clipTitlePattern")]
+        public string ClipTitlePattern
+        {
+            get { return GetProperty<string>(); }
+            set { SetProperty<string>(value); }
+        }
     }
 }

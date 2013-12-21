@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MyMentorUtilityClient
+namespace MyMentor
 {
     partial class AboutBox : Form
     {

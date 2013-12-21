@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
-namespace MyMentorUtilityClient.Json
+namespace MyMentor.Json
 {
     public class sections
     {
@@ -31,14 +31,14 @@ namespace MyMentorUtilityClient.Json
         public string description { get; set; }
         public string schemaVersion { get; set; }
         public string clipVersion { get; set; }
-        public string fontName { get; set; }
-        public float fontSize { get; set; }
         public sections defaultSections { get; set; }
         public sections lockedSections { get; set; }
         public learningOptions defaultLearningOptions { get; set; }
         public learningOptions lockedLearningOptions { get; set; }
-        public string category { get; set; }
-        public string subCategory { get; set; }
+        public string category1 { get; set; }
+        public string category2 { get; set; }
+        public string category3 { get; set; }
+        public string category4 { get; set; }
         public string keywords { get; set; }
         public bool isNikudIncluded { get; set; }
         public bool isTeamimIncluded { get; set; }

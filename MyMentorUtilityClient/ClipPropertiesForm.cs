@@ -9,17 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MyMentorUtilityClient
+namespace MyMentor
 {
     public partial class ClipPropertiesForm : Form
     {
-        private MainForm m_mainForm;
-
-        public ClipPropertiesForm(MainForm mainForm)
+        public ClipPropertiesForm()
         {
             InitializeComponent();
-
-            m_mainForm = mainForm;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -41,8 +37,6 @@ namespace MyMentorUtilityClient
             Clip.Current.Name = textBox1.Text;
             Clip.Current.Description = textBox3.Text;
             Clip.Current.Version = maskedTextBox1.Text;
-            Clip.Current.Category = textBox4.Text;
-            Clip.Current.SubCategory = textBox5.Text;
             Clip.Current.Keywords = textBox6.Text;
             Clip.Current.AudioFileName = textBox2.Text;
             Clip.Current.Status = comboBox1.Text;
@@ -89,9 +83,9 @@ namespace MyMentorUtilityClient
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     Clip.Current.FileName = saveFileDialog1.FileName;
-                    Clip.Current.RtfText = m_mainForm.richTextBox1.Rtf;
+                    //Clip.Current.RtfText = m_mainForm.richTextBox1.Rtf;
                     //Clip.Current.Save();
-                    m_mainForm.toolStripMenuItem8.Enabled = true;
+                    //m_mainForm.toolStripMenuItem8.Enabled = true;
                 }
                 else
                 {
@@ -101,10 +95,10 @@ namespace MyMentorUtilityClient
             else
             {
                 //Clip.Current.Save();
-                m_mainForm.toolStripMenuItem8.Enabled = true;
+                //m_mainForm.toolStripMenuItem8.Enabled = true;
             }
 
-            m_mainForm.Text = "MyMentor - " + textBox1.Text;
+            //m_mainForm.Text = "MyMentor - " + textBox1.Text;
 
             this.Close();
         }
@@ -119,9 +113,9 @@ namespace MyMentorUtilityClient
             textBox1.Text = Clip.Current.Name;
             textBox3.Text = Clip.Current.Description;
             maskedTextBox1.Text = Clip.Current.Version;
-            textBox4.Text = Clip.Current.Category;
+            //textBox4.Text = Clip.Current.Category;
             textBox2.Text = Clip.Current.AudioFileName;
-            textBox5.Text = Clip.Current.SubCategory;
+            //textBox5.Text = Clip.Current.SubCategory;
             textBox6.Text = Clip.Current.Keywords;
             comboBox1.Text = Clip.Current.Status;
             textBox8.Text = Clip.Current.Chapter.Duration.ToString(@"hh\:mm\:ss\.fff");

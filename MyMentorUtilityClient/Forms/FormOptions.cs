@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 using AudioSoundEditor;
 
-namespace SoundStudio
+namespace MyMentor
 {
 	/// <summary>
 	/// Summary description for FormOptions.

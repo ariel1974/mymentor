@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MyMentorUtilityClient
+namespace MyMentor
 {
     public partial class GotoForm : Form
     {

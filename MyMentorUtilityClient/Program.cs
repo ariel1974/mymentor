@@ -10,7 +10,7 @@ using MyMentor;
 using MyMentor.ParseObjects;
 using Parse;
 
-namespace MyMentorUtilityClient
+namespace MyMentor
 {
     static class Program
     {
@@ -20,9 +20,9 @@ namespace MyMentorUtilityClient
         [STAThread]
         static void Main(string[] args)
         {
-            ParseObject.RegisterSubclass<Cat_Kria>();
+            //ParseObject.RegisterSubclass<Cat_Kria>();
             ParseObject.RegisterSubclass<WorldContentType>();
-            ParseObject.RegisterSubclass<ClipStatus>();
+            //ParseObject.RegisterSubclass<ClipStatus>();
             //ParseObject.RegisterSubclass<ClipsV2>();
             ParseClient.Initialize("qvC0Pgq7QGSqntpqnA75vGnNUBewQ08DplQcJtMI", "65j2W36stF0GXUhJwAEuTwJp6geDEWeaUSSFyHKg");
 
@@ -41,7 +41,7 @@ namespace MyMentorUtilityClient
             //fai.ContentType = "application/myfile";
 
             //Programs automatically displayed in open with list
-            fai.OpenWithList = new string[] { "MyMentorUtilityClient.exe" };
+            fai.OpenWithList = new string[] { "MyMentor.exe" };
 
             ProgramAssociationInfo pai = new ProgramAssociationInfo(fai.ProgID);
             if (pai.Exists)
@@ -66,7 +66,7 @@ namespace MyMentorUtilityClient
             //optional
             //pai.DefaultIcon = new ProgramIcon(@"C:\SomePath\SomeIcon.ico");
 
-            Application.Run(new SoundStudio.FormMain());
+            Application.Run(new FormMain());
         }
     }
 }

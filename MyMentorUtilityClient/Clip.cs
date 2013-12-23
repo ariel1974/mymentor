@@ -63,6 +63,8 @@ namespace MyMentor
 
         public string FileName { get; set; }
         public Guid ID { get; set; }
+        public decimal Price { get; set; }
+        public decimal PriceSupport { get; set; }
         public string Name { get; set; }
         public bool RightAlignment { get; set; }
         public string Description { get; set; }
@@ -76,6 +78,7 @@ namespace MyMentor
         public string Status { get; set; }
         public string AudioFileName { get; set; }
         public long ClipSize { get; set; }
+        public long DemoClipSize { get; set; }
         public string ClipType { get; set; }
         public sections DefaultSections { get; set; }
         public sections LockedSections { get; set; }
@@ -87,6 +90,7 @@ namespace MyMentor
         public string HtmlOnlyTeamimFileName { get; set; }
         public string HtmlClearTextFileName { get; set; }
         public string MmnFileName { get; set; }
+        public string MmnDemoFileName { get; set; }
         public Nullable<DateTime> LastPublishedOn { get; set; }
         public bool AutoIncrementVersion { get; set; }
 
@@ -487,9 +491,9 @@ namespace MyMentor
             }
         }
 
-        private bool CutPreviewFile()
+        private Task<bool> CutPreviewFile()
         {
-            var t1 = Task.Factory.StartNew(() =>
+            return Task.Factory.StartNew(() =>
                         {
 
                             using (Mp3FileReader rdr = new Mp3FileReader(Path.ChangeExtension(this.FileName, ".mp3")))
@@ -510,10 +514,9 @@ namespace MyMentor
 
                                 _fs.Close();
                             }
-                        });
-            t1.Wait();
 
-            return true;
+                            return true;
+                        });
         }
 
         public bool Publish(AudioSoundEditor.AudioSoundEditor editor)
@@ -548,8 +551,38 @@ namespace MyMentor
                 //cut for audio preview file
                 if (editor.GetSoundDuration() > 0)
                 {
-                    CutPreviewFile();
+                    var processData = CutPreviewFile().ContinueWith((cut) =>
+                    {
+                        if (cut.Result)
+                        {
+                            //create demo file
+                            this.MmnDemoFileName = Path.Combine(tempPath, string.Format("{0}_demo.mmn", this.ID.ToString()));
+
+                            using (ZipFile zip = new ZipFile())
+                            {
+                                //zip.AddFile(Path.Combine(tempPath, this.FontFileName), string.Empty);
+                                zip.AddFile(this.JsonSchemaFileName, string.Empty);
+
+                                File.Copy(Path.ChangeExtension(this.FileName, "_preview.mp3"), Path.Combine(tempPath, string.Format("{0}_demo.mp3", this.ID.ToString())), true);
+                                zip.AddFile(Path.Combine(tempPath, string.Format("{0}_demo.mp3", this.ID.ToString())), string.Empty);
+
+                                zip.AddFile(this.HtmlFileName, string.Empty);
+                                zip.AddFile(this.HtmlOnlyNikudFileName, string.Empty);
+                                zip.AddFile(this.HtmlOnlyTeamimFileName, string.Empty);
+                                zip.AddFile(this.HtmlClearTextFileName, string.Empty);
+                                zip.Save(this.MmnDemoFileName);
+                            }
+
+                            FileInfo info2 = new FileInfo(this.MmnDemoFileName);
+                            this.DemoClipSize = info2.Length;
+
+                        }
+                    }); 
+
+
+
                 }
+
             });
 
             t1.Wait();
@@ -560,10 +593,15 @@ namespace MyMentor
 
         public async Task<bool> UploadAsync(IProgress<ParseUploadProgressEventArgs> progress)
         {
-            //read file content
-            byte[] bytes = File.ReadAllBytes(this.MmnFileName);
-            ParseFile file = new ParseFile(string.Format("{0}.mmn", this.ID.ToString()), bytes);
-            await file.SaveAsync(progress);
+            //read mmn file content
+            byte[] mmnBytes = File.ReadAllBytes(this.MmnFileName);
+            ParseFile mmnFile = new ParseFile(string.Format("{0}.mmn", this.ID.ToString()), mmnBytes);
+            await mmnFile.SaveAsync(progress);
+
+            //read mmn file content
+            byte[] mmnDemoBytes = File.ReadAllBytes(this.MmnDemoFileName);
+            ParseFile mmnDemoFile = new ParseFile(string.Format("{0}_demo.mmn", this.ID.ToString()), mmnDemoBytes);
+            await mmnDemoFile.SaveAsync(progress);
 
             //check if exists clip
             var query = ParseObject.GetQuery("ClipsV2").WhereEqualTo("clipId", this.ID.ToString());
@@ -581,7 +619,8 @@ namespace MyMentor
             clip["description"] = this.Description;
             clip["version"] = this.Version;
             clip["clipType"] = ParseObject.CreateWithoutData("ClipType", this.ClipType);
-            clip["clipSize"] = this.ClipSize;
+            clip["price"] = (float)this.Price;
+            clip["priceWithSupport"] = (float)this.PriceSupport;
             clip["status"] = ParseObject.CreateWithoutData("ClipStatus", this.Status);
 
             if (!string.IsNullOrEmpty(this.Category1))
@@ -599,7 +638,7 @@ namespace MyMentor
             }
             //else
             //{
-            //    clip["category2"] = null;
+            //    clip["category2"] = string.Empty;
             //}
 
             if (!string.IsNullOrEmpty(this.Category3))
@@ -615,13 +654,16 @@ namespace MyMentor
             {
                 clip["category4"] = ParseObject.CreateWithoutData("Category4", this.Category4);
             }
-            //else
-            //{
-            //    clip["category4"] = null;
-            //}
+            else
+            {
+                clip["category4"] = ParseObject.CreateWithoutData("Category4", null); ;
+            }
 
             clip["keywords"] = this.Keywords.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
-            clip["clipFile"] = file;
+            clip["clipFile"] = mmnFile;
+            clip["clipSize"] = this.ClipSize;
+            clip["demoClipFile"] = mmnDemoFile;
+            clip["demoClipSize"] = this.DemoClipSize;
             clip["readingDates"] = this.ReadingDates;
             //clip["createdByUser"] = user.Username;
 

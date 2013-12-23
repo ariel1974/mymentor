@@ -107,12 +107,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Clip.cs" />
-    <Compile Include="ClipPropertiesForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ClipPropertiesForm.Designer.cs">
-      <DependentUpon>ClipPropertiesForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ComboBox\CheckBoxComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -135,7 +129,7 @@
     </Compile>
     <Compile Include="ComboBox\Selection Wrappers\ListSelectionWrapper.cs" />
     <Compile Include="ComboBox\Selection Wrappers\ObjectSelectionWrapper.cs" />
-    <Compile Include="Entities\Class1.cs" />
+    <Compile Include="Entities\Entities.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FileAssociation\AssociationManager.cs" />
     <Compile Include="FileAssociation\FileAssociationInfo.cs" />
@@ -251,9 +245,6 @@
     </Compile>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ClipPropertiesForm.resx">
-      <DependentUpon>ClipPropertiesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ComboBox\PopupComboBox.resx">
       <DependentUpon>PopupComboBox.cs</DependentUpon>

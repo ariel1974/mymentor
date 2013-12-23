@@ -13,6 +13,7 @@ namespace MyMentor
     {
         public string ObjectId { get; set; }
         public string Value { get; set; }
+        public decimal MinPrice { get; set; }
     }
     public class SectionCellData
     {

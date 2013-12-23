@@ -44,10 +44,6 @@ namespace MyMentor
             this.comboCategory1.ValueMember = "ObjectId";
             comboCategory1.DataSource = m_formMain.GetCategory1();
 
-            this.comboCategory3.DisplayMember = "Value";
-            this.comboCategory3.ValueMember = "ObjectId";
-            comboCategory3.DataSource = m_formMain.GetCategory3();
-
             this.comboCategory4.DisplayMember = "Value";
             this.comboCategory4.ValueMember = "ObjectId";
             comboCategory4.DataSource = m_formMain.GetCategory4();
@@ -92,6 +88,10 @@ namespace MyMentor
             if (comboCategory3.SelectedValue != null)
             {
                 query1 = query1.WhereEqualTo("category3", ParseObject.CreateWithoutData("Category3", (string)comboCategory3.SelectedValue));
+            }
+            else
+            {
+                query1 = query1.WhereContainedIn("category3", ((IEnumerable<Category>)comboCategory3.DataSource).Select( s => ParseObject.CreateWithoutData("Category3", s.ObjectId)));
             }
 
             if (comboCategory4.SelectedValue != null)
@@ -145,6 +145,40 @@ namespace MyMentor
             comboCategory4.SelectedItem = null;
             tbClipDescription.Text = "";
             tbKeywords.Text = "";
+        }
+
+        private async void FormReadyTexts_Load(object sender, EventArgs e)
+        {
+            this.comboCategory3.DisplayMember = "Value";
+            this.comboCategory3.ValueMember = "ObjectId";
+            this.comboCategory3.DataSource = (await ParseTables.GetCategory3(m_formMain.ContentType.ObjectId, "0y8A4XTNeR")).Select(c => new Category
+            {
+                ObjectId = c.ObjectId,
+                Value = c.Get<string>("value")
+            }).ToList();
+
+            comboCategory3.SelectedItem = null;
+
+        }
+
+        private async void comboCategory1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (comboCategory1.SelectedIndex >= 0)
+            {
+                this.comboCategory2.DisplayMember = "Value";
+                this.comboCategory2.ValueMember = "ObjectId";
+                this.comboCategory2.DataSource = (await ParseTables.GetCategory2((string)comboCategory1.SelectedValue)).Select(c => new Category
+                {
+                    ObjectId = c.ObjectId,
+                    Value = c.Get<string>("value")
+                }).ToList(); ;
+
+                this.comboCategory2.SelectedValue = string.Empty;
+            }
+            else
+            {
+                this.comboCategory2.DataSource = null;
+            }
         }
     }
 

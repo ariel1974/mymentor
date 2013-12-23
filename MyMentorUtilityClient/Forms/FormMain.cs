@@ -359,7 +359,15 @@ namespace MyMentor
         private Timer timerPreStartFixPlayback;
         private Label lblClipType;
         private ComboBox comboClipType;
-        private string m_clipTitlePattern;
+        private WorldContentType m_contentType;
+
+        public WorldContentType ContentType
+        {
+            get
+            {
+                return m_contentType;
+            }
+        }
 
         // Reverb internal DSP
         private void ReverbCallback(IntPtr bufferSamples, Int32 bufferSamplesLength, Int32 nUserData)
@@ -486,6 +494,7 @@ namespace MyMentor
             this.FrameRecording = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.sevenSegment1 = new DmitryBrant.CustomControls.SevenSegment();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.numericUpDownBufferRecord = new System.Windows.Forms.NumericUpDown();
@@ -529,10 +538,12 @@ namespace MyMentor
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.comboBoxAutoDevidePar = new PresentationControls.CheckBoxComboBox();
             this.buttonAutoDevide = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.richTextBox4 = new System.Windows.Forms.RichTextBox();
             this.label24 = new System.Windows.Forms.Label();
+            this.comboBoxAutoDevideSen = new PresentationControls.CheckBoxComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -547,6 +558,7 @@ namespace MyMentor
             this.LabelCurrentWordDuration = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
             this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
             this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.buttonHammer = new System.Windows.Forms.Button();
@@ -563,6 +575,8 @@ namespace MyMentor
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblClipType = new System.Windows.Forms.Label();
+            this.comboClipType = new System.Windows.Forms.ComboBox();
             this.dtpReadingDate = new System.Windows.Forms.DateTimePicker();
             this.btnRemoveDate = new System.Windows.Forms.Button();
             this.btnAddDate = new System.Windows.Forms.Button();
@@ -698,12 +712,6 @@ namespace MyMentor
             this.timerStartRecordingAfterPlayingBuffer = new System.Windows.Forms.Timer(this.components);
             this.timerRefreshLedDisplay = new System.Windows.Forms.Timer(this.components);
             this.timerPreStartFixPlayback = new System.Windows.Forms.Timer(this.components);
-            this.comboBoxAutoDevidePar = new PresentationControls.CheckBoxComboBox();
-            this.comboBoxAutoDevideSen = new PresentationControls.CheckBoxComboBox();
-            this.sevenSegment1 = new DmitryBrant.CustomControls.SevenSegment();
-            this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
-            this.comboClipType = new System.Windows.Forms.ComboBox();
-            this.lblClipType = new System.Windows.Forms.Label();
             this.Frame4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).BeginInit();
             this.framePlayback.SuspendLayout();
@@ -1190,6 +1198,25 @@ namespace MyMentor
             this.groupBox9.TabIndex = 32;
             this.groupBox9.TabStop = false;
             // 
+            // sevenSegment1
+            // 
+            this.sevenSegment1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sevenSegment1.ColorBackground = System.Drawing.Color.DarkGray;
+            this.sevenSegment1.ColorDark = System.Drawing.Color.DimGray;
+            this.sevenSegment1.ColorLight = System.Drawing.Color.Lime;
+            this.sevenSegment1.CustomPattern = 107;
+            this.sevenSegment1.DecimalOn = false;
+            this.sevenSegment1.DecimalShow = true;
+            this.sevenSegment1.ElementWidth = 10;
+            this.sevenSegment1.ItalicFactor = 0F;
+            this.sevenSegment1.Location = new System.Drawing.Point(18, 25);
+            this.sevenSegment1.Name = "sevenSegment1";
+            this.sevenSegment1.Padding = new System.Windows.Forms.Padding(4);
+            this.sevenSegment1.Size = new System.Drawing.Size(53, 82);
+            this.sevenSegment1.TabIndex = 37;
+            this.sevenSegment1.TabStop = false;
+            this.sevenSegment1.Value = "5";
+            // 
             // label26
             // 
             this.label26.AutoSize = true;
@@ -1389,7 +1416,7 @@ namespace MyMentor
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85.12881F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.87119F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 203F));
             this.tableLayoutPanel2.Controls.Add(this.ToolStrip1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox1, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel7, 0, 0);
@@ -1692,9 +1719,9 @@ namespace MyMentor
             // 
             this.panel7.Controls.Add(this.groupBox8);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(456, 3);
+            this.panel7.Location = new System.Drawing.Point(459, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(703, 74);
+            this.panel7.Size = new System.Drawing.Size(700, 74);
             this.panel7.TabIndex = 34;
             // 
             // groupBox8
@@ -1714,6 +1741,23 @@ namespace MyMentor
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "חלוקה אוטומטית";
+            // 
+            // comboBoxAutoDevidePar
+            // 
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxAutoDevidePar.CheckBoxProperties = checkBoxProperties1;
+            this.comboBoxAutoDevidePar.DisplayMemberSingleItem = "";
+            this.comboBoxAutoDevidePar.FormattingEnabled = true;
+            this.comboBoxAutoDevidePar.Items.AddRange(new object[] {
+            "ENTER",
+            "שני ENTER",
+            "אחרי 2 משפטים",
+            "אחרי 3 משפטים",
+            "אחרי 4 משפטים"});
+            this.comboBoxAutoDevidePar.Location = new System.Drawing.Point(431, 31);
+            this.comboBoxAutoDevidePar.Name = "comboBoxAutoDevidePar";
+            this.comboBoxAutoDevidePar.Size = new System.Drawing.Size(188, 26);
+            this.comboBoxAutoDevidePar.TabIndex = 19;
             // 
             // buttonAutoDevide
             // 
@@ -1764,6 +1808,21 @@ namespace MyMentor
             this.label24.TabIndex = 17;
             this.label24.Text = "סוף משפט";
             // 
+            // comboBoxAutoDevideSen
+            // 
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxAutoDevideSen.CheckBoxProperties = checkBoxProperties2;
+            this.comboBoxAutoDevideSen.DisplayMemberSingleItem = "";
+            this.comboBoxAutoDevideSen.FormattingEnabled = true;
+            this.comboBoxAutoDevideSen.Items.AddRange(new object[] {
+            "נקודותיים (:)",
+            "נקודה (.)",
+            "ENTER"});
+            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(120, 31);
+            this.comboBoxAutoDevideSen.Name = "comboBoxAutoDevideSen";
+            this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(191, 26);
+            this.comboBoxAutoDevideSen.TabIndex = 16;
+            // 
             // label14
             // 
             this.label14.BackColor = System.Drawing.SystemColors.Control;
@@ -1785,7 +1844,7 @@ namespace MyMentor
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(3, 3);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(447, 74);
+            this.panel8.Size = new System.Drawing.Size(450, 74);
             this.panel8.TabIndex = 35;
             // 
             // groupBox10
@@ -1796,7 +1855,7 @@ namespace MyMentor
             this.groupBox10.Font = new System.Drawing.Font("Arial", 12F);
             this.groupBox10.Location = new System.Drawing.Point(0, 0);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(447, 74);
+            this.groupBox10.Size = new System.Drawing.Size(450, 74);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "טקסטים מוכנים";
@@ -1955,6 +2014,16 @@ namespace MyMentor
             this.label10.Size = new System.Drawing.Size(122, 18);
             this.label10.TabIndex = 26;
             this.label10.Text = "התחלה קטע נבחר";
+            // 
+            // timePickerCurrentWord
+            // 
+            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 72);
+            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
+            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
+            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
+            this.timePickerCurrentWord.TabIndex = 25;
+            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
             // 
             // LabelCurrentSchedulingTimer
             // 
@@ -2216,6 +2285,30 @@ namespace MyMentor
             this.groupBox3.Size = new System.Drawing.Size(993, 387);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
+            // 
+            // lblClipType
+            // 
+            this.lblClipType.AutoSize = true;
+            this.lblClipType.Font = new System.Drawing.Font("Arial", 12F);
+            this.lblClipType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblClipType.Location = new System.Drawing.Point(524, 303);
+            this.lblClipType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblClipType.Name = "lblClipType";
+            this.lblClipType.Size = new System.Drawing.Size(63, 18);
+            this.lblClipType.TabIndex = 74;
+            this.lblClipType.Text = "סוג שיעור";
+            this.lblClipType.Visible = false;
+            // 
+            // comboClipType
+            // 
+            this.comboClipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboClipType.FormattingEnabled = true;
+            this.comboClipType.Location = new System.Drawing.Point(362, 300);
+            this.comboClipType.Name = "comboClipType";
+            this.comboClipType.Size = new System.Drawing.Size(155, 26);
+            this.comboClipType.TabIndex = 73;
+            this.comboClipType.Visible = false;
+            this.comboClipType.SelectionChangeCommitted += new System.EventHandler(this.comboClipType_SelectionChangeCommitted);
             // 
             // dtpReadingDate
             // 
@@ -3439,90 +3532,6 @@ namespace MyMentor
             // 
             this.timerPreStartFixPlayback.Tick += new System.EventHandler(this.timerPreStartFixPlayback_Tick);
             // 
-            // comboBoxAutoDevidePar
-            // 
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxAutoDevidePar.CheckBoxProperties = checkBoxProperties1;
-            this.comboBoxAutoDevidePar.DisplayMemberSingleItem = "";
-            this.comboBoxAutoDevidePar.FormattingEnabled = true;
-            this.comboBoxAutoDevidePar.Items.AddRange(new object[] {
-            "ENTER",
-            "שני ENTER",
-            "אחרי 2 משפטים",
-            "אחרי 3 משפטים",
-            "אחרי 4 משפטים"});
-            this.comboBoxAutoDevidePar.Location = new System.Drawing.Point(431, 31);
-            this.comboBoxAutoDevidePar.Name = "comboBoxAutoDevidePar";
-            this.comboBoxAutoDevidePar.Size = new System.Drawing.Size(188, 26);
-            this.comboBoxAutoDevidePar.TabIndex = 19;
-            // 
-            // comboBoxAutoDevideSen
-            // 
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxAutoDevideSen.CheckBoxProperties = checkBoxProperties2;
-            this.comboBoxAutoDevideSen.DisplayMemberSingleItem = "";
-            this.comboBoxAutoDevideSen.FormattingEnabled = true;
-            this.comboBoxAutoDevideSen.Items.AddRange(new object[] {
-            "נקודותיים (:)",
-            "נקודה (.)",
-            "ENTER"});
-            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(120, 31);
-            this.comboBoxAutoDevideSen.Name = "comboBoxAutoDevideSen";
-            this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(191, 26);
-            this.comboBoxAutoDevideSen.TabIndex = 16;
-            // 
-            // sevenSegment1
-            // 
-            this.sevenSegment1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sevenSegment1.ColorBackground = System.Drawing.Color.DarkGray;
-            this.sevenSegment1.ColorDark = System.Drawing.Color.DimGray;
-            this.sevenSegment1.ColorLight = System.Drawing.Color.Lime;
-            this.sevenSegment1.CustomPattern = 107;
-            this.sevenSegment1.DecimalOn = false;
-            this.sevenSegment1.DecimalShow = true;
-            this.sevenSegment1.ElementWidth = 10;
-            this.sevenSegment1.ItalicFactor = 0F;
-            this.sevenSegment1.Location = new System.Drawing.Point(18, 25);
-            this.sevenSegment1.Name = "sevenSegment1";
-            this.sevenSegment1.Padding = new System.Windows.Forms.Padding(4);
-            this.sevenSegment1.Size = new System.Drawing.Size(53, 82);
-            this.sevenSegment1.TabIndex = 37;
-            this.sevenSegment1.TabStop = false;
-            this.sevenSegment1.Value = "5";
-            // 
-            // timePickerCurrentWord
-            // 
-            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 72);
-            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
-            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
-            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
-            this.timePickerCurrentWord.TabIndex = 25;
-            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
-            // 
-            // comboClipType
-            // 
-            this.comboClipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboClipType.FormattingEnabled = true;
-            this.comboClipType.Location = new System.Drawing.Point(362, 300);
-            this.comboClipType.Name = "comboClipType";
-            this.comboClipType.Size = new System.Drawing.Size(155, 26);
-            this.comboClipType.TabIndex = 73;
-            this.comboClipType.Visible = false;
-            // 
-            // lblClipType
-            // 
-            this.lblClipType.AutoSize = true;
-            this.lblClipType.Font = new System.Drawing.Font("Arial", 12F);
-            this.lblClipType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblClipType.Location = new System.Drawing.Point(524, 303);
-            this.lblClipType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblClipType.Name = "lblClipType";
-            this.lblClipType.Size = new System.Drawing.Size(63, 18);
-            this.lblClipType.TabIndex = 74;
-            this.lblClipType.Text = "סוג שיעור";
-            this.lblClipType.Visible = false;
-            // 
             // FormMain
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 19);
@@ -3730,7 +3739,7 @@ namespace MyMentor
         {
             audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
 
-             bool bSelectionAvailable = false;
+            bool bSelectionAvailable = false;
             Int32 nBeginSelectionInMs = 0;
             Int32 nEndSelectionInMs = 0;
             audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
@@ -5052,7 +5061,7 @@ namespace MyMentor
                 }
             }
 
-         
+
 
         }
 
@@ -5526,7 +5535,7 @@ namespace MyMentor
 
             WorldContentType contentType = await ParseTables.GetContentType();
 
-            m_clipTitlePattern = contentType.ClipTitlePattern;
+            m_contentType = contentType;
 
             this.comboCategory1.DisplayMember = "Value";
             this.comboCategory1.ValueMember = "ObjectId";
@@ -5538,7 +5547,7 @@ namespace MyMentor
 
             this.comboCategory3.DisplayMember = "Value";
             this.comboCategory3.ValueMember = "ObjectId";
-            this.comboCategory3.DataSource = (await ParseTables.GetCategory3(contentType.ObjectId)).Select(c => new Category
+            this.comboCategory3.DataSource = (await ParseTables.GetCategory3(contentType.ObjectId, "HPz65WBzhw")).Select(c => new Category
             {
                 ObjectId = c.ObjectId,
                 Value = c.Get<string>("value")
@@ -5557,7 +5566,7 @@ namespace MyMentor
             this.comboStatus.DataSource = (await ParseTables.GetStatuses()).Select(c => new Category
             {
                 ObjectId = c.ObjectId,
-                Value = c.Get<string>("status_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-","_"))
+                Value = c.Get<string>("status_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_"))
             }).ToList();
 
             this.comboClipType.DisplayMember = "Value";
@@ -5591,7 +5600,7 @@ namespace MyMentor
             //check if admin - show extra stuff
             var role = await ParseRole.Query.GetAsync("Au3zBr8rLy");
             var relation = await role.GetRelation<ParseUser>("users").Query.FindAsync();
-            var user = relation.FirstOrDefault(usr => usr.ObjectId.Equals( ParseUser.CurrentUser.ObjectId ));
+            var user = relation.FirstOrDefault(usr => usr.ObjectId.Equals(ParseUser.CurrentUser.ObjectId));
             if (user != null)
             {
                 m_admin = true;
@@ -5633,9 +5642,9 @@ namespace MyMentor
                 return;
             }
 
-            Debug.WriteLine(string.Format("ClipPattern:{0}", m_clipTitlePattern));
+            Debug.WriteLine(string.Format("ClipPattern:{0}", m_contentType.ClipTitlePattern));
 
-            var clipName = m_clipTitlePattern.Replace("[category1]", comboCategory1.Text ?? string.Empty)
+            var clipName = m_contentType.ClipTitlePattern.Replace("[category1]", comboCategory1.Text ?? string.Empty)
                 .Replace("[category2]", comboCategory2.Text ?? string.Empty)
                 .Replace("[category3]", comboCategory3.Text ?? string.Empty)
                 .Replace("[category4]", comboCategory4.Text ?? string.Empty)
@@ -5732,7 +5741,7 @@ namespace MyMentor
 
                 if (error != enumErrorCodes.ERR_NOERROR)
                 {
-                    MessageBox.Show(string.Format("נסיון טעינה של קובץ המוזיקה נכשל בגלל הסיבה :{0}\n\nאנא נסה שוב מאוחר יותר", error.ToString() ), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    MessageBox.Show(string.Format("נסיון טעינה של קובץ המוזיקה נכשל בגלל הסיבה :{0}\n\nאנא נסה שוב מאוחר יותר", error.ToString()), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 }
             }
 
@@ -6161,7 +6170,7 @@ namespace MyMentor
                 m_selectedScheduledWord = null;
 
                 //move line
-                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, 
+                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId,
                     (int)timePickerCurrentWord.Value.TotalMilliseconds,
                     (int)timePickerCurrentWord.Value.TotalMilliseconds);
             }
@@ -6435,7 +6444,7 @@ namespace MyMentor
                         {
                             //move relevet line
                             audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_endLineUniqueId,
-                                (int)(timePickerCurrentWord.Value.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds) ,
+                                (int)(timePickerCurrentWord.Value.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds),
                                  (int)(timePickerCurrentWord.Value.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds));
                         }
 
@@ -6700,7 +6709,7 @@ namespace MyMentor
         {
         }
 
-        private void mnuLoginDifferentUser_Click(object sender, EventArgs e)
+        private async void mnuLoginDifferentUser_Click(object sender, EventArgs e)
         {
             LoginForm form = new LoginForm();
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -6708,6 +6717,23 @@ namespace MyMentor
                 if (ParseUser.CurrentUser != null)
                 {
                     lblLoginUser.Text = "הנך מחובר כ-" + ParseUser.CurrentUser.Username;
+
+                    comboClipType.Visible = false;
+                    lblClipType.Visible = false;
+
+
+                    //check if admin - show extra stuff
+                    var role = await ParseRole.Query.GetAsync("Au3zBr8rLy");
+                    var relation = await role.GetRelation<ParseUser>("users").Query.FindAsync();
+                    var user = relation.FirstOrDefault(usr => usr.ObjectId.Equals(ParseUser.CurrentUser.ObjectId));
+                    if (user != null)
+                    {
+                        m_admin = true;
+
+                        comboClipType.Visible = true;
+                        lblClipType.Visible = true;
+                    }
+
                 }
                 else
                 {
@@ -7096,13 +7122,13 @@ namespace MyMentor
 
         private async void buttonPublish_Click(object sender, EventArgs e)
         {
-            if (audioSoundEditor1.GetSoundDuration() <= 0)
+            if (audioSoundEditor1.GetSoundDuration() <= 0 && !m_admin)
             {
                 // ask the user if he wants to go on
                 MessageBox.Show("יש לבצע הקלטה ותזמון לשיעור לפני פרסומו", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 return;
             }
-            
+
             if (MessageBox.Show("האם אתה בטוח לפרסם שיעור זה ?", "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
             {
                 return;
@@ -7130,19 +7156,15 @@ namespace MyMentor
 
                         if (result)
                         {
-                            if (Clip.Current.AutoIncrementVersion)
+                            try
                             {
-                                try
-                                {
-                                    Clip.Current.Version = Convert.ToString(Convert.ToDouble(Clip.Current.Version) + 0.01);
-                                }
-                                catch
-                                {
-
-                                }
-
-                                //Clip.Current.Save();
+                                Clip.Current.Version = Convert.ToString(Convert.ToDouble(Clip.Current.Version) + 0.01);
                             }
+                            catch
+                            {
+
+                            }
+
 
                             LabelStatus.Text = "Status: Idle";
                             progressBar1.Value = 0;
@@ -7156,7 +7178,7 @@ namespace MyMentor
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(string.Format("חלה שגיאה בנסיון פרסום השיעור\n\n{0}",ex.Message), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
             finally
             {
@@ -7266,7 +7288,7 @@ namespace MyMentor
 
         private void btnAddDate_Click(object sender, EventArgs e)
         {
-            if (Clip.Current.ReadingDates.Contains( DateTime.ParseExact(  dtpReadingDate.Value.ToString("dd/MM/yyyy") , "dd/MM/yyyy", CultureInfo.InvariantCulture )))
+            if (Clip.Current.ReadingDates.Contains(DateTime.ParseExact(dtpReadingDate.Value.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture)))
             {
                 return;
             }
@@ -7279,7 +7301,7 @@ namespace MyMentor
         private void RegenerateDatesBox()
         {
             listBoxDates.Items.Clear();
-            listBoxDates.Items.AddRange(Clip.Current.ReadingDates.Select( d => (object)d.ToString("dd/MM/yyyy")).ToArray());
+            listBoxDates.Items.AddRange(Clip.Current.ReadingDates.Select(d => (object)d.ToString("dd/MM/yyyy")).ToArray());
         }
 
         private async void comboCategory1_SelectionChangeCommitted(object sender, EventArgs e)
@@ -7366,6 +7388,27 @@ namespace MyMentor
                     richTextBox1.Text = form.SelectedText;
                 }
             }
+        }
+
+        private async void comboClipType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string lessonType = "HPz65WBzhw"; //clip
+
+            // clip
+            if (comboClipType.SelectedValue != null && (string)comboClipType.SelectedValue == "enaWrne5xe") //source
+            {
+                lessonType = "0y8A4XTNeR"; //source
+            }
+
+            this.comboCategory3.DisplayMember = "Value";
+            this.comboCategory3.ValueMember = "ObjectId";
+            this.comboCategory3.DataSource = (await ParseTables.GetCategory3(m_contentType.ObjectId, lessonType)).Select(c => new Category
+            {
+                ObjectId = c.ObjectId,
+                Value = c.Get<string>("value")
+            }).ToList();
+
+            comboCategory3.SelectedItem = null;
         }
 
     }

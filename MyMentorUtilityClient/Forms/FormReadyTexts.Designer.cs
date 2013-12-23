@@ -122,6 +122,7 @@
             this.comboCategory1.Name = "comboCategory1";
             this.comboCategory1.Size = new System.Drawing.Size(220, 26);
             this.comboCategory1.TabIndex = 75;
+            this.comboCategory1.SelectionChangeCommitted += new System.EventHandler(this.comboCategory1_SelectionChangeCommitted);
             // 
             // lblCategory1
             // 
@@ -269,6 +270,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "חיפוש טקסט";
+            this.Load += new System.EventHandler(this.FormReadyTexts_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

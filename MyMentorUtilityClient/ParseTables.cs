@@ -70,7 +70,7 @@ namespace MyMentor
             return query;
         }
 
-        public static async Task<IEnumerable<ParseObject>> GetCategory3(string contentType)
+        public static async Task<IEnumerable<ParseObject>> GetCategory3(string contentType, string lessonType)
         {
 
             //get category 3
@@ -78,6 +78,8 @@ namespace MyMentor
                         where
                         cat["contentType"] == ParseObject.CreateWithoutData("WorldContentType", contentType)
                         && cat.Get<string>("culture") == MyMentor.Properties.Settings.Default.CultureInfo
+                        && (cat["lessonType"] == ParseObject.CreateWithoutData("LessonTypes", "v0SqUiv5mr") || //all
+                        cat["lessonType"] == ParseObject.CreateWithoutData("LessonTypes", lessonType))
                         orderby cat.Get<int>("order")
                         select cat;
 

@@ -480,8 +480,8 @@ namespace MyMentor
 
             this.IsDirty = false;
             this.IsNew = false;
-
-            if (editor != null)
+             
+            if (editor != null && editor.GetSoundDuration() > 0 && !string.IsNullOrEmpty(this.FileName))
             {
                 editor.ExportToFile(44100, 1, 0, 0, -1, Path.ChangeExtension(this.FileName, ".mp3"));
             }
@@ -529,7 +529,7 @@ namespace MyMentor
                     //zip.AddFile(Path.Combine(tempPath, this.FontFileName), string.Empty);
                     zip.AddFile(this.JsonSchemaFileName, string.Empty);
 
-                    if (File.Exists(Path.ChangeExtension(this.FileName, ".mp3")))
+                    if (editor.GetSoundDuration() > 0 && File.Exists(Path.ChangeExtension(this.FileName, ".mp3")))
                     {
                         File.Copy(Path.ChangeExtension(this.FileName, ".mp3"), Path.Combine(tempPath, string.Format("{0}.mp3", this.ID.ToString())), true);
                         zip.AddFile(Path.Combine(tempPath, string.Format("{0}.mp3", this.ID.ToString())), string.Empty);
@@ -546,7 +546,10 @@ namespace MyMentor
                 this.ClipSize = info.Length;
 
                 //cut for audio preview file
-                CutPreviewFile();
+                if (editor.GetSoundDuration() > 0)
+                {
+                    CutPreviewFile();
+                }
             });
 
             t1.Wait();
@@ -579,44 +582,62 @@ namespace MyMentor
             clip["version"] = this.Version;
             clip["clipType"] = ParseObject.CreateWithoutData("ClipType", this.ClipType);
             clip["clipSize"] = this.ClipSize;
-
             clip["status"] = ParseObject.CreateWithoutData("ClipStatus", this.Status);
 
             if (!string.IsNullOrEmpty(this.Category1))
             {
                 clip["category1"] = ParseObject.CreateWithoutData("Category1", this.Category1);
             }
+            //else
+            //{
+            //    clip["category1"] = ParseObject.CreateWithoutData("Category1", this.Category1);
+            //}
 
             if (!string.IsNullOrEmpty(this.Category2))
             {
                 clip["category2"] = ParseObject.CreateWithoutData("Category2", this.Category2);
             }
+            //else
+            //{
+            //    clip["category2"] = null;
+            //}
 
             if (!string.IsNullOrEmpty(this.Category3))
             {
                 clip["category3"] = ParseObject.CreateWithoutData("Category3", this.Category3);
             }
+            //else
+            //{
+            //    clip["category3"] = null;
+            //}
 
             if (!string.IsNullOrEmpty(this.Category4))
             {
                 clip["category4"] = ParseObject.CreateWithoutData("Category4", this.Category4);
             }
+            //else
+            //{
+            //    clip["category4"] = null;
+            //}
 
             clip["keywords"] = this.Keywords.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
             clip["clipFile"] = file;
             clip["readingDates"] = this.ReadingDates;
             //clip["createdByUser"] = user.Username;
 
-            var preview = Path.ChangeExtension(this.FileName, "_preview.mp3");
-
-            if (File.Exists(preview))
+            if (!string.IsNullOrEmpty(this.FileName))
             {
-                //read file content
-                byte[] pbytes = File.ReadAllBytes(preview);
-                ParseFile pfile = new ParseFile("preview.mp3", pbytes);
-                await pfile.SaveAsync();
+                var preview = Path.ChangeExtension(this.FileName, "_preview.mp3");
 
-                clip["audioPreview"] = pfile;
+                if (File.Exists(preview))
+                {
+                    //read file content
+                    byte[] pbytes = File.ReadAllBytes(preview);
+                    ParseFile pfile = new ParseFile("preview.mp3", pbytes);
+                    await pfile.SaveAsync();
+
+                    clip["audioPreview"] = pfile;
+                }
             }
 
             var ACL = new ParseACL(ParseUser.CurrentUser)

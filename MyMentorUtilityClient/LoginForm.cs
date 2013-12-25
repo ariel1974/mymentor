@@ -27,6 +27,7 @@ namespace MyMentor
         {
             try
             {
+                button1.Enabled = false;
                 await ParseUser.LogInAsync(textBox1.Text, textBox2.Text);
                 this.Close();
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -34,6 +35,7 @@ namespace MyMentor
             catch
             {
                 MessageBox.Show("שם המשתמש או הסיסמה אינם תואמים, נסה שוב");
+                button1.Enabled = true;
             }
         }
     }

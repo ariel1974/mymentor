@@ -17,6 +17,9 @@ using System.Globalization;
 using System.Resources;
 using System.Threading.Tasks;
 using MyMentor.ParseObjects;
+using System.Text;
+using Security;
+using MyMentor.Forms;
 
 namespace MyMentor
 {
@@ -218,6 +221,7 @@ namespace MyMentor
         private int[] sizes = { 9, 10, 12, 16, 32 };
 
         #endregion
+        private string m_currentFingerPrint = string.Empty;
         private const string START_PAUSE_SECTION_ANCHOR = "[התחלה]";
         private const string END_PAUSE_SECTION_ANCHOR = "[סוף]";
         private ToolStripMenuItem עזרהToolStripMenuItem;
@@ -289,8 +293,8 @@ namespace MyMentor
         private TextBox tbKeywords;
         private Label lblCategory3;
         private Label label22;
-        private TextBox tbClipName;
-        private MaskedTextBox maskedTextBox1;
+        private TextBox tbClipTitle;
+        private MaskedTextBox mtbVersion;
         private Label label23;
         private Panel panel4;
         private Button buttonPublish;
@@ -430,13 +434,14 @@ namespace MyMentor
         }
 
 
-        public FormMain()
+        public FormMain(string initClip)
         {
             //
             // Required for Windows Form Designer support
             //
             InitializeComponent();
 
+            m_initClip = initClip;
             //
             // TODO: Add any constructor code after InitializeComponent call
             //
@@ -576,6 +581,9 @@ namespace MyMentor
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.numericPriceSupport = new System.Windows.Forms.NumericUpDown();
+            this.numericPrice = new System.Windows.Forms.NumericUpDown();
+            this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.lblMinValue = new System.Windows.Forms.Label();
@@ -626,8 +634,8 @@ namespace MyMentor
             this.tbKeywords = new System.Windows.Forms.TextBox();
             this.lblCategory3 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.tbClipName = new System.Windows.Forms.TextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.tbClipTitle = new System.Windows.Forms.TextBox();
+            this.mtbVersion = new System.Windows.Forms.MaskedTextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -717,13 +725,10 @@ namespace MyMentor
             this.timerStartRecordingAfterPlayingBuffer = new System.Windows.Forms.Timer(this.components);
             this.timerRefreshLedDisplay = new System.Windows.Forms.Timer(this.components);
             this.timerPreStartFixPlayback = new System.Windows.Forms.Timer(this.components);
-            this.label33 = new System.Windows.Forms.Label();
             this.comboBoxAutoDevidePar = new PresentationControls.CheckBoxComboBox();
             this.comboBoxAutoDevideSen = new PresentationControls.CheckBoxComboBox();
             this.sevenSegment1 = new DmitryBrant.CustomControls.SevenSegment();
             this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
-            this.numericPrice = new System.Windows.Forms.NumericUpDown();
-            this.numericPriceSupport = new System.Windows.Forms.NumericUpDown();
             this.Frame4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).BeginInit();
             this.framePlayback.SuspendLayout();
@@ -751,6 +756,8 @@ namespace MyMentor
             this.tabPage4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericPriceSupport)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericPrice)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -763,8 +770,6 @@ namespace MyMentor
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericPrice)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericPriceSupport)).BeginInit();
             this.SuspendLayout();
             // 
             // Frame4
@@ -1411,7 +1416,7 @@ namespace MyMentor
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85.12881F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.87119F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 205F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 210F));
             this.tableLayoutPanel2.Controls.Add(this.ToolStrip1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox1, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel7, 0, 0);
@@ -1703,9 +1708,9 @@ namespace MyMentor
             // 
             this.panel7.Controls.Add(this.groupBox8);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(461, 3);
+            this.panel7.Location = new System.Drawing.Point(465, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(698, 74);
+            this.panel7.Size = new System.Drawing.Size(694, 74);
             this.panel7.TabIndex = 34;
             // 
             // groupBox8
@@ -1722,7 +1727,7 @@ namespace MyMentor
             this.groupBox8.Location = new System.Drawing.Point(0, 0);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox8.Size = new System.Drawing.Size(698, 74);
+            this.groupBox8.Size = new System.Drawing.Size(694, 74);
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "חלוקה אוטומטית";
@@ -1783,7 +1788,7 @@ namespace MyMentor
             this.label14.Font = new System.Drawing.Font("Arial", 12F);
             this.label14.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label14.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label14.Location = new System.Drawing.Point(625, 31);
+            this.label14.Location = new System.Drawing.Point(619, 34);
             this.label14.Name = "label14";
             this.label14.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label14.Size = new System.Drawing.Size(75, 21);
@@ -1797,7 +1802,7 @@ namespace MyMentor
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(3, 3);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(452, 74);
+            this.panel8.Size = new System.Drawing.Size(456, 74);
             this.panel8.TabIndex = 35;
             // 
             // groupBox10
@@ -1808,7 +1813,7 @@ namespace MyMentor
             this.groupBox10.Font = new System.Drawing.Font("Arial", 12F);
             this.groupBox10.Location = new System.Drawing.Point(0, 0);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(452, 74);
+            this.groupBox10.Size = new System.Drawing.Size(456, 74);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "טקסטים מוכנים";
@@ -2224,8 +2229,8 @@ namespace MyMentor
             this.groupBox3.Controls.Add(this.tbKeywords);
             this.groupBox3.Controls.Add(this.lblCategory3);
             this.groupBox3.Controls.Add(this.label22);
-            this.groupBox3.Controls.Add(this.tbClipName);
-            this.groupBox3.Controls.Add(this.maskedTextBox1);
+            this.groupBox3.Controls.Add(this.tbClipTitle);
+            this.groupBox3.Controls.Add(this.mtbVersion);
             this.groupBox3.Controls.Add(this.label23);
             this.groupBox3.Font = new System.Drawing.Font("Arial", 12F);
             this.groupBox3.Location = new System.Drawing.Point(171, 4);
@@ -2235,6 +2240,46 @@ namespace MyMentor
             this.groupBox3.Size = new System.Drawing.Size(993, 387);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
+            // 
+            // numericPriceSupport
+            // 
+            this.numericPriceSupport.DecimalPlaces = 2;
+            this.numericPriceSupport.Location = new System.Drawing.Point(407, 189);
+            this.numericPriceSupport.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numericPriceSupport.Name = "numericPriceSupport";
+            this.numericPriceSupport.Size = new System.Drawing.Size(78, 26);
+            this.numericPriceSupport.TabIndex = 83;
+            this.numericPriceSupport.ThousandsSeparator = true;
+            // 
+            // numericPrice
+            // 
+            this.numericPrice.DecimalPlaces = 2;
+            this.numericPrice.Location = new System.Drawing.Point(407, 155);
+            this.numericPrice.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numericPrice.Name = "numericPrice";
+            this.numericPrice.Size = new System.Drawing.Size(78, 26);
+            this.numericPrice.TabIndex = 82;
+            this.numericPrice.ThousandsSeparator = true;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Arial", 12F);
+            this.label33.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label33.Location = new System.Drawing.Point(492, 192);
+            this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(105, 18);
+            this.label33.TabIndex = 81;
+            this.label33.Text = "מחיר עם תמיכה";
             // 
             // label32
             // 
@@ -2813,27 +2858,27 @@ namespace MyMentor
             this.label22.TabIndex = 1;
             this.label22.Text = "שם שיעור";
             // 
-            // tbClipName
+            // tbClipTitle
             // 
-            this.tbClipName.Font = new System.Drawing.Font("Arial", 12F);
-            this.tbClipName.Location = new System.Drawing.Point(313, 37);
-            this.tbClipName.Margin = new System.Windows.Forms.Padding(4);
-            this.tbClipName.Name = "tbClipName";
-            this.tbClipName.ReadOnly = true;
-            this.tbClipName.Size = new System.Drawing.Size(553, 26);
-            this.tbClipName.TabIndex = 2;
+            this.tbClipTitle.Font = new System.Drawing.Font("Arial", 12F);
+            this.tbClipTitle.Location = new System.Drawing.Point(313, 37);
+            this.tbClipTitle.Margin = new System.Windows.Forms.Padding(4);
+            this.tbClipTitle.Name = "tbClipTitle";
+            this.tbClipTitle.ReadOnly = true;
+            this.tbClipTitle.Size = new System.Drawing.Size(553, 26);
+            this.tbClipTitle.TabIndex = 2;
             // 
-            // maskedTextBox1
+            // mtbVersion
             // 
-            this.maskedTextBox1.Font = new System.Drawing.Font("Arial", 12F);
-            this.maskedTextBox1.Location = new System.Drawing.Point(789, 73);
-            this.maskedTextBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.maskedTextBox1.Mask = "0.00";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.ReadOnly = true;
-            this.maskedTextBox1.Size = new System.Drawing.Size(77, 26);
-            this.maskedTextBox1.TabIndex = 3;
-            this.maskedTextBox1.Text = "100";
+            this.mtbVersion.Font = new System.Drawing.Font("Arial", 12F);
+            this.mtbVersion.Location = new System.Drawing.Point(789, 73);
+            this.mtbVersion.Margin = new System.Windows.Forms.Padding(4);
+            this.mtbVersion.Mask = "0.00";
+            this.mtbVersion.Name = "mtbVersion";
+            this.mtbVersion.ReadOnly = true;
+            this.mtbVersion.Size = new System.Drawing.Size(77, 26);
+            this.mtbVersion.TabIndex = 3;
+            this.mtbVersion.Text = "100";
             // 
             // label23
             // 
@@ -3538,18 +3583,6 @@ namespace MyMentor
             // 
             this.timerPreStartFixPlayback.Tick += new System.EventHandler(this.timerPreStartFixPlayback_Tick);
             // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Arial", 12F);
-            this.label33.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label33.Location = new System.Drawing.Point(492, 192);
-            this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(105, 18);
-            this.label33.TabIndex = 81;
-            this.label33.Text = "מחיר עם תמיכה";
-            // 
             // comboBoxAutoDevidePar
             // 
             checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -3611,24 +3644,6 @@ namespace MyMentor
             this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
             this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
             // 
-            // numericPrice
-            // 
-            this.numericPrice.DecimalPlaces = 2;
-            this.numericPrice.Location = new System.Drawing.Point(407, 155);
-            this.numericPrice.Name = "numericPrice";
-            this.numericPrice.Size = new System.Drawing.Size(78, 26);
-            this.numericPrice.TabIndex = 82;
-            this.numericPrice.ThousandsSeparator = true;
-            // 
-            // numericPriceSupport
-            // 
-            this.numericPriceSupport.DecimalPlaces = 2;
-            this.numericPriceSupport.Location = new System.Drawing.Point(407, 189);
-            this.numericPriceSupport.Name = "numericPriceSupport";
-            this.numericPriceSupport.Size = new System.Drawing.Size(78, 26);
-            this.numericPriceSupport.TabIndex = 83;
-            this.numericPriceSupport.ThousandsSeparator = true;
-            // 
             // FormMain
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 19);
@@ -3687,6 +3702,8 @@ namespace MyMentor
             this.tableLayoutPanel5.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericPriceSupport)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericPrice)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -3704,8 +3721,6 @@ namespace MyMentor
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericPrice)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericPriceSupport)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3831,7 +3846,6 @@ namespace MyMentor
             audioSoundEditor1.EncodeFormats.FormatToUse = enumEncodingFormats.ENCODING_FORMAT_MP3;
             audioSoundEditor1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_PRESETS;
             audioSoundEditor1.EncodeFormats.MP3.Preset = enumMp3EncodePresets.MP3_PRESET_STANDARD;
-
         }
 
         private void buttonPlay_Click(object sender, System.EventArgs e)
@@ -5474,7 +5488,7 @@ namespace MyMentor
         private void SavePropertiesToClip()
         {
             //set properties
-            Clip.Current.Name = tbClipName.Text;
+            Clip.Current.Title = tbClipTitle.Text;
             Clip.Current.Description = tbClipDescription.Text;
             Clip.Current.Status = (string)comboStatus.SelectedValue;
             Clip.Current.Category1 = (string)comboCategory1.SelectedValue;
@@ -5510,6 +5524,11 @@ namespace MyMentor
 
         private void Save(bool isSaveAs)
         {
+            Save(isSaveAs, false);
+        }
+
+        private void Save(bool isSaveAs, bool excludeClipFile)
+        {
             SavePropertiesToClip();
 
             if (Clip.Current.IsNew || (!Clip.Current.IsNew && isSaveAs))
@@ -5532,8 +5551,8 @@ namespace MyMentor
                     saveFileDialog1.InitialDirectory = di.FullName;
                     saveFileDialog1.FileName = Clip.Current.Name.ToValidFileName();
                 }
-                saveFileDialog1.DefaultExt = "mmnx";
-                saveFileDialog1.Filter = "MyMentor Source Files|*.mmnx";
+                saveFileDialog1.DefaultExt = "mmnt";
+                saveFileDialog1.Filter = "MyMentor Source Files|*.mmnt";
 
                 DialogResult result = saveFileDialog1.ShowDialog();
 
@@ -5546,13 +5565,14 @@ namespace MyMentor
 
                     //Clip.Current.FontName = richTextBox1.Font.Name;
                     //Clip.Current.FontSize = float.Parse(toolStripComboBox1.Text.Replace("pt", string.Empty));
+                    Clip.Current.Name = saveFileDialog1.FileName; 
                     Clip.Current.FileName = saveFileDialog1.FileName;
                     Clip.Current.RtfText = richTextBox1.Rtf;
-                    this.Text = "MyMentor - " + Clip.Current.FileName;
+                    this.Text = "MyMentor - " + Clip.Current.Name;
 
                     Clip.Current.Save(audioSoundEditor1);
 
-                    if (audioSoundEditor1.GetSoundDuration() <= 0)
+                    if (audioSoundEditor1.GetSoundDuration() <= 0 && !excludeClipFile)
                     {
                         MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                         mnuFile_SaveAs.Enabled = true;
@@ -5573,9 +5593,9 @@ namespace MyMentor
                 //Clip.Current.FontSize = float.Parse(toolStripComboBox1.Text.Replace("pt", string.Empty));
                 //Clip.Current.FontName = richTextBox1.Font.Name;
 
-                Clip.Current.Save(audioSoundEditor1);
+                Clip.Current.Save(!excludeClipFile ? audioSoundEditor1 : null);
 
-                if (audioSoundEditor1.GetSoundDuration() <= 0)
+                if (audioSoundEditor1.GetSoundDuration() <= 0 && !excludeClipFile)
                 {
                     MessageBox.Show("השיעור נשמר בהצלחה !", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     mnuFile_SaveAs.Enabled = true;
@@ -5596,7 +5616,7 @@ namespace MyMentor
 
         private async void FormMain_Shown(object sender, EventArgs e)
         {
-            richTextBox1.Focus();
+            this.Enabled = false;
 
             if (ParseUser.CurrentUser == null)
             {
@@ -5625,14 +5645,9 @@ namespace MyMentor
                 lblLoginUser.Text = "הנך מחובר כ-" + ParseUser.CurrentUser.Username;
             }
 
-            if (!string.IsNullOrEmpty(m_initClip))
-            {
-                OpenClip(m_initClip);
-            }
-            else
-            {
-                NewClip();
-            }
+            PleaseWaitForm form = new PleaseWaitForm();
+            form.Show();
+            Application.DoEvents();
 
             WorldContentType contentType = await ParseTables.GetContentType();
 
@@ -5710,6 +5725,31 @@ namespace MyMentor
                 comboClipType.Visible = true;
                 lblClipType.Visible = true;
             }
+
+            await Task.Factory.StartNew(() =>
+            {
+                m_currentFingerPrint = FingerPrint.Value(ParseUser.CurrentUser.ObjectId);
+
+                Debug.WriteLine(m_currentFingerPrint);
+
+                Clip.Current.FingerPrint = m_currentFingerPrint;
+            });
+
+            form.Close();
+            this.Enabled = true;
+            richTextBox1.Focus();
+
+
+            if (!string.IsNullOrEmpty(m_initClip))
+            {
+                MessageBox.Show(m_initClip);
+                OpenClip(m_initClip);
+            }
+            else
+            {
+                NewClip();
+            }
+
         }
 
         public string[] GetCategoriesLabels()
@@ -5746,7 +5786,7 @@ namespace MyMentor
 
             Debug.WriteLine(string.Format("ClipPattern:{0}", m_contentType.ClipTitlePattern));
 
-            var clipName = m_contentType.ClipTitlePattern.Replace("[category1]", comboCategory1.Text ?? string.Empty)
+            var clipTitle = m_contentType.ClipTitlePattern.Replace("[category1]", comboCategory1.Text ?? string.Empty)
                 .Replace("[category2]", comboCategory2.Text ?? string.Empty)
                 .Replace("[category3]", comboCategory3.Text ?? string.Empty)
                 .Replace("[category4]", comboCategory4.Text ?? string.Empty)
@@ -5755,8 +5795,8 @@ namespace MyMentor
                 .Replace("[lastName]", ParseTables.CurrentUser.Get<string>("lastName") ?? string.Empty)
                 .Replace("[cityOfResidence]", ParseTables.CurrentUser.Get<string>("cityOfResidence") ?? string.Empty);
 
-            this.tbClipName.Text = clipName;
-            Clip.Current.Name = clipName;
+            this.tbClipTitle.Text = clipTitle;
+            Clip.Current.Title = clipTitle;
 
             if (isDirty && !m_whileLoadingClip)
             {
@@ -5779,8 +5819,8 @@ namespace MyMentor
             }
 
             openFileDialog1.InitialDirectory = di.FullName;
-            openFileDialog1.DefaultExt = "mmnx";
-            openFileDialog1.Filter = "MyMentor Source Files|*.mmnx";
+            openFileDialog1.DefaultExt = "mmnt";
+            openFileDialog1.Filter = "MyMentor Source Files|*.mmnt";
             openFileDialog1.FileName = "";
 
             DialogResult result = openFileDialog1.ShowDialog();
@@ -5812,10 +5852,17 @@ namespace MyMentor
             try
             {
                 Clip.Load(file);
+
+                if (Clip.Current.FingerPrint != m_currentFingerPrint)
+                {
+                    NewClip();
+                    MessageBox.Show("שיעור זה נוצר ע''י משתמש אחר או על מחשב אחר, לפי תנאי השימוש לא ניתן לערוך או לצפות בשיעורים בסטודיו שנוצרו על מחשב אחר או/וגם על ידי משתמש אחר",  "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    return;
+                }
             }
             catch (ApplicationException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 return;
             }
             catch (Exception ex)
@@ -5856,12 +5903,12 @@ namespace MyMentor
         {
             tbClipDescription.Text = Clip.Current.Description;
             comboCategory1.SelectedValue = Clip.Current.Category1 ?? string.Empty;
-
+            mtbVersion.Text = Clip.Current.Version;
             comboCategory3.SelectedValue = Clip.Current.Category3 ?? string.Empty;
             comboCategory4.SelectedValue = Clip.Current.Category4 ?? string.Empty;
             comboClipType.SelectedValue = Clip.Current.ClipType ?? "piL85bMGtR";
             tbKeywords.Text = Clip.Current.Keywords;
-            comboStatus.SelectedValue = Clip.Current.Status ?? string.Empty;
+            comboStatus.SelectedValue = Clip.Current.Status ?? "3DYQsyGZIk"; //paeel
             RegenerateDatesBox();
 
             numericPrice.Value = Clip.Current.Price;
@@ -6100,10 +6147,11 @@ namespace MyMentor
             Clip.Current.AutoIncrementVersion = true;
             Clip.Current.Name = "ללא שם";
             Clip.Current.Version = "1.00";
-            Clip.Current.Status = "bXhtWFZznn";
+            Clip.Current.Status = "3DYQsyGZIk";
             Clip.Current.ID = Guid.NewGuid();
             Clip.Current.IsNew = true;
             Clip.Current.RightAlignment = true;
+            Clip.Current.FingerPrint = m_currentFingerPrint;
             Clip.Current.ClipType = "piL85bMGtR";
 
             this.Text = "MyMentor - " + Clip.Current.Name;
@@ -7024,6 +7072,7 @@ namespace MyMentor
 
                 index++;
 
+
                 //enter
                 if (richTextBox2.SelectedText.ToCharArray()[0] == (char)10)
                 {
@@ -7088,6 +7137,15 @@ namespace MyMentor
                     }
                 }
 
+
+                if (parDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0)
+                {
+                    AddAnchor(AnchorType.Paragraph, index);
+                    charactersFromLastAnchor = 0;
+                    index += 4;
+                    continue;
+                }
+
                 if (richTextBox2.SelectedText == ":" && senDelimiters.Exists(a => a == "נקודותיים (:)") && charactersFromLastAnchor > 0)
                 {
                     sentenses += 1;
@@ -7110,6 +7168,27 @@ namespace MyMentor
                 }
 
                 if (richTextBox2.SelectedText == "." && senDelimiters.Exists(a => a == "נקודה (.)") && charactersFromLastAnchor > 0)
+                {
+                    sentenses += 1;
+
+                    if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
+                        (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
+                        (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                    {
+                        AddAnchor(AnchorType.Paragraph, index);
+                        charactersFromLastAnchor = 0;
+                        index += 4;
+                        sentenses = 0;
+                        continue;
+                    }
+
+                    AddAnchor(AnchorType.Sentence, index);
+                    charactersFromLastAnchor = 0;
+                    index += 4;
+                    continue;
+                }
+
+                if (senDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0)
                 {
                     sentenses += 1;
 
@@ -7239,6 +7318,13 @@ namespace MyMentor
                 return;
             }
 
+            if (Clip.Current.IsNew)
+            {
+                // ask the user if he wants to go on
+                MessageBox.Show("יש לבצע שמירה לשיעור לפני פרסום", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                return;
+            }
+
             if ((string)comboClipType.SelectedValue != "piL85bMGtR" && !m_admin)
             {
                 MessageBox.Show("אין לך הרשאות להעלות סוג שיעור זה", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
@@ -7297,12 +7383,14 @@ namespace MyMentor
                             try
                             {
                                 Clip.Current.Version = Convert.ToString(Convert.ToDouble(Clip.Current.Version) + 0.01);
+                                mtbVersion.Text = Clip.Current.Version;
+
+                                Save(false, true);
                             }
                             catch
                             {
 
                             }
-
 
                             LabelStatus.Text = "Status: Idle";
                             progressBar1.Value = 0;

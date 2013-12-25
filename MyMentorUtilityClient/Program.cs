@@ -29,7 +29,7 @@ namespace MyMentor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            FileAssociationInfo fai = new FileAssociationInfo(".mnnx");
+            FileAssociationInfo fai = new FileAssociationInfo(".mmnt");
             if (fai.Exists)
             {
                 fai.Delete();
@@ -59,14 +59,21 @@ namespace MyMentor
                 //Verb name
                     "Open",
                 //Path and arguments to use
-                    System.Reflection.Assembly.GetExecutingAssembly().Location + " %1"
+                    System.Reflection.Assembly.GetExecutingAssembly().Location + " \"%1\""
                     )
                 );
 
             //optional
             //pai.DefaultIcon = new ProgramIcon(@"C:\SomePath\SomeIcon.ico");
 
-            Application.Run(new FormMain());
+            var file = string.Empty;
+
+            if (args.Length > 0)
+            {
+                file = args[0];
+            }
+
+            Application.Run(new FormMain(file));
         }
     }
 }

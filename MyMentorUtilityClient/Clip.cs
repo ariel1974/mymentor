@@ -51,6 +51,7 @@ namespace MyMentor
                     instance.DefaultLearningOptions = new learningOptions();
                     instance.LockedLearningOptions = new learningOptions();
                     instance.ReadingDates = new List<DateTime>();
+                    instance.User = ParseUser.CurrentUser.ObjectId;
                 }
 
                 return instance;
@@ -65,7 +66,9 @@ namespace MyMentor
         public Guid ID { get; set; }
         public decimal Price { get; set; }
         public decimal PriceSupport { get; set; }
+        public string User { get; set; }
         public string Name { get; set; }
+        public string Title { get; set; }
         public bool RightAlignment { get; set; }
         public string Description { get; set; }
         public string Version { get; set; }
@@ -85,6 +88,7 @@ namespace MyMentor
         public learningOptions DefaultLearningOptions { get; set; }
         public learningOptions LockedLearningOptions { get; set; }
         public string JsonSchemaFileName { get; set; }
+        public string FingerPrint { get; set; }
         public string HtmlFileName { get; set; }
         public string HtmlOnlyNikudFileName { get; set; }
         public string HtmlOnlyTeamimFileName { get; set; }
@@ -433,12 +437,29 @@ namespace MyMentor
         public static void Load(string fileName)
         {
             XmlSerializer serializer = new XmlSerializer(new Clip().GetType());
+            FileInfo info = new FileInfo(fileName);
 
-            using (StreamReader reader = new StreamReader(fileName))
+            //extract zip
+            using (var zip = Ionic.Zip.ZipFile.Read(fileName))
+            {
+                zip.Password = "97359194";
+                zip[0].FileName = Path.ChangeExtension(info.Name , ".mmnt2");
+                zip[0].Extract(System.IO.Path.GetTempPath(), ExtractExistingFileAction.OverwriteSilently);
+            }
+
+            //read stream
+            using (StreamReader reader = new StreamReader(Path.Combine(System.IO.Path.GetTempPath(), Path.ChangeExtension(info.Name, ".mmnt2"))))
             {
                 object deserialized = serializer.Deserialize(reader.BaseStream);
-
                 instance = (Clip)deserialized;
+            }
+
+            //remove stream
+            File.Delete(Path.Combine(System.IO.Path.GetTempPath(), Path.ChangeExtension(info.Name, ".mmnt2")));
+
+            if (string.IsNullOrEmpty(instance.FingerPrint))
+            {
+                throw new ApplicationException("שיעור זה נוצר בגרסאות קודמות של הסטודיו ואינו נתמך עוד");
             }
 
             instance.FileName = fileName;
@@ -481,6 +502,16 @@ namespace MyMentor
             {
                 serializer.Serialize(writer.BaseStream, this);
             }
+
+            using (ZipFile zip = new ZipFile())
+            {
+                zip.Password = "97359194";
+                zip.AddFile(this.FileName, string.Empty);
+                zip.Save(Path.ChangeExtension(this.FileName, ".mmnt2"));
+            }
+
+            File.Delete(this.FileName);
+            File.Move(Path.ChangeExtension(this.FileName, ".mmnt2"), this.FileName);
 
             this.IsDirty = false;
             this.IsNew = false;
@@ -614,10 +645,11 @@ namespace MyMentor
                 clip["clipId"] = this.ID.ToString();
             }
 
-            clip["name"] = this.Name;
+            clip["name"] = this.Title;
             clip["clipSourceText"] = this.Text;
             clip["description"] = this.Description;
             clip["version"] = this.Version;
+            clip["fingerPrint"] = this.FingerPrint;
             clip["clipType"] = ParseObject.CreateWithoutData("ClipType", this.ClipType);
             clip["price"] = (float)this.Price;
             clip["priceWithSupport"] = (float)this.PriceSupport;
@@ -876,7 +908,7 @@ namespace MyMentor
 
             jsonClip clip = new jsonClip();
             clip.id = this.ID.ToString();
-            clip.name = this.Name;
+            clip.name = this.Title;
             clip.description = this.Description;
             clip.clipVersion = this.Version;
             clip.chapter = this.Chapter;

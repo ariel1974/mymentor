@@ -29,6 +29,7 @@ namespace MyMentor.Json
         public string id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
+        public string remarks { get; set; }
         public string schemaVersion { get; set; }
         public string clipVersion { get; set; }
         public sections defaultSections { get; set; }

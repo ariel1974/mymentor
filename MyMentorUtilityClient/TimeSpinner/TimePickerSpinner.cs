@@ -37,7 +37,7 @@ namespace MyMentor.TimeSpinner
                 m_skipEvents = true;
                 minutes.Value = m_Value.Minutes;
                 seconds.Value = m_Value.Seconds;
-                milliseconds.Value = m_Value.Milliseconds;
+                milliseconds.Value = (int) m_Value.Milliseconds / 1000;
                 m_skipEvents = false;
             }
 
@@ -48,7 +48,7 @@ namespace MyMentor.TimeSpinner
             if (m_skipEvents)
                 return;
 
-            if (milliseconds.Value == 1000)
+            if (milliseconds.Value == 10)
             {
                 m_skipEvents = true;
                 milliseconds.Value = 0;
@@ -64,8 +64,30 @@ namespace MyMentor.TimeSpinner
                 }
                 m_skipEvents = false;
             }
+            else if (milliseconds.Value == -1)
+            {
+                m_skipEvents = true;
 
-            m_Value = new TimeSpan(0, 0, (int)minutes.Value, (int)seconds.Value, (int)milliseconds.Value);
+                if (seconds.Value > 0)
+                {
+                    milliseconds.Value = 9;
+                    seconds.Value = seconds.Value - 1;
+                }
+                else
+                {
+                    milliseconds.Value = 0;
+
+                    if (minutes.Value > 0)
+                    {
+                        seconds.Value = 59;
+                        minutes.Value = minutes.Value - 1;
+                    }
+                }
+
+                m_skipEvents = false;
+            }
+
+            m_Value = new TimeSpan(0, 0, (int)minutes.Value, (int)seconds.Value, (int)milliseconds.Value * 100);
 
             if (ValueChanged != null)
             {
@@ -96,11 +118,15 @@ namespace MyMentor.TimeSpinner
             else if (seconds.Value == -1)
             {
                 m_skipEvents = true;
-                seconds.Value = 0;
 
                 if (minutes.Value > 0)
                 {
+                    seconds.Value = 59;
                     minutes.Value = minutes.Value - 1;
+                }
+                else
+                {
+                    seconds.Value = 0;
                 }
 
                 m_skipEvents = false;

@@ -15,9 +15,7 @@ namespace MyMentor
 	public class FormTestSound : System.Windows.Forms.Form
 	{
         private AudioSoundRecorder.AudioSoundRecorder audioSoundRecorder1;
-		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.Label labelDuration;
-        private System.Windows.Forms.Label labelSize;
+        private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.ComboBox comboInputChannels;
 		private System.Windows.Forms.ComboBox comboInputDevices;
@@ -40,6 +38,11 @@ namespace MyMentor
         private TrackBar trackBarVolume1;
         private Button button2;
         private CheckBox checkBox1;
+        private Label label2;
+        private PictureBox pictureBox2;
+        private Label label1;
+        private TrackBar trackBar1;
+        private Timer timer2;
 		private IntPtr	m_hWndVuMeterRight;
 
 		public FormTestSound()
@@ -82,8 +85,6 @@ namespace MyMentor
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label30 = new System.Windows.Forms.Label();
             this.trackBarVolume1 = new System.Windows.Forms.TrackBar();
-            this.labelDuration = new System.Windows.Forms.Label();
-            this.labelSize = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboInputChannels = new System.Windows.Forms.ComboBox();
             this.comboInputDevices = new System.Windows.Forms.ComboBox();
@@ -97,9 +98,16 @@ namespace MyMentor
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // audioSoundRecorder1
@@ -141,10 +149,12 @@ namespace MyMentor
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.pictureBox2);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.trackBar1);
             this.groupBox2.Controls.Add(this.label30);
             this.groupBox2.Controls.Add(this.trackBarVolume1);
-            this.groupBox2.Controls.Add(this.labelDuration);
-            this.groupBox2.Controls.Add(this.labelSize);
             this.groupBox2.Location = new System.Drawing.Point(343, 76);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(272, 254);
@@ -154,16 +164,16 @@ namespace MyMentor
             // 
             // label30
             // 
-            this.label30.Location = new System.Drawing.Point(196, 103);
+            this.label30.Location = new System.Drawing.Point(6, 103);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(65, 18);
+            this.label30.Size = new System.Drawing.Size(93, 18);
             this.label30.TabIndex = 74;
-            this.label30.Text = "Volume";
+            this.label30.Text = "עוצמת שמע";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // trackBarVolume1
             // 
-            this.trackBarVolume1.Location = new System.Drawing.Point(207, 126);
+            this.trackBarVolume1.Location = new System.Drawing.Point(32, 126);
             this.trackBarVolume1.Maximum = 100;
             this.trackBarVolume1.Name = "trackBarVolume1";
             this.trackBarVolume1.Orientation = System.Windows.Forms.Orientation.Vertical;
@@ -172,24 +182,6 @@ namespace MyMentor
             this.trackBarVolume1.TickFrequency = 10;
             this.trackBarVolume1.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarVolume1.Scroll += new System.EventHandler(this.trackBarVolume1_Scroll);
-            // 
-            // labelDuration
-            // 
-            this.labelDuration.Location = new System.Drawing.Point(31, 71);
-            this.labelDuration.Name = "labelDuration";
-            this.labelDuration.Size = new System.Drawing.Size(160, 16);
-            this.labelDuration.TabIndex = 72;
-            this.labelDuration.Text = "Duration: 00:00.000";
-            this.labelDuration.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelSize
-            // 
-            this.labelSize.Location = new System.Drawing.Point(-1, 30);
-            this.labelSize.Name = "labelSize";
-            this.labelSize.Size = new System.Drawing.Size(267, 28);
-            this.labelSize.TabIndex = 71;
-            this.labelSize.Text = "Recording size in bytes: 0";
-            this.labelSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox1
             // 
@@ -312,6 +304,52 @@ namespace MyMentor
             this.checkBox1.Text = "להבא אל תציג מסך זה בפתיחת המערכת";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(114, 103);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(104, 18);
+            this.label1.TabIndex = 76;
+            this.label1.Text = "עוצמת הקלטה";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(149, 126);
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(45, 112);
+            this.trackBar1.TabIndex = 75;
+            this.trackBar1.TickFrequency = 10;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::MyMentor.Properties.Resources._1388144426_arrow_sans_right;
+            this.pictureBox2.Location = new System.Drawing.Point(238, 136);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 78;
+            this.pictureBox2.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(81, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(171, 65);
+            this.label2.TabIndex = 79;
+            this.label2.Text = "מומלץ להגיע למצב שבו הנך נמצא באיזור החץ גם במצב הקלטה וגם במצב נגינה";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 200;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // FormTestSound
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(8, 19);
@@ -342,6 +380,8 @@ namespace MyMentor
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -469,12 +509,12 @@ namespace MyMentor
 
 		private void audioSoundRecorder1_RecordingDuration(object sender, AudioSoundRecorder.RecordingDurationEventArgs e)
 		{
-			labelDuration.Text = "Recording duration: " + audioSoundRecorder1.GetFormattedTime (e.nDuration, false, true);
+			//labelDuration.Text = "Recording duration: " + audioSoundRecorder1.GetFormattedTime (e.nDuration, false, true);
 		}
 
 		private void audioSoundRecorder1_RecordingSize(object sender, AudioSoundRecorder.RecordingSizeEventArgs e)
 		{
-			labelSize.Text = "Recording size in bytes: " + e.nDataSize.ToString ();
+			//labelSize.Text = "Recording size in bytes: " + e.nDataSize.ToString ();
 		}
 
 		private void audioSoundRecorder1_RecordingStarted(object sender, System.EventArgs e)
@@ -531,6 +571,23 @@ namespace MyMentor
         {
             MyMentor.Properties.Settings.Default.TestSound = !checkBox1.Checked;
             MyMentor.Properties.Settings.Default.Save();
+
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            audioSoundRecorder1.SetInputDeviceChannelVolume(m_nCurrInputDevice, m_nCurrInputChannel, (Int16)trackBar1.Value);
+
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            // get the current volume level for the selected input channel
+            int fCurrVolume = audioSoundRecorder1.GetInputDeviceChannelVolume(m_nCurrInputDevice, m_nCurrInputChannel);
+            if (fCurrVolume >= 0)
+                trackBar1.Value = fCurrVolume;
+            else
+                trackBar1.Value = 0;
 
         }
 

@@ -65,16 +65,6 @@ namespace MyMentor
             var query1 = ParseObject.GetQuery("ClipsV2");
             query1 = query1.WhereEqualTo("clipType", ParseObject.CreateWithoutData("ClipType", "enaWrne5xe"));
 
-            if (!string.IsNullOrEmpty(tbClipDescription.Text.Trim()))
-            {
-                query1 = query1.WhereContains("description", tbClipDescription.Text.Trim());
-            }
-
-            if (!string.IsNullOrEmpty(tbKeywords.Text.Trim()))
-            {
-                query1 = query1.WhereContainedIn("keywords", tbKeywords.Text.Trim().Split(','));
-            }
-
             if (comboCategory1.SelectedValue != null)
             {
                 query1 = query1.WhereEqualTo("category1", ParseObject.CreateWithoutData("Category1", (string)comboCategory1.SelectedValue));
@@ -143,8 +133,6 @@ namespace MyMentor
             comboCategory2.SelectedItem = null;
             comboCategory3.SelectedItem = null;
             comboCategory4.SelectedItem = null;
-            tbClipDescription.Text = "";
-            tbKeywords.Text = "";
         }
 
         private async void FormReadyTexts_Load(object sender, EventArgs e)

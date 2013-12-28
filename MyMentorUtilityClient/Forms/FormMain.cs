@@ -105,6 +105,7 @@ namespace MyMentor
         #region More Controls
         private bool m_bRecAppendMode;
         private bool m_bRecOverwriteMode;
+        private TimeSpan m_overwriteModeDeletePosition = TimeSpan.Zero;
         private IntPtr m_hWndVuMeterLeft;
         private IntPtr m_hWndVuMeterRight;
         private TableLayoutPanel tableLayoutPanel1;
@@ -138,9 +139,6 @@ namespace MyMentor
         private ToolStripSeparator toolStripMenuItem5;
         private ToolStripMenuItem mnuAudioEffects;
         private ToolStripMenuItem mnuAudioEffects_Equalizer;
-        private ToolStripMenuItem mnuAudioEffects_Tempo;
-        private ToolStripMenuItem mnuAudioEffects_Pitch;
-        private ToolStripMenuItem mnuAudioEffects_PlaybackRate;
         private ToolStripSeparator toolStripMenuItem6;
         private ToolStripMenuItem mnuZoom;
         private ToolStripMenuItem mnuZoom_Selection;
@@ -221,6 +219,8 @@ namespace MyMentor
         private int[] sizes = { 9, 10, 12, 16, 32 };
 
         #endregion
+
+        private int m_targetStartFixInMs = 0;
         private string m_currentFingerPrint = string.Empty;
         private const string START_PAUSE_SECTION_ANCHOR = "[התחלה]";
         private const string END_PAUSE_SECTION_ANCHOR = "[סוף]";
@@ -326,7 +326,6 @@ namespace MyMentor
         private PictureBox pictureBox1;
         private Timer timerStartRecordingAfterPlayingBuffer;
         private TimeSpan m_rem_anchorFixRecording = TimeSpan.Zero;
-        private DmitryBrant.CustomControls.SevenSegment sevenSegment1;
         private Timer timerRefreshLedDisplay;
         public Label LabelCurrentWordDuration;
         private Label label29;
@@ -369,7 +368,27 @@ namespace MyMentor
         private Label label33;
         private NumericUpDown numericPriceSupport;
         private NumericUpDown numericPrice;
+        private TrackBar trackBarWaveZoom;
+        public Button buttonZoomTestableArea;
+        public Button buttonZoomAllClip;
+        private Label label35;
+        private TextBox tbClipRemarks;
+        private DateTimePicker dateTimeExpired;
+        private Label label34;
+        private TrackBar trackBarPitch1;
+        private ToolStrip toolStrip2;
+        private ToolStripButton toolStripButton1;
+        private ToolStripButton toolStripButton2;
+        private ToolStripButton toolStripButton3;
+        private ToolStripButton toolStripButton4;
+        private ToolStripSeparator toolStripSeparator9;
+        private Timer timerUpdateDuringPlayback;
+        private Panel panel9;
+        private Label label37;
+        private Button button2;
+        private DmitryBrant.CustomControls.SevenSegmentArray sevenSegmentArray1;
         private WorldContentType m_contentType;
+        private Stopwatch m_stopWatch = new Stopwatch();
 
         public WorldContentType ContentType
         {
@@ -470,9 +489,9 @@ namespace MyMentor
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            PresentationControls.CheckBoxProperties checkBoxProperties3 = new PresentationControls.CheckBoxProperties();
             PresentationControls.CheckBoxProperties checkBoxProperties1 = new PresentationControls.CheckBoxProperties();
-            PresentationControls.CheckBoxProperties checkBoxProperties2 = new PresentationControls.CheckBoxProperties();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.Frame4 = new System.Windows.Forms.GroupBox();
             this.label30 = new System.Windows.Forms.Label();
             this.trackBarVolume1 = new System.Windows.Forms.TrackBar();
@@ -505,6 +524,7 @@ namespace MyMentor
             this.FrameRecording = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.sevenSegmentArray1 = new DmitryBrant.CustomControls.SevenSegmentArray();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.numericUpDownBufferRecord = new System.Windows.Forms.NumericUpDown();
@@ -547,10 +567,12 @@ namespace MyMentor
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.comboBoxAutoDevidePar = new PresentationControls.CheckBoxComboBox();
             this.buttonAutoDevide = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.richTextBox4 = new System.Windows.Forms.RichTextBox();
             this.label24 = new System.Windows.Forms.Label();
+            this.comboBoxAutoDevideSen = new PresentationControls.CheckBoxComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -565,12 +587,15 @@ namespace MyMentor
             this.LabelCurrentWordDuration = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
             this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
             this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.buttonHammer = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonStartSchedulingPlayback = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonZoomAllClip = new System.Windows.Forms.Button();
+            this.buttonZoomTestableArea = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -581,6 +606,10 @@ namespace MyMentor
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.dateTimeExpired = new System.Windows.Forms.DateTimePicker();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.tbClipRemarks = new System.Windows.Forms.TextBox();
             this.numericPriceSupport = new System.Windows.Forms.NumericUpDown();
             this.numericPrice = new System.Windows.Forms.NumericUpDown();
             this.label33 = new System.Windows.Forms.Label();
@@ -641,6 +670,7 @@ namespace MyMentor
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.buttonPublish = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.trackBarPitch1 = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Picture1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -696,9 +726,6 @@ namespace MyMentor
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAudioEffects = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAudioEffects_Equalizer = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuAudioEffects_Tempo = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuAudioEffects_Pitch = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuAudioEffects_PlaybackRate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuZoom = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuZoom_Selection = new System.Windows.Forms.ToolStripMenuItem();
@@ -719,16 +746,23 @@ namespace MyMentor
             this.djLineTimer = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateTimePickerSpinner = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.trackBarWaveZoom = new System.Windows.Forms.TrackBar();
             this.panel5 = new System.Windows.Forms.Panel();
             this.lblLoginUser = new System.Windows.Forms.Label();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.label37 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.timerRecordIcon = new System.Windows.Forms.Timer(this.components);
             this.timerStartRecordingAfterPlayingBuffer = new System.Windows.Forms.Timer(this.components);
             this.timerRefreshLedDisplay = new System.Windows.Forms.Timer(this.components);
             this.timerPreStartFixPlayback = new System.Windows.Forms.Timer(this.components);
-            this.comboBoxAutoDevidePar = new PresentationControls.CheckBoxComboBox();
-            this.comboBoxAutoDevideSen = new PresentationControls.CheckBoxComboBox();
-            this.sevenSegment1 = new DmitryBrant.CustomControls.SevenSegment();
-            this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
+            this.timerUpdateDuringPlayback = new System.Windows.Forms.Timer(this.components);
             this.Frame4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).BeginInit();
             this.framePlayback.SuspendLayout();
@@ -764,12 +798,16 @@ namespace MyMentor
             this.groupBox7.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPitch1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).BeginInit();
             this.panel3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarWaveZoom)).BeginInit();
             this.panel5.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // Frame4
@@ -793,10 +831,10 @@ namespace MyMentor
             this.Frame4.Controls.Add(this.Label8);
             this.Frame4.Font = new System.Drawing.Font("Arial", 12F);
             this.Frame4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Frame4.Location = new System.Drawing.Point(3, 25);
+            this.Frame4.Location = new System.Drawing.Point(3, 22);
             this.Frame4.Name = "Frame4";
             this.Frame4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Frame4.Size = new System.Drawing.Size(551, 208);
+            this.Frame4.Size = new System.Drawing.Size(551, 195);
             this.Frame4.TabIndex = 17;
             this.Frame4.TabStop = false;
             this.Frame4.Text = "מיקום";
@@ -1040,10 +1078,10 @@ namespace MyMentor
             this.framePlayback.Controls.Add(this.buttonPlaySelection);
             this.framePlayback.Font = new System.Drawing.Font("Arial", 12F);
             this.framePlayback.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.framePlayback.Location = new System.Drawing.Point(3, 250);
+            this.framePlayback.Location = new System.Drawing.Point(3, 223);
             this.framePlayback.Name = "framePlayback";
             this.framePlayback.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.framePlayback.Size = new System.Drawing.Size(551, 95);
+            this.framePlayback.Size = new System.Drawing.Size(551, 87);
             this.framePlayback.TabIndex = 15;
             this.framePlayback.TabStop = false;
             this.framePlayback.Text = "ניגון";
@@ -1115,7 +1153,7 @@ namespace MyMentor
             // 
             this.LabelStatus.BackColor = System.Drawing.SystemColors.Control;
             this.LabelStatus.Cursor = System.Windows.Forms.Cursors.Default;
-            this.LabelStatus.Font = new System.Drawing.Font("Arial", 8F);
+            this.LabelStatus.Font = new System.Drawing.Font("Arial", 10F);
             this.LabelStatus.ForeColor = System.Drawing.SystemColors.ControlText;
             this.LabelStatus.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.LabelStatus.Location = new System.Drawing.Point(156, 2);
@@ -1184,10 +1222,10 @@ namespace MyMentor
             this.FrameRecording.Controls.Add(this.buttonStartRecNew);
             this.FrameRecording.Font = new System.Drawing.Font("Arial", 12F);
             this.FrameRecording.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FrameRecording.Location = new System.Drawing.Point(608, 25);
+            this.FrameRecording.Location = new System.Drawing.Point(608, 22);
             this.FrameRecording.Name = "FrameRecording";
             this.tableLayoutPanel1.SetRowSpan(this.FrameRecording, 2);
-            this.FrameRecording.Size = new System.Drawing.Size(551, 315);
+            this.FrameRecording.Size = new System.Drawing.Size(551, 288);
             this.FrameRecording.TabIndex = 24;
             this.FrameRecording.TabStop = false;
             this.FrameRecording.Text = "הקלטה";
@@ -1206,22 +1244,39 @@ namespace MyMentor
             // 
             // groupBox9
             // 
-            this.groupBox9.Controls.Add(this.sevenSegment1);
+            this.groupBox9.Controls.Add(this.sevenSegmentArray1);
             this.groupBox9.Controls.Add(this.label26);
             this.groupBox9.Controls.Add(this.label27);
             this.groupBox9.Controls.Add(this.numericUpDownBufferRecord);
             this.groupBox9.Controls.Add(this.buttonRecOverwritePlayback);
-            this.groupBox9.Location = new System.Drawing.Point(247, 94);
+            this.groupBox9.Location = new System.Drawing.Point(213, 94);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(298, 123);
+            this.groupBox9.Size = new System.Drawing.Size(332, 123);
             this.groupBox9.TabIndex = 32;
             this.groupBox9.TabStop = false;
+            // 
+            // sevenSegmentArray1
+            // 
+            this.sevenSegmentArray1.ArrayCount = 2;
+            this.sevenSegmentArray1.ColorBackground = System.Drawing.Color.DarkGray;
+            this.sevenSegmentArray1.ColorDark = System.Drawing.Color.DimGray;
+            this.sevenSegmentArray1.ColorLight = System.Drawing.Color.Chartreuse;
+            this.sevenSegmentArray1.DecimalShow = true;
+            this.sevenSegmentArray1.ElementPadding = new System.Windows.Forms.Padding(4);
+            this.sevenSegmentArray1.ElementWidth = 10;
+            this.sevenSegmentArray1.ItalicFactor = 0F;
+            this.sevenSegmentArray1.Location = new System.Drawing.Point(16, 25);
+            this.sevenSegmentArray1.Name = "sevenSegmentArray1";
+            this.sevenSegmentArray1.Size = new System.Drawing.Size(67, 63);
+            this.sevenSegmentArray1.TabIndex = 38;
+            this.sevenSegmentArray1.TabStop = false;
+            this.sevenSegmentArray1.Value = "5.0";
             // 
             // label26
             // 
             this.label26.AutoSize = true;
             this.label26.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label26.Location = new System.Drawing.Point(89, 89);
+            this.label26.Location = new System.Drawing.Point(117, 89);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(28, 18);
             this.label26.TabIndex = 36;
@@ -1231,7 +1286,7 @@ namespace MyMentor
             // 
             this.label27.AutoSize = true;
             this.label27.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label27.Location = new System.Drawing.Point(168, 89);
+            this.label27.Location = new System.Drawing.Point(190, 89);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(124, 18);
             this.label27.TabIndex = 35;
@@ -1239,7 +1294,7 @@ namespace MyMentor
             // 
             // numericUpDownBufferRecord
             // 
-            this.numericUpDownBufferRecord.Location = new System.Drawing.Point(123, 87);
+            this.numericUpDownBufferRecord.Location = new System.Drawing.Point(151, 87);
             this.numericUpDownBufferRecord.Maximum = new decimal(new int[] {
             9,
             0,
@@ -1263,12 +1318,12 @@ namespace MyMentor
             this.buttonRecOverwritePlayback.Font = new System.Drawing.Font("Arial", 12F);
             this.buttonRecOverwritePlayback.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonRecOverwritePlayback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonRecOverwritePlayback.Location = new System.Drawing.Point(141, 25);
+            this.buttonRecOverwritePlayback.Location = new System.Drawing.Point(134, 25);
             this.buttonRecOverwritePlayback.Name = "buttonRecOverwritePlayback";
             this.buttonRecOverwritePlayback.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonRecOverwritePlayback.Size = new System.Drawing.Size(138, 43);
+            this.buttonRecOverwritePlayback.Size = new System.Drawing.Size(177, 43);
             this.buttonRecOverwritePlayback.TabIndex = 33;
-            this.buttonRecOverwritePlayback.Text = "תקן במקום הנבחר";
+            this.buttonRecOverwritePlayback.Text = "תקן החל מהמקום הנבחר";
             this.buttonRecOverwritePlayback.UseVisualStyleBackColor = false;
             this.buttonRecOverwritePlayback.Click += new System.EventHandler(this.buttonRecOverwritePlayback_Click);
             // 
@@ -1382,7 +1437,7 @@ namespace MyMentor
             // 
             // tabControl1
             // 
-            this.tableLayoutPanel4.SetColumnSpan(this.tabControl1, 2);
+            this.tableLayoutPanel4.SetColumnSpan(this.tabControl1, 3);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -1394,7 +1449,7 @@ namespace MyMentor
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.RightToLeftLayout = true;
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1176, 454);
+            this.tabControl1.Size = new System.Drawing.Size(1176, 416);
             this.tabControl1.TabIndex = 61;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
@@ -1406,7 +1461,7 @@ namespace MyMentor
             this.tabPage1.Location = new System.Drawing.Point(4, 46);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1168, 404);
+            this.tabPage1.Size = new System.Drawing.Size(1168, 366);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "1 - טקסט";
             // 
@@ -1416,7 +1471,7 @@ namespace MyMentor
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85.12881F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.87119F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 210F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 221F));
             this.tableLayoutPanel2.Controls.Add(this.ToolStrip1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox1, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel7, 0, 0);
@@ -1429,7 +1484,7 @@ namespace MyMentor
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1162, 398);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1162, 360);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // ToolStrip1
@@ -1698,7 +1753,7 @@ namespace MyMentor
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox1.Name = "richTextBox1";
             this.tableLayoutPanel2.SetRowSpan(this.richTextBox1, 2);
-            this.richTextBox1.Size = new System.Drawing.Size(1154, 283);
+            this.richTextBox1.Size = new System.Drawing.Size(1154, 245);
             this.richTextBox1.TabIndex = 31;
             this.richTextBox1.Text = "";
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
@@ -1708,9 +1763,9 @@ namespace MyMentor
             // 
             this.panel7.Controls.Add(this.groupBox8);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(465, 3);
+            this.panel7.Location = new System.Drawing.Point(474, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(694, 74);
+            this.panel7.Size = new System.Drawing.Size(685, 74);
             this.panel7.TabIndex = 34;
             // 
             // groupBox8
@@ -1727,10 +1782,27 @@ namespace MyMentor
             this.groupBox8.Location = new System.Drawing.Point(0, 0);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox8.Size = new System.Drawing.Size(694, 74);
+            this.groupBox8.Size = new System.Drawing.Size(685, 74);
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "חלוקה אוטומטית";
+            // 
+            // comboBoxAutoDevidePar
+            // 
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxAutoDevidePar.CheckBoxProperties = checkBoxProperties3;
+            this.comboBoxAutoDevidePar.DisplayMemberSingleItem = "";
+            this.comboBoxAutoDevidePar.FormattingEnabled = true;
+            this.comboBoxAutoDevidePar.Items.AddRange(new object[] {
+            "ENTER",
+            "שני ENTER",
+            "אחרי 2 משפטים",
+            "אחרי 3 משפטים",
+            "אחרי 4 משפטים"});
+            this.comboBoxAutoDevidePar.Location = new System.Drawing.Point(411, 31);
+            this.comboBoxAutoDevidePar.Name = "comboBoxAutoDevidePar";
+            this.comboBoxAutoDevidePar.Size = new System.Drawing.Size(188, 26);
+            this.comboBoxAutoDevidePar.TabIndex = 19;
             // 
             // buttonAutoDevide
             // 
@@ -1781,6 +1853,21 @@ namespace MyMentor
             this.label24.TabIndex = 17;
             this.label24.Text = "סוף משפט";
             // 
+            // comboBoxAutoDevideSen
+            // 
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxAutoDevideSen.CheckBoxProperties = checkBoxProperties1;
+            this.comboBoxAutoDevideSen.DisplayMemberSingleItem = "";
+            this.comboBoxAutoDevideSen.FormattingEnabled = true;
+            this.comboBoxAutoDevideSen.Items.AddRange(new object[] {
+            "נקודותיים (:)",
+            "נקודה (.)",
+            "ENTER"});
+            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(120, 31);
+            this.comboBoxAutoDevideSen.Name = "comboBoxAutoDevideSen";
+            this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(191, 26);
+            this.comboBoxAutoDevideSen.TabIndex = 16;
+            // 
             // label14
             // 
             this.label14.BackColor = System.Drawing.SystemColors.Control;
@@ -1788,7 +1875,7 @@ namespace MyMentor
             this.label14.Font = new System.Drawing.Font("Arial", 12F);
             this.label14.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label14.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label14.Location = new System.Drawing.Point(619, 34);
+            this.label14.Location = new System.Drawing.Point(605, 34);
             this.label14.Name = "label14";
             this.label14.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label14.Size = new System.Drawing.Size(75, 21);
@@ -1802,7 +1889,7 @@ namespace MyMentor
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(3, 3);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(456, 74);
+            this.panel8.Size = new System.Drawing.Size(465, 74);
             this.panel8.TabIndex = 35;
             // 
             // groupBox10
@@ -1813,7 +1900,7 @@ namespace MyMentor
             this.groupBox10.Font = new System.Drawing.Font("Arial", 12F);
             this.groupBox10.Location = new System.Drawing.Point(0, 0);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(456, 74);
+            this.groupBox10.Size = new System.Drawing.Size(465, 74);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "טקסטים מוכנים";
@@ -1844,7 +1931,7 @@ namespace MyMentor
             this.tabPage2.Location = new System.Drawing.Point(4, 46);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1168, 404);
+            this.tabPage2.Size = new System.Drawing.Size(1168, 366);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "2 - הקלטה";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1868,7 +1955,7 @@ namespace MyMentor
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63.92046F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.82955F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1162, 398);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1162, 360);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel2
@@ -1877,7 +1964,7 @@ namespace MyMentor
             this.panel2.Controls.Add(this.label18);
             this.panel2.Controls.Add(this.label17);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(560, 25);
+            this.panel2.Location = new System.Drawing.Point(560, 22);
             this.panel2.Name = "panel2";
             this.tableLayoutPanel1.SetRowSpan(this.panel2, 2);
             this.panel2.Size = new System.Drawing.Size(42, 208);
@@ -1889,7 +1976,7 @@ namespace MyMentor
             this.tabPage3.Location = new System.Drawing.Point(4, 46);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1168, 404);
+            this.tabPage3.Size = new System.Drawing.Size(1168, 366);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "3 - תזמון";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1909,10 +1996,10 @@ namespace MyMentor
             this.tableLayoutPanel3.RowCount = 4;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 135F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 135F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 145F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 134F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 146F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1162, 398);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1162, 360);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // groupBox1
@@ -1929,7 +2016,7 @@ namespace MyMentor
             this.groupBox1.Controls.Add(this.buttonStartSchedulingPlayback);
             this.groupBox1.Font = new System.Drawing.Font("Arial", 12F);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.Location = new System.Drawing.Point(605, 256);
+            this.groupBox1.Location = new System.Drawing.Point(605, 217);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.groupBox1.Size = new System.Drawing.Size(554, 139);
@@ -1972,6 +2059,16 @@ namespace MyMentor
             this.label10.Size = new System.Drawing.Size(122, 18);
             this.label10.TabIndex = 26;
             this.label10.Text = "התחלה קטע נבחר";
+            // 
+            // timePickerCurrentWord
+            // 
+            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 72);
+            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
+            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
+            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
+            this.timePickerCurrentWord.TabIndex = 25;
+            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
             // 
             // LabelCurrentSchedulingTimer
             // 
@@ -2052,25 +2149,60 @@ namespace MyMentor
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.buttonZoomAllClip);
+            this.groupBox2.Controls.Add(this.buttonZoomTestableArea);
             this.groupBox2.Controls.Add(this.label25);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.numericUpDownInterval);
             this.groupBox2.Controls.Add(this.buttonScheduleAnchor);
             this.groupBox2.Font = new System.Drawing.Font("Arial", 12F);
-            this.groupBox2.Location = new System.Drawing.Point(225, 256);
+            this.groupBox2.Location = new System.Drawing.Point(3, 217);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(353, 139);
+            this.groupBox2.Size = new System.Drawing.Size(575, 139);
             this.groupBox2.TabIndex = 35;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "בדיקת מעברים";
+            // 
+            // buttonZoomAllClip
+            // 
+            this.buttonZoomAllClip.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonZoomAllClip.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonZoomAllClip.Font = new System.Drawing.Font("Arial", 11F);
+            this.buttonZoomAllClip.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonZoomAllClip.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.buttonZoomAllClip.Location = new System.Drawing.Point(15, 39);
+            this.buttonZoomAllClip.Name = "buttonZoomAllClip";
+            this.buttonZoomAllClip.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.buttonZoomAllClip.Size = new System.Drawing.Size(112, 38);
+            this.buttonZoomAllClip.TabIndex = 31;
+            this.buttonZoomAllClip.Text = "זום לכל הקטע";
+            this.buttonZoomAllClip.UseVisualStyleBackColor = false;
+            this.buttonZoomAllClip.Click += new System.EventHandler(this.buttonZoomAllClip_Click);
+            // 
+            // buttonZoomTestableArea
+            // 
+            this.buttonZoomTestableArea.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonZoomTestableArea.Cursor = System.Windows.Forms.Cursors.Default;
+            this.buttonZoomTestableArea.Enabled = false;
+            this.buttonZoomTestableArea.Font = new System.Drawing.Font("Arial", 11F);
+            this.buttonZoomTestableArea.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonZoomTestableArea.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.buttonZoomTestableArea.Location = new System.Drawing.Point(133, 39);
+            this.buttonZoomTestableArea.Name = "buttonZoomTestableArea";
+            this.buttonZoomTestableArea.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.buttonZoomTestableArea.Size = new System.Drawing.Size(112, 38);
+            this.buttonZoomTestableArea.TabIndex = 30;
+            this.buttonZoomTestableArea.Text = "זום לקטע הנבדק";
+            this.buttonZoomTestableArea.UseVisualStyleBackColor = false;
+            this.buttonZoomTestableArea.Click += new System.EventHandler(this.buttonZoomTestableArea_Click);
             // 
             // label25
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Arial", 9F);
             this.label25.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label25.Location = new System.Drawing.Point(104, 108);
+            this.label25.Location = new System.Drawing.Point(336, 109);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(236, 15);
             this.label25.TabIndex = 29;
@@ -2080,7 +2212,7 @@ namespace MyMentor
             // 
             this.label11.AutoSize = true;
             this.label11.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label11.Location = new System.Drawing.Point(19, 49);
+            this.label11.Location = new System.Drawing.Point(251, 53);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(28, 18);
             this.label11.TabIndex = 28;
@@ -2090,7 +2222,7 @@ namespace MyMentor
             // 
             this.label7.AutoSize = true;
             this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label7.Location = new System.Drawing.Point(108, 48);
+            this.label7.Location = new System.Drawing.Point(340, 49);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(107, 18);
             this.label7.TabIndex = 27;
@@ -2098,7 +2230,7 @@ namespace MyMentor
             // 
             // numericUpDownInterval
             // 
-            this.numericUpDownInterval.Location = new System.Drawing.Point(53, 44);
+            this.numericUpDownInterval.Location = new System.Drawing.Point(285, 45);
             this.numericUpDownInterval.Maximum = new decimal(new int[] {
             5,
             0,
@@ -2126,7 +2258,7 @@ namespace MyMentor
             this.buttonScheduleAnchor.Font = new System.Drawing.Font("Arial", 12F);
             this.buttonScheduleAnchor.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonScheduleAnchor.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonScheduleAnchor.Location = new System.Drawing.Point(229, 38);
+            this.buttonScheduleAnchor.Location = new System.Drawing.Point(461, 39);
             this.buttonScheduleAnchor.Name = "buttonScheduleAnchor";
             this.buttonScheduleAnchor.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.buttonScheduleAnchor.Size = new System.Drawing.Size(94, 38);
@@ -2143,7 +2275,7 @@ namespace MyMentor
             this.panel6.Location = new System.Drawing.Point(3, 3);
             this.panel6.Name = "panel6";
             this.tableLayoutPanel3.SetRowSpan(this.panel6, 3);
-            this.panel6.Size = new System.Drawing.Size(1156, 247);
+            this.panel6.Size = new System.Drawing.Size(1156, 208);
             this.panel6.TabIndex = 36;
             // 
             // richTextBox3
@@ -2156,10 +2288,11 @@ namespace MyMentor
             this.richTextBox3.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox3.Name = "richTextBox3";
             this.richTextBox3.ReadOnly = true;
-            this.richTextBox3.Size = new System.Drawing.Size(1156, 247);
+            this.richTextBox3.Size = new System.Drawing.Size(1156, 208);
             this.richTextBox3.TabIndex = 33;
             this.richTextBox3.Text = "";
             this.richTextBox3.SelectionChanged += new System.EventHandler(this.richTextBox3_SelectionChanged);
+            this.richTextBox3.TextChanged += new System.EventHandler(this.richTextBox3_TextChanged);
             this.richTextBox3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.richTextBox3_MouseMove);
             // 
             // tabPage4
@@ -2167,7 +2300,7 @@ namespace MyMentor
             this.tabPage4.Controls.Add(this.tableLayoutPanel5);
             this.tabPage4.Location = new System.Drawing.Point(4, 46);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1168, 404);
+            this.tabPage4.Size = new System.Drawing.Size(1168, 366);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "4 - פרסום";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -2186,12 +2319,16 @@ namespace MyMentor
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 97.77228F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2.227723F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1168, 404);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1168, 366);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.dateTimeExpired);
+            this.groupBox3.Controls.Add(this.label34);
+            this.groupBox3.Controls.Add(this.label35);
+            this.groupBox3.Controls.Add(this.tbClipRemarks);
             this.groupBox3.Controls.Add(this.numericPriceSupport);
             this.groupBox3.Controls.Add(this.numericPrice);
             this.groupBox3.Controls.Add(this.label33);
@@ -2237,14 +2374,62 @@ namespace MyMentor
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(993, 387);
+            this.groupBox3.Size = new System.Drawing.Size(993, 349);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
+            // 
+            // dateTimeExpired
+            // 
+            this.dateTimeExpired.Checked = false;
+            this.dateTimeExpired.CustomFormat = "";
+            this.dateTimeExpired.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
+            this.dateTimeExpired.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeExpired.Location = new System.Drawing.Point(393, 136);
+            this.dateTimeExpired.Name = "dateTimeExpired";
+            this.dateTimeExpired.RightToLeftLayout = true;
+            this.dateTimeExpired.ShowCheckBox = true;
+            this.dateTimeExpired.Size = new System.Drawing.Size(143, 26);
+            this.dateTimeExpired.TabIndex = 87;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Arial", 12F);
+            this.label34.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label34.Location = new System.Drawing.Point(542, 138);
+            this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(64, 18);
+            this.label34.TabIndex = 86;
+            this.label34.Text = "ת. תפוגה";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Arial", 12F);
+            this.label35.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label35.Location = new System.Drawing.Point(544, 80);
+            this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(44, 18);
+            this.label35.TabIndex = 84;
+            this.label35.Text = "הערה";
+            // 
+            // tbClipRemarks
+            // 
+            this.tbClipRemarks.Font = new System.Drawing.Font("Arial", 12F);
+            this.tbClipRemarks.Location = new System.Drawing.Point(313, 80);
+            this.tbClipRemarks.Margin = new System.Windows.Forms.Padding(4);
+            this.tbClipRemarks.Multiline = true;
+            this.tbClipRemarks.Name = "tbClipRemarks";
+            this.tbClipRemarks.Size = new System.Drawing.Size(223, 50);
+            this.tbClipRemarks.TabIndex = 85;
+            this.tbClipRemarks.TextChanged += new System.EventHandler(this.tbClipRemarks_TextChanged);
             // 
             // numericPriceSupport
             // 
             this.numericPriceSupport.DecimalPlaces = 2;
-            this.numericPriceSupport.Location = new System.Drawing.Point(407, 189);
+            this.numericPriceSupport.Location = new System.Drawing.Point(82, 18);
             this.numericPriceSupport.Maximum = new decimal(new int[] {
             500,
             0,
@@ -2254,11 +2439,12 @@ namespace MyMentor
             this.numericPriceSupport.Size = new System.Drawing.Size(78, 26);
             this.numericPriceSupport.TabIndex = 83;
             this.numericPriceSupport.ThousandsSeparator = true;
+            this.numericPriceSupport.Visible = false;
             // 
             // numericPrice
             // 
             this.numericPrice.DecimalPlaces = 2;
-            this.numericPrice.Location = new System.Drawing.Point(407, 155);
+            this.numericPrice.Location = new System.Drawing.Point(458, 49);
             this.numericPrice.Maximum = new decimal(new int[] {
             500,
             0,
@@ -2274,12 +2460,13 @@ namespace MyMentor
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Arial", 12F);
             this.label33.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label33.Location = new System.Drawing.Point(492, 192);
+            this.label33.Location = new System.Drawing.Point(167, 21);
             this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(105, 18);
             this.label33.TabIndex = 81;
             this.label33.Text = "מחיר עם תמיכה";
+            this.label33.Visible = false;
             // 
             // label32
             // 
@@ -2288,7 +2475,7 @@ namespace MyMentor
             this.label32.Font = new System.Drawing.Font("Arial", 16F);
             this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label32.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label32.Location = new System.Drawing.Point(867, 116);
+            this.label32.Location = new System.Drawing.Point(867, 80);
             this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(21, 25);
@@ -2302,7 +2489,7 @@ namespace MyMentor
             this.label31.Font = new System.Drawing.Font("Arial", 16F);
             this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label31.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label31.Location = new System.Drawing.Point(867, 221);
+            this.label31.Location = new System.Drawing.Point(867, 200);
             this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(21, 25);
@@ -2314,7 +2501,7 @@ namespace MyMentor
             this.lblMinValue.AutoSize = true;
             this.lblMinValue.Font = new System.Drawing.Font("Arial", 8F);
             this.lblMinValue.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblMinValue.Location = new System.Drawing.Point(302, 166);
+            this.lblMinValue.Location = new System.Drawing.Point(353, 60);
             this.lblMinValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMinValue.Name = "lblMinValue";
             this.lblMinValue.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -2329,7 +2516,7 @@ namespace MyMentor
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Arial", 12F);
             this.label21.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label21.Location = new System.Drawing.Point(492, 158);
+            this.label21.Location = new System.Drawing.Point(543, 52);
             this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(39, 18);
@@ -2341,7 +2528,7 @@ namespace MyMentor
             this.lblClipType.AutoSize = true;
             this.lblClipType.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.lblClipType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblClipType.Location = new System.Drawing.Point(492, 357);
+            this.lblClipType.Location = new System.Drawing.Point(543, 305);
             this.lblClipType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblClipType.Name = "lblClipType";
             this.lblClipType.Size = new System.Drawing.Size(71, 19);
@@ -2354,7 +2541,7 @@ namespace MyMentor
             this.comboClipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboClipType.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.comboClipType.FormattingEnabled = true;
-            this.comboClipType.Location = new System.Drawing.Point(367, 354);
+            this.comboClipType.Location = new System.Drawing.Point(418, 303);
             this.comboClipType.Name = "comboClipType";
             this.comboClipType.Size = new System.Drawing.Size(118, 27);
             this.comboClipType.TabIndex = 73;
@@ -2366,16 +2553,17 @@ namespace MyMentor
             this.dtpReadingDate.CustomFormat = "";
             this.dtpReadingDate.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
             this.dtpReadingDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpReadingDate.Location = new System.Drawing.Point(367, 222);
+            this.dtpReadingDate.Location = new System.Drawing.Point(418, 168);
             this.dtpReadingDate.Name = "dtpReadingDate";
+            this.dtpReadingDate.RightToLeftLayout = true;
             this.dtpReadingDate.Size = new System.Drawing.Size(118, 26);
             this.dtpReadingDate.TabIndex = 72;
             // 
             // btnRemoveDate
             // 
-            this.btnRemoveDate.Location = new System.Drawing.Point(330, 255);
+            this.btnRemoveDate.Location = new System.Drawing.Point(381, 201);
             this.btnRemoveDate.Name = "btnRemoveDate";
-            this.btnRemoveDate.Size = new System.Drawing.Size(31, 31);
+            this.btnRemoveDate.Size = new System.Drawing.Size(31, 27);
             this.btnRemoveDate.TabIndex = 71;
             this.btnRemoveDate.Text = "-";
             this.btnRemoveDate.UseVisualStyleBackColor = true;
@@ -2383,7 +2571,7 @@ namespace MyMentor
             // 
             // btnAddDate
             // 
-            this.btnAddDate.Location = new System.Drawing.Point(330, 222);
+            this.btnAddDate.Location = new System.Drawing.Point(381, 168);
             this.btnAddDate.Name = "btnAddDate";
             this.btnAddDate.Size = new System.Drawing.Size(31, 26);
             this.btnAddDate.TabIndex = 70;
@@ -2395,7 +2583,7 @@ namespace MyMentor
             // 
             this.listBoxDates.FormattingEnabled = true;
             this.listBoxDates.ItemHeight = 18;
-            this.listBoxDates.Location = new System.Drawing.Point(367, 254);
+            this.listBoxDates.Location = new System.Drawing.Point(418, 200);
             this.listBoxDates.Name = "listBoxDates";
             this.listBoxDates.Size = new System.Drawing.Size(118, 94);
             this.listBoxDates.TabIndex = 69;
@@ -2405,7 +2593,7 @@ namespace MyMentor
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Arial", 12F);
             this.label20.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label20.Location = new System.Drawing.Point(492, 254);
+            this.label20.Location = new System.Drawing.Point(543, 200);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(91, 18);
@@ -2416,7 +2604,7 @@ namespace MyMentor
             // 
             this.comboCategory4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategory4.FormattingEnabled = true;
-            this.comboCategory4.Location = new System.Drawing.Point(646, 254);
+            this.comboCategory4.Location = new System.Drawing.Point(646, 233);
             this.comboCategory4.Name = "comboCategory4";
             this.comboCategory4.Size = new System.Drawing.Size(220, 26);
             this.comboCategory4.TabIndex = 67;
@@ -2427,7 +2615,7 @@ namespace MyMentor
             this.lblCategory4.AutoSize = true;
             this.lblCategory4.Font = new System.Drawing.Font("Arial", 12F);
             this.lblCategory4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblCategory4.Location = new System.Drawing.Point(886, 257);
+            this.lblCategory4.Location = new System.Drawing.Point(886, 236);
             this.lblCategory4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCategory4.Name = "lblCategory4";
             this.lblCategory4.Size = new System.Drawing.Size(43, 18);
@@ -2439,7 +2627,7 @@ namespace MyMentor
             this.lblCategory2.AutoSize = true;
             this.lblCategory2.Font = new System.Drawing.Font("Arial", 12F);
             this.lblCategory2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblCategory2.Location = new System.Drawing.Point(886, 189);
+            this.lblCategory2.Location = new System.Drawing.Point(886, 168);
             this.lblCategory2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCategory2.Name = "lblCategory2";
             this.lblCategory2.Size = new System.Drawing.Size(43, 18);
@@ -2450,7 +2638,7 @@ namespace MyMentor
             // 
             this.comboCategory2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategory2.FormattingEnabled = true;
-            this.comboCategory2.Location = new System.Drawing.Point(646, 186);
+            this.comboCategory2.Location = new System.Drawing.Point(646, 165);
             this.comboCategory2.Name = "comboCategory2";
             this.comboCategory2.Size = new System.Drawing.Size(220, 26);
             this.comboCategory2.TabIndex = 64;
@@ -2460,7 +2648,7 @@ namespace MyMentor
             // 
             this.comboCategory1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategory1.FormattingEnabled = true;
-            this.comboCategory1.Location = new System.Drawing.Point(646, 154);
+            this.comboCategory1.Location = new System.Drawing.Point(646, 133);
             this.comboCategory1.Name = "comboCategory1";
             this.comboCategory1.Size = new System.Drawing.Size(220, 26);
             this.comboCategory1.TabIndex = 63;
@@ -2471,7 +2659,7 @@ namespace MyMentor
             this.lblCategory1.AutoSize = true;
             this.lblCategory1.Font = new System.Drawing.Font("Arial", 12F);
             this.lblCategory1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblCategory1.Location = new System.Drawing.Point(886, 157);
+            this.lblCategory1.Location = new System.Drawing.Point(886, 136);
             this.lblCategory1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCategory1.Name = "lblCategory1";
             this.lblCategory1.Size = new System.Drawing.Size(43, 18);
@@ -2498,7 +2686,7 @@ namespace MyMentor
             // 
             this.comboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboStatus.FormattingEnabled = true;
-            this.comboStatus.Location = new System.Drawing.Point(646, 324);
+            this.comboStatus.Location = new System.Drawing.Point(646, 303);
             this.comboStatus.Name = "comboStatus";
             this.comboStatus.Size = new System.Drawing.Size(220, 26);
             this.comboStatus.TabIndex = 60;
@@ -2507,7 +2695,7 @@ namespace MyMentor
             // 
             this.comboCategory3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategory3.FormattingEnabled = true;
-            this.comboCategory3.Location = new System.Drawing.Point(646, 221);
+            this.comboCategory3.Location = new System.Drawing.Point(646, 200);
             this.comboCategory3.Name = "comboCategory3";
             this.comboCategory3.Size = new System.Drawing.Size(220, 26);
             this.comboCategory3.TabIndex = 57;
@@ -2543,7 +2731,7 @@ namespace MyMentor
             this.groupBox5.Font = new System.Drawing.Font("Arial", 9F);
             this.groupBox5.Location = new System.Drawing.Point(16, 37);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(124, 161);
+            this.groupBox5.Size = new System.Drawing.Size(124, 139);
             this.groupBox5.TabIndex = 53;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "נעילות לימוד";
@@ -2599,9 +2787,9 @@ namespace MyMentor
             this.groupBox4.Controls.Add(this.sop_teacher2);
             this.groupBox4.Controls.Add(this.sop_teacherAndStudent);
             this.groupBox4.Font = new System.Drawing.Font("Arial", 9F);
-            this.groupBox4.Location = new System.Drawing.Point(16, 219);
+            this.groupBox4.Location = new System.Drawing.Point(17, 182);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(124, 154);
+            this.groupBox4.Size = new System.Drawing.Size(124, 143);
             this.groupBox4.TabIndex = 52;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "אפשרויות לימוד";
@@ -2659,7 +2847,7 @@ namespace MyMentor
             this.groupBox6.Font = new System.Drawing.Font("Arial", 9F);
             this.groupBox6.Location = new System.Drawing.Point(166, 37);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(129, 161);
+            this.groupBox6.Size = new System.Drawing.Size(129, 139);
             this.groupBox6.TabIndex = 51;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "נעילות מקטעים";
@@ -2715,9 +2903,9 @@ namespace MyMentor
             this.groupBox7.Controls.Add(this.def_wor);
             this.groupBox7.Controls.Add(this.def_sec);
             this.groupBox7.Font = new System.Drawing.Font("Arial", 9F);
-            this.groupBox7.Location = new System.Drawing.Point(166, 219);
+            this.groupBox7.Location = new System.Drawing.Point(167, 182);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(129, 151);
+            this.groupBox7.Size = new System.Drawing.Size(129, 143);
             this.groupBox7.TabIndex = 50;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "מקטעי ברירת מחדל";
@@ -2771,7 +2959,7 @@ namespace MyMentor
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Arial", 12F);
             this.label13.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label13.Location = new System.Drawing.Point(886, 120);
+            this.label13.Location = new System.Drawing.Point(886, 84);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(41, 18);
@@ -2781,11 +2969,11 @@ namespace MyMentor
             // tbClipDescription
             // 
             this.tbClipDescription.Font = new System.Drawing.Font("Arial", 12F);
-            this.tbClipDescription.Location = new System.Drawing.Point(313, 117);
+            this.tbClipDescription.Location = new System.Drawing.Point(646, 81);
             this.tbClipDescription.Margin = new System.Windows.Forms.Padding(4);
             this.tbClipDescription.Multiline = true;
             this.tbClipDescription.Name = "tbClipDescription";
-            this.tbClipDescription.Size = new System.Drawing.Size(553, 30);
+            this.tbClipDescription.Size = new System.Drawing.Size(220, 45);
             this.tbClipDescription.TabIndex = 44;
             this.tbClipDescription.TextChanged += new System.EventHandler(this.tbClipDescription_TextChanged);
             // 
@@ -2805,7 +2993,7 @@ namespace MyMentor
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Arial", 12F);
             this.label16.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label16.Location = new System.Drawing.Point(886, 328);
+            this.label16.Location = new System.Drawing.Point(886, 307);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(56, 18);
@@ -2817,7 +3005,7 @@ namespace MyMentor
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Arial", 12F);
             this.label19.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label19.Location = new System.Drawing.Point(886, 294);
+            this.label19.Location = new System.Drawing.Point(886, 273);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(84, 18);
@@ -2827,7 +3015,7 @@ namespace MyMentor
             // tbKeywords
             // 
             this.tbKeywords.Font = new System.Drawing.Font("Arial", 12F);
-            this.tbKeywords.Location = new System.Drawing.Point(646, 291);
+            this.tbKeywords.Location = new System.Drawing.Point(646, 270);
             this.tbKeywords.Margin = new System.Windows.Forms.Padding(4);
             this.tbKeywords.Name = "tbKeywords";
             this.tbKeywords.Size = new System.Drawing.Size(220, 26);
@@ -2839,7 +3027,7 @@ namespace MyMentor
             this.lblCategory3.AutoSize = true;
             this.lblCategory3.Font = new System.Drawing.Font("Arial", 12F);
             this.lblCategory3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblCategory3.Location = new System.Drawing.Point(886, 224);
+            this.lblCategory3.Location = new System.Drawing.Point(886, 203);
             this.lblCategory3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCategory3.Name = "lblCategory3";
             this.lblCategory3.Size = new System.Drawing.Size(43, 18);
@@ -2851,7 +3039,7 @@ namespace MyMentor
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Arial", 12F);
             this.label22.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label22.Location = new System.Drawing.Point(886, 40);
+            this.label22.Location = new System.Drawing.Point(886, 21);
             this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(66, 18);
@@ -2861,7 +3049,7 @@ namespace MyMentor
             // tbClipTitle
             // 
             this.tbClipTitle.Font = new System.Drawing.Font("Arial", 12F);
-            this.tbClipTitle.Location = new System.Drawing.Point(313, 37);
+            this.tbClipTitle.Location = new System.Drawing.Point(313, 18);
             this.tbClipTitle.Margin = new System.Windows.Forms.Padding(4);
             this.tbClipTitle.Name = "tbClipTitle";
             this.tbClipTitle.ReadOnly = true;
@@ -2871,7 +3059,7 @@ namespace MyMentor
             // mtbVersion
             // 
             this.mtbVersion.Font = new System.Drawing.Font("Arial", 12F);
-            this.mtbVersion.Location = new System.Drawing.Point(789, 73);
+            this.mtbVersion.Location = new System.Drawing.Point(789, 49);
             this.mtbVersion.Margin = new System.Windows.Forms.Padding(4);
             this.mtbVersion.Mask = "0.00";
             this.mtbVersion.Name = "mtbVersion";
@@ -2885,7 +3073,7 @@ namespace MyMentor
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Arial", 12F);
             this.label23.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label23.Location = new System.Drawing.Point(886, 76);
+            this.label23.Location = new System.Drawing.Point(886, 52);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(41, 18);
@@ -2898,13 +3086,13 @@ namespace MyMentor
             this.panel4.Controls.Add(this.buttonPublish);
             this.panel4.Location = new System.Drawing.Point(4, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(160, 389);
+            this.panel4.Size = new System.Drawing.Size(160, 351);
             this.panel4.TabIndex = 11;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(14, 292);
+            this.pictureBox2.Location = new System.Drawing.Point(11, 257);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(138, 20);
             this.pictureBox2.TabIndex = 20;
@@ -2917,7 +3105,7 @@ namespace MyMentor
             this.buttonPublish.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonPublish.Font = new System.Drawing.Font("Arial", 12F);
             this.buttonPublish.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonPublish.Location = new System.Drawing.Point(13, 329);
+            this.buttonPublish.Location = new System.Drawing.Point(10, 294);
             this.buttonPublish.Name = "buttonPublish";
             this.buttonPublish.Size = new System.Drawing.Size(139, 42);
             this.buttonPublish.TabIndex = 0;
@@ -2933,6 +3121,21 @@ namespace MyMentor
             this.imageList1.Images.SetKeyName(0, "1386908105_Record Button2.png");
             this.imageList1.Images.SetKeyName(1, "1386908112_Record Button1.png");
             // 
+            // trackBarPitch1
+            // 
+            this.trackBarPitch1.AutoSize = false;
+            this.trackBarPitch1.LargeChange = 10;
+            this.trackBarPitch1.Location = new System.Drawing.Point(289, -7);
+            this.trackBarPitch1.Maximum = 70;
+            this.trackBarPitch1.Minimum = -70;
+            this.trackBarPitch1.Name = "trackBarPitch1";
+            this.trackBarPitch1.Size = new System.Drawing.Size(176, 39);
+            this.trackBarPitch1.SmallChange = 10;
+            this.trackBarPitch1.TabIndex = 43;
+            this.trackBarPitch1.TickFrequency = 10;
+            this.trackBarPitch1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarPitch1.Scroll += new System.EventHandler(this.trackBarPitch1_Scroll);
+            // 
             // panel1
             // 
             this.tableLayoutPanel4.SetColumnSpan(this.panel1, 2);
@@ -2940,7 +3143,7 @@ namespace MyMentor
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 463);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1176, 154);
+            this.panel1.Size = new System.Drawing.Size(1136, 154);
             this.panel1.TabIndex = 0;
             // 
             // Picture1
@@ -2954,7 +3157,7 @@ namespace MyMentor
             this.Picture1.Location = new System.Drawing.Point(0, 0);
             this.Picture1.Name = "Picture1";
             this.Picture1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Picture1.Size = new System.Drawing.Size(1176, 154);
+            this.Picture1.Size = new System.Drawing.Size(1136, 154);
             this.Picture1.TabIndex = 13;
             this.Picture1.TabStop = false;
             this.Picture1.Visible = false;
@@ -2963,7 +3166,7 @@ namespace MyMentor
             // 
             this.panel3.Controls.Add(this.progressBar1);
             this.panel3.Controls.Add(this.LabelStatus);
-            this.panel3.Location = new System.Drawing.Point(686, 623);
+            this.panel3.Location = new System.Drawing.Point(646, 623);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(493, 39);
             this.panel3.TabIndex = 25;
@@ -3362,10 +3565,7 @@ namespace MyMentor
             // mnuAudioEffects
             // 
             this.mnuAudioEffects.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuAudioEffects_Equalizer,
-            this.mnuAudioEffects_Tempo,
-            this.mnuAudioEffects_Pitch,
-            this.mnuAudioEffects_PlaybackRate});
+            this.mnuAudioEffects_Equalizer});
             this.mnuAudioEffects.Name = "mnuAudioEffects";
             this.mnuAudioEffects.Size = new System.Drawing.Size(210, 22);
             this.mnuAudioEffects.Text = "אפקטים";
@@ -3373,30 +3573,9 @@ namespace MyMentor
             // mnuAudioEffects_Equalizer
             // 
             this.mnuAudioEffects_Equalizer.Name = "mnuAudioEffects_Equalizer";
-            this.mnuAudioEffects_Equalizer.Size = new System.Drawing.Size(175, 22);
+            this.mnuAudioEffects_Equalizer.Size = new System.Drawing.Size(121, 22);
             this.mnuAudioEffects_Equalizer.Text = "Equalizer";
             this.mnuAudioEffects_Equalizer.Click += new System.EventHandler(this.mnuAudioEffects_Equalizer_Click);
-            // 
-            // mnuAudioEffects_Tempo
-            // 
-            this.mnuAudioEffects_Tempo.Name = "mnuAudioEffects_Tempo";
-            this.mnuAudioEffects_Tempo.Size = new System.Drawing.Size(175, 22);
-            this.mnuAudioEffects_Tempo.Text = "ערוך Tempo";
-            this.mnuAudioEffects_Tempo.Click += new System.EventHandler(this.mnuAudioEffects_Tempo_Click);
-            // 
-            // mnuAudioEffects_Pitch
-            // 
-            this.mnuAudioEffects_Pitch.Name = "mnuAudioEffects_Pitch";
-            this.mnuAudioEffects_Pitch.Size = new System.Drawing.Size(175, 22);
-            this.mnuAudioEffects_Pitch.Text = "ערוך Pitch";
-            this.mnuAudioEffects_Pitch.Click += new System.EventHandler(this.mnuAudioEffects_Pitch_Click);
-            // 
-            // mnuAudioEffects_PlaybackRate
-            // 
-            this.mnuAudioEffects_PlaybackRate.Name = "mnuAudioEffects_PlaybackRate";
-            this.mnuAudioEffects_PlaybackRate.Size = new System.Drawing.Size(175, 22);
-            this.mnuAudioEffects_PlaybackRate.Text = "ערוך Playback Rate";
-            this.mnuAudioEffects_PlaybackRate.Click += new System.EventHandler(this.mnuAudioEffects_PlaybackRate_Click);
             // 
             // toolStripMenuItem6
             // 
@@ -3508,6 +3687,10 @@ namespace MyMentor
             this.audioDjStudio1.Size = new System.Drawing.Size(48, 48);
             this.audioDjStudio1.TabIndex = 63;
             this.audioDjStudio1.SoundDone += new AudioDjStudio.AudioDjStudio.PlayerEventHandler(this.audioDjStudio1_SoundDone);
+            this.audioDjStudio1.SoundStopped += new AudioDjStudio.AudioDjStudio.PlayerEventHandler(this.audioDjStudio1_SoundStopped);
+            this.audioDjStudio1.SoundPaused += new AudioDjStudio.AudioDjStudio.PlayerEventHandler(this.audioDjStudio1_SoundPaused);
+            this.audioDjStudio1.SoundPlaying += new AudioDjStudio.AudioDjStudio.PlayerEventHandler(this.audioDjStudio1_SoundPlaying);
+            this.audioDjStudio1.SoundClosed += new AudioDjStudio.AudioDjStudio.PlayerEventHandler(this.audioDjStudio1_SoundClosed);
             this.audioDjStudio1.SilenceDetectionStateChange += new AudioDjStudio.AudioDjStudio.SilenceDetectionStateChangeEventHandler(this.audioDjStudio1_SilenceDetectionStateChange);
             // 
             // djLineTimer
@@ -3515,30 +3698,43 @@ namespace MyMentor
             this.djLineTimer.Interval = 50;
             this.djLineTimer.Tick += new System.EventHandler(this.djLineTimer_Tick);
             // 
-            // timerUpdateTimePickerSpinner
-            // 
-            this.timerUpdateTimePickerSpinner.Interval = 50;
-            this.timerUpdateTimePickerSpinner.Tick += new System.EventHandler(this.timerCheckPlaybackDuringScheduling_Tick);
-            // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.trackBarWaveZoom, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.panel1, 1, 2);
             this.tableLayoutPanel4.Controls.Add(this.tabControl1, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.panel3, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.panel5, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.panel3, 1, 3);
+            this.tableLayoutPanel4.Controls.Add(this.panel5, 2, 3);
+            this.tableLayoutPanel4.Controls.Add(this.toolStrip2, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 3;
+            this.tableLayoutPanel4.RowCount = 4;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1182, 665);
             this.tableLayoutPanel4.TabIndex = 64;
+            // 
+            // trackBarWaveZoom
+            // 
+            this.trackBarWaveZoom.Location = new System.Drawing.Point(1145, 463);
+            this.trackBarWaveZoom.Maximum = 500;
+            this.trackBarWaveZoom.Minimum = 50;
+            this.trackBarWaveZoom.Name = "trackBarWaveZoom";
+            this.trackBarWaveZoom.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarWaveZoom.Size = new System.Drawing.Size(34, 154);
+            this.trackBarWaveZoom.TabIndex = 153;
+            this.trackBarWaveZoom.TickFrequency = 20;
+            this.trackBarWaveZoom.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarWaveZoom.Value = 100;
+            this.trackBarWaveZoom.Scroll += new System.EventHandler(this.trackBarWaveZoom_Scroll);
             // 
             // panel5
             // 
@@ -3546,7 +3742,7 @@ namespace MyMentor
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 623);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(585, 39);
+            this.panel5.Size = new System.Drawing.Size(565, 39);
             this.panel5.TabIndex = 62;
             // 
             // lblLoginUser
@@ -3564,6 +3760,104 @@ namespace MyMentor
             this.lblLoginUser.TabIndex = 26;
             this.lblLoginUser.Text = "הנך מחובר כ";
             // 
+            // toolStrip2
+            // 
+            this.toolStrip2.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton4,
+            this.toolStripSeparator9,
+            this.toolStripButton1,
+            this.toolStripButton2,
+            this.toolStripButton3});
+            this.toolStrip2.Location = new System.Drawing.Point(571, 422);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(571, 38);
+            this.toolStrip2.TabIndex = 154;
+            this.toolStrip2.Text = "toolStrip2";
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(36, 35);
+            this.toolStripButton4.Text = "toolStripButton4";
+            this.toolStripButton4.ToolTipText = "טען קובץ שמע";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 38);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(36, 35);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.ToolTipText = "זום החוצה";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(36, 35);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.ToolTipText = "זום פנימה";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(36, 35);
+            this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.ToolTipText = "זום לכל הקטע";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.label37);
+            this.panel9.Controls.Add(this.button2);
+            this.panel9.Controls.Add(this.trackBarPitch1);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Location = new System.Drawing.Point(3, 425);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(565, 32);
+            this.panel9.TabIndex = 156;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Arial", 9F);
+            this.label37.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label37.Location = new System.Drawing.Point(471, 9);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(79, 15);
+            this.label37.TabIndex = 45;
+            this.label37.Text = "מהירות השמעה";
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Arial Narrow", 9F);
+            this.button2.Location = new System.Drawing.Point(237, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(46, 32);
+            this.button2.TabIndex = 44;
+            this.button2.Text = "אפס";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // timerRecordIcon
             // 
             this.timerRecordIcon.Interval = 500;
@@ -3576,73 +3870,15 @@ namespace MyMentor
             // 
             // timerRefreshLedDisplay
             // 
-            this.timerRefreshLedDisplay.Interval = 1000;
             this.timerRefreshLedDisplay.Tick += new System.EventHandler(this.timerRefreshLedDisplay_Tick);
             // 
             // timerPreStartFixPlayback
             // 
             this.timerPreStartFixPlayback.Tick += new System.EventHandler(this.timerPreStartFixPlayback_Tick);
             // 
-            // comboBoxAutoDevidePar
+            // timerUpdateDuringPlayback
             // 
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxAutoDevidePar.CheckBoxProperties = checkBoxProperties1;
-            this.comboBoxAutoDevidePar.DisplayMemberSingleItem = "";
-            this.comboBoxAutoDevidePar.FormattingEnabled = true;
-            this.comboBoxAutoDevidePar.Items.AddRange(new object[] {
-            "ENTER",
-            "שני ENTER",
-            "אחרי 2 משפטים",
-            "אחרי 3 משפטים",
-            "אחרי 4 משפטים"});
-            this.comboBoxAutoDevidePar.Location = new System.Drawing.Point(431, 31);
-            this.comboBoxAutoDevidePar.Name = "comboBoxAutoDevidePar";
-            this.comboBoxAutoDevidePar.Size = new System.Drawing.Size(188, 26);
-            this.comboBoxAutoDevidePar.TabIndex = 19;
-            // 
-            // comboBoxAutoDevideSen
-            // 
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxAutoDevideSen.CheckBoxProperties = checkBoxProperties2;
-            this.comboBoxAutoDevideSen.DisplayMemberSingleItem = "";
-            this.comboBoxAutoDevideSen.FormattingEnabled = true;
-            this.comboBoxAutoDevideSen.Items.AddRange(new object[] {
-            "נקודותיים (:)",
-            "נקודה (.)",
-            "ENTER"});
-            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(120, 31);
-            this.comboBoxAutoDevideSen.Name = "comboBoxAutoDevideSen";
-            this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(191, 26);
-            this.comboBoxAutoDevideSen.TabIndex = 16;
-            // 
-            // sevenSegment1
-            // 
-            this.sevenSegment1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sevenSegment1.ColorBackground = System.Drawing.Color.DarkGray;
-            this.sevenSegment1.ColorDark = System.Drawing.Color.DimGray;
-            this.sevenSegment1.ColorLight = System.Drawing.Color.Lime;
-            this.sevenSegment1.CustomPattern = 107;
-            this.sevenSegment1.DecimalOn = false;
-            this.sevenSegment1.DecimalShow = true;
-            this.sevenSegment1.ElementWidth = 10;
-            this.sevenSegment1.ItalicFactor = 0F;
-            this.sevenSegment1.Location = new System.Drawing.Point(18, 25);
-            this.sevenSegment1.Name = "sevenSegment1";
-            this.sevenSegment1.Padding = new System.Windows.Forms.Padding(4);
-            this.sevenSegment1.Size = new System.Drawing.Size(53, 82);
-            this.sevenSegment1.TabIndex = 37;
-            this.sevenSegment1.TabStop = false;
-            this.sevenSegment1.Value = "5";
-            // 
-            // timePickerCurrentWord
-            // 
-            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 72);
-            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
-            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
-            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
-            this.timePickerCurrentWord.TabIndex = 25;
-            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
+            this.timerUpdateDuringPlayback.Tick += new System.EventHandler(this.timerUpdateDuringPlayback_Tick);
             // 
             // FormMain
             // 
@@ -3714,13 +3950,20 @@ namespace MyMentor
             this.groupBox7.PerformLayout();
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPitch1)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarWaveZoom)).EndInit();
             this.panel5.ResumeLayout(false);
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3803,6 +4046,10 @@ namespace MyMentor
             // init controls
             audioSoundRecorder1.InitRecordingSystem();
             audioSoundEditor1.InitEditor();
+
+            ////dj
+            audioDjStudio1.InitSoundSystem(1, 0, 0, 0, 0, -1);
+
             trackBarVolume1.Value = 100;
 
             // create the recorder's VU-Meter
@@ -3812,6 +4059,7 @@ namespace MyMentor
 
             // create the waveform analyzer (always call this function on the end of the form's Load fucntion)
             audioSoundEditor1.DisplayWaveformAnalyzer.Create(panel1.Handle, Picture1.Left, Picture1.Top, panel1.Width, panel1.Height);
+
             // get the current analyzer wave settings
             WANALYZER_WAVEFORM_SETTINGS settingsWave = new WANALYZER_WAVEFORM_SETTINGS();
             audioSoundEditor1.DisplayWaveformAnalyzer.SettingsWaveGet(ref settingsWave);
@@ -3842,6 +4090,7 @@ namespace MyMentor
 
             TimerMenuEnabler.Enabled = true;
             tableLayoutPanel4.RowStyles[1].Height = 0;
+            tableLayoutPanel4.RowStyles[2].Height = 0;
 
             audioSoundEditor1.EncodeFormats.FormatToUse = enumEncodingFormats.ENCODING_FORMAT_MP3;
             audioSoundEditor1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_PRESETS;
@@ -3862,18 +4111,17 @@ namespace MyMentor
             {
                 if (nEndSelectionInMs > nBeginSelectionInMs)
                 {
-                    // play selected range only
-                    audioSoundEditor1.PlaySoundRange(nBeginSelectionInMs, nEndSelectionInMs);
+                    audioDjStudio1.PlaySound(0, nBeginSelectionInMs, nEndSelectionInMs);
                 }
                 else
                 {
                     // play selected range only
-                    audioSoundEditor1.PlaySoundRange(nBeginSelectionInMs, -1);
+                    audioDjStudio1.PlaySound(0, nBeginSelectionInMs, -1);
                 }
             }
             else
             {
-                audioSoundEditor1.PlaySound();
+                audioDjStudio1.PlaySound(0);
             }
         }
 
@@ -3887,23 +4135,29 @@ namespace MyMentor
 
             // if a selection is available
             if (bSelectionAvailable)
+            {
                 // play selected range only
-                audioSoundEditor1.PlaySoundRange(nBeginSelectionInMs, nEndSelectionInMs);
+                //audioSoundEditor1.PlaySoundRange(nBeginSelectionInMs, nEndSelectionInMs);
+                audioDjStudio1.PlaySound(0, nBeginSelectionInMs, nEndSelectionInMs);
+            }
         }
 
         private void buttonPause_Click(object sender, System.EventArgs e)
         {
             if (buttonPause.Text == "השהה")
             {
-                audioSoundEditor1.PauseSound();
+                audioDjStudio1.PauseSound(0);
             }
             else
-                audioSoundEditor1.ResumeSound();
+            {
+                audioDjStudio1.ResumeSound(0);
+            }
         }
 
         private void buttonStop_Click(object sender, System.EventArgs e)
         {
-            audioSoundEditor1.StopSound();
+            audioDjStudio1.StopSound(0);
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);
         }
 
         private void LoadAudioFromMemory(object sender, System.EventArgs e)
@@ -4280,6 +4534,7 @@ namespace MyMentor
             if (m_selectedAnchor)
             {
                 buttonScheduleAnchor.Enabled = true;
+                buttonZoomTestableArea.Enabled = true;
             }
 
             //in case just finished playing anchor fix
@@ -4312,8 +4567,8 @@ namespace MyMentor
             LabelStatus.Text = "Status: Playback paused";
             LabelStatus.Refresh();
 
-            int mm = audioSoundEditor1.GetPlaybackPosition();
-            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, mm, mm);
+            //int mm = audioSoundEditor1.GetPlaybackPosition();
+            //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, mm, mm);
 
         }
 
@@ -4394,16 +4649,23 @@ namespace MyMentor
                 LabelSelectionEnd.Text = audioSoundEditor1.GetFormattedTime(e.nEndPosInMs, true, true);
                 LabelSelectionDuration.Text = audioSoundEditor1.GetFormattedTime(e.nEndPosInMs - e.nBeginPosInMs, true, true);
 
-                TimeSpan tp = new TimeSpan(0, 0, 0, 0, e.nBeginPosInMs);
+                if (audioDjStudio1.GetPlayerStatus(0) != AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
+                {
 
-                if (new TimeSpan(0, 0, 0, 0, 1000 * (int)numericUpDownBufferRecord.Value) > new TimeSpan(0, 0, (int)tp.TotalSeconds))
-                {
-                    timerPreStartFixPlayback.Interval = (int)(new TimeSpan(0, 0, 0, 0, 1000 * (int)numericUpDownBufferRecord.Value) - new TimeSpan(0, 0, (int)tp.TotalSeconds)).TotalMilliseconds;
+                    TimeSpan tp = new TimeSpan(0, 0, 0, 0, e.nBeginPosInMs);
+
+                    if (new TimeSpan(0, 0, 0, 0, 1000 * (int)numericUpDownBufferRecord.Value) > new TimeSpan(0, 0, (int)tp.TotalSeconds))
+                    {
+                        timerPreStartFixPlayback.Interval = (int)(new TimeSpan(0, 0, 0, 0, 1000 * (int)numericUpDownBufferRecord.Value) - new TimeSpan(0, 0, (int)tp.TotalSeconds)).TotalMilliseconds;
+                    }
+                    else
+                    {
+                        timerPreStartFixPlayback.Interval = 1;
+                    }
+
+                    m_targetStartFixInMs = e.nBeginPosInMs;
                 }
-                else
-                {
-                    timerPreStartFixPlayback.Interval = 1;
-                }
+
                 //check 
                 //timePickerSpinner1.Value = TimeSpan.Parse(audioSoundEditor1.GetFormattedTime(e.nBeginPosInMs, true, true));
             }
@@ -4550,9 +4812,9 @@ namespace MyMentor
                 TimeSpan startSelectionTime = TimeSpan.Parse(LabelSelectionBegin.Text);
                 TimeSpan endSelectionTime = TimeSpan.Parse(LabelSelectionEnd.Text);
 
-                // overwrite mode
-                audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_OVERWRITE);
-                audioSoundEditor1.SetOverwritePos((int)startSelectionTime.TotalMilliseconds, -1);// (int)endSelectionTime.TotalMilliseconds);
+                audioSoundEditor1.UseThreadsInSyncMode(true);
+                audioSoundEditor1.DeleteRange((int)m_overwriteModeDeletePosition.TotalMilliseconds, -1);
+                audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_APPEND);
             }
             else if (m_bRecAppendMode)
                 // append mode
@@ -5490,6 +5752,17 @@ namespace MyMentor
             //set properties
             Clip.Current.Title = tbClipTitle.Text;
             Clip.Current.Description = tbClipDescription.Text;
+            Clip.Current.Remarks = tbClipRemarks.Text;
+
+            if (dateTimeExpired.Checked)
+            {
+                Clip.Current.Expired = dateTimeExpired.Value;
+            }
+            else
+            {
+                Clip.Current.Expired = null;
+            }
+
             Clip.Current.Status = (string)comboStatus.SelectedValue;
             Clip.Current.Category1 = (string)comboCategory1.SelectedValue;
             Clip.Current.Category2 = (string)comboCategory2.SelectedValue;
@@ -5565,7 +5838,7 @@ namespace MyMentor
 
                     //Clip.Current.FontName = richTextBox1.Font.Name;
                     //Clip.Current.FontSize = float.Parse(toolStripComboBox1.Text.Replace("pt", string.Empty));
-                    Clip.Current.Name = saveFileDialog1.FileName; 
+                    Clip.Current.Name = saveFileDialog1.FileName;
                     Clip.Current.FileName = saveFileDialog1.FileName;
                     Clip.Current.RtfText = richTextBox1.Rtf;
                     this.Text = "MyMentor - " + Clip.Current.Name;
@@ -5653,53 +5926,61 @@ namespace MyMentor
 
             m_contentType = contentType;
 
-            this.comboCategory1.DisplayMember = "Value";
-            this.comboCategory1.ValueMember = "ObjectId";
-            this.comboCategory1.DataSource = (await ParseTables.GetCategory1(contentType.ObjectId)).Select(c => new Category
+            try
             {
-                ObjectId = c.ObjectId,
-                Value = c.Get<string>("value")
-            }).ToList();
 
-            this.comboCategory3.DisplayMember = "Value";
-            this.comboCategory3.ValueMember = "ObjectId";
-            this.comboCategory3.DataSource = (await ParseTables.GetCategory3(contentType.ObjectId, "HPz65WBzhw")).Select(c => new Category
+                this.comboCategory1.DisplayMember = "Value";
+                this.comboCategory1.ValueMember = "ObjectId";
+                this.comboCategory1.DataSource = (await ParseTables.GetCategory1(contentType.ObjectId)).Select(c => new Category
+                {
+                    ObjectId = c.ObjectId,
+                    Value = c.Get<string>("value")
+                }).ToList();
+
+                this.comboCategory3.DisplayMember = "Value";
+                this.comboCategory3.ValueMember = "ObjectId";
+                this.comboCategory3.DataSource = (await ParseTables.GetCategory3(contentType.ObjectId, "HPz65WBzhw")).Select(c => new Category
+                {
+                    ObjectId = c.ObjectId,
+                    Value = c.Get<string>("value"),
+                    MinPrice = (decimal)c.Get<float>("minPrice")
+                }).ToList();
+
+                this.comboCategory4.DisplayMember = "Value";
+                this.comboCategory4.ValueMember = "ObjectId";
+                this.comboCategory4.DataSource = (await ParseTables.GetCategory4(contentType.ObjectId)).Select(c => new Category
+                {
+                    ObjectId = c.ObjectId,
+                    Value = c.Get<string>("value")
+                }).ToList();
+
+                this.comboStatus.DisplayMember = "Value";
+                this.comboStatus.ValueMember = "ObjectId";
+                this.comboStatus.DataSource = (await ParseTables.GetStatuses()).Select(c => new Category
+                {
+                    ObjectId = c.ObjectId,
+                    Value = c.Get<string>("status_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_"))
+                }).ToList();
+
+                this.comboClipType.DisplayMember = "Value";
+                this.comboClipType.ValueMember = "ObjectId";
+                this.comboClipType.DataSource = (await ParseTables.GetTypes()).Select(c => new Category
+                {
+                    ObjectId = c.ObjectId,
+                    Value = c.Get<string>("value")
+                }).ToList();
+
+                ParseObject labels = await ParseTables.GetCategoryLabels(contentType.ObjectId);
+
+                lblCategory1.Text = labels.Get<string>("category1");
+                lblCategory2.Text = labels.Get<string>("category2");
+                lblCategory3.Text = labels.Get<string>("category3");
+                lblCategory4.Text = labels.Get<string>("category4");
+            }
+            catch (Exception ex)
             {
-                ObjectId = c.ObjectId,
-                Value = c.Get<string>("value"),
-                MinPrice = (decimal)c.Get<float>("minPrice")
-            }).ToList();
 
-            this.comboCategory4.DisplayMember = "Value";
-            this.comboCategory4.ValueMember = "ObjectId";
-            this.comboCategory4.DataSource = (await ParseTables.GetCategory4(contentType.ObjectId)).Select(c => new Category
-            {
-                ObjectId = c.ObjectId,
-                Value = c.Get<string>("value")
-            }).ToList();
-
-            this.comboStatus.DisplayMember = "Value";
-            this.comboStatus.ValueMember = "ObjectId";
-            this.comboStatus.DataSource = (await ParseTables.GetStatuses()).Select(c => new Category
-            {
-                ObjectId = c.ObjectId,
-                Value = c.Get<string>("status_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_"))
-            }).ToList();
-
-            this.comboClipType.DisplayMember = "Value";
-            this.comboClipType.ValueMember = "ObjectId";
-            this.comboClipType.DataSource = (await ParseTables.GetTypes()).Select(c => new Category
-            {
-                ObjectId = c.ObjectId,
-                Value = c.Get<string>("value")
-            }).ToList();
-
-            ParseObject labels = await ParseTables.GetCategoryLabels(contentType.ObjectId);
-
-            lblCategory1.Text = labels.Get<string>("category1");
-            lblCategory2.Text = labels.Get<string>("category2");
-            lblCategory3.Text = labels.Get<string>("category3");
-            lblCategory4.Text = labels.Get<string>("category4");
+            }
 
             SetClipProperties();
             RegenerateClipName();
@@ -5786,14 +6067,15 @@ namespace MyMentor
 
             Debug.WriteLine(string.Format("ClipPattern:{0}", m_contentType.ClipTitlePattern));
 
-            var clipTitle = m_contentType.ClipTitlePattern.Replace("[category1]", comboCategory1.Text ?? string.Empty)
-                .Replace("[category2]", comboCategory2.Text ?? string.Empty)
-                .Replace("[category3]", comboCategory3.Text ?? string.Empty)
-                .Replace("[category4]", comboCategory4.Text ?? string.Empty)
-                .Replace("[description]", Clip.Current.Description ?? string.Empty)
-                .Replace("[firstName]", ParseTables.CurrentUser.Get<string>("firstName") ?? string.Empty)
-                .Replace("[lastName]", ParseTables.CurrentUser.Get<string>("lastName") ?? string.Empty)
-                .Replace("[cityOfResidence]", ParseTables.CurrentUser.Get<string>("cityOfResidence") ?? string.Empty);
+            var clipTitle = m_contentType.ClipTitlePattern.SpecialReplace("[category1]", comboCategory1.Text)
+                .SpecialReplace("[category2]", comboCategory2.Text)
+                .SpecialReplace("[category3]", comboCategory3.Text)
+                .SpecialReplace("[category4]", comboCategory4.Text)
+                .SpecialReplace("[description]", Clip.Current.Description)
+                .SpecialReplace("[remarks]", Clip.Current.Remarks)
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.Get<string>("firstName"))
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.Get<string>("lastName"))
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.Get<string>("cityOfResidence"));
 
             this.tbClipTitle.Text = clipTitle;
             Clip.Current.Title = clipTitle;
@@ -5856,7 +6138,7 @@ namespace MyMentor
                 if (Clip.Current.FingerPrint != m_currentFingerPrint)
                 {
                     NewClip();
-                    MessageBox.Show("שיעור זה נוצר ע''י משתמש אחר או על מחשב אחר, לפי תנאי השימוש לא ניתן לערוך או לצפות בשיעורים בסטודיו שנוצרו על מחשב אחר או/וגם על ידי משתמש אחר",  "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    MessageBox.Show("שיעור זה נוצר ע''י משתמש אחר, לפי תנאי השימוש לא ניתן לערוך או לצפות בסטודיו בשיעורים שנוצרו על ידי משתמש אחר", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     return;
                 }
             }
@@ -5901,6 +6183,7 @@ namespace MyMentor
 
         private async void SetClipProperties()
         {
+            tbClipRemarks.Text = Clip.Current.Remarks;
             tbClipDescription.Text = Clip.Current.Description;
             comboCategory1.SelectedValue = Clip.Current.Category1 ?? string.Empty;
             mtbVersion.Text = Clip.Current.Version;
@@ -5909,6 +6192,17 @@ namespace MyMentor
             comboClipType.SelectedValue = Clip.Current.ClipType ?? "piL85bMGtR";
             tbKeywords.Text = Clip.Current.Keywords;
             comboStatus.SelectedValue = Clip.Current.Status ?? "3DYQsyGZIk"; //paeel
+
+            if (Clip.Current.Expired == null)
+            {
+                dateTimeExpired.Checked = false;
+            }
+            else
+            {
+                dateTimeExpired.Checked = true;
+                dateTimeExpired.Value = Clip.Current.Expired.Value;
+            }
+
             RegenerateDatesBox();
 
             numericPrice.Value = Clip.Current.Price;
@@ -6005,23 +6299,6 @@ namespace MyMentor
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //copy text and insert start anchor
-            richTextBox3.Clear();
-            richTextBox3.Rtf = richTextBox1.Rtf;
-
-            //add end anchor
-            m_skipSelectionChange = true;
-            richTextBox3.AppendText(END_PAUSE_SECTION_ANCHOR);
-
-            //add start anchor
-            richTextBox3.SelectionStart = 0;
-            richTextBox3.SelectionLength = 0;
-            richTextBox3.SelectedText = START_PAUSE_SECTION_ANCHOR;
-            m_skipSelectionChange = false;
-
-            richTextBox3.SelectionStart = 0;
-            richTextBox3.SelectionLength = 0;
-
             m_selectedScheduledWord = null;
             m_selectedAnchor = false;
 
@@ -6029,12 +6306,14 @@ namespace MyMentor
                 || tabControl1.SelectedIndex == 3)
             {
                 tableLayoutPanel4.RowStyles[1].Height = 0;
+                tableLayoutPanel4.RowStyles[2].Height = 0;
 
                 RegenerateClipName();
             }
             else
             {
-                tableLayoutPanel4.RowStyles[1].Height = 160;
+                tableLayoutPanel4.RowStyles[1].Height = 38;
+                tableLayoutPanel4.RowStyles[2].Height = 160;
             }
 
             //check if we have to refresh display
@@ -6057,22 +6336,37 @@ namespace MyMentor
 
                 //remove guid line & end line
                 audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_endLineUniqueId);
-                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_guidLineUniqueId);
+                //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_guidLineUniqueId);
                 audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
             }
             //scheduler step
             else if (tabControl1.SelectedIndex == 2)
             {
+                //copy text and insert start anchor
+                richTextBox3.Clear();
+                richTextBox3.Rtf = richTextBox1.Rtf;
                 Clip.Current.Devide();
 
+                //add end anchor
+                m_skipSelectionChange = true;
+                richTextBox3.AppendText(END_PAUSE_SECTION_ANCHOR);
+
+                //add start anchor
                 richTextBox3.SelectionStart = 0;
+                richTextBox3.SelectionLength = 0;
+                richTextBox3.SelectedText = START_PAUSE_SECTION_ANCHOR;
+                m_skipSelectionChange = false;
+
+                //selects first word
+                richTextBox3.SelectionStart = 0;
+                richTextBox3.SelectionLength = 0;
 
                 if (m_waveFormTabIndex != 2)
                 {
                     m_waveFormTabIndex = 2;
 
-                    m_guidLineUniqueId = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("MyLine", "", 0,
-                        new WANALYZER_VERTICAL_LINE { color = Color.Yellow, nWidth = 1, nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT, nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DASH_DOT, nHighCap = enumLineCaps.LINE_CAP_SQUARE, nLowCap = enumLineCaps.LINE_CAP_SQUARE, nTranspFactor = 0 });
+                    //m_guidLineUniqueId = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemVerticalLineAdd("MyLine", "", 0,
+                    //    new WANALYZER_VERTICAL_LINE { color = Color.Yellow, nWidth = 1, nDashCap = enumLineDashCaps.LINE_DASH_CAP_FLAT, nDashStyle = enumWaveformLineDashStyles.LINE_DASH_STYLE_DASH_DOT, nHighCap = enumLineCaps.LINE_CAP_SQUARE, nLowCap = enumLineCaps.LINE_CAP_SQUARE, nTranspFactor = 0 });
 
                     if (Clip.Current.Chapter.Paragraphs != null)
                     {
@@ -6153,6 +6447,7 @@ namespace MyMentor
             Clip.Current.RightAlignment = true;
             Clip.Current.FingerPrint = m_currentFingerPrint;
             Clip.Current.ClipType = "piL85bMGtR";
+            Clip.Current.Expired = null;
 
             this.Text = "MyMentor - " + Clip.Current.Name;
 
@@ -6307,7 +6602,7 @@ namespace MyMentor
 
             int selectionIndex = Math.Max(0, richTextBox3.SelectionStart - START_PAUSE_SECTION_ANCHOR.Length);
 
-            if (selectionIndex == 0 && m_selectedScheduledWord != null) // start anchor
+            if (selectionIndex == 0) // start anchor
             {
                 //set current word start time when clicking word offline
                 timePickerCurrentWord.Value = TimeSpan.Zero;
@@ -6327,7 +6622,7 @@ namespace MyMentor
                 LabelCurrentWordDuration.Text = audioSoundEditor1.FromMsToFormattedTime((int)m_selectedScheduledWord.StartTime.TotalMilliseconds, true, true);
 
                 //move line to start
-                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
+                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0,0);
 
             }
             //end anchor
@@ -6354,7 +6649,10 @@ namespace MyMentor
                 m_selectedScheduledWord = null;
 
                 //move line
-                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId,
+                //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId,
+                //    (int)timePickerCurrentWord.Value.TotalMilliseconds,
+                //    (int)timePickerCurrentWord.Value.TotalMilliseconds);
+                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true,
                     (int)timePickerCurrentWord.Value.TotalMilliseconds,
                     (int)timePickerCurrentWord.Value.TotalMilliseconds);
             }
@@ -6392,11 +6690,13 @@ namespace MyMentor
                         }
 
                         //move line
-                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
+                        //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
+                        audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
 
                         m_selectedAnchor = true;
 
                         buttonScheduleAnchor.Enabled = true;
+                        buttonZoomTestableArea.Enabled = true;
                     }
                     else
                     {
@@ -6405,7 +6705,7 @@ namespace MyMentor
                         richTextBox3.SelectionLength = m_selectedScheduledWord.Length;
 
                         //in case set start time during scheduling
-                        if (n_hammerLastTimePressed != TimeSpan.Zero && audioSoundEditor1.GetPlaybackStatus() == enumPlaybackStatus.PLAYBACK_PLAYING)
+                        if (n_hammerLastTimePressed != TimeSpan.Zero && audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
                         {
                             m_selectedScheduledWord.StartTime = n_hammerLastTimePressed;
 
@@ -6413,7 +6713,7 @@ namespace MyMentor
 
                             n_hammerLastTimePressed = TimeSpan.Zero;
                         }
-                        else if (audioSoundEditor1.GetPlaybackStatus() != enumPlaybackStatus.PLAYBACK_PLAYING)
+                        else if (audioDjStudio1.GetPlayerStatus(0) != AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
                         {
                             //set current word start time when clicking word offline
                             timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime;
@@ -6422,9 +6722,11 @@ namespace MyMentor
                         }
 
                         //move guid line
-                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds);
+                        //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds);
+                        audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds, (int)m_selectedScheduledWord.StartTime.TotalMilliseconds);
                         m_selectedAnchor = false;
                         buttonScheduleAnchor.Enabled = false;
+                        buttonZoomTestableArea.Enabled = false;
                     }
 
                     m_skipSelectionChange = false;
@@ -6449,8 +6751,28 @@ namespace MyMentor
 
             if (buttonStartSchedulingPlayback.Text == "התחל" || buttonStartSchedulingPlayback.Text == "המשך")
             {
+                Int32 nBeginSelectionInMs = 0;
+                Int32 nEndSelectionInMs = 0;
+                bool bSelection = true;
+                n_hammerLastTimePressed = TimeSpan.Zero;
+
+                audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelection, ref nBeginSelectionInMs, ref nEndSelectionInMs);//   .GraphicItemHorzPositionGet(m_guidLineUniqueId, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+                //audioSoundEditor1.PlaySoundRange(nBeginSelectionInMs, -1);
+
+                if (buttonStartSchedulingPlayback.Text == "המשך")
+                {
+                    audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
+                    audioDjStudio1.PlaySound(0, nBeginSelectionInMs, -1);
+                }
+                else
+                {
+                    audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
+                    audioDjStudio1.PlaySound(0, nBeginSelectionInMs, -1);
+                }
+
+
                 buttonHammer.Enabled = true;
-                audioSoundEditor1.PlaySoundRange((int)TimeSpan.Parse(LabelCurrentSchedulingTimer.Text).TotalMilliseconds, -1);
+                //audioSoundEditor1.PlaySoundRange((int)TimeSpan.Parse(LabelCurrentSchedulingTimer.Text).TotalMilliseconds, -1);
                 buttonStartSchedulingPlayback.Text = "עצור";
 
                 buttonRestartScheduling.Enabled = false;
@@ -6459,11 +6781,13 @@ namespace MyMentor
             }
             else if (buttonStartSchedulingPlayback.Text == "עצור")
             {
+                n_hammerLastTimePressed = TimeSpan.Zero;
                 buttonHammer.Enabled = false;
                 buttonRestartScheduling.Enabled = true;
                 timePickerCurrentWord.Enabled = true;
                 timerUpdateTimePickerSpinner.Enabled = false;
-                audioSoundEditor1.StopSound();
+                //audioSoundEditor1.StopSound();
+                audioDjStudio1.StopSound(0);
                 buttonStartSchedulingPlayback.Text = "המשך";
             }
 
@@ -6482,7 +6806,41 @@ namespace MyMentor
 
         private void audioDjStudio1_SoundDone(object sender, AudioDjStudio.PlayerEventArgs e)
         {
-            //djLineTimer.Enabled = false;
+            timerUpdateDuringPlayback.Enabled = false;
+            m_stopWatch.Stop();
+
+            buttonPause.Text = "השהה";
+            LabelStatus.Text = "Status: Idle";
+            LabelStatus.Refresh();
+
+            buttonStartSchedulingPlayback.Text = "התחל";
+            buttonRestartScheduling.Enabled = true;
+            timePickerCurrentWord.Enabled = true;
+
+            if (m_selectedAnchor)
+            {
+                buttonScheduleAnchor.Enabled = true;
+                buttonZoomTestableArea.Enabled = true;
+            }
+
+            //in case just finished playing anchor fix
+            if (m_rem_anchorFixRecording > TimeSpan.Zero)
+            {
+                timePickerCurrentWord.Value = m_rem_anchorFixRecording;
+                m_rem_anchorFixRecording = TimeSpan.Zero;
+            }
+
+            FrameRecording.Enabled = true;
+
+            if (m_bRecOverwriteMode)
+            {
+                timerStartRecordingAfterPlayingBuffer.Enabled = true;
+            }
+            else
+            {
+                //done playing - return position to start
+                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);
+            }
         }
 
         /// <summary>
@@ -6494,7 +6852,7 @@ namespace MyMentor
         {
             //
             // PLAYBACK
-            if (audioSoundEditor1.GetPlaybackStatus() == enumPlaybackStatus.PLAYBACK_PLAYING)
+            if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
             {
                 n_hammerLastTimePressed = TimeSpan.Parse(LabelCurrentSchedulingTimer.Text);// timePickerCurrentWord.Value;
 
@@ -6526,6 +6884,7 @@ namespace MyMentor
                 }
                 else if (m_selectedScheduledWord == null && m_selectedEndAnchor)
                 {
+                    //save duration to last word
                     Clip.Current.Chapter.LastWord.Duration = saveIt - Clip.Current.Chapter.LastWord.StartTime;
 
                     if (m_endLineUniqueId >= 0)
@@ -6536,7 +6895,7 @@ namespace MyMentor
                     }
                     else
                     {
-                        //create new anchor line
+                        //create new end anchor line
                         m_endLineUniqueId = audioSoundEditor1.DisplayWaveformAnalyzer
                             .GraphicItemVerticalLineAdd("EndLine", "",
                             (int)saveIt.TotalMilliseconds,
@@ -6551,6 +6910,7 @@ namespace MyMentor
                                 nTranspFactor = 50
                             });
                     }
+
                     buttonHammer.Enabled = false;
                 }
                 else
@@ -6600,7 +6960,8 @@ namespace MyMentor
                 }
                 else
                 {
-                    if (m_selectedScheduledWord != null)
+                    //we have selected section with graphical line exists
+                    if (m_selectedScheduledWord != null && m_selectedScheduledWord.GraphicItemUnique > 0)
                     {
                         if (m_selectedScheduledWord.PreviousWord != null &&
                             timePickerCurrentWord.Value <= m_selectedScheduledWord.PreviousWord.StartTime + new TimeSpan(0, 0, 0, 0, 500))
@@ -6703,79 +7064,6 @@ namespace MyMentor
             }
         }
 
-        private void timerCheckPlaybackDuringScheduling_Tick(object sender, EventArgs e)
-        {
-            if (audioSoundEditor1.GetPlaybackStatus() != enumPlaybackStatus.PLAYBACK_PLAYING) // in case anchor fixing
-            {
-                return;
-            }
-
-            int mm = audioSoundEditor1.GetPlaybackPosition();
-            var position = new TimeSpan(0, 0, 0, 0, Math.Max(mm, 0)); ;
-
-            LabelCurrentSchedulingTimer.Text = audioSoundEditor1.FromMsToFormattedTime((long)mm, true, true);// GetFormattedTime(e.nBeginPosInMs, true, true);
-
-            //during playing check if the current position moved over to the next word
-            if (Clip.Current.Chapter.Paragraphs != null && !m_selectedAnchor)
-            {
-                //in case start part
-                if (m_selectedStartAnchor)
-                {
-                    if (position >= Clip.Current.Chapter.FirstWord.StartTime && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
-                    {
-                        //set time picker
-                        timePickerCurrentWord.Value = position;
-                        richTextBox3.SelectionStart = Clip.Current.Chapter.FirstWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + 1;
-                    }
-                }
-                else if (m_selectedEndAnchor)
-                {
-                    //Do nothing for now
-                }
-                else
-                {
-                    //get next word in case timer moving and pass next start time word
-                    //catch all the words until the last one
-                    if (m_selectedScheduledWord != null &&
-                        m_selectedScheduledWord.NextWord != null
-                        && position >= m_selectedScheduledWord.NextWord.StartTime
-                        && m_selectedScheduledWord.NextWord.NextWord != null
-                        && position < m_selectedScheduledWord.NextWord.NextWord.StartTime)
-                    {
-                        //set time picker
-                        timePickerCurrentWord.Value = m_selectedScheduledWord.NextWord.StartTime;// position;
-
-                        richTextBox3.SelectionStart = m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
-                    }
-                    // catch the last word as the last one
-                    else if (m_selectedScheduledWord != null &&
-                        m_selectedScheduledWord.NextWord != null
-                        && position >= m_selectedScheduledWord.NextWord.StartTime
-                        && position < m_selectedScheduledWord.NextWord.StartTime + m_selectedScheduledWord.NextWord.Duration
-                        && m_selectedScheduledWord.NextWord.NextWord == null
-                        )
-                    {
-                        //set time picker
-                        timePickerCurrentWord.Value = m_selectedScheduledWord.NextWord.StartTime;// position;
-
-                        richTextBox3.SelectionStart = m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
-                    }
-                    // catch when passed the red line end border 
-                    else if (m_selectedScheduledWord != null &&
-                        m_selectedScheduledWord.NextWord == null &&
-                        m_selectedScheduledWord.Duration > TimeSpan.Zero
-                        && position >= m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration
-                        )
-                    {
-                        //set time picker
-                        timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration;
-
-                        richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + m_selectedScheduledWord.Length + 1;
-                    }
-                }
-            }
-        }
-
         private void mnuRemoveSchedule_Click(object sender, EventArgs e)
         {
             if (Clip.Current.Chapter.Paragraphs != null)
@@ -6805,6 +7093,14 @@ namespace MyMentor
                     //remove guid line
                     audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_endLineUniqueId);
                     audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
+                    m_endLineUniqueId = -1;
+
+                    LabelCurrentSchedulingTimer.Text = audioSoundEditor1.FromMsToFormattedTime(0, true, true);// GetFormattedTime(e.nBeginPosInMs, true, true);
+                    richTextBox3.SelectionStart = 4;
+                    buttonStartSchedulingPlayback.Text = "התחל";
+                    buttonHammer.Enabled = true;
+
+                    richTextBox3.SelectionStart = 0;
                 }
 
             }
@@ -6814,6 +7110,9 @@ namespace MyMentor
         {
             //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, 0, 0);
             LabelCurrentSchedulingTimer.Text = audioSoundEditor1.FromMsToFormattedTime(0, true, true);// GetFormattedTime(e.nBeginPosInMs, true, true);
+
+            //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, 0, 0);
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);
             //timePickerCurrentWord.Value = TimeSpan.Zero;
             richTextBox3.SelectionStart = 4;
             buttonStartSchedulingPlayback.Text = "התחל";
@@ -6829,6 +7128,7 @@ namespace MyMentor
             }
 
             buttonScheduleAnchor.Enabled = false;
+            buttonZoomTestableArea.Enabled = false;
 
             var interval = new TimeSpan(0, 0, (int)(numericUpDownInterval.Value * 2));
 
@@ -6837,7 +7137,10 @@ namespace MyMentor
             m_rem_anchorFixRecording = timePickerCurrentWord.Value;
 
             //play the range
-            audioSoundEditor1.PlaySoundRange((int)timePickerCurrentWord.Value.TotalMilliseconds,
+            //audioSoundEditor1.PlaySoundRange((int)timePickerCurrentWord.Value.TotalMilliseconds,
+            //        (int)timePickerCurrentWord.Value.TotalMilliseconds + (int)interval.TotalMilliseconds);
+            audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
+            audioDjStudio1.PlaySound(0, (int)timePickerCurrentWord.Value.TotalMilliseconds,
                     (int)timePickerCurrentWord.Value.TotalMilliseconds + (int)interval.TotalMilliseconds);
 
         }
@@ -7055,67 +7358,100 @@ namespace MyMentor
 
             richTextBox2.Rtf = richTextBox1.Rtf;
 
-            RemoveAnchor(AnchorType.Paragraph);
-            RemoveAnchor(AnchorType.Sentence);
-            RemoveAnchor(AnchorType.Section);
-            RemoveAnchor(AnchorType.Word);
-
-            int index = 0;
-            int enterKeys = 0;
-            int sentenses = 0;
-            int charactersFromLastAnchor = 0;
-
-            while (index < richTextBox2.TextLength)
+            try
             {
-                richTextBox2.SelectionStart = index;
-                richTextBox2.SelectionLength = 1;
+                RemoveAnchor(AnchorType.Paragraph);
+                RemoveAnchor(AnchorType.Sentence);
+                RemoveAnchor(AnchorType.Section);
+                RemoveAnchor(AnchorType.Word);
 
-                index++;
+                int index = 0;
+                int enterKeys = 0;
+                int sentenses = 0;
+                int charactersFromLastAnchor = 0;
 
-
-                //enter
-                if (richTextBox2.SelectedText.ToCharArray()[0] == (char)10)
+                while (index < richTextBox2.TextLength)
                 {
-                    enterKeys++;
+                    richTextBox2.SelectionStart = index;
+                    richTextBox2.SelectionLength = 1;
 
-                    if (parDelimiters.Exists(a => a == "ENTER") && charactersFromLastAnchor > 0)
+                    index++;
+
+
+                    //enter
+                    if (richTextBox2.SelectedText.ToCharArray()[0] == (char)10)
                     {
-                        AddAnchor(AnchorType.Paragraph, index - 1);
-                        charactersFromLastAnchor = 0;
-                        index += 4;
-                        continue;
-                    }
+                        enterKeys++;
 
-                    if (parDelimiters.Exists(a => a == "שני ENTER") && enterKeys % 2 == 0 && charactersFromLastAnchor > 0)
-                    {
-                        AddAnchor(AnchorType.Paragraph, index - 1);
-                        charactersFromLastAnchor = 0;
-                        index += 4;
-                        continue;
-                    }
-
-                    if (senDelimiters.Exists(a => a == "ENTER"))
-                    {
-                        sentenses += 1;
-
-                        if (charactersFromLastAnchor > 0 && (sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
-                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
-                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                        if (parDelimiters.Exists(a => a == "ENTER") && charactersFromLastAnchor > 0)
                         {
                             AddAnchor(AnchorType.Paragraph, index - 1);
                             charactersFromLastAnchor = 0;
                             index += 4;
-                            sentenses = 0;
                             continue;
                         }
 
-                        AddAnchor(AnchorType.Sentence, index - 1);
+                        if (parDelimiters.Exists(a => a == "שני ENTER") && enterKeys % 2 == 0 && charactersFromLastAnchor > 0)
+                        {
+                            AddAnchor(AnchorType.Paragraph, index - 1);
+                            charactersFromLastAnchor = 0;
+                            index += 4;
+                            continue;
+                        }
+
+                        if (senDelimiters.Exists(a => a == "ENTER"))
+                        {
+                            sentenses += 1;
+
+                            if (charactersFromLastAnchor > 0 && (sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
+                                (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
+                                (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                            {
+                                AddAnchor(AnchorType.Paragraph, index - 1);
+                                charactersFromLastAnchor = 0;
+                                index += 4;
+                                sentenses = 0;
+                                continue;
+                            }
+
+                            AddAnchor(AnchorType.Sentence, index - 1);
+                            charactersFromLastAnchor = 0;
+                            index += 4;
+                            continue;
+                        }
+
+                        if (senDelimiters.Exists(a => a == "שני ENTER") && enterKeys % 2 == 0 && charactersFromLastAnchor > 0)
+                        {
+                            sentenses += 1;
+
+                            if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
+                                (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
+                                (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                            {
+                                AddAnchor(AnchorType.Paragraph, index - 1);
+                                charactersFromLastAnchor = 0;
+                                index += 4;
+                                sentenses = 0;
+                                continue;
+                            }
+
+                            AddAnchor(AnchorType.Sentence, index - 1);
+                            charactersFromLastAnchor = 0;
+                            index += 4;
+                            continue;
+                        }
+                    }
+
+
+                    if (parDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0)
+                    {
+                        AddAnchor(AnchorType.Paragraph, index);
                         charactersFromLastAnchor = 0;
                         index += 4;
                         continue;
                     }
 
-                    if (senDelimiters.Exists(a => a == "שני ENTER") && enterKeys % 2 == 0 && charactersFromLastAnchor > 0)
+                    if (richTextBox2.SelectedText == ":" && senDelimiters.Exists(a => a == "נקודותיים (:)") && charactersFromLastAnchor > 0)
                     {
                         sentenses += 1;
 
@@ -7123,97 +7459,70 @@ namespace MyMentor
                             (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
                             (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
                         {
-                            AddAnchor(AnchorType.Paragraph, index - 1);
+                            AddAnchor(AnchorType.Paragraph, index);
                             charactersFromLastAnchor = 0;
                             index += 4;
                             sentenses = 0;
                             continue;
                         }
 
-                        AddAnchor(AnchorType.Sentence, index - 1);
+                        AddAnchor(AnchorType.Sentence, index);
                         charactersFromLastAnchor = 0;
                         index += 4;
                         continue;
                     }
-                }
 
-
-                if (parDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0)
-                {
-                    AddAnchor(AnchorType.Paragraph, index);
-                    charactersFromLastAnchor = 0;
-                    index += 4;
-                    continue;
-                }
-
-                if (richTextBox2.SelectedText == ":" && senDelimiters.Exists(a => a == "נקודותיים (:)") && charactersFromLastAnchor > 0)
-                {
-                    sentenses += 1;
-
-                    if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
-                        (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
-                        (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                    if (richTextBox2.SelectedText == "." && senDelimiters.Exists(a => a == "נקודה (.)") && charactersFromLastAnchor > 0)
                     {
-                        AddAnchor(AnchorType.Paragraph, index);
+                        sentenses += 1;
+
+                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
+                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
+                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                        {
+                            AddAnchor(AnchorType.Paragraph, index);
+                            charactersFromLastAnchor = 0;
+                            index += 4;
+                            sentenses = 0;
+                            continue;
+                        }
+
+                        AddAnchor(AnchorType.Sentence, index);
                         charactersFromLastAnchor = 0;
                         index += 4;
-                        sentenses = 0;
                         continue;
                     }
 
-                    AddAnchor(AnchorType.Sentence, index);
-                    charactersFromLastAnchor = 0;
-                    index += 4;
-                    continue;
-                }
-
-                if (richTextBox2.SelectedText == "." && senDelimiters.Exists(a => a == "נקודה (.)") && charactersFromLastAnchor > 0)
-                {
-                    sentenses += 1;
-
-                    if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
-                        (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
-                        (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                    if (senDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0)
                     {
-                        AddAnchor(AnchorType.Paragraph, index);
+                        sentenses += 1;
+
+                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
+                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
+                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                        {
+                            AddAnchor(AnchorType.Paragraph, index);
+                            charactersFromLastAnchor = 0;
+                            index += 4;
+                            sentenses = 0;
+                            continue;
+                        }
+
+                        AddAnchor(AnchorType.Sentence, index);
                         charactersFromLastAnchor = 0;
                         index += 4;
-                        sentenses = 0;
                         continue;
                     }
 
-                    AddAnchor(AnchorType.Sentence, index);
-                    charactersFromLastAnchor = 0;
-                    index += 4;
-                    continue;
+                    charactersFromLastAnchor++;
+
                 }
-
-                if (senDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0)
-                {
-                    sentenses += 1;
-
-                    if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
-                        (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
-                        (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
-                    {
-                        AddAnchor(AnchorType.Paragraph, index);
-                        charactersFromLastAnchor = 0;
-                        index += 4;
-                        sentenses = 0;
-                        continue;
-                    }
-
-                    AddAnchor(AnchorType.Sentence, index);
-                    charactersFromLastAnchor = 0;
-                    index += 4;
-                    continue;
-                }
-
-                charactersFromLastAnchor++;
+                richTextBox1.Rtf = richTextBox2.Rtf;
+            }
+            catch
+            {
 
             }
-            richTextBox1.Rtf = richTextBox2.Rtf;
-
         }
 
         private void mnuRemoveNikud_Click(object sender, EventArgs e)
@@ -7252,9 +7561,14 @@ namespace MyMentor
 
         private void buttonRecOverwritePlayback_Click(object sender, EventArgs e)
         {
-            buttonRecOverwritePlayback.Enabled = false;
-            timerRefreshLedDisplay.Enabled = true;
+            audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
 
+            buttonRecOverwritePlayback.Enabled = false;
+
+            m_stopWatch.Reset();
+            m_stopWatch.Start();
+
+            timerRefreshLedDisplay.Enabled = true;
             timerPreStartFixPlayback.Enabled = true;
         }
 
@@ -7264,11 +7578,12 @@ namespace MyMentor
 
             if (m_bRecOverwriteMode)
             {
-                // create a fresh new recording session
-                audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_OVERWRITE);
                 TimeSpan startSelectionTime = TimeSpan.Parse(LabelSelectionBegin.Text);
 
-                audioSoundRecorder1.SetOverwritePos((int)startSelectionTime.TotalMilliseconds);
+                m_overwriteModeDeletePosition = startSelectionTime;
+
+                // create a fresh new recording session
+                audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_NEW);
 
                 // start recording in memory from system default input device and input channel
                 audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
@@ -7294,19 +7609,31 @@ namespace MyMentor
 
         private void timerRefreshLedDisplay_Tick(object sender, EventArgs e)
         {
-            int val = int.Parse(sevenSegment1.Value);
-
-            sevenSegment1.Value = (val - 1).ToString();
-
-            if (val - 1 == 0)
+            if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
             {
-                timerRefreshLedDisplay.Enabled = false;
+                bool bSelectionAvailable = false;
+                Int32 nBeginSelectionInMs = 0;
+                Int32 nEndSelectionInMs = 0;
+                audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+               
+                if (m_targetStartFixInMs > nBeginSelectionInMs)
+                {
+                    double d = (double)((m_targetStartFixInMs - nBeginSelectionInMs) / (double)1000);
+
+                    // playing music
+                    sevenSegmentArray1.Value = d.ToString("0.0");
+                }
+            }
+            else
+            {
+                // in silent pre playback
+                sevenSegmentArray1.Value = ((double)(numericUpDownBufferRecord.Value * 1000 - m_stopWatch.ElapsedMilliseconds) / (double)1000).ToString("0.0");
             }
         }
 
         private void numericUpDownBufferRecord_ValueChanged(object sender, EventArgs e)
         {
-            sevenSegment1.Value = numericUpDownBufferRecord.Value.ToString();
+            sevenSegmentArray1.Value = numericUpDownBufferRecord.Value.ToString("0.0");
         }
 
         private async void buttonPublish_Click(object sender, EventArgs e)
@@ -7331,8 +7658,15 @@ namespace MyMentor
                 return;
             }
 
+            //clip type shiur
             if ((string)comboClipType.SelectedValue == "piL85bMGtR")
             {
+                if (dateTimeExpired.Checked && dateTimeExpired.Value <= DateTime.Today)
+                {
+                    MessageBox.Show("תאריך תפוגה חייב להיות גדול מהיום", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    return;
+                }
+
                 if (comboCategory3.SelectedIndex < 0)
                 {
                     MessageBox.Show("יש למלא שדות חובה למאפייני השיעור", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
@@ -7345,11 +7679,11 @@ namespace MyMentor
                     return;
                 }
 
-                if (((Category)comboCategory3.SelectedItem).MinPrice > numericPriceSupport.Value)
-                {
-                    MessageBox.Show("מחיר השיעור כולל תמיכה קטן מהמינימום המותר לסוג זה", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                    return;
-                }
+                //if (((Category)comboCategory3.SelectedItem).MinPrice > numericPriceSupport.Value)
+                //{
+                //    MessageBox.Show("מחיר השיעור כולל תמיכה קטן מהמינימום המותר לסוג זה", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                //    return;
+                //}
 
             }
 
@@ -7367,11 +7701,21 @@ namespace MyMentor
             SavePropertiesToClip();
             try
             {
-                if (Clip.Current.SaveJson(Clip.Current.ExtractJson()) && Clip.Current.ExtractHtml())
-                {
-                    if (Clip.Current.Publish(audioSoundEditor1))
+                if (Clip.Current.SaveJson(Clip.Current.ExtractJson()) && Clip.Current.ExtractHtml((msg) => { 
+                    LabelStatus.Invoke((MethodInvoker)(() =>
                     {
-                        LabelStatus.Text = "מעלה...אנא המתן";
+                        LabelStatus.Text = msg;
+                    }));
+                }))
+                {
+                    if (Clip.Current.Publish(audioSoundEditor1, (msg) => {
+                        LabelStatus.Invoke((MethodInvoker)(() =>
+                        {
+                            LabelStatus.Text = msg;
+                        }));
+                    }))
+                    {
+                        LabelStatus.Text = "מעלה קובץ לענן...אנא המתן";
 
                         bool result = await Clip.Current.UploadAsync(new Progress<ParseUploadProgressEventArgs>(ev =>
                         {
@@ -7404,7 +7748,7 @@ namespace MyMentor
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("חלה שגיאה בנסיון פרסום השיעור\n\n{0}", ex.Message), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(string.Format("חלה שגיאה בנסיון פרסום השיעור\n\n{0}", ex.ToString()), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
             finally
             {
@@ -7594,6 +7938,7 @@ namespace MyMentor
         private void timerPreStartFixPlayback_Tick(object sender, EventArgs e)
         {
             timerPreStartFixPlayback.Enabled = false;
+            m_stopWatch.Stop();
 
             // get the position selected on the waveform analyzer, if any
             bool bSelectionAvailable = false;
@@ -7609,7 +7954,7 @@ namespace MyMentor
             if (bSelectionAvailable)
             {
                 // play selected range only
-                audioSoundEditor1.PlaySoundRange(nBeginPlaying, nBeginSelectionInMs);
+                audioDjStudio1.PlaySound(0, nBeginPlaying, nBeginSelectionInMs);
                 m_bRecOverwriteMode = true;
             }
 
@@ -7634,6 +7979,28 @@ namespace MyMentor
             if (comboClipType.SelectedValue != null && (string)comboClipType.SelectedValue == "enaWrne5xe") //source
             {
                 lessonType = "0y8A4XTNeR"; //source
+
+                tbClipDescription.Clear();
+                tbClipDescription.Enabled = false;
+
+                tbClipRemarks.Clear();
+                tbClipRemarks.Enabled = false;
+
+                dateTimeExpired.Enabled = false;
+                dateTimeExpired.Checked = false;
+                numericPrice.Enabled = false;
+                numericPrice.Value = 0;
+                comboStatus.Enabled = false;
+                comboStatus.SelectedIndex = -1;
+            }
+            else
+            {
+                dateTimeExpired.Enabled = true;
+                tbClipDescription.Enabled = true;
+                tbClipRemarks.Enabled = true;
+                numericPrice.Enabled = true;
+                comboStatus.Enabled = true;
+                comboStatus.SelectedIndex = 1;
             }
 
             this.comboCategory3.DisplayMember = "Value";
@@ -7647,6 +8014,212 @@ namespace MyMentor
             }).ToList();
 
             comboCategory3.SelectedItem = null;
+        }
+
+        private void trackBarWaveZoom_Scroll(object sender, EventArgs e)
+        {
+            // get the actual analyzer settings
+            WANALYZER_GENERAL_SETTINGS settings = new WANALYZER_GENERAL_SETTINGS();
+            audioSoundEditor1.DisplayWaveformAnalyzer.SettingsGeneralGet(ref settings);
+
+            // hide the bottom scrollbar
+            float fValue = trackBarWaveZoom.Value;
+            settings.fVerticalZoomFactor = fValue / 100.0f;
+
+            // apply the new settings
+            audioSoundEditor1.DisplayWaveformAnalyzer.SettingsGeneralSet(settings);
+
+        }
+
+        private void buttonZoomTestableArea_Click(object sender, EventArgs e)
+        {
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, (int)timePickerCurrentWord.Value.TotalMilliseconds,
+                (int)timePickerCurrentWord.Value.TotalMilliseconds + ((int)numericUpDownInterval.Value * 2 * 1000));
+            audioSoundEditor1.DisplayWaveformAnalyzer.ZoomToSelection(true);
+        }
+
+        private void buttonZoomAllClip_Click(object sender, EventArgs e)
+        {
+            audioSoundEditor1.DisplayWaveformAnalyzer.ZoomToFullSound();
+
+        }
+
+        private void tbClipRemarks_TextChanged(object sender, EventArgs e)
+        {
+            Clip.Current.Remarks = tbClipRemarks.Text;
+            RegenerateClipName(true);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
+            audioDjStudio1.PlaySound(0);
+
+            //timerUpdateDuringPlayback.Enabled = true;
+        }
+
+        private void trackBarPitch1_Scroll(object sender, EventArgs e)
+        {
+            audioDjStudio1.SetRatePerc(0, (short)trackBarPitch1.Value);
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            audioSoundEditor1.DisplayWaveformAnalyzer.ZoomIn();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            audioSoundEditor1.DisplayWaveformAnalyzer.ZoomOut();
+        }
+
+        private void richTextBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            audioSoundEditor1.DisplayWaveformAnalyzer.ZoomToFullSound();
+
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            mnuAudioLoad_Click(null, new EventArgs());
+        }
+
+        private void timerUpdateDuringPlayback_Tick(object sender, EventArgs e)
+        {
+            double fPosition = 0;
+            audioDjStudio1.SoundPositionGet(0, ref fPosition, false);
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, (int)fPosition, (int)fPosition);
+
+            //int mm = audioSoundEditor1.GetPlaybackPosition();
+            var position = new TimeSpan(0, 0, 0, 0, Math.Max((int)fPosition, 0)); ;
+
+            LabelCurrentSchedulingTimer.Text = audioSoundEditor1.FromMsToFormattedTime((long)fPosition, true, true);// GetFormattedTime(e.nBeginPosInMs, true, true);
+
+            //during playing check if the current position moved over to the next word
+            if (Clip.Current.Chapter.Paragraphs != null)// && !m_selectedAnchor)
+            {
+                //in case start part
+                if (m_selectedStartAnchor)
+                {
+                    Debug.WriteLine(string.Format("_Tick: m_selectedStartAnchor is true"));
+
+                    if (position >= Clip.Current.Chapter.FirstWord.StartTime && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
+                    {
+                        Debug.WriteLine(string.Format("_Tick: position ({0}) is equal or bigger than first word start time ({1}) AND start time > 0", audioSoundEditor1.FromMsToFormattedTime((long)position.TotalMilliseconds, false, true), audioSoundEditor1.FromMsToFormattedTime((long)Clip.Current.Chapter.FirstWord.StartTime.TotalMilliseconds, false, true)));
+
+                        //set time picker
+                        timePickerCurrentWord.Value = position;
+
+                        Debug.WriteLine(string.Format("_Tick: set timePickerCurrentWord to position ({0})", audioSoundEditor1.FromMsToFormattedTime((long)position.TotalMilliseconds, false, true)));
+
+                        Debug.WriteLine(string.Format("_Tick: moving selection start to {0}", Clip.Current.Chapter.FirstWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + 1));
+                        richTextBox3.SelectionStart = Clip.Current.Chapter.FirstWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + 1;
+                    }
+                }
+                else if (m_selectedEndAnchor)
+                {
+                    //Do nothing for now
+                }
+                else
+                {
+                    //get next word in case timer moving and pass next start time word
+                    //catch all the words until the last one
+                    if (m_selectedScheduledWord != null &&
+                        m_selectedScheduledWord.NextWord != null
+                        && position >= m_selectedScheduledWord.NextWord.StartTime
+                        && m_selectedScheduledWord.NextWord.NextWord != null
+                        && position < m_selectedScheduledWord.NextWord.NextWord.StartTime)
+                    {
+                        Debug.WriteLine(string.Format("_Tick: moving to next word start time : {0}", audioSoundEditor1.FromMsToFormattedTime((long)m_selectedScheduledWord.NextWord.StartTime.TotalMilliseconds, false, true)));
+
+                        //set time picker
+                        timePickerCurrentWord.Value = m_selectedScheduledWord.NextWord.StartTime;// position;
+
+                        Debug.WriteLine(string.Format("_Tick: moving to char index {0}", m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length));
+                        richTextBox3.SelectionStart = m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
+                    }
+                    // catch the last word as the last one
+                    else if (m_selectedScheduledWord != null &&
+                        m_selectedScheduledWord.NextWord != null
+                        && position >= m_selectedScheduledWord.NextWord.StartTime
+                        && position < m_selectedScheduledWord.NextWord.StartTime + m_selectedScheduledWord.NextWord.Duration
+                        && m_selectedScheduledWord.NextWord.NextWord == null
+                        )
+                    {
+                        Debug.WriteLine(string.Format("_Tick: !!last word!! : moving to next word start time : {0}", audioSoundEditor1.FromMsToFormattedTime((long)m_selectedScheduledWord.NextWord.StartTime.TotalMilliseconds, false, true)));
+                        //set time picker
+                        timePickerCurrentWord.Value = m_selectedScheduledWord.NextWord.StartTime;// position;
+
+                        Debug.WriteLine(string.Format("_Tick: moving to char index {0}", m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length));
+                        richTextBox3.SelectionStart = m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
+                    }
+                    // catch when passed the red line end border 
+                    else if (m_selectedScheduledWord != null &&
+                        m_selectedScheduledWord.NextWord == null &&
+                        m_selectedScheduledWord.Duration > TimeSpan.Zero
+                        && position >= m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration
+                        )
+                    {
+                        Debug.WriteLine(string.Format("_Tick: !!Passed the end line!! on time : {0}", audioSoundEditor1.FromMsToFormattedTime((long)(m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration).TotalMilliseconds, false, true)));
+
+                        //set time picker
+                        timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration;
+
+                        richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + m_selectedScheduledWord.Length + 1;
+                    }
+                }
+            }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            trackBarPitch1.Value = 0;
+            audioDjStudio1.SetRatePerc(0, (short)trackBarPitch1.Value);
+        }
+
+        private void audioDjStudio1_SoundPaused(object sender, AudioDjStudio.PlayerEventArgs e)
+        {
+            buttonPause.Text = "המשך";
+            LabelStatus.Text = "Status: Playback paused";
+            LabelStatus.Refresh();
+            timerUpdateDuringPlayback.Enabled = false;
+
+            //int mm = audioSoundEditor1.GetPlaybackPosition();
+            //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, mm, mm);
+        }
+
+        private void audioDjStudio1_SoundPlaying(object sender, AudioDjStudio.PlayerEventArgs e)
+        {
+            buttonPause.Text = "השהה";
+            LabelStatus.Text = "Status: Playing...";
+            LabelStatus.Refresh();
+
+            timerUpdateDuringPlayback.Enabled = true;
+            timePickerCurrentWord.Enabled = false;
+        }
+
+        private void audioDjStudio1_SoundClosed(object sender, AudioDjStudio.PlayerEventArgs e)
+        {
+            timerUpdateDuringPlayback.Enabled = false;
+        }
+
+        private void audioDjStudio1_SoundStopped(object sender, AudioDjStudio.PlayerEventArgs e)
+        {
+            timerUpdateDuringPlayback.Enabled = false;
+            buttonPause.Text = "השהה";
+            LabelStatus.Text = "Status: Idle";
+            LabelStatus.Refresh();
+
+            FrameRecording.Enabled = true;
+
+            timerUpdateTimePickerSpinner.Enabled = false;
         }
 
     }

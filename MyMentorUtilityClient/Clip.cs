@@ -71,6 +71,7 @@ namespace MyMentor
         public string Title { get; set; }
         public bool RightAlignment { get; set; }
         public string Description { get; set; }
+        public string Remarks { get; set; }
         public string Version { get; set; }
         public string Category1 { get; set; }
         public string Category2 { get; set; }
@@ -83,6 +84,7 @@ namespace MyMentor
         public long ClipSize { get; set; }
         public long DemoClipSize { get; set; }
         public string ClipType { get; set; }
+        public Nullable<DateTime> Expired { get; set; }
         public sections DefaultSections { get; set; }
         public sections LockedSections { get; set; }
         public learningOptions DefaultLearningOptions { get; set; }
@@ -395,7 +397,7 @@ namespace MyMentor
                     this.Chapter.Content = text;
                     this.Chapter.Paragraphs = paragraphs_local;
                 }
-                else if (onlyNikud)
+                else if (onlyNikud && !onlyTeamim)
                 {
                     //set is last to the last word (for duration manually);
                     this.OnlyNikudChapter = new Chapter();
@@ -550,9 +552,11 @@ namespace MyMentor
                         });
         }
 
-        public bool Publish(AudioSoundEditor.AudioSoundEditor editor)
+        public bool Publish(AudioSoundEditor.AudioSoundEditor editor, Action<string> log)
         {
-            var t1 = Task.Factory.StartNew(() =>
+            log("מכין קובץ להעלאה...");
+
+            var t1 = Task.Factory.StartNew(() =>    
             {
                 string tempPath = System.IO.Path.GetTempPath();
 
@@ -578,6 +582,7 @@ namespace MyMentor
 
                 FileInfo info = new FileInfo(this.MmnFileName);
                 this.ClipSize = info.Length;
+
 
                 //cut for audio preview file
                 if (editor.GetSoundDuration() > 0)
@@ -629,10 +634,15 @@ namespace MyMentor
             ParseFile mmnFile = new ParseFile(string.Format("{0}.mmn", this.ID.ToString()), mmnBytes);
             await mmnFile.SaveAsync(progress);
 
+            ParseFile mmnDemoFile = null;
+
             //read mmn file content
-            byte[] mmnDemoBytes = File.ReadAllBytes(this.MmnDemoFileName);
-            ParseFile mmnDemoFile = new ParseFile(string.Format("{0}_demo.mmn", this.ID.ToString()), mmnDemoBytes);
-            await mmnDemoFile.SaveAsync(progress);
+            if (!string.IsNullOrEmpty(this.MmnDemoFileName))
+            {
+                byte[] mmnDemoBytes = File.ReadAllBytes(this.MmnDemoFileName);
+                mmnDemoFile = new ParseFile(string.Format("{0}_demo.mmn", this.ID.ToString()), mmnDemoBytes);
+                await mmnDemoFile.SaveAsync(progress);
+            }
 
             //check if exists clip
             var query = ParseObject.GetQuery("ClipsV2").WhereEqualTo("clipId", this.ID.ToString());
@@ -648,6 +658,7 @@ namespace MyMentor
             clip["name"] = this.Title;
             clip["clipSourceText"] = this.Text;
             clip["description"] = this.Description;
+            clip["remarks"] = this.Remarks;
             clip["version"] = this.Version;
             clip["fingerPrint"] = this.FingerPrint;
             clip["clipType"] = ParseObject.CreateWithoutData("ClipType", this.ClipType);
@@ -691,12 +702,27 @@ namespace MyMentor
                 clip["category4"] = ParseObject.CreateWithoutData("Category4", null); ;
             }
 
+            clip["updatedByMyMentor"] = DateTime.Now;
             clip["keywords"] = this.Keywords.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
             clip["clipFile"] = mmnFile;
             clip["clipSize"] = this.ClipSize;
-            clip["demoClipFile"] = mmnDemoFile;
-            clip["demoClipSize"] = this.DemoClipSize;
+
+            if (!string.IsNullOrEmpty(this.MmnDemoFileName))
+            {
+                clip["demoClipFile"] = mmnDemoFile;
+                clip["demoClipSize"] = this.DemoClipSize;
+            }
             clip["readingDates"] = this.ReadingDates;
+
+            if (this.Expired.HasValue)
+            {
+                clip["expiration"] = this.Expired.Value;
+            }
+            else
+            {
+                clip["expiration"] = null;
+            }
+
             //clip["createdByUser"] = user.Username;
 
             if (!string.IsNullOrEmpty(this.FileName))
@@ -750,7 +776,7 @@ namespace MyMentor
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool ExtractHtml()
+        public bool ExtractHtml(Action<string> log)
         {
             string tempPath = System.IO.Path.GetTempPath();
             string rtfCode = Guid.NewGuid().ToString();
@@ -766,9 +792,10 @@ namespace MyMentor
             this.HtmlOnlyTeamimFileName = Path.Combine(tempHtmlFolder, string.Format("{0}_onlyTeamim.html", rtfCode));
             this.HtmlClearTextFileName = Path.Combine(tempHtmlFolder, string.Format("{0}_clearText.html", rtfCode));
 
+            log("מכין טקסט ...");
+
             var t0 = Task.Factory.StartNew(() =>
                 {
-
                     System.Windows.Forms.RichTextBox rtb = new System.Windows.Forms.RichTextBox();
                     rtb.Rtf = this.RtfText;
                     rtb.Text = this.Text.Replace("[3]", string.Empty).Replace("[2]", string.Empty).Replace("[1]", string.Empty).Replace("[0]", string.Empty);// MainForm.m_regexAll.Replace(rtb.Text, string.Empty);
@@ -799,6 +826,8 @@ namespace MyMentor
             //get the full location of the assembly with DaoTests in it
             string rtf2html_exe = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Rtf2Html", "rtf2html.exe");
 
+            log("מייצא טקסט מקורי...");
+
             var t1 = Task.Factory.StartNew(() =>
             {
                 System.Diagnostics.ProcessStartInfo startInfo = new ProcessStartInfo(rtf2html_exe);
@@ -809,6 +838,8 @@ namespace MyMentor
             });
 
             t1.Wait();
+
+            log("מייצא טקסט ללא טעמים...");
 
             var t2 = Task.Factory.StartNew(() =>
             {
@@ -821,6 +852,8 @@ namespace MyMentor
 
             t2.Wait();
 
+            log("מייצא טקסט ללא ניקוד...");
+
             var t3 = Task.Factory.StartNew(() =>
             {
                 System.Diagnostics.ProcessStartInfo startInfo = new ProcessStartInfo(rtf2html_exe);
@@ -831,6 +864,8 @@ namespace MyMentor
             });
 
             t3.Wait();
+
+            log("מייצא טקסט נקי...");
 
             var t4 = Task.Factory.StartNew(() =>
             {
@@ -847,6 +882,9 @@ namespace MyMentor
             var htmlOnlyNikudFileLocation = Path.Combine(tempPath, string.Format("{0}_onlyNikud.html", this.ID.ToString()));
             var htmlOnlyTeamimFileLocation = Path.Combine(tempPath, string.Format("{0}_onlyTeamim.html", this.ID.ToString()));
             var htmlClearTextFileLocation = Path.Combine(tempPath, string.Format("{0}_clearText.html", this.ID.ToString()));
+
+            log("אורז קבצים...");
+            
             var t5 = Task.Factory.StartNew(() =>
                         {
 
@@ -910,6 +948,7 @@ namespace MyMentor
             clip.id = this.ID.ToString();
             clip.name = this.Title;
             clip.description = this.Description;
+            clip.remarks = this.Remarks;
             clip.clipVersion = this.Version;
             clip.chapter = this.Chapter;
             clip.isNikudIncluded = this.IsNikudIncluded;

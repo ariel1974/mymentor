@@ -75,21 +75,22 @@
             // 
             // milliseconds
             // 
-            this.milliseconds.Format = "{0:000}";
-            this.milliseconds.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+            this.milliseconds.DecimalPlaces = 1;
+            this.milliseconds.Format = "{0:0}";
             this.milliseconds.Location = new System.Drawing.Point(83, 3);
             this.milliseconds.Maximum = new decimal(new int[] {
-            1000,
+            10,
             0,
             0,
             0});
+            this.milliseconds.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
             this.milliseconds.Name = "milliseconds";
             this.milliseconds.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.milliseconds.Size = new System.Drawing.Size(32, 20);
+            this.milliseconds.Size = new System.Drawing.Size(29, 20);
             this.milliseconds.TabIndex = 5;
             this.milliseconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.milliseconds.ValueChanged += new System.EventHandler(this.milliseconds_ValueChanged);

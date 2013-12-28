@@ -75,6 +75,13 @@
         <File Id='MyMentorUtilityClientpdb' Name='MyMentorUtilityClient.pdb' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.pdb' KeyPath='no'/>
         <File Id='IonicZipdll' Name='Ionic.Zip.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Ionic.Zip.dll' KeyPath='no'/>
         <File Id='NAudio' Name='NAudio.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\NAudio.dll' KeyPath='no'/>        
+
+        <File Id='AudioSoundEditordll' Name='AudioSoundEditor.dll' DiskId='1' Source='C:\Program Files\Audio Sound Suite for .NET\Audio Sound Editor for .NET\Redist\AudioSoundEditor.dll' KeyPath='no'/>        
+        <File Id='AudioDjStudiodll' Name='AudioDjStudio.dll' DiskId='1' Source='C:\Program Files\Audio Sound Suite for .NET\Audio DJ Studio for .NET\Redist\AudioDjStudio.dll' KeyPath='no'/>        
+        <File Id='AudioSoundRecorderdll' Name='AudioSoundRecorder.dll' DiskId='1' Source='C:\Program Files\Audio Sound Suite for .NET\Audio Sound Recorder for .NET\Redist\AudioSoundRecorder.dll' KeyPath='no'/>        
+        <File Id='AdjMmsEngdll' Name='AdjMmsEng.dll' DiskId='1' Source='C:\Program Files\Audio Sound Suite for .NET\Audio Sound Editor for .NET\Redist\AdjMmsEng.dll' KeyPath='no'/>        
+        <File Id='AdjMmsEng64dll' Name='AdjMmsEng64.dll' DiskId='1' Source='C:\Program Files\Audio Sound Suite for .NET\Audio Sound Editor for .NET\Redist\AdjMmsEng64.dll' KeyPath='no'/>        
+        
         <File Id='NewtonsoftJsondll' Name='Newtonsoft.Json.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Newtonsoft.Json.dll' KeyPath='no'/>
         <File Id='Parsedll' Name='Parse.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.dll' KeyPath='no'/>
         <File Id='ParseNetFx45dll' Name='Parse.NetFx45.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.NetFx45.dll' KeyPath='no'/>

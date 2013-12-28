@@ -17,10 +17,7 @@ namespace Security
         {
             if (string.IsNullOrEmpty(fingerPrint))
             {
-                fingerPrint = GetHash("CPU >> " + cpuId() + "\nBIOS >> " + 
-			biosId() + "\nBASE >> " + baseId() +
-                            //+"\nDISK >> "+ diskId() + "\nVIDEO >> " + 
-			videoId() +"\nMAC >> "+ macId() + "\nUSER >> "+
+                fingerPrint = GetHash("nUSER >> "+
             user
                                      );
             }

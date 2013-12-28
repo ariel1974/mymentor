@@ -53,14 +53,18 @@
     <ApplicationIcon>1386994963_118644.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AudioDjStudio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dd52dbb299cc1b2, processorArchitecture=MSIL" />
+    <Reference Include="AudioDjStudio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dd52dbb299cc1b2, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="AudioSoundEditor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dd52dbb299cc1b2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files\Audio Sound Suite for .NET\Audio Sound Editor for .NET\Redist\AudioSoundEditor.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="AudioSoundRecorder, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dd52dbb299cc1b2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files\Audio Sound Suite for .NET\Audio Sound Recorder for .NET\Redist\AudioSoundRecorder.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -379,6 +383,7 @@
     <None Include="Resources\1386947558_anchor.png" />
     <Content Include="1386994963_118644.ico" />
     <None Include="Resources\1386908112_Record Button1.png" />
+    <None Include="Resources\1388144426_arrow_sans_right.png" />
     <Content Include="Rtf2Html\Itenso.Rtf.Converter.Html.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

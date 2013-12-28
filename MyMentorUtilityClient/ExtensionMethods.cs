@@ -19,6 +19,59 @@ namespace MyMentor
             return RemovePunctation(value, false);
         }
 
+        public static string SpecialReplace(this string text, string placeholder, string with)
+        {
+            if (string.IsNullOrEmpty(with))
+            {
+                //where the placeholder
+                int index = text.IndexOf(placeholder);
+                int top = index;
+
+                if (index == -1)
+                {
+                    return text;
+                }
+
+                char[] arr = text.ToCharArray();
+                char c;
+                int start = 0;
+                int end = text.Length - 1;
+
+                //go reverse and delete the comma
+                while(index >= 0 && index <= top)
+                {
+                    c = arr[index];
+
+                    if (c == ',')
+                    {
+                        start = index;
+                        break;
+                    }
+                    index = index - 1;
+                }
+
+                //go forward
+                index = text.IndexOf(placeholder);
+
+                while (index < end)
+                {
+                    c = arr[index];
+                    if (c == ',')
+                    {
+                        end = index;
+                        break;
+                    }
+                    index = index + 1;
+                }
+
+                return text.Remove(start, end - start + 1);
+            }
+            else
+            {
+                return text.Replace(placeholder, with);
+            }
+        }
+
         public static bool IsNikudExists(this string s)
         {
             String normalizedString = s.Normalize(NormalizationForm.FormD);

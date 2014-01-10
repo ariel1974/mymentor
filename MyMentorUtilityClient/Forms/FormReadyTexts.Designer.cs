@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboCategory4 = new System.Windows.Forms.ComboBox();
-            this.lblCategory4 = new System.Windows.Forms.Label();
             this.lblCategory2 = new System.Windows.Forms.Label();
             this.comboCategory2 = new System.Windows.Forms.ComboBox();
             this.comboCategory1 = new System.Windows.Forms.ComboBox();
@@ -50,7 +48,7 @@
             this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button2.Enabled = false;
             this.button2.Font = new System.Drawing.Font("Arial", 12F);
-            this.button2.Location = new System.Drawing.Point(708, 349);
+            this.button2.Location = new System.Drawing.Point(493, 349);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(91, 40);
@@ -62,7 +60,7 @@
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.Font = new System.Drawing.Font("Arial", 12F);
-            this.button1.Location = new System.Drawing.Point(807, 349);
+            this.button1.Location = new System.Drawing.Point(592, 349);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 40);
@@ -70,31 +68,11 @@
             this.button1.Text = "ביטול";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // comboCategory4
-            // 
-            this.comboCategory4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCategory4.FormattingEnabled = true;
-            this.comboCategory4.Location = new System.Drawing.Point(530, 50);
-            this.comboCategory4.Name = "comboCategory4";
-            this.comboCategory4.Size = new System.Drawing.Size(220, 26);
-            this.comboCategory4.TabIndex = 79;
-            // 
-            // lblCategory4
-            // 
-            this.lblCategory4.Font = new System.Drawing.Font("Arial", 12F);
-            this.lblCategory4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblCategory4.Location = new System.Drawing.Point(427, 50);
-            this.lblCategory4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCategory4.Name = "lblCategory4";
-            this.lblCategory4.Size = new System.Drawing.Size(81, 18);
-            this.lblCategory4.TabIndex = 78;
-            this.lblCategory4.Text = "טוען...";
-            // 
             // lblCategory2
             // 
             this.lblCategory2.Font = new System.Drawing.Font("Arial", 12F);
             this.lblCategory2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblCategory2.Location = new System.Drawing.Point(65, 49);
+            this.lblCategory2.Location = new System.Drawing.Point(16, 43);
             this.lblCategory2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCategory2.Name = "lblCategory2";
             this.lblCategory2.Size = new System.Drawing.Size(81, 18);
@@ -105,7 +83,7 @@
             // 
             this.comboCategory2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategory2.FormattingEnabled = true;
-            this.comboCategory2.Location = new System.Drawing.Point(168, 49);
+            this.comboCategory2.Location = new System.Drawing.Point(119, 43);
             this.comboCategory2.Name = "comboCategory2";
             this.comboCategory2.Size = new System.Drawing.Size(220, 26);
             this.comboCategory2.TabIndex = 76;
@@ -114,7 +92,7 @@
             // 
             this.comboCategory1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategory1.FormattingEnabled = true;
-            this.comboCategory1.Location = new System.Drawing.Point(168, 17);
+            this.comboCategory1.Location = new System.Drawing.Point(119, 11);
             this.comboCategory1.Name = "comboCategory1";
             this.comboCategory1.Size = new System.Drawing.Size(220, 26);
             this.comboCategory1.TabIndex = 75;
@@ -124,7 +102,7 @@
             // 
             this.lblCategory1.Font = new System.Drawing.Font("Arial", 12F);
             this.lblCategory1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblCategory1.Location = new System.Drawing.Point(65, 17);
+            this.lblCategory1.Location = new System.Drawing.Point(16, 11);
             this.lblCategory1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCategory1.Name = "lblCategory1";
             this.lblCategory1.Size = new System.Drawing.Size(81, 18);
@@ -135,7 +113,7 @@
             // 
             this.comboCategory3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategory3.FormattingEnabled = true;
-            this.comboCategory3.Location = new System.Drawing.Point(530, 17);
+            this.comboCategory3.Location = new System.Drawing.Point(119, 75);
             this.comboCategory3.Name = "comboCategory3";
             this.comboCategory3.Size = new System.Drawing.Size(220, 26);
             this.comboCategory3.TabIndex = 73;
@@ -144,7 +122,7 @@
             // 
             this.lblCategory3.Font = new System.Drawing.Font("Arial", 12F);
             this.lblCategory3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblCategory3.Location = new System.Drawing.Point(427, 17);
+            this.lblCategory3.Location = new System.Drawing.Point(16, 75);
             this.lblCategory3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCategory3.Name = "lblCategory3";
             this.lblCategory3.Size = new System.Drawing.Size(81, 18);
@@ -155,16 +133,16 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 18;
-            this.listBox1.Location = new System.Drawing.Point(12, 121);
+            this.listBox1.Location = new System.Drawing.Point(16, 121);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(854, 202);
+            this.listBox1.Size = new System.Drawing.Size(668, 202);
             this.listBox1.TabIndex = 80;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Arial", 12F);
-            this.btnSearch.Location = new System.Drawing.Point(775, 70);
+            this.btnSearch.Location = new System.Drawing.Point(364, 61);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(91, 40);
@@ -182,7 +160,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Arial", 12F);
-            this.button3.Location = new System.Drawing.Point(775, 17);
+            this.button3.Location = new System.Drawing.Point(364, 13);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(91, 40);
@@ -195,12 +173,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(912, 402);
+            this.ClientSize = new System.Drawing.Size(702, 402);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.comboCategory4);
-            this.Controls.Add(this.lblCategory4);
             this.Controls.Add(this.lblCategory2);
             this.Controls.Add(this.comboCategory2);
             this.Controls.Add(this.comboCategory1);
@@ -229,8 +205,6 @@
 
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboCategory4;
-        private System.Windows.Forms.Label lblCategory4;
         private System.Windows.Forms.Label lblCategory2;
         private System.Windows.Forms.ComboBox comboCategory2;
         private System.Windows.Forms.ComboBox comboCategory1;

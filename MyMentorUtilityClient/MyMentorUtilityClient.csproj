@@ -52,6 +52,7 @@
   <PropertyGroup>
     <ApplicationIcon>1386994963_118644.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="AudioDjStudio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dd52dbb299cc1b2, processorArchitecture=MSIL">
       <Private>False</Private>
@@ -360,6 +361,9 @@
     <EmbeddedResource Include="TimeSpinner\TimePickerSpinner.resx">
       <DependentUpon>TimePickerSpinner.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="MyMentor.exe.manifest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

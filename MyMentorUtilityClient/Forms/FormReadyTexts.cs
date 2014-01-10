@@ -38,15 +38,10 @@ namespace MyMentor
             lblCategory1.Text = labels[0];
             lblCategory2.Text = labels[1];
             lblCategory3.Text = labels[2];
-            lblCategory4.Text = labels[3];
 
             this.comboCategory1.DisplayMember = "Value";
             this.comboCategory1.ValueMember = "ObjectId";
             comboCategory1.DataSource = m_formMain.GetCategory1();
-
-            this.comboCategory4.DisplayMember = "Value";
-            this.comboCategory4.ValueMember = "ObjectId";
-            comboCategory4.DataSource = m_formMain.GetCategory4();
 
             button3_Click(null, new EventArgs());
         }
@@ -64,6 +59,7 @@ namespace MyMentor
 
             var query1 = ParseObject.GetQuery("ClipsV2");
             query1 = query1.WhereEqualTo("clipType", ParseObject.CreateWithoutData("ClipType", "enaWrne5xe"));
+            query1 = query1.WhereEqualTo("status", ParseObject.CreateWithoutData("ClipStatus", "3DYQsyGZIk"));
 
             if (comboCategory1.SelectedValue != null)
             {
@@ -82,11 +78,6 @@ namespace MyMentor
             else
             {
                 query1 = query1.WhereContainedIn("category3", ((IEnumerable<Category>)comboCategory3.DataSource).Select( s => ParseObject.CreateWithoutData("Category3", s.ObjectId)));
-            }
-
-            if (comboCategory4.SelectedValue != null)
-            {
-                query1 = query1.WhereEqualTo("category4", ParseObject.CreateWithoutData("Category4", (string)comboCategory4.SelectedValue));
             }
 
             var result = await query1.FindAsync();
@@ -124,7 +115,6 @@ namespace MyMentor
             lblCategory1.Text = labels[0];
             lblCategory2.Text = labels[1];
             lblCategory3.Text = labels[2];
-            lblCategory4.Text = labels[3];
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -132,7 +122,6 @@ namespace MyMentor
             comboCategory1.SelectedItem = null;
             comboCategory2.SelectedItem = null;
             comboCategory3.SelectedItem = null;
-            comboCategory4.SelectedItem = null;
         }
 
         private async void FormReadyTexts_Load(object sender, EventArgs e)

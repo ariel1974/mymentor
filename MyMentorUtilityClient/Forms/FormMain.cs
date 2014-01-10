@@ -285,11 +285,11 @@ namespace MyMentor
         private CheckBox def_par;
         private CheckBox def_wor;
         private CheckBox def_sec;
-        private Label label13;
+        private Label lblDescription;
         private TextBox tbClipDescription;
         private Label label15;
         private Label label16;
-        private Label label19;
+        private Label lblKeywords;
         private TextBox tbKeywords;
         private Label lblCategory3;
         private Label label22;
@@ -311,10 +311,8 @@ namespace MyMentor
         private ToolStripMenuItem mnuAnchors_RemoveSections;
         private ToolStripMenuItem mnuAnchors_RemoveWords;
         public Label label14;
-        private PresentationControls.CheckBoxComboBox comboBoxAutoDevideSen;
         public Label label24;
         public Button buttonAutoDevide;
-        private PresentationControls.CheckBoxComboBox comboBoxAutoDevidePar;
         private RichTextBox richTextBox4;
         private string m_strExportPathname;
         private Label label25;
@@ -356,14 +354,13 @@ namespace MyMentor
         private Button btnRemoveDate;
         private Button btnAddDate;
         private ListBox listBoxDates;
-        private Label label20;
+        private Label lblReadingDates;
         private DateTimePicker dtpReadingDate;
         private Timer timerPreStartFixPlayback;
         private Label lblClipType;
         private ComboBox comboClipType;
-        private Label label21;
+        private Label lblPrice;
         private Label lblMinValue;
-        private Label label32;
         private Label label31;
         private Label label33;
         private NumericUpDown numericPriceSupport;
@@ -371,10 +368,10 @@ namespace MyMentor
         private TrackBar trackBarWaveZoom;
         public Button buttonZoomTestableArea;
         public Button buttonZoomAllClip;
-        private Label label35;
+        private Label lblClipRemarks;
         private TextBox tbClipRemarks;
         private DateTimePicker dateTimeExpired;
-        private Label label34;
+        private Label lblExpired;
         private TrackBar trackBarPitch1;
         private ToolStrip toolStrip2;
         private ToolStripButton toolStripButton1;
@@ -388,6 +385,11 @@ namespace MyMentor
         private Button button2;
         private DmitryBrant.CustomControls.SevenSegmentArray sevenSegmentArray1;
         private WorldContentType m_contentType;
+        private Label lblClipRemarksEnglish;
+        private TextBox tbClipRemarksEnglish;
+        private ComboBox comboBoxAutoDevideSen;
+        private ComboBox comboBoxAutoDevidePar;
+        private ToolStripButton tbrRemoveAnchors;
         private Stopwatch m_stopWatch = new Stopwatch();
 
         public WorldContentType ContentType
@@ -489,8 +491,6 @@ namespace MyMentor
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            PresentationControls.CheckBoxProperties checkBoxProperties3 = new PresentationControls.CheckBoxProperties();
-            PresentationControls.CheckBoxProperties checkBoxProperties1 = new PresentationControls.CheckBoxProperties();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.Frame4 = new System.Windows.Forms.GroupBox();
             this.label30 = new System.Windows.Forms.Label();
@@ -563,16 +563,17 @@ namespace MyMentor
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.tbrWord = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbrRemoveAnchors = new System.Windows.Forms.ToolStripButton();
             this.tbrParse = new System.Windows.Forms.ToolStripButton();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.comboBoxAutoDevidePar = new PresentationControls.CheckBoxComboBox();
+            this.comboBoxAutoDevideSen = new System.Windows.Forms.ComboBox();
+            this.comboBoxAutoDevidePar = new System.Windows.Forms.ComboBox();
             this.buttonAutoDevide = new System.Windows.Forms.Button();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.richTextBox4 = new System.Windows.Forms.RichTextBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.comboBoxAutoDevideSen = new PresentationControls.CheckBoxComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -606,24 +607,25 @@ namespace MyMentor
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblClipRemarksEnglish = new System.Windows.Forms.Label();
+            this.tbClipRemarksEnglish = new System.Windows.Forms.TextBox();
             this.dateTimeExpired = new System.Windows.Forms.DateTimePicker();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
+            this.lblExpired = new System.Windows.Forms.Label();
+            this.lblClipRemarks = new System.Windows.Forms.Label();
             this.tbClipRemarks = new System.Windows.Forms.TextBox();
             this.numericPriceSupport = new System.Windows.Forms.NumericUpDown();
             this.numericPrice = new System.Windows.Forms.NumericUpDown();
             this.label33 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.lblMinValue = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
+            this.lblPrice = new System.Windows.Forms.Label();
             this.lblClipType = new System.Windows.Forms.Label();
             this.comboClipType = new System.Windows.Forms.ComboBox();
             this.dtpReadingDate = new System.Windows.Forms.DateTimePicker();
             this.btnRemoveDate = new System.Windows.Forms.Button();
             this.btnAddDate = new System.Windows.Forms.Button();
             this.listBoxDates = new System.Windows.Forms.ListBox();
-            this.label20 = new System.Windows.Forms.Label();
+            this.lblReadingDates = new System.Windows.Forms.Label();
             this.comboCategory4 = new System.Windows.Forms.ComboBox();
             this.lblCategory4 = new System.Windows.Forms.Label();
             this.lblCategory2 = new System.Windows.Forms.Label();
@@ -655,11 +657,11 @@ namespace MyMentor
             this.def_par = new System.Windows.Forms.CheckBox();
             this.def_wor = new System.Windows.Forms.CheckBox();
             this.def_sec = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lblDescription = new System.Windows.Forms.Label();
             this.tbClipDescription = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
+            this.lblKeywords = new System.Windows.Forms.Label();
             this.tbKeywords = new System.Windows.Forms.TextBox();
             this.lblCategory3 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -1471,7 +1473,7 @@ namespace MyMentor
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85.12881F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.87119F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 221F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 224F));
             this.tableLayoutPanel2.Controls.Add(this.ToolStrip1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox1, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel7, 0, 0);
@@ -1515,6 +1517,7 @@ namespace MyMentor
             this.toolStripSeparator7,
             this.tbrWord,
             this.toolStripSeparator8,
+            this.tbrRemoveAnchors,
             this.tbrParse});
             this.ToolStrip1.Location = new System.Drawing.Point(0, 80);
             this.ToolStrip1.Name = "ToolStrip1";
@@ -1665,8 +1668,9 @@ namespace MyMentor
             // tbrParagraph
             // 
             this.tbrParagraph.BackColor = System.Drawing.Color.Red;
+            this.tbrParagraph.CheckOnClick = true;
             this.tbrParagraph.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tbrParagraph.ForeColor = System.Drawing.Color.White;
+            this.tbrParagraph.ForeColor = System.Drawing.Color.Black;
             this.tbrParagraph.Image = ((System.Drawing.Image)(resources.GetObject("tbrParagraph.Image")));
             this.tbrParagraph.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbrParagraph.Name = "tbrParagraph";
@@ -1683,9 +1687,9 @@ namespace MyMentor
             // tbrSentense
             // 
             this.tbrSentense.BackColor = System.Drawing.Color.Violet;
+            this.tbrSentense.CheckOnClick = true;
             this.tbrSentense.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tbrSentense.ForeColor = System.Drawing.Color.White;
-            this.tbrSentense.Image = ((System.Drawing.Image)(resources.GetObject("tbrSentense.Image")));
+            this.tbrSentense.ForeColor = System.Drawing.Color.Black;
             this.tbrSentense.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbrSentense.Name = "tbrSentense";
             this.tbrSentense.Size = new System.Drawing.Size(25, 24);
@@ -1701,8 +1705,9 @@ namespace MyMentor
             // tbrSection
             // 
             this.tbrSection.BackColor = System.Drawing.Color.LimeGreen;
+            this.tbrSection.CheckOnClick = true;
             this.tbrSection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tbrSection.ForeColor = System.Drawing.Color.White;
+            this.tbrSection.ForeColor = System.Drawing.Color.Black;
             this.tbrSection.Image = ((System.Drawing.Image)(resources.GetObject("tbrSection.Image")));
             this.tbrSection.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbrSection.Name = "tbrSection";
@@ -1719,8 +1724,8 @@ namespace MyMentor
             // tbrWord
             // 
             this.tbrWord.BackColor = System.Drawing.Color.Yellow;
+            this.tbrWord.CheckOnClick = true;
             this.tbrWord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tbrWord.Image = ((System.Drawing.Image)(resources.GetObject("tbrWord.Image")));
             this.tbrWord.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbrWord.Name = "tbrWord";
             this.tbrWord.Size = new System.Drawing.Size(25, 24);
@@ -1732,6 +1737,17 @@ namespace MyMentor
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tbrRemoveAnchors
+            // 
+            this.tbrRemoveAnchors.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tbrRemoveAnchors.Image = ((System.Drawing.Image)(resources.GetObject("tbrRemoveAnchors.Image")));
+            this.tbrRemoveAnchors.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbrRemoveAnchors.Name = "tbrRemoveAnchors";
+            this.tbrRemoveAnchors.Size = new System.Drawing.Size(24, 24);
+            this.tbrRemoveAnchors.Text = "[-]";
+            this.tbrRemoveAnchors.ToolTipText = "הסר את כל העוגנים מהסוג המסומן";
+            this.tbrRemoveAnchors.Click += new System.EventHandler(this.tbrRemoveAnchors_Click);
             // 
             // tbrParse
             // 
@@ -1757,41 +1773,51 @@ namespace MyMentor
             this.richTextBox1.TabIndex = 31;
             this.richTextBox1.Text = "";
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
+            this.richTextBox1.VScroll += new System.EventHandler(this.richTextBox1_VScroll);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // panel7
             // 
             this.panel7.Controls.Add(this.groupBox8);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(474, 3);
+            this.panel7.Location = new System.Drawing.Point(477, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(685, 74);
+            this.panel7.Size = new System.Drawing.Size(682, 74);
             this.panel7.TabIndex = 34;
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.comboBoxAutoDevideSen);
             this.groupBox8.Controls.Add(this.comboBoxAutoDevidePar);
             this.groupBox8.Controls.Add(this.buttonAutoDevide);
             this.groupBox8.Controls.Add(this.richTextBox2);
             this.groupBox8.Controls.Add(this.richTextBox4);
             this.groupBox8.Controls.Add(this.label24);
-            this.groupBox8.Controls.Add(this.comboBoxAutoDevideSen);
             this.groupBox8.Controls.Add(this.label14);
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox8.Font = new System.Drawing.Font("Arial", 12F);
             this.groupBox8.Location = new System.Drawing.Point(0, 0);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox8.Size = new System.Drawing.Size(685, 74);
+            this.groupBox8.Size = new System.Drawing.Size(682, 74);
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "חלוקה אוטומטית";
             // 
+            // comboBoxAutoDevideSen
+            // 
+            this.comboBoxAutoDevideSen.FormattingEnabled = true;
+            this.comboBoxAutoDevideSen.Items.AddRange(new object[] {
+            "נקודותיים (:)",
+            "נקודה (.)",
+            "ENTER"});
+            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(129, 31);
+            this.comboBoxAutoDevideSen.Name = "comboBoxAutoDevideSen";
+            this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(171, 26);
+            this.comboBoxAutoDevideSen.TabIndex = 37;
+            // 
             // comboBoxAutoDevidePar
             // 
-            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxAutoDevidePar.CheckBoxProperties = checkBoxProperties3;
-            this.comboBoxAutoDevidePar.DisplayMemberSingleItem = "";
             this.comboBoxAutoDevidePar.FormattingEnabled = true;
             this.comboBoxAutoDevidePar.Items.AddRange(new object[] {
             "ENTER",
@@ -1799,10 +1825,10 @@ namespace MyMentor
             "אחרי 2 משפטים",
             "אחרי 3 משפטים",
             "אחרי 4 משפטים"});
-            this.comboBoxAutoDevidePar.Location = new System.Drawing.Point(411, 31);
+            this.comboBoxAutoDevidePar.Location = new System.Drawing.Point(428, 33);
             this.comboBoxAutoDevidePar.Name = "comboBoxAutoDevidePar";
-            this.comboBoxAutoDevidePar.Size = new System.Drawing.Size(188, 26);
-            this.comboBoxAutoDevidePar.TabIndex = 19;
+            this.comboBoxAutoDevidePar.Size = new System.Drawing.Size(171, 26);
+            this.comboBoxAutoDevidePar.TabIndex = 36;
             // 
             // buttonAutoDevide
             // 
@@ -1853,21 +1879,6 @@ namespace MyMentor
             this.label24.TabIndex = 17;
             this.label24.Text = "סוף משפט";
             // 
-            // comboBoxAutoDevideSen
-            // 
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboBoxAutoDevideSen.CheckBoxProperties = checkBoxProperties1;
-            this.comboBoxAutoDevideSen.DisplayMemberSingleItem = "";
-            this.comboBoxAutoDevideSen.FormattingEnabled = true;
-            this.comboBoxAutoDevideSen.Items.AddRange(new object[] {
-            "נקודותיים (:)",
-            "נקודה (.)",
-            "ENTER"});
-            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(120, 31);
-            this.comboBoxAutoDevideSen.Name = "comboBoxAutoDevideSen";
-            this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(191, 26);
-            this.comboBoxAutoDevideSen.TabIndex = 16;
-            // 
             // label14
             // 
             this.label14.BackColor = System.Drawing.SystemColors.Control;
@@ -1889,7 +1900,7 @@ namespace MyMentor
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(3, 3);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(465, 74);
+            this.panel8.Size = new System.Drawing.Size(468, 74);
             this.panel8.TabIndex = 35;
             // 
             // groupBox10
@@ -1900,7 +1911,7 @@ namespace MyMentor
             this.groupBox10.Font = new System.Drawing.Font("Arial", 12F);
             this.groupBox10.Location = new System.Drawing.Point(0, 0);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(465, 74);
+            this.groupBox10.Size = new System.Drawing.Size(468, 74);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "טקסטים מוכנים";
@@ -2325,24 +2336,25 @@ namespace MyMentor
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.lblClipRemarksEnglish);
+            this.groupBox3.Controls.Add(this.tbClipRemarksEnglish);
             this.groupBox3.Controls.Add(this.dateTimeExpired);
-            this.groupBox3.Controls.Add(this.label34);
-            this.groupBox3.Controls.Add(this.label35);
+            this.groupBox3.Controls.Add(this.lblExpired);
+            this.groupBox3.Controls.Add(this.lblClipRemarks);
             this.groupBox3.Controls.Add(this.tbClipRemarks);
             this.groupBox3.Controls.Add(this.numericPriceSupport);
             this.groupBox3.Controls.Add(this.numericPrice);
             this.groupBox3.Controls.Add(this.label33);
-            this.groupBox3.Controls.Add(this.label32);
             this.groupBox3.Controls.Add(this.label31);
             this.groupBox3.Controls.Add(this.lblMinValue);
-            this.groupBox3.Controls.Add(this.label21);
+            this.groupBox3.Controls.Add(this.lblPrice);
             this.groupBox3.Controls.Add(this.lblClipType);
             this.groupBox3.Controls.Add(this.comboClipType);
             this.groupBox3.Controls.Add(this.dtpReadingDate);
             this.groupBox3.Controls.Add(this.btnRemoveDate);
             this.groupBox3.Controls.Add(this.btnAddDate);
             this.groupBox3.Controls.Add(this.listBoxDates);
-            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.lblReadingDates);
             this.groupBox3.Controls.Add(this.comboCategory4);
             this.groupBox3.Controls.Add(this.lblCategory4);
             this.groupBox3.Controls.Add(this.lblCategory2);
@@ -2358,11 +2370,11 @@ namespace MyMentor
             this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Controls.Add(this.groupBox6);
             this.groupBox3.Controls.Add(this.groupBox7);
-            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.lblDescription);
             this.groupBox3.Controls.Add(this.tbClipDescription);
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.label16);
-            this.groupBox3.Controls.Add(this.label19);
+            this.groupBox3.Controls.Add(this.lblKeywords);
             this.groupBox3.Controls.Add(this.tbKeywords);
             this.groupBox3.Controls.Add(this.lblCategory3);
             this.groupBox3.Controls.Add(this.label22);
@@ -2378,51 +2390,73 @@ namespace MyMentor
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             // 
+            // lblClipRemarksEnglish
+            // 
+            this.lblClipRemarksEnglish.Font = new System.Drawing.Font("Arial", 12F);
+            this.lblClipRemarksEnglish.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblClipRemarksEnglish.Location = new System.Drawing.Point(426, 83);
+            this.lblClipRemarksEnglish.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblClipRemarksEnglish.Name = "lblClipRemarksEnglish";
+            this.lblClipRemarksEnglish.Size = new System.Drawing.Size(59, 46);
+            this.lblClipRemarksEnglish.TabIndex = 88;
+            this.lblClipRemarksEnglish.Text = "הערה אנגלית";
+            // 
+            // tbClipRemarksEnglish
+            // 
+            this.tbClipRemarksEnglish.Font = new System.Drawing.Font("Arial", 12F);
+            this.tbClipRemarksEnglish.Location = new System.Drawing.Point(308, 84);
+            this.tbClipRemarksEnglish.Margin = new System.Windows.Forms.Padding(4);
+            this.tbClipRemarksEnglish.Multiline = true;
+            this.tbClipRemarksEnglish.Name = "tbClipRemarksEnglish";
+            this.tbClipRemarksEnglish.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbClipRemarksEnglish.Size = new System.Drawing.Size(118, 50);
+            this.tbClipRemarksEnglish.TabIndex = 89;
+            // 
             // dateTimeExpired
             // 
             this.dateTimeExpired.Checked = false;
             this.dateTimeExpired.CustomFormat = "";
             this.dateTimeExpired.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
             this.dateTimeExpired.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimeExpired.Location = new System.Drawing.Point(393, 136);
+            this.dateTimeExpired.Location = new System.Drawing.Point(463, 140);
             this.dateTimeExpired.Name = "dateTimeExpired";
             this.dateTimeExpired.RightToLeftLayout = true;
             this.dateTimeExpired.ShowCheckBox = true;
             this.dateTimeExpired.Size = new System.Drawing.Size(143, 26);
             this.dateTimeExpired.TabIndex = 87;
             // 
-            // label34
+            // lblExpired
             // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Arial", 12F);
-            this.label34.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label34.Location = new System.Drawing.Point(542, 138);
-            this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(64, 18);
-            this.label34.TabIndex = 86;
-            this.label34.Text = "ת. תפוגה";
+            this.lblExpired.AutoSize = true;
+            this.lblExpired.Font = new System.Drawing.Font("Arial", 12F);
+            this.lblExpired.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblExpired.Location = new System.Drawing.Point(612, 142);
+            this.lblExpired.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblExpired.Name = "lblExpired";
+            this.lblExpired.Size = new System.Drawing.Size(64, 18);
+            this.lblExpired.TabIndex = 86;
+            this.lblExpired.Text = "ת. תפוגה";
             // 
-            // label35
+            // lblClipRemarks
             // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Arial", 12F);
-            this.label35.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label35.Location = new System.Drawing.Point(544, 80);
-            this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(44, 18);
-            this.label35.TabIndex = 84;
-            this.label35.Text = "הערה";
+            this.lblClipRemarks.AutoSize = true;
+            this.lblClipRemarks.Font = new System.Drawing.Font("Arial", 12F);
+            this.lblClipRemarks.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblClipRemarks.Location = new System.Drawing.Point(614, 84);
+            this.lblClipRemarks.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblClipRemarks.Name = "lblClipRemarks";
+            this.lblClipRemarks.Size = new System.Drawing.Size(44, 18);
+            this.lblClipRemarks.TabIndex = 84;
+            this.lblClipRemarks.Text = "הערה";
             // 
             // tbClipRemarks
             // 
             this.tbClipRemarks.Font = new System.Drawing.Font("Arial", 12F);
-            this.tbClipRemarks.Location = new System.Drawing.Point(313, 80);
+            this.tbClipRemarks.Location = new System.Drawing.Point(488, 84);
             this.tbClipRemarks.Margin = new System.Windows.Forms.Padding(4);
             this.tbClipRemarks.Multiline = true;
             this.tbClipRemarks.Name = "tbClipRemarks";
-            this.tbClipRemarks.Size = new System.Drawing.Size(223, 50);
+            this.tbClipRemarks.Size = new System.Drawing.Size(118, 50);
             this.tbClipRemarks.TabIndex = 85;
             this.tbClipRemarks.TextChanged += new System.EventHandler(this.tbClipRemarks_TextChanged);
             // 
@@ -2444,7 +2478,7 @@ namespace MyMentor
             // numericPrice
             // 
             this.numericPrice.DecimalPlaces = 2;
-            this.numericPrice.Location = new System.Drawing.Point(458, 49);
+            this.numericPrice.Location = new System.Drawing.Point(528, 309);
             this.numericPrice.Maximum = new decimal(new int[] {
             500,
             0,
@@ -2468,20 +2502,6 @@ namespace MyMentor
             this.label33.Text = "מחיר עם תמיכה";
             this.label33.Visible = false;
             // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.BackColor = System.Drawing.Color.Transparent;
-            this.label32.Font = new System.Drawing.Font("Arial", 16F);
-            this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label32.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label32.Location = new System.Drawing.Point(867, 80);
-            this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(21, 25);
-            this.label32.TabIndex = 79;
-            this.label32.Text = "*";
-            // 
             // label31
             // 
             this.label31.AutoSize = true;
@@ -2501,7 +2521,7 @@ namespace MyMentor
             this.lblMinValue.AutoSize = true;
             this.lblMinValue.Font = new System.Drawing.Font("Arial", 8F);
             this.lblMinValue.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblMinValue.Location = new System.Drawing.Point(353, 60);
+            this.lblMinValue.Location = new System.Drawing.Point(423, 320);
             this.lblMinValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMinValue.Name = "lblMinValue";
             this.lblMinValue.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -2511,24 +2531,24 @@ namespace MyMentor
             this.lblMinValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.lblMinValue.Visible = false;
             // 
-            // label21
+            // lblPrice
             // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Arial", 12F);
-            this.label21.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label21.Location = new System.Drawing.Point(543, 52);
-            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(39, 18);
-            this.label21.TabIndex = 76;
-            this.label21.Text = "מחיר";
+            this.lblPrice.AutoSize = true;
+            this.lblPrice.Font = new System.Drawing.Font("Arial", 12F);
+            this.lblPrice.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblPrice.Location = new System.Drawing.Point(613, 312);
+            this.lblPrice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPrice.Name = "lblPrice";
+            this.lblPrice.Size = new System.Drawing.Size(39, 18);
+            this.lblPrice.TabIndex = 76;
+            this.lblPrice.Text = "מחיר";
             // 
             // lblClipType
             // 
             this.lblClipType.AutoSize = true;
             this.lblClipType.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.lblClipType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblClipType.Location = new System.Drawing.Point(543, 305);
+            this.lblClipType.Location = new System.Drawing.Point(613, 52);
             this.lblClipType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblClipType.Name = "lblClipType";
             this.lblClipType.Size = new System.Drawing.Size(71, 19);
@@ -2541,7 +2561,7 @@ namespace MyMentor
             this.comboClipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboClipType.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.comboClipType.FormattingEnabled = true;
-            this.comboClipType.Location = new System.Drawing.Point(418, 303);
+            this.comboClipType.Location = new System.Drawing.Point(488, 50);
             this.comboClipType.Name = "comboClipType";
             this.comboClipType.Size = new System.Drawing.Size(118, 27);
             this.comboClipType.TabIndex = 73;
@@ -2553,7 +2573,7 @@ namespace MyMentor
             this.dtpReadingDate.CustomFormat = "";
             this.dtpReadingDate.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
             this.dtpReadingDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpReadingDate.Location = new System.Drawing.Point(418, 168);
+            this.dtpReadingDate.Location = new System.Drawing.Point(488, 172);
             this.dtpReadingDate.Name = "dtpReadingDate";
             this.dtpReadingDate.RightToLeftLayout = true;
             this.dtpReadingDate.Size = new System.Drawing.Size(118, 26);
@@ -2561,7 +2581,7 @@ namespace MyMentor
             // 
             // btnRemoveDate
             // 
-            this.btnRemoveDate.Location = new System.Drawing.Point(381, 201);
+            this.btnRemoveDate.Location = new System.Drawing.Point(451, 205);
             this.btnRemoveDate.Name = "btnRemoveDate";
             this.btnRemoveDate.Size = new System.Drawing.Size(31, 27);
             this.btnRemoveDate.TabIndex = 71;
@@ -2571,7 +2591,7 @@ namespace MyMentor
             // 
             // btnAddDate
             // 
-            this.btnAddDate.Location = new System.Drawing.Point(381, 168);
+            this.btnAddDate.Location = new System.Drawing.Point(451, 172);
             this.btnAddDate.Name = "btnAddDate";
             this.btnAddDate.Size = new System.Drawing.Size(31, 26);
             this.btnAddDate.TabIndex = 70;
@@ -2583,30 +2603,30 @@ namespace MyMentor
             // 
             this.listBoxDates.FormattingEnabled = true;
             this.listBoxDates.ItemHeight = 18;
-            this.listBoxDates.Location = new System.Drawing.Point(418, 200);
+            this.listBoxDates.Location = new System.Drawing.Point(488, 204);
             this.listBoxDates.Name = "listBoxDates";
             this.listBoxDates.Size = new System.Drawing.Size(118, 94);
             this.listBoxDates.TabIndex = 69;
             // 
-            // label20
+            // lblReadingDates
             // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Arial", 12F);
-            this.label20.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label20.Location = new System.Drawing.Point(543, 200);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(91, 18);
-            this.label20.TabIndex = 68;
-            this.label20.Text = "תאריכי קריאה";
+            this.lblReadingDates.AutoSize = true;
+            this.lblReadingDates.Font = new System.Drawing.Font("Arial", 12F);
+            this.lblReadingDates.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblReadingDates.Location = new System.Drawing.Point(613, 204);
+            this.lblReadingDates.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblReadingDates.Name = "lblReadingDates";
+            this.lblReadingDates.Size = new System.Drawing.Size(91, 18);
+            this.lblReadingDates.TabIndex = 68;
+            this.lblReadingDates.Text = "תאריכי קריאה";
             // 
             // comboCategory4
             // 
             this.comboCategory4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategory4.FormattingEnabled = true;
-            this.comboCategory4.Location = new System.Drawing.Point(646, 233);
+            this.comboCategory4.Location = new System.Drawing.Point(708, 233);
             this.comboCategory4.Name = "comboCategory4";
-            this.comboCategory4.Size = new System.Drawing.Size(220, 26);
+            this.comboCategory4.Size = new System.Drawing.Size(158, 26);
             this.comboCategory4.TabIndex = 67;
             this.comboCategory4.SelectionChangeCommitted += new System.EventHandler(this.comboCategory4_SelectionChangeCommitted);
             // 
@@ -2638,9 +2658,9 @@ namespace MyMentor
             // 
             this.comboCategory2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategory2.FormattingEnabled = true;
-            this.comboCategory2.Location = new System.Drawing.Point(646, 165);
+            this.comboCategory2.Location = new System.Drawing.Point(708, 165);
             this.comboCategory2.Name = "comboCategory2";
-            this.comboCategory2.Size = new System.Drawing.Size(220, 26);
+            this.comboCategory2.Size = new System.Drawing.Size(158, 26);
             this.comboCategory2.TabIndex = 64;
             this.comboCategory2.SelectionChangeCommitted += new System.EventHandler(this.comboCategory2_SelectionChangeCommitted);
             // 
@@ -2648,9 +2668,9 @@ namespace MyMentor
             // 
             this.comboCategory1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategory1.FormattingEnabled = true;
-            this.comboCategory1.Location = new System.Drawing.Point(646, 133);
+            this.comboCategory1.Location = new System.Drawing.Point(708, 133);
             this.comboCategory1.Name = "comboCategory1";
-            this.comboCategory1.Size = new System.Drawing.Size(220, 26);
+            this.comboCategory1.Size = new System.Drawing.Size(158, 26);
             this.comboCategory1.TabIndex = 63;
             this.comboCategory1.SelectionChangeCommitted += new System.EventHandler(this.comboCategory1_SelectionChangeCommitted);
             // 
@@ -2686,18 +2706,18 @@ namespace MyMentor
             // 
             this.comboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboStatus.FormattingEnabled = true;
-            this.comboStatus.Location = new System.Drawing.Point(646, 303);
+            this.comboStatus.Location = new System.Drawing.Point(708, 303);
             this.comboStatus.Name = "comboStatus";
-            this.comboStatus.Size = new System.Drawing.Size(220, 26);
+            this.comboStatus.Size = new System.Drawing.Size(158, 26);
             this.comboStatus.TabIndex = 60;
             // 
             // comboCategory3
             // 
             this.comboCategory3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCategory3.FormattingEnabled = true;
-            this.comboCategory3.Location = new System.Drawing.Point(646, 200);
+            this.comboCategory3.Location = new System.Drawing.Point(708, 200);
             this.comboCategory3.Name = "comboCategory3";
-            this.comboCategory3.Size = new System.Drawing.Size(220, 26);
+            this.comboCategory3.Size = new System.Drawing.Size(158, 26);
             this.comboCategory3.TabIndex = 57;
             this.comboCategory3.SelectionChangeCommitted += new System.EventHandler(this.comboCategory3_SelectionChangeCommitted);
             // 
@@ -2954,26 +2974,26 @@ namespace MyMentor
             this.def_sec.Text = "קטע";
             this.def_sec.UseVisualStyleBackColor = true;
             // 
-            // label13
+            // lblDescription
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Arial", 12F);
-            this.label13.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label13.Location = new System.Drawing.Point(886, 84);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(41, 18);
-            this.label13.TabIndex = 43;
-            this.label13.Text = "תיאור";
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Font = new System.Drawing.Font("Arial", 12F);
+            this.lblDescription.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblDescription.Location = new System.Drawing.Point(886, 84);
+            this.lblDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(41, 18);
+            this.lblDescription.TabIndex = 43;
+            this.lblDescription.Text = "תיאור";
             // 
             // tbClipDescription
             // 
             this.tbClipDescription.Font = new System.Drawing.Font("Arial", 12F);
-            this.tbClipDescription.Location = new System.Drawing.Point(646, 81);
+            this.tbClipDescription.Location = new System.Drawing.Point(708, 81);
             this.tbClipDescription.Margin = new System.Windows.Forms.Padding(4);
             this.tbClipDescription.Multiline = true;
             this.tbClipDescription.Name = "tbClipDescription";
-            this.tbClipDescription.Size = new System.Drawing.Size(220, 45);
+            this.tbClipDescription.Size = new System.Drawing.Size(158, 45);
             this.tbClipDescription.TabIndex = 44;
             this.tbClipDescription.TextChanged += new System.EventHandler(this.tbClipDescription_TextChanged);
             // 
@@ -3000,25 +3020,25 @@ namespace MyMentor
             this.label16.TabIndex = 16;
             this.label16.Text = "סטאטוס";
             // 
-            // label19
+            // lblKeywords
             // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Arial", 12F);
-            this.label19.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label19.Location = new System.Drawing.Point(886, 273);
-            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(84, 18);
-            this.label19.TabIndex = 14;
-            this.label19.Text = "מילות מפתח";
+            this.lblKeywords.AutoSize = true;
+            this.lblKeywords.Font = new System.Drawing.Font("Arial", 12F);
+            this.lblKeywords.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblKeywords.Location = new System.Drawing.Point(886, 273);
+            this.lblKeywords.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblKeywords.Name = "lblKeywords";
+            this.lblKeywords.Size = new System.Drawing.Size(84, 18);
+            this.lblKeywords.TabIndex = 14;
+            this.lblKeywords.Text = "מילות מפתח";
             // 
             // tbKeywords
             // 
             this.tbKeywords.Font = new System.Drawing.Font("Arial", 12F);
-            this.tbKeywords.Location = new System.Drawing.Point(646, 270);
+            this.tbKeywords.Location = new System.Drawing.Point(708, 270);
             this.tbKeywords.Margin = new System.Windows.Forms.Padding(4);
             this.tbKeywords.Name = "tbKeywords";
-            this.tbKeywords.Size = new System.Drawing.Size(220, 26);
+            this.tbKeywords.Size = new System.Drawing.Size(158, 26);
             this.tbKeywords.TabIndex = 15;
             this.tbKeywords.TextChanged += new System.EventHandler(this.tbKeywords_TextChanged);
             // 
@@ -4040,11 +4060,10 @@ namespace MyMentor
         {
             ApplyLanguageUI();
 
-            rtbMainEditorGraphics = richTextBox1.CreateGraphics();
-            rtbAlternateEditorGraphics = richTextBox3.CreateGraphics();
-
             // init controls
             audioSoundRecorder1.InitRecordingSystem();
+            audioSoundRecorder1.SetInputDeviceChannelVolume(0,0, 100);
+
             audioSoundEditor1.InitEditor();
 
             ////dj
@@ -4092,9 +4111,21 @@ namespace MyMentor
             tableLayoutPanel4.RowStyles[1].Height = 0;
             tableLayoutPanel4.RowStyles[2].Height = 0;
 
+            rtbMainEditorGraphics = richTextBox1.CreateGraphics();
+            rtbAlternateEditorGraphics = richTextBox3.CreateGraphics();
+
             audioSoundEditor1.EncodeFormats.FormatToUse = enumEncodingFormats.ENCODING_FORMAT_MP3;
-            audioSoundEditor1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_PRESETS;
-            audioSoundEditor1.EncodeFormats.MP3.Preset = enumMp3EncodePresets.MP3_PRESET_STANDARD;
+            audioSoundEditor1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_CBR;
+            audioSoundEditor1.EncodeFormats.MP3.CBR = 128000;
+            //audioSoundEditor1.EncodeFormats.MP3.Preset = enumMp3EncodePresets.MP3_PRESET_EXTREME;
+
+            			// select the output format
+            //audioSoundRecorder1.EncodeFormats.ForRecording = enumEncodingFormats.ENCODING_FORMAT_MP3;
+		    
+            //// set constant bitrate mode
+            //audioSoundRecorder1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_CBR;
+            //audioSoundRecorder1.EncodeFormats.MP3.CBR = Convert.ToInt32 (comboOutputCBR.Text);
+
         }
 
         private void buttonPlay_Click(object sender, System.EventArgs e)
@@ -5340,6 +5371,13 @@ namespace MyMentor
                 remember.Substring(selectionIndex, 1) != "\n")
             {
                 selectionIndex--;
+
+                if (selectionIndex > 0 &&
+                    remember.Substring(selectionIndex, 1) == "[")
+                {
+                    selectionIndex = selectionIndex + 3;
+                    break;
+                }
             }
 
             //check another or same anchor
@@ -5428,7 +5466,7 @@ namespace MyMentor
             while (index >= 0)
             {
                 PaintAnchor(AnchorType.Word, index);
-                index = richTextBox2.Find("[0]", index + 3, RichTextBoxFinds.None);
+                index = richTextBox2.Find("[0]", index + 2, RichTextBoxFinds.None);
 
                 if (index + 3 >= richTextBox2.TextLength)
                 {
@@ -5546,6 +5584,65 @@ namespace MyMentor
         {
             PaintGraphics();
 
+            int selectionIndex = richTextBox1.SelectionStart;
+            string remember = richTextBox1.Text;
+
+            while (selectionIndex > 0 &&
+                   selectionIndex < remember.Length &&
+             remember.Substring(selectionIndex, 1) != " " &&
+                remember.Substring(selectionIndex, 1) != ":" &&
+                remember.Substring(selectionIndex, 1) != "\n")
+            {
+                selectionIndex--;
+
+                if (selectionIndex > 0 &&
+                    remember.Substring(selectionIndex, 1) == "[")
+                {
+                    selectionIndex = selectionIndex + 3;
+                    break;
+                }
+            }
+
+            //check another or same anchor
+            richTextBox2.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
+            richTextBox2.SelectionLength = 3;
+
+            if (richTextBox2.SelectedText == "[0]")
+            {
+                tbrWord.Checked = true;
+            }
+            else
+            {
+                tbrWord.Checked = false;
+            }
+
+            if (richTextBox2.SelectedText == "[1]")
+            {
+                tbrSection.Checked = true;
+            }
+            else
+            {
+                tbrSection.Checked = false;
+            }
+
+            if (richTextBox2.SelectedText == "[2]")
+            {
+                tbrSentense.Checked = true;
+            }
+            else
+            {
+                tbrSentense.Checked = false;
+            }
+
+            if (richTextBox2.SelectedText == "[3]")
+            {
+                tbrParagraph.Checked = true;
+            }
+            else
+            {
+                tbrParagraph.Checked = false;
+            }
+
         }
 
         private void tbrSentense_Click(object sender, EventArgs e)
@@ -5565,6 +5662,13 @@ namespace MyMentor
                 remember.Substring(selectionIndex, 1) != "\n")
             {
                 selectionIndex--;
+
+                if (selectionIndex > 0 &&
+                    remember.Substring(selectionIndex, 1) == "[")
+                {
+                    selectionIndex = selectionIndex + 3;
+                    break;
+                }
             }
 
             //check another or same anchor
@@ -5611,6 +5715,13 @@ namespace MyMentor
                 remember.Substring(selectionIndex, 1) != "\n")
             {
                 selectionIndex--;
+
+                if (selectionIndex > 0 &&
+                    remember.Substring(selectionIndex, 1) == "[")
+                {
+                    selectionIndex = selectionIndex + 3;
+                    break;
+                }
             }
 
             //check another or same anchor
@@ -5644,10 +5755,9 @@ namespace MyMentor
         {
             try
             {
-                if (sizeIndex >= 0 && sizeIndex < sizes.Length)
+                if (richTextBox1.SelectionFont.Size < 32)
                 {
-                    sizeIndex++;
-                    richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily, sizes[sizeIndex]);
+                    richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily, richTextBox1.SelectionFont.Size + 2);
                 }
             }
             catch
@@ -5660,10 +5770,9 @@ namespace MyMentor
         {
             try
             {
-                if (sizeIndex > 0)
+                if (richTextBox1.SelectionFont.Size > 8)
                 {
-                    sizeIndex--;
-                    richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily, sizes[sizeIndex]);
+                    richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily, richTextBox1.SelectionFont.Size - 2);
                 }
             }
             catch
@@ -5689,6 +5798,13 @@ namespace MyMentor
                 remember.Substring(selectionIndex, 1) != "\n")
             {
                 selectionIndex--;
+
+                if (selectionIndex > 0 &&
+                    remember.Substring(selectionIndex, 1) == "[")
+                {
+                    selectionIndex = selectionIndex + 3;
+                    break;
+                }
             }
 
             //check another or same anchor
@@ -5822,7 +5938,21 @@ namespace MyMentor
                     }
 
                     saveFileDialog1.InitialDirectory = di.FullName;
-                    saveFileDialog1.FileName = Clip.Current.Name.ToValidFileName();
+                    string name = "";
+                    if (comboCategory1.SelectedItem != null)
+                    {
+                        name = ((Category)comboCategory1.SelectedItem).Value;
+                    }
+                    if (comboCategory2.SelectedItem != null)
+                    {
+                        name += " " + ((Category)comboCategory2.SelectedItem).Value;
+                    }
+                    if (comboCategory3.SelectedItem != null)
+                    {
+                        name += " " + ((Category)comboCategory3.SelectedItem).Value;
+                    }
+
+                    saveFileDialog1.FileName = name;
                 }
                 saveFileDialog1.DefaultExt = "mmnt";
                 saveFileDialog1.Filter = "MyMentor Source Files|*.mmnt";
@@ -5987,14 +6117,6 @@ namespace MyMentor
 
             m_loadingParse = false;
 
-            //test recorder
-            if (MyMentor.Properties.Settings.Default.TestSound)
-            {
-                FormTestSound frmTest = new FormTestSound();
-
-                frmTest.ShowDialog();
-            }
-
             //check if admin - show extra stuff
             var role = await ParseRole.Query.GetAsync("Au3zBr8rLy");
             var relation = await role.GetRelation<ParseUser>("users").Query.FindAsync();
@@ -6029,6 +6151,14 @@ namespace MyMentor
             else
             {
                 NewClip();
+            }
+
+            //test recorder
+            if (MyMentor.Properties.Settings.Default.TestSound)
+            {
+                FormTestSound frmTest = new FormTestSound();
+
+                frmTest.ShowDialog();
             }
 
         }
@@ -6066,16 +6196,18 @@ namespace MyMentor
             }
 
             Debug.WriteLine(string.Format("ClipPattern:{0}", m_contentType.ClipTitlePattern));
+            Debug.WriteLine(string.Format("SourcePattern:{0}", m_contentType.SourceTitlePattern));
 
-            var clipTitle = m_contentType.ClipTitlePattern.SpecialReplace("[category1]", comboCategory1.Text)
+            var pattern = (string)comboClipType.SelectedValue == "enaWrne5xe" ? m_contentType.SourceTitlePattern : m_contentType.ClipTitlePattern;
+            var clipTitle = pattern.SpecialReplace("[category1]", comboCategory1.Text)
                 .SpecialReplace("[category2]", comboCategory2.Text)
                 .SpecialReplace("[category3]", comboCategory3.Text)
                 .SpecialReplace("[category4]", comboCategory4.Text)
                 .SpecialReplace("[description]", Clip.Current.Description)
                 .SpecialReplace("[remarks]", Clip.Current.Remarks)
-                .SpecialReplace("[firstName]", ParseTables.CurrentUser.Get<string>("firstName"))
-                .SpecialReplace("[lastName]", ParseTables.CurrentUser.Get<string>("lastName"))
-                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.Get<string>("cityOfResidence"));
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName") ? ParseTables.CurrentUser.Get<string>("firstName") : string.Empty)
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName") ? ParseTables.CurrentUser.Get<string>("lastName") : string.Empty)
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence") ? ParseTables.CurrentUser.Get<string>("cityOfResidence") : string.Empty);
 
             this.tbClipTitle.Text = clipTitle;
             Clip.Current.Title = clipTitle;
@@ -6253,6 +6385,8 @@ namespace MyMentor
             {
                 lblMinValue.Visible = false;
             }
+
+            comboClipType_SelectionChangeCommitted(null, new EventArgs());
         }
 
         private void mnuText_Goto_Click(object sender, EventArgs e)
@@ -6622,7 +6756,7 @@ namespace MyMentor
                 LabelCurrentWordDuration.Text = audioSoundEditor1.FromMsToFormattedTime((int)m_selectedScheduledWord.StartTime.TotalMilliseconds, true, true);
 
                 //move line to start
-                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0,0);
+                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);
 
             }
             //end anchor
@@ -7615,7 +7749,7 @@ namespace MyMentor
                 Int32 nBeginSelectionInMs = 0;
                 Int32 nEndSelectionInMs = 0;
                 audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
-               
+
                 if (m_targetStartFixInMs > nBeginSelectionInMs)
                 {
                     double d = (double)((m_targetStartFixInMs - nBeginSelectionInMs) / (double)1000);
@@ -7687,9 +7821,19 @@ namespace MyMentor
 
             }
 
-            if (MessageBox.Show("האם אתה בטוח לפרסם שיעור זה ?", "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
+            if ((string)comboClipType.SelectedValue == "piL85bMGtR")
             {
-                return;
+                if (MessageBox.Show("האם אתה בטוח לפרסם שיעור זה ?", "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("האם אתה בטוח לפרסם מקור זה ?", "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.No)
+                {
+                    return;
+                }
             }
 
             groupBox3.Enabled = false;
@@ -7701,14 +7845,16 @@ namespace MyMentor
             SavePropertiesToClip();
             try
             {
-                if (Clip.Current.SaveJson(Clip.Current.ExtractJson()) && Clip.Current.ExtractHtml((msg) => { 
+                if (Clip.Current.SaveJson(Clip.Current.ExtractJson()) && Clip.Current.ExtractHtml((msg) =>
+                {
                     LabelStatus.Invoke((MethodInvoker)(() =>
                     {
                         LabelStatus.Text = msg;
                     }));
                 }))
                 {
-                    if (Clip.Current.Publish(audioSoundEditor1, (msg) => {
+                    if (Clip.Current.Publish(audioSoundEditor1, (msg) =>
+                    {
                         LabelStatus.Invoke((MethodInvoker)(() =>
                         {
                             LabelStatus.Text = msg;
@@ -7980,27 +8126,57 @@ namespace MyMentor
             {
                 lessonType = "0y8A4XTNeR"; //source
 
-                tbClipDescription.Clear();
-                tbClipDescription.Enabled = false;
-
-                tbClipRemarks.Clear();
-                tbClipRemarks.Enabled = false;
+                tbClipDescription.Visible = false;
+                lblDescription.Visible = false;
 
                 dateTimeExpired.Enabled = false;
                 dateTimeExpired.Checked = false;
+                dateTimeExpired.Visible = false;
+
+                btnAddDate.Visible = false;
+                btnRemoveDate.Visible = false;
+                listBoxDates.Visible = false;
+
                 numericPrice.Enabled = false;
                 numericPrice.Value = 0;
-                comboStatus.Enabled = false;
-                comboStatus.SelectedIndex = -1;
+                lblPrice.Visible = false;
+                numericPrice.Visible = false;
+                lblMinValue.Visible = false;
+
+                tbKeywords.Visible = false;
+                lblKeywords.Visible = false;
+
+                lblExpired.Visible = false;
+                dateTimeExpired.Visible = false;
+                dtpReadingDate.Visible = false;
+
+                comboCategory4.Visible = false;
+                lblCategory4.Visible = false;
             }
             else
             {
                 dateTimeExpired.Enabled = true;
-                tbClipDescription.Enabled = true;
-                tbClipRemarks.Enabled = true;
+                dateTimeExpired.Visible = true;
+                btnAddDate.Visible = true;
+                btnRemoveDate.Visible = true;
+                listBoxDates.Visible = true;
+
+                tbClipDescription.Visible = true;
+                lblDescription.Visible = true;
                 numericPrice.Enabled = true;
-                comboStatus.Enabled = true;
-                comboStatus.SelectedIndex = 1;
+                lblPrice.Visible = true;
+                numericPrice.Visible = true;
+                lblMinValue.Visible = true;
+
+                tbKeywords.Visible = true;
+                lblKeywords.Visible = true;
+
+                lblExpired.Visible = true;
+                dateTimeExpired.Visible = true;
+                dtpReadingDate.Visible = true;
+
+                comboCategory4.Visible = true;
+                lblCategory4.Visible = true;
             }
 
             this.comboCategory3.DisplayMember = "Value";
@@ -8013,7 +8189,12 @@ namespace MyMentor
 
             }).ToList();
 
-            comboCategory3.SelectedItem = null;
+            if (Clip.Current.Category3 != null)
+            {
+                comboCategory3.SelectedItem = Clip.Current.Category3;
+            }
+
+            RegenerateClipName(true);
         }
 
         private void trackBarWaveZoom_Scroll(object sender, EventArgs e)
@@ -8220,6 +8401,34 @@ namespace MyMentor
             FrameRecording.Enabled = true;
 
             timerUpdateTimePickerSpinner.Enabled = false;
+        }
+
+        private void richTextBox1_VScroll(object sender, EventArgs e)
+        {
+            PaintGraphics();
+        }
+
+        private void tbrRemoveAnchors_Click(object sender, EventArgs e)
+        {
+            if (tbrParagraph.Checked)
+            {
+                mnuAnchors_RemoveParagraphs_Click(null, new EventArgs());
+            }
+
+            if (tbrSentense.Checked)
+            {
+                mnuAnchors_RemoveSentenses_Click(null, new EventArgs());
+            }
+
+            if (tbrSection.Checked)
+            {
+                mnuAnchors_RemoveSections_Click(null, new EventArgs());
+            }
+
+            if (tbrWord.Checked)
+            {
+                mnuAnchors_RemoveWords_Click(null, new EventArgs());
+            }
         }
 
     }

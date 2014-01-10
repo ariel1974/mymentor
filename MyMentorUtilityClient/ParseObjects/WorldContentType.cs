@@ -23,5 +23,12 @@ namespace MyMentor.ParseObjects
             get { return GetProperty<string>(); }
             set { SetProperty<string>(value); }
         }
+
+        [ParseFieldName("sourceTitlePattern")]
+        public string SourceTitlePattern
+        {
+            get { return GetProperty<string>(); }
+            set { SetProperty<string>(value); }
+        }
     }
 }

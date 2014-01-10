@@ -697,10 +697,10 @@ namespace MyMentor
             {
                 clip["category4"] = ParseObject.CreateWithoutData("Category4", this.Category4);
             }
-            else
-            {
-                clip["category4"] = ParseObject.CreateWithoutData("Category4", null); ;
-            }
+            //else
+            //{
+            //    clip["category4"] = ParseObject.CreateWithoutData("Category4", null); ;
+            //}
 
             clip["updatedByMyMentor"] = DateTime.Now;
             clip["keywords"] = this.Keywords.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);

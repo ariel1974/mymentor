@@ -154,8 +154,6 @@ namespace MyMentor
         private ToolStripMenuItem mnuFile_Save;
         private ToolStripMenuItem mnuFile_SaveAs;
         private ToolStripSeparator toolStripMenuItem10;
-        private ToolStripMenuItem mnuFile_Parse;
-        private ToolStripSeparator toolStripMenuItem11;
         private ToolStripMenuItem mnuFile_Exit;
         private TableLayoutPanel tableLayoutPanel2;
         internal ToolStrip ToolStrip1;
@@ -182,7 +180,6 @@ namespace MyMentor
         private ToolStripSeparator toolStripSeparator7;
         private ToolStripButton tbrWord;
         private ToolStripSeparator toolStripSeparator8;
-        private ToolStripButton tbrParse;
         public RichTextBox richTextBox1;
         private RichTextBox richTextBox2;
         #endregion
@@ -390,6 +387,11 @@ namespace MyMentor
         private ComboBox comboBoxAutoDevideSen;
         private ComboBox comboBoxAutoDevidePar;
         private ToolStripButton tbrRemoveAnchors;
+        private RichTextBox richTextBox5;
+        private ToolStripButton toolStripButton5;
+        private ToolStripButton toolStripButton6;
+        private ToolStripButton toolStripButton7;
+        private Timer timerFixRichText;
         private Stopwatch m_stopWatch = new Stopwatch();
 
         public WorldContentType ContentType
@@ -493,8 +495,6 @@ namespace MyMentor
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.Frame4 = new System.Windows.Forms.GroupBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.trackBarVolume1 = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.Label2 = new System.Windows.Forms.Label();
             this.Label3 = new System.Windows.Forms.Label();
@@ -509,6 +509,8 @@ namespace MyMentor
             this.LabelRangeDuration = new System.Windows.Forms.Label();
             this.LabelTotalDuration = new System.Windows.Forms.Label();
             this.Label8 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.trackBarVolume1 = new System.Windows.Forms.TrackBar();
             this.framePlayback = new System.Windows.Forms.GroupBox();
             this.buttonPause = new System.Windows.Forms.Button();
             this.buttonPlay = new System.Windows.Forms.Button();
@@ -564,7 +566,6 @@ namespace MyMentor
             this.tbrWord = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.tbrRemoveAnchors = new System.Windows.Forms.ToolStripButton();
-            this.tbrParse = new System.Windows.Forms.ToolStripButton();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -582,6 +583,7 @@ namespace MyMentor
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.richTextBox5 = new System.Windows.Forms.RichTextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -684,8 +686,6 @@ namespace MyMentor
             this.mnuFile_Save = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFile_SaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuFile_Parse = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFile_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.כליםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.שפתממשקToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -757,6 +757,9 @@ namespace MyMentor
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label37 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -765,6 +768,7 @@ namespace MyMentor
             this.timerRefreshLedDisplay = new System.Windows.Forms.Timer(this.components);
             this.timerPreStartFixPlayback = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateDuringPlayback = new System.Windows.Forms.Timer(this.components);
+            this.timerFixRichText = new System.Windows.Forms.Timer(this.components);
             this.Frame4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).BeginInit();
             this.framePlayback.SuspendLayout();
@@ -815,8 +819,6 @@ namespace MyMentor
             // Frame4
             // 
             this.Frame4.BackColor = System.Drawing.SystemColors.Control;
-            this.Frame4.Controls.Add(this.label30);
-            this.Frame4.Controls.Add(this.trackBarVolume1);
             this.Frame4.Controls.Add(this.label1);
             this.Frame4.Controls.Add(this.Label2);
             this.Frame4.Controls.Add(this.Label3);
@@ -833,56 +835,35 @@ namespace MyMentor
             this.Frame4.Controls.Add(this.Label8);
             this.Frame4.Font = new System.Drawing.Font("Arial", 12F);
             this.Frame4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Frame4.Location = new System.Drawing.Point(3, 22);
+            this.Frame4.Location = new System.Drawing.Point(175, 174);
             this.Frame4.Name = "Frame4";
             this.Frame4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Frame4.Size = new System.Drawing.Size(551, 195);
+            this.Frame4.Size = new System.Drawing.Size(370, 138);
             this.Frame4.TabIndex = 17;
             this.Frame4.TabStop = false;
             this.Frame4.Text = "מיקום";
-            // 
-            // label30
-            // 
-            this.label30.Location = new System.Drawing.Point(16, 46);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(65, 18);
-            this.label30.TabIndex = 34;
-            this.label30.Text = "Volume";
-            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // trackBarVolume1
-            // 
-            this.trackBarVolume1.Location = new System.Drawing.Point(27, 69);
-            this.trackBarVolume1.Maximum = 100;
-            this.trackBarVolume1.Name = "trackBarVolume1";
-            this.trackBarVolume1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarVolume1.Size = new System.Drawing.Size(45, 112);
-            this.trackBarVolume1.TabIndex = 33;
-            this.trackBarVolume1.TickFrequency = 10;
-            this.trackBarVolume1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarVolume1.Scroll += new System.EventHandler(this.trackBarVolume1_Scroll);
             // 
             // label1
             // 
             this.label1.BackColor = System.Drawing.SystemColors.Control;
             this.label1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label1.Font = new System.Drawing.Font("Arial", 12F);
+            this.label1.Font = new System.Drawing.Font("Arial", 8F);
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(185, 49);
+            this.label1.Location = new System.Drawing.Point(-87, 80);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(154, 21);
+            this.label1.Size = new System.Drawing.Size(113, 16);
             this.label1.TabIndex = 26;
             // 
             // Label2
             // 
             this.Label2.BackColor = System.Drawing.SystemColors.Control;
             this.Label2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Label2.Font = new System.Drawing.Font("Arial", 12F);
+            this.Label2.Font = new System.Drawing.Font("Arial", 8F);
             this.Label2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label2.Location = new System.Drawing.Point(482, 117);
+            this.Label2.Location = new System.Drawing.Point(309, 40);
             this.Label2.Name = "Label2";
             this.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label2.Size = new System.Drawing.Size(65, 17);
@@ -893,10 +874,10 @@ namespace MyMentor
             // 
             this.Label3.BackColor = System.Drawing.SystemColors.Control;
             this.Label3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Label3.Font = new System.Drawing.Font("Arial", 12F);
+            this.Label3.Font = new System.Drawing.Font("Arial", 8F);
             this.Label3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label3.Location = new System.Drawing.Point(482, 160);
+            this.Label3.Location = new System.Drawing.Point(309, 74);
             this.Label3.Name = "Label3";
             this.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label3.Size = new System.Drawing.Size(65, 17);
@@ -907,10 +888,10 @@ namespace MyMentor
             // 
             this.Label4.BackColor = System.Drawing.SystemColors.Control;
             this.Label4.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Label4.Font = new System.Drawing.Font("Arial", 12F);
+            this.Label4.Font = new System.Drawing.Font("Arial", 8F);
             this.Label4.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Label4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label4.Location = new System.Drawing.Point(407, 96);
+            this.Label4.Location = new System.Drawing.Point(244, 20);
             this.Label4.Name = "Label4";
             this.Label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label4.Size = new System.Drawing.Size(59, 17);
@@ -921,10 +902,10 @@ namespace MyMentor
             // 
             this.Label5.BackColor = System.Drawing.SystemColors.Control;
             this.Label5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Label5.Font = new System.Drawing.Font("Arial", 12F);
+            this.Label5.Font = new System.Drawing.Font("Arial", 8F);
             this.Label5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label5.Location = new System.Drawing.Point(311, 96);
+            this.Label5.Location = new System.Drawing.Point(162, 20);
             this.Label5.Name = "Label5";
             this.Label5.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label5.Size = new System.Drawing.Size(41, 17);
@@ -935,13 +916,13 @@ namespace MyMentor
             // 
             this.Label6.BackColor = System.Drawing.SystemColors.Control;
             this.Label6.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Label6.Font = new System.Drawing.Font("Arial", 12F);
+            this.Label6.Font = new System.Drawing.Font("Arial", 8F);
             this.Label6.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label6.Location = new System.Drawing.Point(185, 96);
+            this.Label6.Location = new System.Drawing.Point(90, 20);
             this.Label6.Name = "Label6";
             this.Label6.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Label6.Size = new System.Drawing.Size(53, 17);
+            this.Label6.Size = new System.Drawing.Size(33, 17);
             this.Label6.TabIndex = 21;
             this.Label6.Text = "משך";
             // 
@@ -950,13 +931,13 @@ namespace MyMentor
             this.LabelSelectionBegin.BackColor = System.Drawing.Color.White;
             this.LabelSelectionBegin.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LabelSelectionBegin.Cursor = System.Windows.Forms.Cursors.Default;
-            this.LabelSelectionBegin.Font = new System.Drawing.Font("Arial", 12F);
+            this.LabelSelectionBegin.Font = new System.Drawing.Font("Arial", 8F);
             this.LabelSelectionBegin.ForeColor = System.Drawing.Color.Black;
             this.LabelSelectionBegin.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LabelSelectionBegin.Location = new System.Drawing.Point(358, 116);
+            this.LabelSelectionBegin.Location = new System.Drawing.Point(227, 40);
             this.LabelSelectionBegin.Name = "LabelSelectionBegin";
             this.LabelSelectionBegin.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.LabelSelectionBegin.Size = new System.Drawing.Size(108, 22);
+            this.LabelSelectionBegin.Size = new System.Drawing.Size(76, 22);
             this.LabelSelectionBegin.TabIndex = 20;
             this.LabelSelectionBegin.Text = "00:00:00.000";
             this.LabelSelectionBegin.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -966,13 +947,13 @@ namespace MyMentor
             this.LabelSelectionEnd.BackColor = System.Drawing.Color.White;
             this.LabelSelectionEnd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LabelSelectionEnd.Cursor = System.Windows.Forms.Cursors.Default;
-            this.LabelSelectionEnd.Font = new System.Drawing.Font("Arial", 12F);
+            this.LabelSelectionEnd.Font = new System.Drawing.Font("Arial", 8F);
             this.LabelSelectionEnd.ForeColor = System.Drawing.Color.Black;
             this.LabelSelectionEnd.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LabelSelectionEnd.Location = new System.Drawing.Point(244, 116);
+            this.LabelSelectionEnd.Location = new System.Drawing.Point(145, 40);
             this.LabelSelectionEnd.Name = "LabelSelectionEnd";
             this.LabelSelectionEnd.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.LabelSelectionEnd.Size = new System.Drawing.Size(108, 22);
+            this.LabelSelectionEnd.Size = new System.Drawing.Size(76, 22);
             this.LabelSelectionEnd.TabIndex = 19;
             this.LabelSelectionEnd.Text = "00:00:00.000";
             this.LabelSelectionEnd.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -982,13 +963,13 @@ namespace MyMentor
             this.LabelSelectionDuration.BackColor = System.Drawing.Color.White;
             this.LabelSelectionDuration.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LabelSelectionDuration.Cursor = System.Windows.Forms.Cursors.Default;
-            this.LabelSelectionDuration.Font = new System.Drawing.Font("Arial", 12F);
+            this.LabelSelectionDuration.Font = new System.Drawing.Font("Arial", 8F);
             this.LabelSelectionDuration.ForeColor = System.Drawing.Color.Black;
             this.LabelSelectionDuration.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LabelSelectionDuration.Location = new System.Drawing.Point(130, 116);
+            this.LabelSelectionDuration.Location = new System.Drawing.Point(62, 40);
             this.LabelSelectionDuration.Name = "LabelSelectionDuration";
             this.LabelSelectionDuration.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.LabelSelectionDuration.Size = new System.Drawing.Size(108, 22);
+            this.LabelSelectionDuration.Size = new System.Drawing.Size(76, 22);
             this.LabelSelectionDuration.TabIndex = 18;
             this.LabelSelectionDuration.Text = "00:00:00.000";
             this.LabelSelectionDuration.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -998,13 +979,13 @@ namespace MyMentor
             this.LabelRangeBegin.BackColor = System.Drawing.Color.White;
             this.LabelRangeBegin.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LabelRangeBegin.Cursor = System.Windows.Forms.Cursors.Default;
-            this.LabelRangeBegin.Font = new System.Drawing.Font("Arial", 12F);
+            this.LabelRangeBegin.Font = new System.Drawing.Font("Arial", 8F);
             this.LabelRangeBegin.ForeColor = System.Drawing.Color.Black;
             this.LabelRangeBegin.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LabelRangeBegin.Location = new System.Drawing.Point(358, 159);
+            this.LabelRangeBegin.Location = new System.Drawing.Point(227, 74);
             this.LabelRangeBegin.Name = "LabelRangeBegin";
             this.LabelRangeBegin.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.LabelRangeBegin.Size = new System.Drawing.Size(108, 22);
+            this.LabelRangeBegin.Size = new System.Drawing.Size(76, 22);
             this.LabelRangeBegin.TabIndex = 17;
             this.LabelRangeBegin.Text = "00:00:00.000";
             this.LabelRangeBegin.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1014,13 +995,13 @@ namespace MyMentor
             this.LabelRangeEnd.BackColor = System.Drawing.Color.White;
             this.LabelRangeEnd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LabelRangeEnd.Cursor = System.Windows.Forms.Cursors.Default;
-            this.LabelRangeEnd.Font = new System.Drawing.Font("Arial", 12F);
+            this.LabelRangeEnd.Font = new System.Drawing.Font("Arial", 8F);
             this.LabelRangeEnd.ForeColor = System.Drawing.Color.Black;
             this.LabelRangeEnd.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LabelRangeEnd.Location = new System.Drawing.Point(244, 159);
+            this.LabelRangeEnd.Location = new System.Drawing.Point(145, 74);
             this.LabelRangeEnd.Name = "LabelRangeEnd";
             this.LabelRangeEnd.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.LabelRangeEnd.Size = new System.Drawing.Size(108, 22);
+            this.LabelRangeEnd.Size = new System.Drawing.Size(76, 22);
             this.LabelRangeEnd.TabIndex = 16;
             this.LabelRangeEnd.Text = "00:00:00.000";
             this.LabelRangeEnd.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1030,13 +1011,13 @@ namespace MyMentor
             this.LabelRangeDuration.BackColor = System.Drawing.Color.White;
             this.LabelRangeDuration.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LabelRangeDuration.Cursor = System.Windows.Forms.Cursors.Default;
-            this.LabelRangeDuration.Font = new System.Drawing.Font("Arial", 12F);
+            this.LabelRangeDuration.Font = new System.Drawing.Font("Arial", 8F);
             this.LabelRangeDuration.ForeColor = System.Drawing.Color.Black;
             this.LabelRangeDuration.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LabelRangeDuration.Location = new System.Drawing.Point(130, 159);
+            this.LabelRangeDuration.Location = new System.Drawing.Point(62, 74);
             this.LabelRangeDuration.Name = "LabelRangeDuration";
             this.LabelRangeDuration.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.LabelRangeDuration.Size = new System.Drawing.Size(108, 22);
+            this.LabelRangeDuration.Size = new System.Drawing.Size(76, 22);
             this.LabelRangeDuration.TabIndex = 15;
             this.LabelRangeDuration.Text = "00:00:00.000";
             this.LabelRangeDuration.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1046,13 +1027,13 @@ namespace MyMentor
             this.LabelTotalDuration.BackColor = System.Drawing.Color.White;
             this.LabelTotalDuration.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LabelTotalDuration.Cursor = System.Windows.Forms.Cursors.Default;
-            this.LabelTotalDuration.Font = new System.Drawing.Font("Arial", 12F);
+            this.LabelTotalDuration.Font = new System.Drawing.Font("Arial", 8F);
             this.LabelTotalDuration.ForeColor = System.Drawing.Color.Black;
             this.LabelTotalDuration.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LabelTotalDuration.Location = new System.Drawing.Point(361, 49);
+            this.LabelTotalDuration.Location = new System.Drawing.Point(227, 107);
             this.LabelTotalDuration.Name = "LabelTotalDuration";
             this.LabelTotalDuration.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.LabelTotalDuration.Size = new System.Drawing.Size(108, 22);
+            this.LabelTotalDuration.Size = new System.Drawing.Size(76, 22);
             this.LabelTotalDuration.TabIndex = 14;
             this.LabelTotalDuration.Text = "00:00:00.000";
             this.LabelTotalDuration.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1061,15 +1042,36 @@ namespace MyMentor
             // 
             this.Label8.BackColor = System.Drawing.SystemColors.Control;
             this.Label8.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Label8.Font = new System.Drawing.Font("Arial", 12F);
+            this.Label8.Font = new System.Drawing.Font("Arial", 8F);
             this.Label8.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label8.Location = new System.Drawing.Point(482, 49);
+            this.Label8.Location = new System.Drawing.Point(309, 107);
             this.Label8.Name = "Label8";
             this.Label8.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label8.Size = new System.Drawing.Size(53, 21);
             this.Label8.TabIndex = 13;
             this.Label8.Text = "אורך הקלטה";
+            // 
+            // label30
+            // 
+            this.label30.Location = new System.Drawing.Point(15, 174);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(65, 18);
+            this.label30.TabIndex = 34;
+            this.label30.Text = "Volume";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // trackBarVolume1
+            // 
+            this.trackBarVolume1.Location = new System.Drawing.Point(26, 197);
+            this.trackBarVolume1.Maximum = 100;
+            this.trackBarVolume1.Name = "trackBarVolume1";
+            this.trackBarVolume1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarVolume1.Size = new System.Drawing.Size(45, 115);
+            this.trackBarVolume1.TabIndex = 33;
+            this.trackBarVolume1.TickFrequency = 10;
+            this.trackBarVolume1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarVolume1.Scroll += new System.EventHandler(this.trackBarVolume1_Scroll);
             // 
             // framePlayback
             // 
@@ -1080,10 +1082,10 @@ namespace MyMentor
             this.framePlayback.Controls.Add(this.buttonPlaySelection);
             this.framePlayback.Font = new System.Drawing.Font("Arial", 12F);
             this.framePlayback.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.framePlayback.Location = new System.Drawing.Point(3, 223);
+            this.framePlayback.Location = new System.Drawing.Point(3, 262);
             this.framePlayback.Name = "framePlayback";
             this.framePlayback.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.framePlayback.Size = new System.Drawing.Size(551, 87);
+            this.framePlayback.Size = new System.Drawing.Size(551, 86);
             this.framePlayback.TabIndex = 15;
             this.framePlayback.TabStop = false;
             this.framePlayback.Text = "ניגון";
@@ -1217,17 +1219,21 @@ namespace MyMentor
             // FrameRecording
             // 
             this.FrameRecording.BackColor = System.Drawing.SystemColors.Control;
+            this.FrameRecording.Controls.Add(this.label30);
+            this.FrameRecording.Controls.Add(this.trackBarVolume1);
+            this.FrameRecording.Controls.Add(this.Frame4);
             this.FrameRecording.Controls.Add(this.pictureBox1);
             this.FrameRecording.Controls.Add(this.groupBox9);
             this.FrameRecording.Controls.Add(this.buttonStartRecAppend);
             this.FrameRecording.Controls.Add(this.buttonStopRecording);
             this.FrameRecording.Controls.Add(this.buttonStartRecNew);
+            this.FrameRecording.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FrameRecording.Font = new System.Drawing.Font("Arial", 12F);
             this.FrameRecording.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FrameRecording.Location = new System.Drawing.Point(608, 22);
+            this.FrameRecording.Location = new System.Drawing.Point(608, 24);
             this.FrameRecording.Name = "FrameRecording";
             this.tableLayoutPanel1.SetRowSpan(this.FrameRecording, 2);
-            this.FrameRecording.Size = new System.Drawing.Size(551, 288);
+            this.FrameRecording.Size = new System.Drawing.Size(551, 324);
             this.FrameRecording.TabIndex = 24;
             this.FrameRecording.TabStop = false;
             this.FrameRecording.Text = "הקלטה";
@@ -1251,9 +1257,9 @@ namespace MyMentor
             this.groupBox9.Controls.Add(this.label27);
             this.groupBox9.Controls.Add(this.numericUpDownBufferRecord);
             this.groupBox9.Controls.Add(this.buttonRecOverwritePlayback);
-            this.groupBox9.Location = new System.Drawing.Point(213, 94);
+            this.groupBox9.Location = new System.Drawing.Point(26, 79);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(332, 123);
+            this.groupBox9.Size = new System.Drawing.Size(519, 89);
             this.groupBox9.TabIndex = 32;
             this.groupBox9.TabStop = false;
             // 
@@ -1267,7 +1273,7 @@ namespace MyMentor
             this.sevenSegmentArray1.ElementPadding = new System.Windows.Forms.Padding(4);
             this.sevenSegmentArray1.ElementWidth = 10;
             this.sevenSegmentArray1.ItalicFactor = 0F;
-            this.sevenSegmentArray1.Location = new System.Drawing.Point(16, 25);
+            this.sevenSegmentArray1.Location = new System.Drawing.Point(42, 17);
             this.sevenSegmentArray1.Name = "sevenSegmentArray1";
             this.sevenSegmentArray1.Size = new System.Drawing.Size(67, 63);
             this.sevenSegmentArray1.TabIndex = 38;
@@ -1278,25 +1284,25 @@ namespace MyMentor
             // 
             this.label26.AutoSize = true;
             this.label26.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label26.Location = new System.Drawing.Point(117, 89);
+            this.label26.Location = new System.Drawing.Point(129, 34);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(28, 18);
+            this.label26.Size = new System.Drawing.Size(119, 18);
             this.label26.TabIndex = 36;
-            this.label26.Text = "שנ\'";
+            this.label26.Text = "שניות לפני הקלטה";
             // 
             // label27
             // 
             this.label27.AutoSize = true;
             this.label27.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label27.Location = new System.Drawing.Point(190, 89);
+            this.label27.Location = new System.Drawing.Point(293, 34);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(124, 18);
+            this.label27.Size = new System.Drawing.Size(23, 18);
             this.label27.TabIndex = 35;
-            this.label27.Text = "היסט עליון נגינה של";
+            this.label27.Text = "נגן";
             // 
             // numericUpDownBufferRecord
             // 
-            this.numericUpDownBufferRecord.Location = new System.Drawing.Point(151, 87);
+            this.numericUpDownBufferRecord.Location = new System.Drawing.Point(254, 32);
             this.numericUpDownBufferRecord.Maximum = new decimal(new int[] {
             9,
             0,
@@ -1320,7 +1326,7 @@ namespace MyMentor
             this.buttonRecOverwritePlayback.Font = new System.Drawing.Font("Arial", 12F);
             this.buttonRecOverwritePlayback.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonRecOverwritePlayback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonRecOverwritePlayback.Location = new System.Drawing.Point(134, 25);
+            this.buttonRecOverwritePlayback.Location = new System.Drawing.Point(329, 22);
             this.buttonRecOverwritePlayback.Name = "buttonRecOverwritePlayback";
             this.buttonRecOverwritePlayback.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.buttonRecOverwritePlayback.Size = new System.Drawing.Size(177, 43);
@@ -1473,7 +1479,7 @@ namespace MyMentor
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85.12881F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.87119F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 224F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 226F));
             this.tableLayoutPanel2.Controls.Add(this.ToolStrip1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox1, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel7, 0, 0);
@@ -1517,8 +1523,7 @@ namespace MyMentor
             this.toolStripSeparator7,
             this.tbrWord,
             this.toolStripSeparator8,
-            this.tbrRemoveAnchors,
-            this.tbrParse});
+            this.tbrRemoveAnchors});
             this.ToolStrip1.Location = new System.Drawing.Point(0, 80);
             this.ToolStrip1.Name = "ToolStrip1";
             this.ToolStrip1.Size = new System.Drawing.Size(1162, 27);
@@ -1749,17 +1754,6 @@ namespace MyMentor
             this.tbrRemoveAnchors.ToolTipText = "הסר את כל העוגנים מהסוג המסומן";
             this.tbrRemoveAnchors.Click += new System.EventHandler(this.tbrRemoveAnchors_Click);
             // 
-            // tbrParse
-            // 
-            this.tbrParse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbrParse.Image = ((System.Drawing.Image)(resources.GetObject("tbrParse.Image")));
-            this.tbrParse.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbrParse.Name = "tbrParse";
-            this.tbrParse.Size = new System.Drawing.Size(23, 24);
-            this.tbrParse.Text = "toolStripButton10";
-            this.tbrParse.ToolTipText = "בדוק תקינות";
-            this.tbrParse.Click += new System.EventHandler(this.tbrParse_Click);
-            // 
             // richTextBox1
             // 
             this.tableLayoutPanel2.SetColumnSpan(this.richTextBox1, 5);
@@ -1780,9 +1774,9 @@ namespace MyMentor
             // 
             this.panel7.Controls.Add(this.groupBox8);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(477, 3);
+            this.panel7.Location = new System.Drawing.Point(479, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(682, 74);
+            this.panel7.Size = new System.Drawing.Size(680, 74);
             this.panel7.TabIndex = 34;
             // 
             // groupBox8
@@ -1799,7 +1793,7 @@ namespace MyMentor
             this.groupBox8.Location = new System.Drawing.Point(0, 0);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox8.Size = new System.Drawing.Size(682, 74);
+            this.groupBox8.Size = new System.Drawing.Size(680, 74);
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "חלוקה אוטומטית";
@@ -1900,7 +1894,7 @@ namespace MyMentor
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(3, 3);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(468, 74);
+            this.panel8.Size = new System.Drawing.Size(470, 74);
             this.panel8.TabIndex = 35;
             // 
             // groupBox10
@@ -1911,7 +1905,7 @@ namespace MyMentor
             this.groupBox10.Font = new System.Drawing.Font("Arial", 12F);
             this.groupBox10.Location = new System.Drawing.Point(0, 0);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(468, 74);
+            this.groupBox10.Size = new System.Drawing.Size(470, 74);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "טקסטים מוכנים";
@@ -1954,18 +1948,18 @@ namespace MyMentor
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.Frame4, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.FrameRecording, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.framePlayback, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.richTextBox5, 2, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63.92046F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.82955F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 67.80627F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.21083F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1162, 360);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -1975,11 +1969,21 @@ namespace MyMentor
             this.panel2.Controls.Add(this.label18);
             this.panel2.Controls.Add(this.label17);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(560, 22);
+            this.panel2.Location = new System.Drawing.Point(560, 24);
             this.panel2.Name = "panel2";
             this.tableLayoutPanel1.SetRowSpan(this.panel2, 2);
             this.panel2.Size = new System.Drawing.Size(42, 208);
             this.panel2.TabIndex = 18;
+            // 
+            // richTextBox5
+            // 
+            this.richTextBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox5.Location = new System.Drawing.Point(3, 24);
+            this.richTextBox5.Name = "richTextBox5";
+            this.richTextBox5.ReadOnly = true;
+            this.richTextBox5.Size = new System.Drawing.Size(551, 232);
+            this.richTextBox5.TabIndex = 25;
+            this.richTextBox5.Text = "";
             // 
             // tabPage3
             // 
@@ -3144,10 +3148,10 @@ namespace MyMentor
             // trackBarPitch1
             // 
             this.trackBarPitch1.AutoSize = false;
-            this.trackBarPitch1.LargeChange = 10;
+            this.trackBarPitch1.LargeChange = 20;
             this.trackBarPitch1.Location = new System.Drawing.Point(289, -7);
-            this.trackBarPitch1.Maximum = 70;
-            this.trackBarPitch1.Minimum = -70;
+            this.trackBarPitch1.Maximum = 100;
+            this.trackBarPitch1.Minimum = -100;
             this.trackBarPitch1.Name = "trackBarPitch1";
             this.trackBarPitch1.Size = new System.Drawing.Size(176, 39);
             this.trackBarPitch1.SmallChange = 10;
@@ -3215,8 +3219,6 @@ namespace MyMentor
             this.mnuFile_Save,
             this.mnuFile_SaveAs,
             this.toolStripMenuItem10,
-            this.mnuFile_Parse,
-            this.toolStripMenuItem11,
             this.mnuFile_Exit});
             this.mnuFile.Name = "mnuFile";
             this.mnuFile.Size = new System.Drawing.Size(46, 20);
@@ -3260,17 +3262,6 @@ namespace MyMentor
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
             this.toolStripMenuItem10.Size = new System.Drawing.Size(174, 6);
-            // 
-            // mnuFile_Parse
-            // 
-            this.mnuFile_Parse.Name = "mnuFile_Parse";
-            this.mnuFile_Parse.Size = new System.Drawing.Size(177, 22);
-            this.mnuFile_Parse.Text = "בדוק תקינות";
-            // 
-            // toolStripMenuItem11
-            // 
-            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(174, 6);
             // 
             // mnuFile_Exit
             // 
@@ -3789,7 +3780,10 @@ namespace MyMentor
             this.toolStripSeparator9,
             this.toolStripButton1,
             this.toolStripButton2,
-            this.toolStripButton3});
+            this.toolStripButton3,
+            this.toolStripButton5,
+            this.toolStripButton6,
+            this.toolStripButton7});
             this.toolStrip2.Location = new System.Drawing.Point(571, 422);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(571, 38);
@@ -3844,6 +3838,39 @@ namespace MyMentor
             this.toolStripButton3.Text = "toolStripButton3";
             this.toolStripButton3.ToolTipText = "זום לכל הקטע";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // toolStripButton5
+            // 
+            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
+            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton5.Name = "toolStripButton5";
+            this.toolStripButton5.Size = new System.Drawing.Size(36, 35);
+            this.toolStripButton5.Text = "toolStripButton5";
+            this.toolStripButton5.ToolTipText = "זום לקטע הנבחר";
+            this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(36, 35);
+            this.toolStripButton6.Text = "toolStripButton6";
+            this.toolStripButton6.ToolTipText = "עבור לסוף הקטע";
+            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
+            // 
+            // toolStripButton7
+            // 
+            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
+            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton7.Name = "toolStripButton7";
+            this.toolStripButton7.Size = new System.Drawing.Size(36, 35);
+            this.toolStripButton7.Text = "toolStripButton7";
+            this.toolStripButton7.ToolTipText = "עבור לתחילת הקטע";
+            this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
             // 
             // panel9
             // 
@@ -3900,6 +3927,11 @@ namespace MyMentor
             // 
             this.timerUpdateDuringPlayback.Tick += new System.EventHandler(this.timerUpdateDuringPlayback_Tick);
             // 
+            // timerFixRichText
+            // 
+            this.timerFixRichText.Interval = 300;
+            this.timerFixRichText.Tick += new System.EventHandler(this.timerFixRichText_Tick);
+            // 
             // FormMain
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 19);
@@ -3923,7 +3955,6 @@ namespace MyMentor
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormMain_Paint);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.Frame4.ResumeLayout(false);
-            this.Frame4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).EndInit();
             this.framePlayback.ResumeLayout(false);
             this.FrameRecording.ResumeLayout(false);
@@ -4156,8 +4187,12 @@ namespace MyMentor
             }
         }
 
+        List<int> m_LastSelections = new List<int>();
+
         private void buttonPlaySelection_Click(object sender, System.EventArgs e)
         {
+            audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
+            
             // get the position selected on the waveform analyzer, if any
             bool bSelectionAvailable = false;
             Int32 nBeginSelectionInMs = 0;
@@ -4168,8 +4203,11 @@ namespace MyMentor
             if (bSelectionAvailable)
             {
                 // play selected range only
-                //audioSoundEditor1.PlaySoundRange(nBeginSelectionInMs, nEndSelectionInMs);
-                audioDjStudio1.PlaySound(0, nBeginSelectionInMs, nEndSelectionInMs);
+                var error = audioDjStudio1.PlaySound(0, nBeginSelectionInMs, nEndSelectionInMs);
+
+                m_LastSelections.Clear();
+                m_LastSelections.Add(nBeginSelectionInMs);
+                m_LastSelections.Add(nEndSelectionInMs);
             }
         }
 
@@ -6451,27 +6489,34 @@ namespace MyMentor
             }
 
             //check if we have to refresh display
-            if (tabControl1.SelectedIndex == 1
-                && m_waveFormTabIndex != 1)
+            if (tabControl1.SelectedIndex == 1)
             {
-                m_guidLineUniqueId = -1;
-                m_waveFormTabIndex = 1;
-                audioSoundEditor1.DisplayWaveformAnalyzer.MouseSelectionEnable(true);
+                //copy text and insert start anchor
+                richTextBox5.Clear();
+                richTextBox5.Rtf = richTextBox1.Rtf;
+                richTextBox5.Text = richTextBox5.Text.RemoveAnchors();
 
-                //remove graphics
-                foreach (Word word in Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(sc => sc.Sections)
-                   .SelectMany(w => w.Words))
+                if (m_waveFormTabIndex != 1)
                 {
-                    if (word.GraphicItemUnique > -1)
-                    {
-                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(word.GraphicItemUnique);
-                    }
-                }
+                    m_guidLineUniqueId = -1;
+                    m_waveFormTabIndex = 1;
+                    audioSoundEditor1.DisplayWaveformAnalyzer.MouseSelectionEnable(true);
 
-                //remove guid line & end line
-                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_endLineUniqueId);
-                //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_guidLineUniqueId);
-                audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
+                    //remove graphics
+                    foreach (Word word in Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(sc => sc.Sections)
+                       .SelectMany(w => w.Words))
+                    {
+                        if (word.GraphicItemUnique > -1)
+                        {
+                            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(word.GraphicItemUnique);
+                        }
+                    }
+
+                    //remove guid line & end line
+                    audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_endLineUniqueId);
+                    //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_guidLineUniqueId);
+                    audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
+                }
             }
             //scheduler step
             else if (tabControl1.SelectedIndex == 2)
@@ -6736,7 +6781,7 @@ namespace MyMentor
 
             int selectionIndex = Math.Max(0, richTextBox3.SelectionStart - START_PAUSE_SECTION_ANCHOR.Length);
 
-            if (selectionIndex == 0) // start anchor
+            if (selectionIndex == 0 && m_selectedScheduledWord != null) // start anchor
             {
                 //set current word start time when clicking word offline
                 timePickerCurrentWord.Value = TimeSpan.Zero;
@@ -6972,8 +7017,17 @@ namespace MyMentor
             }
             else
             {
-                //done playing - return position to start
-                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);
+                if (m_LastSelections.Count() > 0)
+                {
+                    audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, m_LastSelections[0], m_LastSelections[1]);
+
+                    m_LastSelections.Clear();
+                }
+                else
+                {
+                    //done playing - return position to start
+                    audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);
+                }
             }
         }
 
@@ -7585,7 +7639,8 @@ namespace MyMentor
                         continue;
                     }
 
-                    if (richTextBox2.SelectedText == ":" && senDelimiters.Exists(a => a == "נקודותיים (:)") && charactersFromLastAnchor > 0)
+                    if ( (richTextBox2.SelectedText == ":" || richTextBox2.SelectedText == "׃")
+                        && senDelimiters.Exists(a => a == "נקודותיים (:)") && charactersFromLastAnchor > 0)
                     {
                         sentenses += 1;
 
@@ -7907,7 +7962,8 @@ namespace MyMentor
 
         private void trackBarVolume1_Scroll(object sender, EventArgs e)
         {
-            audioSoundEditor1.OutputVolumeSet((short)trackBarVolume1.Value, enumVolumeScales.SCALE_LINEAR);
+            var error = audioDjStudio1.MixerVolumeSet(0, AudioDjStudio.enumComponentTypes.COMPONENTTYPE_SRC_WAVEOUT, trackBarVolume1.Value);
+
         }
 
         private void mnuAudio_Test_Click(object sender, EventArgs e)
@@ -8429,6 +8485,43 @@ namespace MyMentor
             {
                 mnuAnchors_RemoveWords_Click(null, new EventArgs());
             }
+        }
+
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            bool bSelectionAvailable = false;
+            int nBeginSelectionInMs = 0;
+            int nEndSelectionInMs = 0;
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+            // check if we have simply selected a position (vertical dotted line)
+            if (nBeginSelectionInMs != nEndSelectionInMs)
+            {
+                audioSoundEditor1.DisplayWaveformAnalyzer.ZoomToSelection(true);
+            }
+
+        }
+
+        private void toolStripButton7_Click(object sender, EventArgs e)
+        {
+            //done playing - return position to start
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            var a = audioSoundEditor1.GetSoundDuration();
+            //done playing - return position to start
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, a, a);
+        }
+
+        private void timerFixRichText_Tick(object sender, EventArgs e)
+        {
+            timerFixRichText.Enabled = false;
+            richTextBox5.SelectionStart = 0;
+            richTextBox5.SelectionLength = 0;
+            richTextBox5.Refresh();
         }
 
     }

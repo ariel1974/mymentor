@@ -19,6 +19,12 @@ namespace MyMentor
             return RemovePunctation(value, false);
         }
 
+        public static string RemoveAnchors(this string value)
+        {
+            return value.Replace("[3]", string.Empty).Replace("[2]", string.Empty).Replace("[1]", string.Empty).Replace("[0]", string.Empty);
+        }
+
+
         public static string SpecialReplace(this string text, string placeholder, string with)
         {
             if (string.IsNullOrEmpty(with))

@@ -665,6 +665,8 @@ namespace MyMentor
             clip["price"] = (float)this.Price;
             clip["priceWithSupport"] = (float)this.PriceSupport;
             clip["status"] = ParseObject.CreateWithoutData("ClipStatus", this.Status);
+            clip["existsNikud"] = this.IsNikudIncluded;
+            clip["existsTeamim"] = this.IsTeamimIncluded;
 
             if (!string.IsNullOrEmpty(this.Category1))
             {
@@ -723,7 +725,7 @@ namespace MyMentor
                 clip["expiration"] = null;
             }
 
-            //clip["createdByUser"] = user.Username;
+            clip["teacher"] = ParseUser.CreateWithoutData("_User", ParseUser.CurrentUser.ObjectId);
 
             if (!string.IsNullOrEmpty(this.FileName))
             {

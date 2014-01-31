@@ -13,16 +13,18 @@ namespace MyMentor
 {
     public partial class FormReadyTexts : Form
     {
-        public string SelectedText
+        public ClipText SelectedSource
         {
             get
             {
-                return m_selectedText;
+                return m_selected;
             }
         }
 
+        private List<ClipText> m_result = new List<ClipText>();
+
         private FormMain m_formMain = null;
-        private string m_selectedText = string.Empty;
+        private ClipText m_selected = null;
         /// <summary>
         /// 
         /// </summary>
@@ -57,9 +59,13 @@ namespace MyMentor
             //            && clip["clipType"] == ParseObject.CreateWithoutData("ClipType", "enaWrne5xe")
             //            select clip;
 
-            var query1 = ParseObject.GetQuery("ClipsV2");
+            var query1 = ParseObject.GetQuery("ClipsV2").OrderByDescending("createdAt")
+                    .Limit(10) // Only retrieve the last 10 comments
+                    .Include("status"); // Include the post data with each comment
+
             query1 = query1.WhereEqualTo("clipType", ParseObject.CreateWithoutData("ClipType", "enaWrne5xe"));
             query1 = query1.WhereEqualTo("status", ParseObject.CreateWithoutData("ClipStatus", "3DYQsyGZIk"));
+            query1 = query1.WhereEqualTo("contentType", ParseObject.CreateWithoutData("WorldContentType", m_formMain.ContentType.ObjectId));
 
             if (comboCategory1.SelectedValue != null)
             {
@@ -77,35 +83,42 @@ namespace MyMentor
             }
             else
             {
-                query1 = query1.WhereContainedIn("category3", ((IEnumerable<Category>)comboCategory3.DataSource).Select( s => ParseObject.CreateWithoutData("Category3", s.ObjectId)));
+            //    query1 = query1.WhereContainedIn("category3", ((IEnumerable<Category>)comboCategory3.DataSource).Select( s => ParseObject.CreateWithoutData("Category3", s.ObjectId)));
             }
 
             var result = await query1.FindAsync();
 
             if (result != null)
             {
-                listBox1.Items.Clear();
-                listBox1.ValueMember = "ObjectId";
-                listBox1.DisplayMember = "Name";
-                listBox1.Items.AddRange(result.Select(a => new ClipText
+                listView1.Items.Clear();
+                int counter = 0;
+
+                m_result = new List<ClipText>(result.Select(a => new ClipText
                 {
+                    Index = counter++,
                     ObjectId = a.ObjectId,
                     Name = a.Get<string>("name"),
-                    Text = a.Get<string>("clipSourceText")
-                }).ToArray());
+                    Text = a.Get<string>("clipSourceText"),
+                    Category1 = a.Get<ParseObject>("category1"),
+                    Category2 = a.Get<ParseObject>("category2"),
+                    Category3 = a.Get<ParseObject>("category3"),
+                    Description = a.Get<string>("description"),
+                    Status = a.Get<ParseObject>("status").FetchIfNeededAsync().Result
+                }));
+
+                foreach (var o in m_result)
+                {
+                    ListViewItem lvi = listView1.Items.Add(o.ObjectId, o.Name, -1);
+                    lvi.SubItems.Add(o.Status.Get<string>("status_he_il"));
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("לא קיים מקור המתאים לתוצאות החיפוש", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
 
             btnSearch.Enabled = true;
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBox1.SelectedIndex >= 0)
-            {
-                m_selectedText = ((ClipText)listBox1.SelectedItem).Text;
-                button2.Enabled = true;
-
-            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -157,12 +170,41 @@ namespace MyMentor
                 this.comboCategory2.DataSource = null;
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                int indexer = listView1.SelectedItems[0].Index;
+                m_selected = m_result.Single(a => a.Index == indexer);
+
+                if (m_selected != null)
+                {
+                    button2.Enabled = true;
+                }
+            }
+            else
+            {
+                button2.Enabled = false;
+            }
+        }
     }
 
     public class ClipText
     {
+        public int Index { get; set; }
         public string ObjectId { get; set; }
         public string Name { get; set; }
         public string Text { get; set; }
+        public ParseObject Category1 { get; set; }
+        public ParseObject Category2 { get; set; }
+        public ParseObject Category3 { get; set; }
+        public string Description { get; set; }
+        public ParseObject Status { get; set; }
     }
 }

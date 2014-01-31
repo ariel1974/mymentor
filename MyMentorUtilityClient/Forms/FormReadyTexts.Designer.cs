@@ -37,10 +37,12 @@
             this.lblCategory1 = new System.Windows.Forms.Label();
             this.comboCategory3 = new System.Windows.Forms.ComboBox();
             this.lblCategory3 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button3 = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // button2
@@ -55,6 +57,7 @@
             this.button2.TabIndex = 65;
             this.button2.Text = "אישור";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -129,16 +132,6 @@
             this.lblCategory3.TabIndex = 68;
             this.lblCategory3.Text = "טוען...";
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 18;
-            this.listBox1.Location = new System.Drawing.Point(16, 121);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(668, 202);
-            this.listBox1.TabIndex = 80;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Arial", 12F);
@@ -169,14 +162,39 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listView1.Location = new System.Drawing.Point(19, 123);
+            this.listView1.Name = "listView1";
+            this.listView1.RightToLeftLayout = true;
+            this.listView1.Size = new System.Drawing.Size(665, 219);
+            this.listView1.TabIndex = 83;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "שם שיעור";
+            this.columnHeader1.Width = 550;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "סטאטוס";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 100;
+            // 
             // FormReadyTexts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(702, 402);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.lblCategory2);
             this.Controls.Add(this.comboCategory2);
             this.Controls.Add(this.comboCategory1);
@@ -211,9 +229,11 @@
         private System.Windows.Forms.Label lblCategory1;
         private System.Windows.Forms.ComboBox comboCategory3;
         private System.Windows.Forms.Label lblCategory3;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }

@@ -71,6 +71,7 @@ namespace MyMentor
         public string Title { get; set; }
         public bool RightAlignment { get; set; }
         public string Description { get; set; }
+        public string EnglishDescription { get; set; }
         public string Remarks { get; set; }
         public string Version { get; set; }
         public string Category1 { get; set; }
@@ -80,6 +81,7 @@ namespace MyMentor
         public string Keywords { get; set; }
         public List<DateTime> ReadingDates { get; set; }
         public string Status { get; set; }
+        public string ContentType { get; set; }
         public string AudioFileName { get; set; }
         public long ClipSize { get; set; }
         public long DemoClipSize { get; set; }
@@ -115,9 +117,6 @@ namespace MyMentor
 
         [JsonProperty("chapter")]
         public Chapter Chapter { get; set; }
-
-        [JsonProperty("clearChapter")]
-        public Chapter ClearChapter { get; set; }
 
         [JsonProperty("onlyNikudChapter")]
         public Chapter OnlyNikudChapter { get; set; }
@@ -658,6 +657,7 @@ namespace MyMentor
             clip["name"] = this.Title;
             clip["clipSourceText"] = this.Text;
             clip["description"] = this.Description;
+            clip["descriptionEnglish"] = this.EnglishDescription;
             clip["remarks"] = this.Remarks;
             clip["version"] = this.Version;
             clip["fingerPrint"] = this.FingerPrint;
@@ -667,6 +667,7 @@ namespace MyMentor
             clip["status"] = ParseObject.CreateWithoutData("ClipStatus", this.Status);
             clip["existsNikud"] = this.IsNikudIncluded;
             clip["existsTeamim"] = this.IsTeamimIncluded;
+            clip["contentType"] = ParseObject.CreateWithoutData("WorldContentType",this.ContentType);
 
             if (!string.IsNullOrEmpty(this.Category1))
             {
@@ -957,6 +958,7 @@ namespace MyMentor
             clip.isTeamimIncluded = this.IsTeamimIncluded;
             clip.onlyNikudChapter = this.OnlyNikudChapter;
             clip.onlyTeamimChapter = this.OnlyTeamimChapter;
+            clip.clearTextChapter = this.ClearTextChapter;
             clip.schemaVersion = "2.03";
             //clip.duration = this.Duration;
             clip.defaultSections = this.DefaultSections;

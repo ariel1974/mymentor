@@ -58,5 +58,6 @@ namespace MyMentor.Json
         public Chapter chapter { get; set; }
         public Chapter onlyNikudChapter { get; set; }
         public Chapter onlyTeamimChapter { get; set; }
+        public Chapter clearTextChapter { get; set; }
     }
 }

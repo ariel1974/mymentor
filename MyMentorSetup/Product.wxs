@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="{E0F66803-91BF-4571-B8B2-D442D5513E1D}" Name="MyMentor Studio V2" Language="1033" Version="1.0.0.3" Manufacturer="MyMentor" UpgradeCode="b9c3a138-662d-4eb9-a1cf-90b8778b1109">
+  <Product Id="{E0F66803-91BF-4571-B8B2-D442D5513E1D}" Name="MyMentor Studio V2" Language="1033" Version="1.0.0.3" Manufacturer="MyMentor" UpgradeCode="29e63484-325e-4492-8107-a6ad01c06785">
     <Package Id="{8793907F-A2D7-4701-BE6E-90865B83E80A}" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
     <UI>
@@ -90,6 +90,7 @@
         <File Id='NewtonsoftJsondll' Name='Newtonsoft.Json.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Newtonsoft.Json.dll' KeyPath='no'/>
         <File Id='Parsedll' Name='Parse.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.dll' KeyPath='no'/>
         <File Id='ParseNetFx45dll' Name='Parse.NetFx45.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Parse.NetFx45.dll' KeyPath='no'/>
+        <File Id='HtmlAgilityPackdll' Name='HtmlAgilityPack.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\HtmlAgilityPack.dll' KeyPath='no'/>
 
       </Component>
     </ComponentGroup>

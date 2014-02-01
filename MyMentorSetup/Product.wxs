@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="{E0F66803-91BF-4571-B8B2-D442D5513E1D}" Name="MyMentor Studio V2" Language="1033" Version="1.0.0.3" Manufacturer="MyMentor" UpgradeCode="29e63484-325e-4492-8107-a6ad01c06785">
+  <Product Id="{E0F66803-91BF-4571-B8B2-D442D5513E1D}" Name="MyMentor Studio V2" Language="1033" Version="1.0.0.3" Manufacturer="MyMentor" UpgradeCode="96b5e567-3411-4823-9ee8-f8f5973d97ed">
     <Package Id="{8793907F-A2D7-4701-BE6E-90865B83E80A}" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
     <UI>

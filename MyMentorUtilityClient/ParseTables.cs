@@ -53,13 +53,13 @@ namespace MyMentor
             stopwatch.Start();
 
             //get category 1
-            var query = await ( from cat in ParseObject.GetQuery("Category1")
-                        where
-                        cat["contentType"] == ParseObject.CreateWithoutData("WorldContentType", contentType)
-                        && cat.Get<string>("culture") == MyMentor.Properties.Settings.Default.CultureInfo
-                        orderby cat.Get<int>("order")
-                        select cat).FindAsync();
-            
+            var query = await (from cat in ParseObject.GetQuery("Category1")
+                               where
+                               cat["contentType"] == ParseObject.CreateWithoutData("WorldContentType", contentType)
+                               && cat.Get<string>("culture") == MyMentor.Properties.Settings.Default.CultureInfo
+                               orderby cat.Get<int>("order")
+                               select cat).FindAsync();
+
             // Stop timing
             stopwatch.Stop();
 
@@ -68,6 +68,30 @@ namespace MyMentor
                 stopwatch.Elapsed);
 
             return query;
+        }
+
+        public static async Task<IEnumerable<KeyValuePair<string, string>>> GetStrings()
+        {
+            // Create new stopwatch
+            Stopwatch stopwatch = new Stopwatch();
+
+            // Begin timing
+            stopwatch.Start();
+
+            //get category 1
+            var query = await (from cat in ParseObject.GetQuery("Strings")
+                               where
+                               cat.Get<string>("culture") == MyMentor.Properties.Settings.Default.CultureInfo
+                               select cat).FindAsync();
+
+            // Stop timing
+            stopwatch.Stop();
+
+            // Write result
+            Debug.WriteLine("Time elapsed Strings: {0}",
+                stopwatch.Elapsed);
+
+            return query.Select(s => new KeyValuePair<string, string>(s.Get<string>("code"), s.Get<string>("value")));
         }
 
         public static async Task<IEnumerable<ParseObject>> GetCategory3(string contentType, string lessonType)

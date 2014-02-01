@@ -943,6 +943,7 @@ namespace MyMentor
             this.IsNikudIncluded = this.Text.IsNikudExists();
             this.IsTeamimIncluded = this.Text.IsTeamimExists();
 
+            Devide(true, true);
             Devide(true, false);
             Devide(false, true);
             Devide(false, false);

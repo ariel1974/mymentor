@@ -401,8 +401,10 @@ namespace MyMentor
         private ToolStripButton toolStripButton11;
         private Label label13;
         private TextBox tbClipDescriptionEnglish;
+        private ComboBox comboBoxAutoDevideWor;
+        public Label label19;
         private Stopwatch m_stopWatch = new Stopwatch();
-
+        private IEnumerable<KeyValuePair<string, string>> m_strings;
         public WorldContentType ContentType
         {
             get
@@ -554,6 +556,7 @@ namespace MyMentor
             this.tbrOpen = new System.Windows.Forms.ToolStripButton();
             this.tbrSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -619,6 +622,8 @@ namespace MyMentor
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.tbClipDescriptionEnglish = new System.Windows.Forms.TextBox();
             this.lblClipRemarksEnglish = new System.Windows.Forms.Label();
             this.tbClipRemarksEnglish = new System.Windows.Forms.TextBox();
             this.dateTimeExpired = new System.Windows.Forms.DateTimePicker();
@@ -782,11 +787,10 @@ namespace MyMentor
             this.timerPreStartFixPlayback = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateDuringPlayback = new System.Windows.Forms.Timer(this.components);
             this.timerFixRichText = new System.Windows.Forms.Timer(this.components);
-            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
+            this.comboBoxAutoDevideWor = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.sevenSegmentArray1 = new DmitryBrant.CustomControls.SevenSegmentArray();
             this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
-            this.label13 = new System.Windows.Forms.Label();
-            this.tbClipDescriptionEnglish = new System.Windows.Forms.TextBox();
             this.Frame4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).BeginInit();
             this.framePlayback.SuspendLayout();
@@ -1477,10 +1481,10 @@ namespace MyMentor
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85.12881F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.87119F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 94.88778F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.112219F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 229F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 230F));
             this.tableLayoutPanel2.Controls.Add(this.ToolStrip1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox1, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel7, 0, 0);
@@ -1572,6 +1576,16 @@ namespace MyMentor
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
             this.toolStripSeparator10.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripButton11
+            // 
+            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
+            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton11.Name = "toolStripButton11";
+            this.toolStripButton11.Size = new System.Drawing.Size(23, 24);
+            this.toolStripButton11.Text = "גזור";
+            this.toolStripButton11.Click += new System.EventHandler(this.toolStripButton11_Click);
             // 
             // toolStripButton8
             // 
@@ -1807,13 +1821,15 @@ namespace MyMentor
             // 
             this.panel7.Controls.Add(this.groupBox8);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(481, 3);
+            this.panel7.Location = new System.Drawing.Point(404, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(678, 74);
+            this.panel7.Size = new System.Drawing.Size(755, 74);
             this.panel7.TabIndex = 34;
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.comboBoxAutoDevideWor);
+            this.groupBox8.Controls.Add(this.label19);
             this.groupBox8.Controls.Add(this.comboBoxAutoDevideSen);
             this.groupBox8.Controls.Add(this.comboBoxAutoDevidePar);
             this.groupBox8.Controls.Add(this.buttonAutoDevide);
@@ -1826,7 +1842,7 @@ namespace MyMentor
             this.groupBox8.Location = new System.Drawing.Point(0, 0);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox8.Size = new System.Drawing.Size(678, 74);
+            this.groupBox8.Size = new System.Drawing.Size(755, 74);
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "חלוקה אוטומטית";
@@ -1835,26 +1851,28 @@ namespace MyMentor
             // 
             this.comboBoxAutoDevideSen.FormattingEnabled = true;
             this.comboBoxAutoDevideSen.Items.AddRange(new object[] {
+            "",
             "נקודותיים (:)",
             "נקודה (.)",
             "ENTER"});
-            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(129, 31);
+            this.comboBoxAutoDevideSen.Location = new System.Drawing.Point(325, 31);
             this.comboBoxAutoDevideSen.Name = "comboBoxAutoDevideSen";
-            this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(171, 26);
+            this.comboBoxAutoDevideSen.Size = new System.Drawing.Size(126, 26);
             this.comboBoxAutoDevideSen.TabIndex = 37;
             // 
             // comboBoxAutoDevidePar
             // 
             this.comboBoxAutoDevidePar.FormattingEnabled = true;
             this.comboBoxAutoDevidePar.Items.AddRange(new object[] {
+            "",
             "ENTER",
             "שני ENTER",
             "אחרי 2 משפטים",
             "אחרי 3 משפטים",
             "אחרי 4 משפטים"});
-            this.comboBoxAutoDevidePar.Location = new System.Drawing.Point(428, 33);
+            this.comboBoxAutoDevidePar.Location = new System.Drawing.Point(542, 31);
             this.comboBoxAutoDevidePar.Name = "comboBoxAutoDevidePar";
-            this.comboBoxAutoDevidePar.Size = new System.Drawing.Size(171, 26);
+            this.comboBoxAutoDevidePar.Size = new System.Drawing.Size(117, 26);
             this.comboBoxAutoDevidePar.TabIndex = 36;
             // 
             // buttonAutoDevide
@@ -1865,7 +1883,7 @@ namespace MyMentor
             this.buttonAutoDevide.Font = new System.Drawing.Font("Arial", 12F);
             this.buttonAutoDevide.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonAutoDevide.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonAutoDevide.Location = new System.Drawing.Point(20, 19);
+            this.buttonAutoDevide.Location = new System.Drawing.Point(6, 22);
             this.buttonAutoDevide.Name = "buttonAutoDevide";
             this.buttonAutoDevide.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.buttonAutoDevide.Size = new System.Drawing.Size(85, 42);
@@ -1899,7 +1917,7 @@ namespace MyMentor
             this.label24.Font = new System.Drawing.Font("Arial", 12F);
             this.label24.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label24.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label24.Location = new System.Drawing.Point(317, 34);
+            this.label24.Location = new System.Drawing.Point(457, 34);
             this.label24.Name = "label24";
             this.label24.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label24.Size = new System.Drawing.Size(75, 21);
@@ -1913,7 +1931,7 @@ namespace MyMentor
             this.label14.Font = new System.Drawing.Font("Arial", 12F);
             this.label14.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label14.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label14.Location = new System.Drawing.Point(605, 34);
+            this.label14.Location = new System.Drawing.Point(665, 32);
             this.label14.Name = "label14";
             this.label14.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label14.Size = new System.Drawing.Size(75, 21);
@@ -1927,7 +1945,7 @@ namespace MyMentor
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(3, 3);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(472, 74);
+            this.panel8.Size = new System.Drawing.Size(395, 74);
             this.panel8.TabIndex = 35;
             // 
             // groupBox10
@@ -1938,7 +1956,7 @@ namespace MyMentor
             this.groupBox10.Font = new System.Drawing.Font("Arial", 12F);
             this.groupBox10.Location = new System.Drawing.Point(0, 0);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(472, 74);
+            this.groupBox10.Size = new System.Drawing.Size(395, 74);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "טקסטים מוכנים";
@@ -1946,7 +1964,7 @@ namespace MyMentor
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(51, 34);
+            this.linkLabel1.Location = new System.Drawing.Point(15, 36);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(55, 18);
             this.linkLabel1.TabIndex = 1;
@@ -1957,7 +1975,7 @@ namespace MyMentor
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(101, 34);
+            this.label28.Location = new System.Drawing.Point(67, 36);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(311, 18);
             this.label28.TabIndex = 0;
@@ -2418,6 +2436,29 @@ namespace MyMentor
             this.groupBox3.Size = new System.Drawing.Size(984, 349);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Arial", 12F);
+            this.label13.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label13.Location = new System.Drawing.Point(897, 134);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(86, 18);
+            this.label13.TabIndex = 90;
+            this.label13.Text = "תיאור אנגלית";
+            // 
+            // tbClipDescriptionEnglish
+            // 
+            this.tbClipDescriptionEnglish.Font = new System.Drawing.Font("Arial", 12F);
+            this.tbClipDescriptionEnglish.Location = new System.Drawing.Point(719, 131);
+            this.tbClipDescriptionEnglish.Margin = new System.Windows.Forms.Padding(4);
+            this.tbClipDescriptionEnglish.Multiline = true;
+            this.tbClipDescriptionEnglish.Name = "tbClipDescriptionEnglish";
+            this.tbClipDescriptionEnglish.Size = new System.Drawing.Size(158, 45);
+            this.tbClipDescriptionEnglish.TabIndex = 91;
+            this.tbClipDescriptionEnglish.TextChanged += new System.EventHandler(this.tbClipDescriptionEnglish_TextChanged);
             // 
             // lblClipRemarksEnglish
             // 
@@ -3982,15 +4023,30 @@ namespace MyMentor
             this.timerFixRichText.Interval = 300;
             this.timerFixRichText.Tick += new System.EventHandler(this.timerFixRichText_Tick);
             // 
-            // toolStripButton11
+            // comboBoxAutoDevideWor
             // 
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
-            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton11.Name = "toolStripButton11";
-            this.toolStripButton11.Size = new System.Drawing.Size(23, 24);
-            this.toolStripButton11.Text = "גזור";
-            this.toolStripButton11.Click += new System.EventHandler(this.toolStripButton11_Click);
+            this.comboBoxAutoDevideWor.FormattingEnabled = true;
+            this.comboBoxAutoDevideWor.Items.AddRange(new object[] {
+            "",
+            "רווח"});
+            this.comboBoxAutoDevideWor.Location = new System.Drawing.Point(111, 31);
+            this.comboBoxAutoDevideWor.Name = "comboBoxAutoDevideWor";
+            this.comboBoxAutoDevideWor.Size = new System.Drawing.Size(126, 26);
+            this.comboBoxAutoDevideWor.TabIndex = 39;
+            // 
+            // label19
+            // 
+            this.label19.BackColor = System.Drawing.SystemColors.Control;
+            this.label19.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label19.Font = new System.Drawing.Font("Arial", 12F);
+            this.label19.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label19.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label19.Location = new System.Drawing.Point(244, 34);
+            this.label19.Name = "label19";
+            this.label19.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label19.Size = new System.Drawing.Size(75, 21);
+            this.label19.TabIndex = 38;
+            this.label19.Text = "סוף מילה";
             // 
             // sevenSegmentArray1
             // 
@@ -4018,29 +4074,6 @@ namespace MyMentor
             this.timePickerCurrentWord.TabIndex = 25;
             this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
             this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Arial", 12F);
-            this.label13.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label13.Location = new System.Drawing.Point(897, 134);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(86, 18);
-            this.label13.TabIndex = 90;
-            this.label13.Text = "תיאור אנגלית";
-            // 
-            // tbClipDescriptionEnglish
-            // 
-            this.tbClipDescriptionEnglish.Font = new System.Drawing.Font("Arial", 12F);
-            this.tbClipDescriptionEnglish.Location = new System.Drawing.Point(719, 131);
-            this.tbClipDescriptionEnglish.Margin = new System.Windows.Forms.Padding(4);
-            this.tbClipDescriptionEnglish.Multiline = true;
-            this.tbClipDescriptionEnglish.Name = "tbClipDescriptionEnglish";
-            this.tbClipDescriptionEnglish.Size = new System.Drawing.Size(158, 45);
-            this.tbClipDescriptionEnglish.TabIndex = 91;
-            this.tbClipDescriptionEnglish.TextChanged += new System.EventHandler(this.tbClipDescriptionEnglish_TextChanged);
             // 
             // FormMain
             // 
@@ -6206,6 +6239,7 @@ namespace MyMentor
 
             try
             {
+                m_strings = await ParseTables.GetStrings();
 
                 this.comboCategory1.DisplayMember = "Value";
                 this.comboCategory1.ValueMember = "ObjectId";
@@ -7641,18 +7675,13 @@ namespace MyMentor
         {
             var parDelimiters = comboBoxAutoDevidePar.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Trim()).ToList<string>();
             var senDelimiters = comboBoxAutoDevideSen.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Trim()).ToList<string>();
+            var worDelimiters = comboBoxAutoDevideWor.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Trim()).ToList<string>();
 
-            if (parDelimiters.Count() == 0 && senDelimiters.Count() == 0)
+            if (parDelimiters.Count() == 0 && senDelimiters.Count() == 0 && worDelimiters.Count() == 0)
             {
-                MessageBox.Show("יש לבחור לפחות אפשרות עוגן פסקה אחת או אפשרות עוגן משפט אחת", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show("יש לבחור לפחות אפשרות עוגן אחת", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 return;
             }
-
-            //if (senDelimiters.Count() == 0)
-            //{
-            //    MessageBox.Show("יש לבחור לפחות אפשרות עוגן משפט אחת", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-            //    return;
-            //}
 
             if (parDelimiters.Exists(a => a == "ENTER") && senDelimiters.Exists(a => a == "ENTER"))
             {
@@ -7674,7 +7703,7 @@ namespace MyMentor
                 RemoveAnchor(AnchorType.Sentence);
                 RemoveAnchor(AnchorType.Section);
                 RemoveAnchor(AnchorType.Word);
-
+                int anchors = 0;
                 int index = 0;
                 int enterKeys = 0;
                 int sentenses = 0;
@@ -7693,19 +7722,35 @@ namespace MyMentor
                     {
                         enterKeys++;
 
+                        if (parDelimiters.Exists(a => a == "ENTER") && charactersFromLastAnchor == 0 && anchors > 0)
+                        {
+                            //remove other anchor
+                            richTextBox2.SelectionStart = index - 4;
+                            richTextBox2.SelectionLength = 3;
+                            richTextBox2.SelectedText = "";
+
+                            AddAnchor(AnchorType.Paragraph, index - 4);
+                            anchors++;
+                            charactersFromLastAnchor = 0;
+                            index += 3;
+                            continue;
+                        }
+
                         if (parDelimiters.Exists(a => a == "ENTER") && charactersFromLastAnchor > 0)
                         {
                             AddAnchor(AnchorType.Paragraph, index - 1);
+                            anchors++;
                             charactersFromLastAnchor = 0;
-                            index += 4;
+                            index += 3;
                             continue;
                         }
 
                         if (parDelimiters.Exists(a => a == "שני ENTER") && enterKeys % 2 == 0 && charactersFromLastAnchor > 0)
                         {
                             AddAnchor(AnchorType.Paragraph, index - 1);
+                            anchors++;
                             charactersFromLastAnchor = 0;
-                            index += 4;
+                            index += 3;
                             continue;
                         }
 
@@ -7718,15 +7763,17 @@ namespace MyMentor
                                 (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
                             {
                                 AddAnchor(AnchorType.Paragraph, index - 1);
+                                anchors++;
                                 charactersFromLastAnchor = 0;
-                                index += 4;
+                                index += 3;
                                 sentenses = 0;
                                 continue;
                             }
 
                             AddAnchor(AnchorType.Sentence, index - 1);
+                            anchors++;
                             charactersFromLastAnchor = 0;
-                            index += 4;
+                            index += 3;
                             continue;
                         }
 
@@ -7739,15 +7786,17 @@ namespace MyMentor
                                 (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
                             {
                                 AddAnchor(AnchorType.Paragraph, index - 1);
+                                anchors++;
                                 charactersFromLastAnchor = 0;
-                                index += 4;
+                                index += 3;
                                 sentenses = 0;
                                 continue;
                             }
 
                             AddAnchor(AnchorType.Sentence, index - 1);
+                            anchors++;
                             charactersFromLastAnchor = 0;
-                            index += 4;
+                            index += 3;
                             continue;
                         }
                     }
@@ -7756,8 +7805,9 @@ namespace MyMentor
                     if (parDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0)
                     {
                         AddAnchor(AnchorType.Paragraph, index);
+                        anchors++;
                         charactersFromLastAnchor = 0;
-                        index += 4;
+                        index += 3;
                         continue;
                     }
 
@@ -7771,15 +7821,17 @@ namespace MyMentor
                             (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
                         {
                             AddAnchor(AnchorType.Paragraph, index);
+                            anchors++;
                             charactersFromLastAnchor = 0;
-                            index += 4;
+                            index += 3;
                             sentenses = 0;
                             continue;
                         }
 
                         AddAnchor(AnchorType.Sentence, index);
+                        anchors++;
                         charactersFromLastAnchor = 0;
-                        index += 4;
+                        index += 3;
                         continue;
                     }
 
@@ -7792,15 +7844,17 @@ namespace MyMentor
                             (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
                         {
                             AddAnchor(AnchorType.Paragraph, index);
+                            anchors++;
                             charactersFromLastAnchor = 0;
-                            index += 4;
+                            index += 3;
                             sentenses = 0;
                             continue;
                         }
 
                         AddAnchor(AnchorType.Sentence, index);
+                        anchors++;
                         charactersFromLastAnchor = 0;
-                        index += 4;
+                        index += 3;
                         continue;
                     }
 
@@ -7813,15 +7867,26 @@ namespace MyMentor
                             (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
                         {
                             AddAnchor(AnchorType.Paragraph, index);
+                            anchors++;
                             charactersFromLastAnchor = 0;
-                            index += 4;
+                            index += 3;
                             sentenses = 0;
                             continue;
                         }
 
                         AddAnchor(AnchorType.Sentence, index);
+                        anchors++;
                         charactersFromLastAnchor = 0;
-                        index += 4;
+                        index += 3;
+                        continue;
+                    }
+
+                    if (richTextBox2.SelectedText == " " && worDelimiters.Exists(a => a == "רווח") && charactersFromLastAnchor > 0)
+                    {
+                        AddAnchor(AnchorType.Word, index);
+                        anchors++;
+                        charactersFromLastAnchor = 0;
+                        index += 3;
                         continue;
                     }
 
@@ -8295,6 +8360,8 @@ namespace MyMentor
                     if (form.SelectedSource.Category1 != null)
                     {
                         comboCategory1.SelectedValue = form.SelectedSource.Category1.ObjectId;
+
+                        comboCategory1_SelectionChangeCommitted(null, new EventArgs());
                     }
 
                     if (form.SelectedSource.Category2 != null)
@@ -8308,6 +8375,9 @@ namespace MyMentor
                     }
 
                     tbClipDescription.Text = form.SelectedSource.Description;
+                    tbClipDescriptionEnglish.Text = form.SelectedSource.DescriptionEnglish;
+
+                    MessageBox.Show(m_strings.Single(a => a.Key == "STD_AFTER_SOURCE_SELECTION").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 }
             }
         }
@@ -8319,10 +8389,15 @@ namespace MyMentor
             // clip
             if (comboClipType.SelectedValue != null && (string)comboClipType.SelectedValue == "enaWrne5xe") //source
             {
+                groupBox4.Visible = false;
+                groupBox5.Visible = false;
+                groupBox6.Visible = false;
+                groupBox7.Visible = false;
+
                 lessonType = "0y8A4XTNeR"; //source
 
-                tbClipDescription.Visible = false;
-                lblDescription.Visible = false;
+                //tbClipDescription.Visible = false;
+                //lblDescription.Visible = false;
 
                 dateTimeExpired.Enabled = false;
                 dateTimeExpired.Checked = false;
@@ -8351,14 +8426,19 @@ namespace MyMentor
             }
             else
             {
+                groupBox4.Visible = true;
+                groupBox5.Visible = true;
+                groupBox6.Visible = true;
+                groupBox7.Visible = true;
+
                 dateTimeExpired.Enabled = true;
                 dateTimeExpired.Visible = true;
                 btnAddDate.Visible = true;
                 btnRemoveDate.Visible = true;
                 listBoxDates.Visible = true;
 
-                tbClipDescription.Visible = true;
-                lblDescription.Visible = true;
+                //tbClipDescription.Visible = true;
+                //lblDescription.Visible = true;
                 numericPrice.Enabled = true;
                 lblPrice.Visible = true;
                 numericPrice.Visible = true;
@@ -8730,6 +8810,7 @@ namespace MyMentor
 
         }
 
+ 
     }
 
     public struct SectionMatch

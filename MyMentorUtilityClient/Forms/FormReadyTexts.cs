@@ -52,6 +52,7 @@ namespace MyMentor
         {
             btnSearch.Enabled = false;
             button2.Enabled = false;
+            listView1.Items.Clear();
 
             // The following queries are equivalent:
             //var query = from clip in ParseObject.GetQuery("ClipsV2")
@@ -88,9 +89,8 @@ namespace MyMentor
 
             var result = await query1.FindAsync();
 
-            if (result != null)
+            if (result != null && result.Count() > 0)
             {
-                listView1.Items.Clear();
                 int counter = 0;
 
                 m_result = new List<ClipText>(result.Select(a => new ClipText
@@ -103,6 +103,7 @@ namespace MyMentor
                     Category2 = a.Get<ParseObject>("category2"),
                     Category3 = a.Get<ParseObject>("category3"),
                     Description = a.Get<string>("description"),
+                    DescriptionEnglish = a.ContainsKey("descriptionEnglish") ? a.Get<string>("descriptionEnglish") : string.Empty,
                     Status = a.Get<ParseObject>("status").FetchIfNeededAsync().Result
                 }));
 
@@ -115,7 +116,7 @@ namespace MyMentor
             }
             else
             {
-                MessageBox.Show("לא קיים מקור המתאים לתוצאות החיפוש", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show("לא קיים מקור המתאים לקריטריוני החיפוש", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
 
             btnSearch.Enabled = true;
@@ -205,6 +206,7 @@ namespace MyMentor
         public ParseObject Category2 { get; set; }
         public ParseObject Category3 { get; set; }
         public string Description { get; set; }
+        public string DescriptionEnglish { get; set; }
         public ParseObject Status { get; set; }
     }
 }

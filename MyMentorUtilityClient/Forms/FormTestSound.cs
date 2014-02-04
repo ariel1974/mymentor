@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using System.Data;
 
 using AudioSoundRecorder;
+using System.Reflection;
+using System.IO;
 
 namespace MyMentor
 {
@@ -43,6 +45,8 @@ namespace MyMentor
         private Label label1;
         private TrackBar trackBar1;
         private Timer timer2;
+        private Button buttonPlayAudio;
+        private AudioSoundEditor.AudioSoundEditor audioSoundEditor1;
 		private IntPtr	m_hWndVuMeterRight;
 
 		public FormTestSound()
@@ -83,9 +87,14 @@ namespace MyMentor
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTestSound));
             this.audioSoundRecorder1 = new AudioSoundRecorder.AudioSoundRecorder();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label30 = new System.Windows.Forms.Label();
             this.trackBarVolume1 = new System.Windows.Forms.TrackBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonPlayAudio = new System.Windows.Forms.Button();
             this.comboInputChannels = new System.Windows.Forms.ComboBox();
             this.comboInputDevices = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -98,20 +107,18 @@ namespace MyMentor
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.audioSoundEditor1 = new AudioSoundEditor.AudioSoundEditor();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // audioSoundRecorder1
             // 
+            resources.ApplyResources(this.audioSoundRecorder1, "audioSoundRecorder1");
             this.audioSoundRecorder1.EncodeAacCustomString = null;
             this.audioSoundRecorder1.EncodeAacMode = AudioSoundRecorder.enumAacEncodeModes.AAC_ENCODE_VBR_QUALITY;
             this.audioSoundRecorder1.EncodeAacQuality = 0F;
@@ -134,11 +141,8 @@ namespace MyMentor
             this.audioSoundRecorder1.EncodeWmaCBR = -1;
             this.audioSoundRecorder1.EncodeWmaMode = AudioSoundRecorder.enumWmaEncodeModes.WMA_ENCODE_VBR_QUALITY;
             this.audioSoundRecorder1.EncodeWmaVBRQuality = 100;
-            this.audioSoundRecorder1.Location = new System.Drawing.Point(10, -17);
             this.audioSoundRecorder1.Name = "audioSoundRecorder1";
             this.audioSoundRecorder1.SilenceThreshold = ((short)(0));
-            this.audioSoundRecorder1.Size = new System.Drawing.Size(48, 48);
-            this.audioSoundRecorder1.TabIndex = 0;
             this.audioSoundRecorder1.RecordingStarted += new AudioSoundRecorder.AudioSoundRecorder.EventHandler(this.audioSoundRecorder1_RecordingStarted);
             this.audioSoundRecorder1.RecordingStopped += new AudioSoundRecorder.AudioSoundRecorder.RecordingStoppedEventHandler(this.audioSoundRecorder1_RecordingStopped);
             this.audioSoundRecorder1.RecordingSize += new AudioSoundRecorder.AudioSoundRecorder.RecordingSizeEventHandler(this.audioSoundRecorder1_RecordingSize);
@@ -149,124 +153,120 @@ namespace MyMentor
             // 
             // groupBox2
             // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.pictureBox2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.trackBar1);
             this.groupBox2.Controls.Add(this.label30);
             this.groupBox2.Controls.Add(this.trackBarVolume1);
-            this.groupBox2.Location = new System.Drawing.Point(343, 76);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(272, 254);
-            this.groupBox2.TabIndex = 73;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "הקלטה";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // pictureBox2
+            // 
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
+            this.pictureBox2.Image = global::MyMentor.Properties.Resources._1388144426_arrow_sans_right;
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.TabStop = false;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // trackBar1
+            // 
+            resources.ApplyResources(this.trackBar1, "trackBar1");
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.TickFrequency = 10;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // label30
             // 
-            this.label30.Location = new System.Drawing.Point(6, 103);
+            resources.ApplyResources(this.label30, "label30");
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(93, 18);
-            this.label30.TabIndex = 74;
-            this.label30.Text = "עוצמת שמע";
-            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // trackBarVolume1
             // 
-            this.trackBarVolume1.Location = new System.Drawing.Point(32, 126);
+            resources.ApplyResources(this.trackBarVolume1, "trackBarVolume1");
             this.trackBarVolume1.Maximum = 100;
             this.trackBarVolume1.Name = "trackBarVolume1";
-            this.trackBarVolume1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarVolume1.Size = new System.Drawing.Size(45, 112);
-            this.trackBarVolume1.TabIndex = 73;
             this.trackBarVolume1.TickFrequency = 10;
             this.trackBarVolume1.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarVolume1.Scroll += new System.EventHandler(this.trackBarVolume1_Scroll);
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.buttonPlayAudio);
             this.groupBox1.Controls.Add(this.comboInputChannels);
             this.groupBox1.Controls.Add(this.comboInputDevices);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.buttonStartRecording);
-            this.groupBox1.Location = new System.Drawing.Point(25, 76);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(272, 254);
-            this.groupBox1.TabIndex = 70;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "הגדרות התקני קלט";
+            // 
+            // buttonPlayAudio
+            // 
+            resources.ApplyResources(this.buttonPlayAudio, "buttonPlayAudio");
+            this.buttonPlayAudio.Name = "buttonPlayAudio";
+            this.buttonPlayAudio.Click += new System.EventHandler(this.buttonPlayAudio_Click);
             // 
             // comboInputChannels
             // 
+            resources.ApplyResources(this.comboInputChannels, "comboInputChannels");
             this.comboInputChannels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboInputChannels.Location = new System.Drawing.Point(9, 130);
             this.comboInputChannels.Name = "comboInputChannels";
-            this.comboInputChannels.Size = new System.Drawing.Size(248, 26);
-            this.comboInputChannels.TabIndex = 3;
             this.comboInputChannels.SelectedIndexChanged += new System.EventHandler(this.comboInputChannels_SelectedIndexChanged);
             // 
             // comboInputDevices
             // 
+            resources.ApplyResources(this.comboInputDevices, "comboInputDevices");
             this.comboInputDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboInputDevices.Location = new System.Drawing.Point(9, 61);
             this.comboInputDevices.Name = "comboInputDevices";
-            this.comboInputDevices.Size = new System.Drawing.Size(248, 26);
-            this.comboInputDevices.TabIndex = 2;
             this.comboInputDevices.SelectedIndexChanged += new System.EventHandler(this.comboInputDevices_SelectedIndexChanged);
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(9, 103);
+            resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(248, 28);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "ערוצי שמע להתקני קלט נבחר";
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(9, 38);
+            resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(248, 20);
-            this.label11.TabIndex = 0;
-            this.label11.Text = " התקני קלט זמינים";
             // 
             // buttonStartRecording
             // 
-            this.buttonStartRecording.Location = new System.Drawing.Point(172, 171);
+            resources.ApplyResources(this.buttonStartRecording, "buttonStartRecording");
             this.buttonStartRecording.Name = "buttonStartRecording";
-            this.buttonStartRecording.Size = new System.Drawing.Size(85, 67);
-            this.buttonStartRecording.TabIndex = 71;
-            this.buttonStartRecording.Text = "התחל הקלטה";
             this.buttonStartRecording.Click += new System.EventHandler(this.buttonStartRecording_Click);
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(22, 9);
+            resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(512, 50);
-            this.label10.TabIndex = 69;
-            this.label10.Text = "שלום רב ! במסך זה אנחנו נבדוק את התקני השמע המותקנים במחשב זה ע\"י נסיון הקלטה קצר" +
-    "ה של 5 שניות והשמעתה מיד.";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelVuMeterRight
             // 
+            resources.ApplyResources(this.labelVuMeterRight, "labelVuMeterRight");
             this.labelVuMeterRight.BackColor = System.Drawing.Color.Black;
-            this.labelVuMeterRight.Location = new System.Drawing.Point(321, 79);
             this.labelVuMeterRight.Name = "labelVuMeterRight";
-            this.labelVuMeterRight.Size = new System.Drawing.Size(16, 251);
-            this.labelVuMeterRight.TabIndex = 82;
-            this.labelVuMeterRight.Visible = false;
             // 
             // labelVuMeterLeft
             // 
+            resources.ApplyResources(this.labelVuMeterLeft, "labelVuMeterLeft");
             this.labelVuMeterLeft.BackColor = System.Drawing.Color.Black;
-            this.labelVuMeterLeft.Location = new System.Drawing.Point(305, 79);
             this.labelVuMeterLeft.Name = "labelVuMeterLeft";
-            this.labelVuMeterLeft.Size = new System.Drawing.Size(16, 251);
-            this.labelVuMeterLeft.TabIndex = 81;
-            this.labelVuMeterLeft.Visible = false;
             // 
             // timer1
             // 
@@ -275,74 +275,23 @@ namespace MyMentor
             // 
             // button1
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(450, 339);
+            resources.ApplyResources(this.button1, "button1");
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(164, 40);
-            this.button1.TabIndex = 72;
-            this.button1.Text = "הכל בסדר, בוא נמשיך";
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(380, 339);
+            resources.ApplyResources(this.button2, "button2");
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(64, 40);
-            this.button2.TabIndex = 83;
-            this.button2.Text = "דלג ";
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // checkBox1
             // 
-            this.checkBox1.AutoSize = true;
+            resources.ApplyResources(this.checkBox1, "checkBox1");
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(25, 349);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(276, 22);
-            this.checkBox1.TabIndex = 84;
-            this.checkBox1.Text = "להבא אל תציג מסך זה בפתיחת המערכת";
             this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(114, 103);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 18);
-            this.label1.TabIndex = 76;
-            this.label1.Text = "עוצמת הקלטה";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(149, 126);
-            this.trackBar1.Maximum = 100;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(45, 112);
-            this.trackBar1.TabIndex = 75;
-            this.trackBar1.TickFrequency = 10;
-            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::MyMentor.Properties.Resources._1388144426_arrow_sans_right;
-            this.pictureBox2.Location = new System.Drawing.Point(238, 136);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 78;
-            this.pictureBox2.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(81, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(171, 65);
-            this.label2.TabIndex = 79;
-            this.label2.Text = "מומלץ להגיע למצב שבו הנך נמצא באיזור החץ גם במצב הקלטה וגם במצב נגינה";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // timer2
             // 
@@ -350,10 +299,16 @@ namespace MyMentor
             this.timer2.Interval = 200;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // audioSoundEditor1
+            // 
+            resources.ApplyResources(this.audioSoundEditor1, "audioSoundEditor1");
+            this.audioSoundEditor1.Name = "audioSoundEditor1";
+            this.audioSoundEditor1.SoundPlaybackDone += new AudioSoundEditor.AudioSoundEditor.EventHandler(this.audioSoundEditor1_SoundPlaybackDone);
+            // 
             // FormTestSound
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(8, 19);
-            this.ClientSize = new System.Drawing.Size(628, 387);
+            resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.audioSoundEditor1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -363,25 +318,19 @@ namespace MyMentor
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.audioSoundRecorder1);
-            this.Font = new System.Drawing.Font("Arial", 12F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormTestSound";
-            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RightToLeftLayout = true;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "בדיקת הקלטה";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormTestSound_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -426,7 +375,8 @@ namespace MyMentor
 
 		private void Form1_Load(object sender, System.EventArgs e)
 		{
-			Int16	nInputDevices = audioSoundRecorder1.GetInputDevicesCount();
+
+            Int16 nInputDevices = audioSoundRecorder1.GetInputDevicesCount();
 			if (nInputDevices == 0)
 			{
 				MessageBox.Show ("No input device detected and/or connected: the program will now close. Please, try to plug a microphone into the sound card or an external audio device into the Line-In before launching again the program.");
@@ -434,8 +384,10 @@ namespace MyMentor
 			}
 			// init the control
 			audioSoundRecorder1.InitRecordingSystem ();
+            audioSoundEditor1.InitEditor();
+            audioSoundEditor1.EnableSoundPreloadForPlayback(true);
 
-			// list the available input devices
+            // list the available input devices
 			for (Int16 i = 0; i < nInputDevices; i++)
 			{
 				string	strInputDevice = audioSoundRecorder1.GetInputDeviceDesc(i);
@@ -443,8 +395,9 @@ namespace MyMentor
 			}
             trackBarVolume1.Value = 100;
             audioSoundRecorder1.EncodeFormats = new EncodeFormatsMan();
-            audioSoundRecorder1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_PRESETS;
-            audioSoundRecorder1.EncodeFormats.MP3.Preset = enumMp3EncodePresets.MP3_PRESET_STANDARD;
+            audioSoundRecorder1.EncodeFormats.ForRecording = enumEncodingFormats.ENCODING_FORMAT_NOFILE;
+            //audioSoundRecorder1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_PRESETS;
+            //audioSoundRecorder1.EncodeFormats.MP3.Preset = enumMp3EncodePresets.MP3_PRESET_STANDARD;
 
 			// select the actual system default input device
 			m_nCurrInputDevice = 0;
@@ -459,6 +412,22 @@ namespace MyMentor
 			// create some fancy VU-Meter
 			m_hWndVuMeterLeft = CreateVuMeter(labelVuMeterLeft);
 			m_hWndVuMeterRight = CreateVuMeter(labelVuMeterRight);		
+
+            audioSoundEditor1.SetLoadingMode(AudioSoundEditor.enumLoadingModes.LOAD_MODE_NEW);
+
+            string song_sample = "sound_sample.mp3";
+            string song_sample_full_path = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), song_sample);
+            audioSoundEditor1.CloseSound();
+
+            var load = audioSoundEditor1.LoadSound(song_sample_full_path);
+
+            if (load != AudioSoundEditor.enumErrorCodes.ERR_NOERROR)
+                MessageBox.Show("Cannot load file " + song_sample);
+
+            enumErrorCodes nResult = audioSoundRecorder1.StartFromDirectSoundDevice(m_nCurrInputDevice, m_nCurrInputChannel, "");
+            if (nResult != enumErrorCodes.ERR_NOERROR)
+                MessageBox.Show(string.Format("{0} Cannot start recording: probably a parameter is not compatible with the current resample format", nResult.ToString()));
+
 		}
 
 		private void comboInputDevices_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -487,9 +456,17 @@ namespace MyMentor
 		private void buttonStartRecording_Click(object sender, System.EventArgs e)
 		{
             timer1.Enabled = true;
+            buttonPlayAudio.Enabled = false;
+            buttonStartRecording.Enabled = false;
+
+            audioSoundRecorder1.Stop();
+
             // use custom resampling format 44100 Hz Stereo
 			//audioSoundRecorder1.EncodeFormats.ResampleMode = enumResampleModes.RESAMPLE_MODE_NATIVE_FORMAT;
-		    
+            audioSoundRecorder1.EncodeFormats = new EncodeFormatsMan();
+            //audioSoundRecorder1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_PRESETS;
+            //audioSoundRecorder1.EncodeFormats.MP3.Preset = enumMp3EncodePresets.MP3_PRESET_STANDARD;
+
 			// start recording session
 			enumErrorCodes	nResult = audioSoundRecorder1.StartFromDirectSoundDevice(m_nCurrInputDevice, m_nCurrInputChannel, "");
 			if (nResult != enumErrorCodes.ERR_NOERROR)
@@ -542,10 +519,11 @@ namespace MyMentor
         private void trackBarVolume1_Scroll(object sender, EventArgs e)
         {
             audioSoundRecorder1.OutputVolumeSet((short)trackBarVolume1.Value, enumVolumeScales.SCALE_LINEAR);
+            audioSoundEditor1.OutputVolumeSet((float)trackBarVolume1.Value, AudioSoundEditor.enumVolumeScales.SCALE_LINEAR);
 
         }
 
-        private void audioSoundRecorder1_SoundUploadDone(object sender, SoundUploadDoneEventArgs e)
+        private void audioSoundRecorder1_SoundUploadDone(object sender, AudioSoundRecorder.SoundUploadDoneEventArgs e)
         {
             buttonStartRecording.Enabled = true ;
 
@@ -555,6 +533,14 @@ namespace MyMentor
         {
             buttonStartRecording.Enabled = true;
             button1.Enabled = true;
+            buttonPlayAudio.Enabled = true;
+
+            audioSoundRecorder1.EncodeFormats = new EncodeFormatsMan();
+            audioSoundRecorder1.EncodeFormats.ForRecording = enumEncodingFormats.ENCODING_FORMAT_NOFILE;
+            enumErrorCodes nResult = audioSoundRecorder1.StartFromDirectSoundDevice(m_nCurrInputDevice, m_nCurrInputChannel, "");
+            if (nResult != enumErrorCodes.ERR_NOERROR)
+                MessageBox.Show(string.Format("{0} Cannot start recording: probably a parameter is not compatible with the current resample format", nResult.ToString()));
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -588,6 +574,21 @@ namespace MyMentor
                 trackBar1.Value = fCurrVolume;
             else
                 trackBar1.Value = 0;
+
+        }
+
+        private void buttonPlayAudio_Click(object sender, EventArgs e)
+        {
+                buttonStartRecording.Enabled = false;
+                buttonPlayAudio.Enabled = false;
+                var error = audioSoundEditor1.PlaySound();
+            
+        }
+
+        private void audioSoundEditor1_SoundPlaybackDone(object sender, EventArgs e)
+        {
+            buttonStartRecording.Enabled = true;
+            buttonPlayAudio.Enabled = true;
 
         }
 

@@ -117,76 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CLIP_FILE_FORMAT_ERROR" xml:space="preserve">
-    <value>Clip file format error</value>
-  </data>
-  <data name="CLIP_SAVED_SUCCESSFULLY" xml:space="preserve">
-    <value>Clip saved successfully !</value>
-  </data>
-  <data name="CONTINUE" xml:space="preserve">
-    <value>Continue</value>
-  </data>
-  <data name="END_PAUSE_SECTION_ANCHOR" xml:space="preserve">
-    <value>[END]</value>
-  </data>
-  <data name="ENGLISH_CHANGE_LANGUAGE" xml:space="preserve">
-    <value>You have to restart MyMentor to apply changes</value>
-  </data>
-  <data name="EXIT_CONFIRM" xml:space="preserve">
-    <value>Are you sure to quit ? clip has changed since last save</value>
-  </data>
-  <data name="EXPIRED_DATE_ERROR" xml:space="preserve">
-    <value>Expired date must be bigger then today</value>
-  </data>
-  <data name="FINGERPRINT_ERROR" xml:space="preserve">
-    <value>This clip created by other user, please make sure you editing just your created clips.</value>
-  </data>
-  <data name="HEBREW_CHANGE_LANGUAGE" xml:space="preserve">
-    <value>יש לצאת ולהכנס מהמערכת על מנת להחיל את השינויים</value>
-  </data>
-  <data name="LOGIN_AS" xml:space="preserve">
-    <value>Logged in as </value>
-  </data>
-  <data name="LOGIN_OTHER_USER" xml:space="preserve">
-    <value>Restart MyMentor is required to enter as other user</value>
-  </data>
-  <data name="MANDATORY_FIELDS" xml:space="preserve">
-    <value>You have to fill in all mandatory fields</value>
-  </data>
-  <data name="MIN_PRICE" xml:space="preserve">
-    <value>min. price</value>
-  </data>
-  <data name="MIN_PRICE_ERROR" xml:space="preserve">
-    <value>Price has to be bigger than minimum</value>
-  </data>
-  <data name="MNU_PASTE" xml:space="preserve">
-    <value>Paste</value>
-  </data>
-  <data name="MNU_PASTE_APPEND_MODE" xml:space="preserve">
-    <value>Paste in append mode</value>
-  </data>
-  <data name="NO_AUDIO_EXISTS" xml:space="preserve">
-    <value>No audio recording exists</value>
-  </data>
-  <data name="OVERWRITE_AUDIO_CONFIRM" xml:space="preserve">
-    <value>There is a recorded clip in memory. Are you sure to overwrite it ?</value>
-  </data>
-  <data name="PAUSE" xml:space="preserve">
-    <value>Pause</value>
-  </data>
-  <data name="REMOVE_SCHEDULING_CONFIRM" xml:space="preserve">
-    <value>Are you sure to remove all scheduling for this clip ?</value>
-  </data>
-  <data name="START" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="START_PAUSE_SECTION_ANCHOR" xml:space="preserve">
-    <value>[START]</value>
-  </data>
-  <data name="STOP" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="UNTITLED_CLIP" xml:space="preserve">
-    <value>Untitled clip</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>שלום</value>
   </data>
 </root>

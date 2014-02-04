@@ -117,76 +117,66 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CLIP_FILE_FORMAT_ERROR" xml:space="preserve">
-    <value>Clip file format error</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 203</value>
   </data>
-  <data name="CLIP_SAVED_SUCCESSFULLY" xml:space="preserve">
-    <value>Clip saved successfully !</value>
+  <data name="button1.Text" xml:space="preserve">
+    <value>Login</value>
   </data>
-  <data name="CONTINUE" xml:space="preserve">
-    <value>Continue</value>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>130, 41</value>
   </data>
-  <data name="END_PAUSE_SECTION_ANCHOR" xml:space="preserve">
-    <value>[END]</value>
+  <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>130, 85</value>
   </data>
-  <data name="ENGLISH_CHANGE_LANGUAGE" xml:space="preserve">
-    <value>You have to restart MyMentor to apply changes</value>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 44</value>
   </data>
-  <data name="EXIT_CONFIRM" xml:space="preserve">
-    <value>Are you sure to quit ? clip has changed since last save</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 18</value>
   </data>
-  <data name="EXPIRED_DATE_ERROR" xml:space="preserve">
-    <value>Expired date must be bigger then today</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Login name</value>
   </data>
-  <data name="FINGERPRINT_ERROR" xml:space="preserve">
-    <value>This clip created by other user, please make sure you editing just your created clips.</value>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 85</value>
   </data>
-  <data name="HEBREW_CHANGE_LANGUAGE" xml:space="preserve">
-    <value>יש לצאת ולהכנס מהמערכת על מנת להחיל את השינויים</value>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 18</value>
   </data>
-  <data name="LOGIN_AS" xml:space="preserve">
-    <value>Logged in as </value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Password</value>
   </data>
-  <data name="LOGIN_OTHER_USER" xml:space="preserve">
-    <value>Restart MyMentor is required to enter as other user</value>
+  <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>336, 203</value>
   </data>
-  <data name="MANDATORY_FIELDS" xml:space="preserve">
-    <value>You have to fill in all mandatory fields</value>
+  <data name="button2.Text" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="MIN_PRICE" xml:space="preserve">
-    <value>min. price</value>
+  <data name="linkLabel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>189, 127</value>
   </data>
-  <data name="MIN_PRICE_ERROR" xml:space="preserve">
-    <value>Price has to be bigger than minimum</value>
+  <data name="linkLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 18</value>
   </data>
-  <data name="MNU_PASTE" xml:space="preserve">
-    <value>Paste</value>
+  <data name="linkLabel1.Text" xml:space="preserve">
+    <value>Forgot password</value>
   </data>
-  <data name="MNU_PASTE_APPEND_MODE" xml:space="preserve">
-    <value>Paste in append mode</value>
+  <data name="linkLabel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>189, 154</value>
   </data>
-  <data name="NO_AUDIO_EXISTS" xml:space="preserve">
-    <value>No audio recording exists</value>
+  <data name="linkLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 18</value>
   </data>
-  <data name="OVERWRITE_AUDIO_CONFIRM" xml:space="preserve">
-    <value>There is a recorded clip in memory. Are you sure to overwrite it ?</value>
+  <data name="linkLabel2.Text" xml:space="preserve">
+    <value>Sign up as new member</value>
   </data>
-  <data name="PAUSE" xml:space="preserve">
-    <value>Pause</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Inherit</value>
   </data>
-  <data name="REMOVE_SCHEDULING_CONFIRM" xml:space="preserve">
-    <value>Are you sure to remove all scheduling for this clip ?</value>
-  </data>
-  <data name="START" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="START_PAUSE_SECTION_ANCHOR" xml:space="preserve">
-    <value>[START]</value>
-  </data>
-  <data name="STOP" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="UNTITLED_CLIP" xml:space="preserve">
-    <value>Untitled clip</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Login</value>
   </data>
 </root>

@@ -61,47 +61,218 @@ namespace MyMentor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to קובץ.
+        ///   Looks up a localized string similar to קובץ שיעור אינו תקין.
         /// </summary>
-        internal static string mnuFile {
+        internal static string CLIP_FILE_FORMAT_ERROR {
             get {
-                return ResourceManager.GetString("mnuFile", resourceCulture);
+                return ResourceManager.GetString("CLIP_FILE_FORMAT_ERROR", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1 - טקסט.
+        ///   Looks up a localized string similar to השיעור נשמר בהצלחה !.
         /// </summary>
-        internal static string tabControl1_tab0 {
+        internal static string CLIP_SAVED_SUCCESSFULLY {
             get {
-                return ResourceManager.GetString("tabControl1.tab0", resourceCulture);
+                return ResourceManager.GetString("CLIP_SAVED_SUCCESSFULLY", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2 - הקלטה.
+        ///   Looks up a localized string similar to המשך.
         /// </summary>
-        internal static string tabControl1_tab1 {
+        internal static string CONTINUE {
             get {
-                return ResourceManager.GetString("tabControl1.tab1", resourceCulture);
+                return ResourceManager.GetString("CONTINUE", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 3 - תזמון.
+        ///   Looks up a localized string similar to [סוף].
         /// </summary>
-        internal static string tabControl1_tab2 {
+        internal static string END_PAUSE_SECTION_ANCHOR {
             get {
-                return ResourceManager.GetString("tabControl1.tab2", resourceCulture);
+                return ResourceManager.GetString("END_PAUSE_SECTION_ANCHOR", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 4 - פרסום.
+        ///   Looks up a localized string similar to You have to restart MyMentor to apply changes.
         /// </summary>
-        internal static string tabControl1_tab3 {
+        internal static string ENGLISH_CHANGE_LANGUAGE {
             get {
-                return ResourceManager.GetString("tabControl1.tab3", resourceCulture);
+                return ResourceManager.GetString("ENGLISH_CHANGE_LANGUAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to השיעור לא נשמר מהשינויים האחרונים. האם אתה בטוח לצאת?.
+        /// </summary>
+        internal static string EXIT_CONFIRM {
+            get {
+                return ResourceManager.GetString("EXIT_CONFIRM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to תאריך תפוגה חייב להיות גדול מהיום.
+        /// </summary>
+        internal static string EXPIRED_DATE_ERROR {
+            get {
+                return ResourceManager.GetString("EXPIRED_DATE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to שיעור זה נוצר ע&apos;&apos;י משתמש אחר, לפי תנאי השימוש לא ניתן לערוך או לצפות בסטודיו בשיעורים שנוצרו על ידי משתמש אחר.
+        /// </summary>
+        internal static string FINGERPRINT_ERROR {
+            get {
+                return ResourceManager.GetString("FINGERPRINT_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to יש לצאת ולהכנס מהמערכת על מנת להחיל את השינויים.
+        /// </summary>
+        internal static string HEBREW_CHANGE_LANGUAGE {
+            get {
+                return ResourceManager.GetString("HEBREW_CHANGE_LANGUAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to הנך מחובר כ -.
+        /// </summary>
+        internal static string LOGIN_AS {
+            get {
+                return ResourceManager.GetString("LOGIN_AS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to יש להכנס מחדש למערכת אחרי הפעלה מחודשת.
+        /// </summary>
+        internal static string LOGIN_OTHER_USER {
+            get {
+                return ResourceManager.GetString("LOGIN_OTHER_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to יש למלא שדות חובה למאפייני השיעור.
+        /// </summary>
+        internal static string MANDATORY_FIELDS {
+            get {
+                return ResourceManager.GetString("MANDATORY_FIELDS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to מחיר מינ&apos;.
+        /// </summary>
+        internal static string MIN_PRICE {
+            get {
+                return ResourceManager.GetString("MIN_PRICE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to מחיר השיעור קטן מהמינימום המותר לסוג זה.
+        /// </summary>
+        internal static string MIN_PRICE_ERROR {
+            get {
+                return ResourceManager.GetString("MIN_PRICE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to הדבק.
+        /// </summary>
+        internal static string MNU_PASTE {
+            get {
+                return ResourceManager.GetString("MNU_PASTE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to הדבק במצב הוספה.
+        /// </summary>
+        internal static string MNU_PASTE_APPEND_MODE {
+            get {
+                return ResourceManager.GetString("MNU_PASTE_APPEND_MODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to לא קיימת הקלטה לביצוע תזמון.
+        /// </summary>
+        internal static string NO_AUDIO_EXISTS {
+            get {
+                return ResourceManager.GetString("NO_AUDIO_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to קיים קובץ שמע בזיכרון, האם בכל זאת ליצור חדש ?.
+        /// </summary>
+        internal static string OVERWRITE_AUDIO_CONFIRM {
+            get {
+                return ResourceManager.GetString("OVERWRITE_AUDIO_CONFIRM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to השהה.
+        /// </summary>
+        internal static string PAUSE {
+            get {
+                return ResourceManager.GetString("PAUSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to האם אתה בטוח להסיר את התזמונים לשיעור זה ?.
+        /// </summary>
+        internal static string REMOVE_SCHEDULING_CONFIRM {
+            get {
+                return ResourceManager.GetString("REMOVE_SCHEDULING_CONFIRM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to התחל.
+        /// </summary>
+        internal static string START {
+            get {
+                return ResourceManager.GetString("START", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [התחלה].
+        /// </summary>
+        internal static string START_PAUSE_SECTION_ANCHOR {
+            get {
+                return ResourceManager.GetString("START_PAUSE_SECTION_ANCHOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to עצור.
+        /// </summary>
+        internal static string STOP {
+            get {
+                return ResourceManager.GetString("STOP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to שיעור ללא שם.
+        /// </summary>
+        internal static string UNTITLED_CLIP {
+            get {
+                return ResourceManager.GetString("UNTITLED_CLIP", resourceCulture);
             }
         }
     }

@@ -81,7 +81,7 @@ namespace MyMentor
             //get category 1
             var query = await (from cat in ParseObject.GetQuery("Strings")
                                where
-                               cat.Get<string>("culture") == MyMentor.Properties.Settings.Default.CultureInfo
+                               cat.Get<string>("code") != null
                                select cat).FindAsync();
 
             // Stop timing
@@ -91,7 +91,7 @@ namespace MyMentor
             Debug.WriteLine("Time elapsed Strings: {0}",
                 stopwatch.Elapsed);
 
-            return query.Select(s => new KeyValuePair<string, string>(s.Get<string>("code"), s.Get<string>("value")));
+            return query.Select(s => new KeyValuePair<string, string>(s.Get<string>("code"), s.Get<string>(MyMentor.Properties.Settings.Default.CultureInfo.Replace("-","_"))));
         }
 
         public static async Task<IEnumerable<ParseObject>> GetCategory3(string contentType, string lessonType)

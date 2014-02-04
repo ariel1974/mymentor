@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using BrendanGrant.Helpers.FileAssociation;
 using Microsoft.Win32;
 using MyMentor;
+using MyMentor.Forms;
 using MyMentor.ParseObjects;
 using Parse;
 
@@ -73,7 +74,8 @@ namespace MyMentor
                 file = args[0];
             }
 
-            Application.Run(new FormMain(file));
+            Application.Run(new FormStudio(file));
+            //Application.Run(new FormMain(file));
         }
     }
 }

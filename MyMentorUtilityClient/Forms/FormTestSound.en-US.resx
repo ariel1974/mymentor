@@ -117,76 +117,113 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CLIP_FILE_FORMAT_ERROR" xml:space="preserve">
-    <value>Clip file format error</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 22</value>
   </data>
-  <data name="CLIP_SAVED_SUCCESSFULLY" xml:space="preserve">
-    <value>Clip saved successfully !</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>We suggest that the max audio threshold fits the black triangle sign</value>
   </data>
-  <data name="CONTINUE" xml:space="preserve">
-    <value>Continue</value>
+  <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 140</value>
   </data>
-  <data name="END_PAUSE_SECTION_ANCHOR" xml:space="preserve">
-    <value>[END]</value>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>128, 103</value>
   </data>
-  <data name="ENGLISH_CHANGE_LANGUAGE" xml:space="preserve">
-    <value>You have to restart MyMentor to apply changes</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 18</value>
   </data>
-  <data name="EXIT_CONFIRM" xml:space="preserve">
-    <value>Are you sure to quit ? clip has changed since last save</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Recording level</value>
   </data>
-  <data name="EXPIRED_DATE_ERROR" xml:space="preserve">
-    <value>Expired date must be bigger then today</value>
+  <data name="trackBar1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>187, 126</value>
   </data>
-  <data name="FINGERPRINT_ERROR" xml:space="preserve">
-    <value>This clip created by other user, please make sure you editing just your created clips.</value>
+  <data name="label30.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 103</value>
   </data>
-  <data name="HEBREW_CHANGE_LANGUAGE" xml:space="preserve">
-    <value>יש לצאת ולהכנס מהמערכת על מנת להחיל את השינויים</value>
+  <data name="label30.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 18</value>
   </data>
-  <data name="LOGIN_AS" xml:space="preserve">
-    <value>Logged in as </value>
+  <data name="label30.Text" xml:space="preserve">
+    <value>Volume level</value>
   </data>
-  <data name="LOGIN_OTHER_USER" xml:space="preserve">
-    <value>Restart MyMentor is required to enter as other user</value>
+  <data name="trackBarVolume1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>56, 126</value>
   </data>
-  <data name="MANDATORY_FIELDS" xml:space="preserve">
-    <value>You have to fill in all mandatory fields</value>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Recording</value>
   </data>
-  <data name="MIN_PRICE" xml:space="preserve">
-    <value>min. price</value>
+  <data name="buttonPlayAudio.Text" xml:space="preserve">
+    <value>Play sample file</value>
   </data>
-  <data name="MIN_PRICE_ERROR" xml:space="preserve">
-    <value>Price has to be bigger than minimum</value>
+  <data name="label12.Text" xml:space="preserve">
+    <value>Audio chanells</value>
   </data>
-  <data name="MNU_PASTE" xml:space="preserve">
-    <value>Paste</value>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Available audio devices</value>
   </data>
-  <data name="MNU_PASTE_APPEND_MODE" xml:space="preserve">
-    <value>Paste in append mode</value>
+  <data name="buttonStartRecording.Location" type="System.Drawing.Point, System.Drawing">
+    <value>142, 171</value>
   </data>
-  <data name="NO_AUDIO_EXISTS" xml:space="preserve">
-    <value>No audio recording exists</value>
+  <data name="buttonStartRecording.Text" xml:space="preserve">
+    <value>Start recording</value>
   </data>
-  <data name="OVERWRITE_AUDIO_CONFIRM" xml:space="preserve">
-    <value>There is a recorded clip in memory. Are you sure to overwrite it ?</value>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Configurations</value>
   </data>
-  <data name="PAUSE" xml:space="preserve">
-    <value>Pause</value>
+  <data name="label10.Text" xml:space="preserve">
+    <value>Hello, in this screen we will check the audio devices installed in your computers by recording short 5 seconds playback</value>
   </data>
-  <data name="REMOVE_SCHEDULING_CONFIRM" xml:space="preserve">
-    <value>Are you sure to remove all scheduling for this clip ?</value>
+  <data name="button1.Text" xml:space="preserve">
+    <value>OK, let's continue</value>
   </data>
-  <data name="START" xml:space="preserve">
-    <value>Start</value>
+  <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>334, 339</value>
   </data>
-  <data name="START_PAUSE_SECTION_ANCHOR" xml:space="preserve">
-    <value>[START]</value>
+  <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 40</value>
   </data>
-  <data name="STOP" xml:space="preserve">
-    <value>Stop</value>
+  <data name="button2.Text" xml:space="preserve">
+    <value>Skip this test</value>
   </data>
-  <data name="UNTITLED_CLIP" xml:space="preserve">
-    <value>Untitled clip</value>
+  <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 22</value>
+  </data>
+  <data name="checkBox1.Text" xml:space="preserve">
+    <value>Please don't open this test next launch</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAIAICAQAAAAAADoAgAAJgAAABAQEAAAAAAAKAEAAA4DAAAoAAAAIAAAAEAAAAABAAQAAAAAAAAC
+        AAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAgAAAgAAAAICAAIAAAACAAIAAgIAAAICAgADAwMAAAAD/AAD/
+        AAAA//8A/wAAAP8A/wD//wAA////AAAAAAAAAAAAAH/3cAAAAAAAAAAAAAAAAAB/93AAAAAAAAAAAAAA
+        AAAAd3cAAAAAAAAAAAAAAAAAAAf3AAAAAAAAAAAAAAAAAAAH9wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH
+        gAAAAAAAAHd3cAAAAAAAAHgAAAAAAAf4cAcAAAAAAAAHhwAAAAAH+PgHAAAAAAAAB4DMAAAAB/j/dwAA
+        AAAAAAAPzMAAAAD4iIcAAAAAAAAADvzMAAAAD//3AAAAAAAAAADvzAAA7gB3cAAAAAAAAAAADvwMzO4A
+        AAAAAAAAAAAAAADvDM7AAAAAAAAAAAAAAAAADvDMwAAAAAAAAAAAAAAAAADvDMAAAAAAAAAAAAAAAAAA
+        DvAAAAAAAAAAAAAAAAAAAADvzMAAAAAAAAAAAAAAAAAADvzMAAAAAAAAAAAAAAAAAADvzMAAAAAAAAAA
+        AAAAAAAADvwAcHAAAAAAAAAAAAAAAADggIcHAAAAAAAAAAAAAAAAAIeAgHAAAAAAAAAAAAAAAHj7iAgH
+        AAAAAAAAAAAAAAB397CAcAAAAAAAAAAAAAAAePt/iIcAAAAAAAAAAAAAAHeHt7eAAAAAAAAAAAAAAAAH
+        ePv4cAAAAAAAAAAAAAAAB3eHgAAAAAAAAAAAAAAAAAAHd3cAAAAAAAAAAAAAAAAAAAAAAAAAf//A/3//
+        wP+//8D/v//h/9//4f/n/+H/4//A//D/gH/4P4B/+B+Af/4PgH/+BwD//wAB//+AH///wD///+A////w
+        P///+B////wP///+B////wA///+AD///wA///8AH///AB///wAf//8AH///AB///4A///+Af///4P///
+        //8oAAAAEAAAACAAAAABAAQAAAAAAIAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAgAAAgAAAAICAAIAA
+        AACAAIAAgIAAAICAgADAwMAAAAD/AAD/AAAA//8A/wAAAP8A/wD//wAA////AAAAAACIdwAAgAAAAIhw
+        AAB3AAAAgAgAAAh3AACIBwAACHxwCICHAAAAjseHaIgAAAAOgM5oAAAAAADnzIAAAAAAAA5wcAAAAAAA
+        AOjHiAAAAAAADuAACAAAAAAAx3cHAAAAAACIh3AAAAAAAIiIgAAAAAAAB4h4AAAAAAAAiIAA/w8AAH8f
+        AAA/DwAAjw8AAIZPAADADwAA4D8AAPB/AAD4fwAA/A8AAP4DAAD/AwAA/wMAAP8DAAD/gwAA/8cAAA==
+</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Inherit</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.RightToLeftLayout" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Audio test</value>
   </data>
 </root>

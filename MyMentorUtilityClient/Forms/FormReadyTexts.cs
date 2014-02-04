@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MyMentor.Forms;
 using Parse;
 
 namespace MyMentor
@@ -23,13 +24,13 @@ namespace MyMentor
 
         private List<ClipText> m_result = new List<ClipText>();
 
-        private FormMain m_formMain = null;
+        private FormStudio m_formMain = null;
         private ClipText m_selected = null;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="formMain"></param>
-        public FormReadyTexts(FormMain formMain)
+        public FormReadyTexts(FormStudio formMain)
         {
             InitializeComponent();
 
@@ -116,7 +117,7 @@ namespace MyMentor
             }
             else
             {
-                MessageBox.Show("לא קיים מקור המתאים לקריטריוני החיפוש", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(m_formMain.Strings.Single(a => a.Key == "STD_NO_SOURCES_FOUND").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : 0));
             }
 
             btnSearch.Enabled = true;

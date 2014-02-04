@@ -75,6 +75,7 @@
         <File Id='MyMentorUtilityClientexe' Name='MyMentor.exe' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.exe' KeyPath='yes'>
           <Shortcut Id="desktop" Directory="DesktopFolder" Name="MyMentor Studio" WorkingDirectory="TARGETDIR" Icon="MyMentor.exe" IconIndex="0" Advertise="yes" />
         </File>
+        <File Id='Soundsample' Name='sound_sample.mp3' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\sound_sample.mp3' KeyPath='no'/>
         <File Id='MyMentorUtilityClientexeconfig' Name='MyMentor.exe.config' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.exe.config' KeyPath='no'/>
         <File Id='MyMentorUtilityClientexemanifest' Name='MyMentor.exe.manifest' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.exe.manifest' KeyPath='no'/>
         <File Id='MyMentorUtilityClientpdb' Name='MyMentorUtilityClient.pdb' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\MyMentor.pdb' KeyPath='no'/>

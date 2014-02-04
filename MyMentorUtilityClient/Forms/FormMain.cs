@@ -138,7 +138,7 @@ namespace MyMentor
         private ToolStripMenuItem mnuAudioOptions_InsertSoundFile;
         private ToolStripSeparator toolStripMenuItem5;
         private ToolStripMenuItem mnuAudioEffects;
-        private ToolStripMenuItem mnuAudioEffects_Equalizer;
+        private ToolStripMenuItem equalizersToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem6;
         private ToolStripMenuItem mnuZoom;
         private ToolStripMenuItem mnuZoom_Selection;
@@ -405,6 +405,12 @@ namespace MyMentor
         public Label label19;
         private Stopwatch m_stopWatch = new Stopwatch();
         private IEnumerable<KeyValuePair<string, string>> m_strings;
+
+        public IEnumerable<KeyValuePair<string, string>> Strings
+        {
+            get { return m_strings; }
+        }
+
         public WorldContentType ContentType
         {
             get
@@ -537,6 +543,7 @@ namespace MyMentor
             this.FrameRecording = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.sevenSegmentArray1 = new DmitryBrant.CustomControls.SevenSegmentArray();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.numericUpDownBufferRecord = new System.Windows.Forms.NumericUpDown();
@@ -583,6 +590,8 @@ namespace MyMentor
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.comboBoxAutoDevideWor = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.comboBoxAutoDevideSen = new System.Windows.Forms.ComboBox();
             this.comboBoxAutoDevidePar = new System.Windows.Forms.ComboBox();
             this.buttonAutoDevide = new System.Windows.Forms.Button();
@@ -604,6 +613,7 @@ namespace MyMentor
             this.LabelCurrentWordDuration = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
             this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
             this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.buttonHammer = new System.Windows.Forms.Button();
@@ -742,7 +752,7 @@ namespace MyMentor
             this.mnuAudioSelectedPart_Remove = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAudioEffects = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuAudioEffects_Equalizer = new System.Windows.Forms.ToolStripMenuItem();
+            this.equalizersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuZoom = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuZoom_Selection = new System.Windows.Forms.ToolStripMenuItem();
@@ -787,10 +797,6 @@ namespace MyMentor
             this.timerPreStartFixPlayback = new System.Windows.Forms.Timer(this.components);
             this.timerUpdateDuringPlayback = new System.Windows.Forms.Timer(this.components);
             this.timerFixRichText = new System.Windows.Forms.Timer(this.components);
-            this.comboBoxAutoDevideWor = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.sevenSegmentArray1 = new DmitryBrant.CustomControls.SevenSegmentArray();
-            this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
             this.Frame4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).BeginInit();
             this.framePlayback.SuspendLayout();
@@ -1285,6 +1291,23 @@ namespace MyMentor
             this.groupBox9.TabIndex = 32;
             this.groupBox9.TabStop = false;
             // 
+            // sevenSegmentArray1
+            // 
+            this.sevenSegmentArray1.ArrayCount = 2;
+            this.sevenSegmentArray1.ColorBackground = System.Drawing.Color.DarkGray;
+            this.sevenSegmentArray1.ColorDark = System.Drawing.Color.DimGray;
+            this.sevenSegmentArray1.ColorLight = System.Drawing.Color.Chartreuse;
+            this.sevenSegmentArray1.DecimalShow = true;
+            this.sevenSegmentArray1.ElementPadding = new System.Windows.Forms.Padding(4);
+            this.sevenSegmentArray1.ElementWidth = 10;
+            this.sevenSegmentArray1.ItalicFactor = 0F;
+            this.sevenSegmentArray1.Location = new System.Drawing.Point(42, 17);
+            this.sevenSegmentArray1.Name = "sevenSegmentArray1";
+            this.sevenSegmentArray1.Size = new System.Drawing.Size(67, 63);
+            this.sevenSegmentArray1.TabIndex = 38;
+            this.sevenSegmentArray1.TabStop = false;
+            this.sevenSegmentArray1.Value = "5.0";
+            // 
             // label26
             // 
             this.label26.AutoSize = true;
@@ -1460,6 +1483,7 @@ namespace MyMentor
             this.tabControl1.ImageList = this.imageList1;
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
+            this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.tabControl1.RightToLeftLayout = true;
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1176, 416);
@@ -1484,7 +1508,7 @@ namespace MyMentor
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 94.88778F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5.112219F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 230F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250F));
             this.tableLayoutPanel2.Controls.Add(this.ToolStrip1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.richTextBox1, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel7, 0, 0);
@@ -1821,9 +1845,9 @@ namespace MyMentor
             // 
             this.panel7.Controls.Add(this.groupBox8);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(404, 3);
+            this.panel7.Location = new System.Drawing.Point(423, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(755, 74);
+            this.panel7.Size = new System.Drawing.Size(736, 74);
             this.panel7.TabIndex = 34;
             // 
             // groupBox8
@@ -1842,10 +1866,35 @@ namespace MyMentor
             this.groupBox8.Location = new System.Drawing.Point(0, 0);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox8.Size = new System.Drawing.Size(755, 74);
+            this.groupBox8.Size = new System.Drawing.Size(736, 74);
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "חלוקה אוטומטית";
+            // 
+            // comboBoxAutoDevideWor
+            // 
+            this.comboBoxAutoDevideWor.FormattingEnabled = true;
+            this.comboBoxAutoDevideWor.Items.AddRange(new object[] {
+            "",
+            "רווח"});
+            this.comboBoxAutoDevideWor.Location = new System.Drawing.Point(111, 31);
+            this.comboBoxAutoDevideWor.Name = "comboBoxAutoDevideWor";
+            this.comboBoxAutoDevideWor.Size = new System.Drawing.Size(126, 26);
+            this.comboBoxAutoDevideWor.TabIndex = 39;
+            // 
+            // label19
+            // 
+            this.label19.BackColor = System.Drawing.SystemColors.Control;
+            this.label19.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label19.Font = new System.Drawing.Font("Arial", 12F);
+            this.label19.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label19.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label19.Location = new System.Drawing.Point(244, 34);
+            this.label19.Name = "label19";
+            this.label19.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label19.Size = new System.Drawing.Size(75, 21);
+            this.label19.TabIndex = 38;
+            this.label19.Text = "סוף מילה";
             // 
             // comboBoxAutoDevideSen
             // 
@@ -1945,7 +1994,7 @@ namespace MyMentor
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(3, 3);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(395, 74);
+            this.panel8.Size = new System.Drawing.Size(414, 74);
             this.panel8.TabIndex = 35;
             // 
             // groupBox10
@@ -1956,7 +2005,7 @@ namespace MyMentor
             this.groupBox10.Font = new System.Drawing.Font("Arial", 12F);
             this.groupBox10.Location = new System.Drawing.Point(0, 0);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(395, 74);
+            this.groupBox10.Size = new System.Drawing.Size(414, 74);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "טקסטים מוכנים";
@@ -2125,6 +2174,16 @@ namespace MyMentor
             this.label10.Size = new System.Drawing.Size(122, 18);
             this.label10.TabIndex = 26;
             this.label10.Text = "התחלה קטע נבחר";
+            // 
+            // timePickerCurrentWord
+            // 
+            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 72);
+            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
+            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
+            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
+            this.timePickerCurrentWord.TabIndex = 25;
+            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
             // 
             // LabelCurrentSchedulingTimer
             // 
@@ -3474,8 +3533,8 @@ namespace MyMentor
             this.toolStripMenuItem12,
             this.mnuAudio_Test});
             this.mnuAudio.Name = "mnuAudio";
-            this.mnuAudio.Size = new System.Drawing.Size(90, 20);
-            this.mnuAudio.Text = "הקלטת שמע";
+            this.mnuAudio.Size = new System.Drawing.Size(45, 20);
+            this.mnuAudio.Text = "שמע";
             // 
             // mnuAudioOptions
             // 
@@ -3643,17 +3702,17 @@ namespace MyMentor
             // mnuAudioEffects
             // 
             this.mnuAudioEffects.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuAudioEffects_Equalizer});
+            this.equalizersToolStripMenuItem});
             this.mnuAudioEffects.Name = "mnuAudioEffects";
             this.mnuAudioEffects.Size = new System.Drawing.Size(210, 22);
             this.mnuAudioEffects.Text = "אפקטים";
             // 
-            // mnuAudioEffects_Equalizer
+            // equalizersToolStripMenuItem
             // 
-            this.mnuAudioEffects_Equalizer.Name = "mnuAudioEffects_Equalizer";
-            this.mnuAudioEffects_Equalizer.Size = new System.Drawing.Size(121, 22);
-            this.mnuAudioEffects_Equalizer.Text = "Equalizer";
-            this.mnuAudioEffects_Equalizer.Click += new System.EventHandler(this.mnuAudioEffects_Equalizer_Click);
+            this.equalizersToolStripMenuItem.Name = "equalizersToolStripMenuItem";
+            this.equalizersToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.equalizersToolStripMenuItem.Text = "Equalizer";
+            this.equalizersToolStripMenuItem.Click += new System.EventHandler(this.mnuAudioEffects_Equalizer_Click);
             // 
             // toolStripMenuItem6
             // 
@@ -3775,6 +3834,10 @@ namespace MyMentor
             // 
             this.djLineTimer.Interval = 50;
             this.djLineTimer.Tick += new System.EventHandler(this.djLineTimer_Tick);
+            // 
+            // timerUpdateTimePickerSpinner
+            // 
+            this.timerUpdateTimePickerSpinner.Tick += new System.EventHandler(this.timerUpdateTimePickerSpinner_Tick);
             // 
             // tableLayoutPanel4
             // 
@@ -4022,58 +4085,6 @@ namespace MyMentor
             // 
             this.timerFixRichText.Interval = 300;
             this.timerFixRichText.Tick += new System.EventHandler(this.timerFixRichText_Tick);
-            // 
-            // comboBoxAutoDevideWor
-            // 
-            this.comboBoxAutoDevideWor.FormattingEnabled = true;
-            this.comboBoxAutoDevideWor.Items.AddRange(new object[] {
-            "",
-            "רווח"});
-            this.comboBoxAutoDevideWor.Location = new System.Drawing.Point(111, 31);
-            this.comboBoxAutoDevideWor.Name = "comboBoxAutoDevideWor";
-            this.comboBoxAutoDevideWor.Size = new System.Drawing.Size(126, 26);
-            this.comboBoxAutoDevideWor.TabIndex = 39;
-            // 
-            // label19
-            // 
-            this.label19.BackColor = System.Drawing.SystemColors.Control;
-            this.label19.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label19.Font = new System.Drawing.Font("Arial", 12F);
-            this.label19.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label19.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label19.Location = new System.Drawing.Point(244, 34);
-            this.label19.Name = "label19";
-            this.label19.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label19.Size = new System.Drawing.Size(75, 21);
-            this.label19.TabIndex = 38;
-            this.label19.Text = "סוף מילה";
-            // 
-            // sevenSegmentArray1
-            // 
-            this.sevenSegmentArray1.ArrayCount = 2;
-            this.sevenSegmentArray1.ColorBackground = System.Drawing.Color.DarkGray;
-            this.sevenSegmentArray1.ColorDark = System.Drawing.Color.DimGray;
-            this.sevenSegmentArray1.ColorLight = System.Drawing.Color.Chartreuse;
-            this.sevenSegmentArray1.DecimalShow = true;
-            this.sevenSegmentArray1.ElementPadding = new System.Windows.Forms.Padding(4);
-            this.sevenSegmentArray1.ElementWidth = 10;
-            this.sevenSegmentArray1.ItalicFactor = 0F;
-            this.sevenSegmentArray1.Location = new System.Drawing.Point(42, 17);
-            this.sevenSegmentArray1.Name = "sevenSegmentArray1";
-            this.sevenSegmentArray1.Size = new System.Drawing.Size(67, 63);
-            this.sevenSegmentArray1.TabIndex = 38;
-            this.sevenSegmentArray1.TabStop = false;
-            this.sevenSegmentArray1.Value = "5.0";
-            // 
-            // timePickerCurrentWord
-            // 
-            this.timePickerCurrentWord.Location = new System.Drawing.Point(7, 72);
-            this.timePickerCurrentWord.Margin = new System.Windows.Forms.Padding(4);
-            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
-            this.timePickerCurrentWord.Size = new System.Drawing.Size(181, 36);
-            this.timePickerCurrentWord.TabIndex = 25;
-            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerSpinner1_ValueChanged);
             // 
             // FormMain
             // 
@@ -7881,7 +7892,9 @@ namespace MyMentor
                         continue;
                     }
 
-                    if (richTextBox2.SelectedText == " " && worDelimiters.Exists(a => a == "רווח") && charactersFromLastAnchor > 0)
+                    if ( (richTextBox2.SelectedText == " " && worDelimiters.Exists(a => a == "רווח") && charactersFromLastAnchor > 0)
+                        ||
+                        (worDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0)) 
                     {
                         AddAnchor(AnchorType.Word, index);
                         anchors++;
@@ -8165,21 +8178,6 @@ namespace MyMentor
             {
                 mnuTools_UI_Hebrew.Checked = true;
                 mnuTools_UI_English.Checked = false;
-
-                this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-                this.RightToLeftLayout = true;
-
-                tabControl1.RightToLeftLayout = true;
-                //groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-                //groupBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-                //groupBox3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-                //groupBox4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-                //groupBox5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-                //groupBox6.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-                //groupBox7.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-                //groupBox8.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-                //groupBox9.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-                //groupBox10.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             }
             else
             {
@@ -8190,6 +8188,7 @@ namespace MyMentor
                 mnuTools_UI_English.Checked = true;
 
                 tabControl1.RightToLeftLayout = false;
+                groupBox8.RightToLeft = System.Windows.Forms.RightToLeft.No ;
                 //groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
                 //groupBox2.RightToLeft = System.Windows.Forms.RightToLeft.No;
                 //groupBox3.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -8208,11 +8207,6 @@ namespace MyMentor
 
             ResourceManager rm = new ResourceManager("MyMentor.Resources.Strings",
                                       typeof(FormMain).Assembly);
-            mnuFile.Text = rm.GetString("mnuFile");
-            tabControl1.TabPages[0].Text = rm.GetString("tabControl1.tab0");
-            tabControl1.TabPages[1].Text = rm.GetString("tabControl1.tab1");
-            tabControl1.TabPages[2].Text = rm.GetString("tabControl1.tab2");
-            tabControl1.TabPages[3].Text = rm.GetString("tabControl1.tab3");
 
         }
 
@@ -8351,35 +8345,35 @@ namespace MyMentor
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            using (FormReadyTexts form = new FormReadyTexts(this))
-            {
-                if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                {
-                    richTextBox1.Text = form.SelectedSource.Text;
+            //using (FormReadyTexts form = new FormReadyTexts(this))
+            //{
+            //    if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            //    {
+            //        richTextBox1.Text = form.SelectedSource.Text;
 
-                    if (form.SelectedSource.Category1 != null)
-                    {
-                        comboCategory1.SelectedValue = form.SelectedSource.Category1.ObjectId;
+            //        if (form.SelectedSource.Category1 != null)
+            //        {
+            //            comboCategory1.SelectedValue = form.SelectedSource.Category1.ObjectId;
 
-                        comboCategory1_SelectionChangeCommitted(null, new EventArgs());
-                    }
+            //            comboCategory1_SelectionChangeCommitted(null, new EventArgs());
+            //        }
 
-                    if (form.SelectedSource.Category2 != null)
-                    {
-                        comboCategory2.SelectedValue = form.SelectedSource.Category2.ObjectId;
-                    }
+            //        if (form.SelectedSource.Category2 != null)
+            //        {
+            //            comboCategory2.SelectedValue = form.SelectedSource.Category2.ObjectId;
+            //        }
 
-                    if (form.SelectedSource.Category3 != null)
-                    {
-                        comboCategory3.SelectedValue = form.SelectedSource.Category3.ObjectId;
-                    }
+            //        if (form.SelectedSource.Category3 != null)
+            //        {
+            //            comboCategory3.SelectedValue = form.SelectedSource.Category3.ObjectId;
+            //        }
 
-                    tbClipDescription.Text = form.SelectedSource.Description;
-                    tbClipDescriptionEnglish.Text = form.SelectedSource.DescriptionEnglish;
+            //        tbClipDescription.Text = form.SelectedSource.Description;
+            //        tbClipDescriptionEnglish.Text = form.SelectedSource.DescriptionEnglish;
 
-                    MessageBox.Show(m_strings.Single(a => a.Key == "STD_AFTER_SOURCE_SELECTION").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                }
-            }
+            //        MessageBox.Show(m_strings.Single(a => a.Key == "STD_AFTER_SOURCE_SELECTION").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            //    }
+            //}
         }
 
         private async void comboClipType_SelectionChangeCommitted(object sender, EventArgs e)
@@ -8807,6 +8801,11 @@ namespace MyMentor
         {
             Clip.Current.EnglishDescription = tbClipDescriptionEnglish.Text;
             //RegenerateClipName(true);
+
+        }
+
+        private void timerUpdateTimePickerSpinner_Tick(object sender, EventArgs e)
+        {
 
         }
 

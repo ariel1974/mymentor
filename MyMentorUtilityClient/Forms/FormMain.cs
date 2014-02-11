@@ -6257,7 +6257,7 @@ namespace MyMentor
                 this.comboCategory1.DataSource = (await ParseTables.GetCategory1(contentType.ObjectId)).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.Get<string>("value")
+                    Value = c.Get<string>("value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_"))
                 }).ToList();
 
                 this.comboCategory3.DisplayMember = "Value";
@@ -6265,7 +6265,7 @@ namespace MyMentor
                 this.comboCategory3.DataSource = (await ParseTables.GetCategory3(contentType.ObjectId, "HPz65WBzhw")).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.Get<string>("value"),
+                    Value = c.Get<string>("value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_")),
                     MinPrice = (decimal)c.Get<float>("minPrice")
                 }).ToList();
 
@@ -6274,7 +6274,7 @@ namespace MyMentor
                 this.comboCategory4.DataSource = (await ParseTables.GetCategory4(contentType.ObjectId)).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.Get<string>("value")
+                    Value = c.Get<string>("value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_"))
                 }).ToList();
 
                 this.comboStatus.DisplayMember = "Value";
@@ -6290,7 +6290,7 @@ namespace MyMentor
                 this.comboClipType.DataSource = (await ParseTables.GetTypes()).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.Get<string>("value")
+                    Value = c.Get<string>("value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_"))
                 }).ToList();
 
                 ParseObject labels = await ParseTables.GetCategoryLabels(contentType.ObjectId);

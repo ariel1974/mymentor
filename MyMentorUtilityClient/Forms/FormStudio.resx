@@ -560,10 +560,13 @@
   <metadata name="trackBarWaveZoom.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="trackBarWaveZoom.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="trackBarWaveZoom.Location" type="System.Drawing.Point, System.Drawing">
     <value>1152, 456</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="trackBarWaveZoom.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Vertical</value>
   </data>
@@ -1476,7 +1479,7 @@
     <value>Yes</value>
   </data>
   <data name="groupBox8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>756, 74</value>
+    <value>753, 74</value>
   </data>
   <data name="groupBox8.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1500,10 +1503,10 @@
     <value>Fill</value>
   </data>
   <data name="panel7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>410, 3</value>
+    <value>413, 3</value>
   </data>
   <data name="panel7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>756, 74</value>
+    <value>753, 74</value>
   </data>
   <data name="panel7.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -1522,6 +1525,9 @@
   </data>
   <data name="linkLabel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="linkLabel1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="linkLabel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 36</value>
@@ -1549,6 +1555,9 @@
   </data>
   <data name="label28.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label28.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label28.Location" type="System.Drawing.Point, System.Drawing">
     <value>67, 36</value>
@@ -1584,7 +1593,7 @@
     <value>0, 0</value>
   </data>
   <data name="groupBox10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>401, 74</value>
+    <value>404, 74</value>
   </data>
   <data name="groupBox10.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1611,7 +1620,7 @@
     <value>3, 3</value>
   </data>
   <data name="panel8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>401, 74</value>
+    <value>404, 74</value>
   </data>
   <data name="panel8.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -1656,7 +1665,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="ToolStrip1" Row="1" RowSpan="1" Column="0" ColumnSpan="4" /&gt;&lt;Control Name="richTextBox1" Row="2" RowSpan="2" Column="0" ColumnSpan="5" /&gt;&lt;Control Name="panel7" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panel8" Row="0" RowSpan="1" Column="1" ColumnSpan="3" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,98.99749,Percent,1.002506,Absolute,129,Absolute,270" /&gt;&lt;Rows Styles="Absolute,80,Absolute,27,Percent,100,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="ToolStrip1" Row="1" RowSpan="1" Column="0" ColumnSpan="4" /&gt;&lt;Control Name="richTextBox1" Row="2" RowSpan="2" Column="0" ColumnSpan="5" /&gt;&lt;Control Name="panel7" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panel8" Row="0" RowSpan="1" Column="1" ColumnSpan="3" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,98.99749,Percent,1.002506,Absolute,129,Absolute,273" /&gt;&lt;Rows Styles="Absolute,80,Absolute,27,Percent,100,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 46</value>
@@ -1743,7 +1752,7 @@
     <value>564, 24</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 208</value>
+    <value>41, 208</value>
   </data>
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -1760,17 +1769,77 @@
   <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="label20.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
+    <value>92, 174</value>
+  </data>
+  <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 18</value>
+  </data>
+  <data name="label20.TabIndex" type="System.Int32, mscorlib">
+    <value>78</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>הקלטה</value>
+  </data>
+  <data name="label20.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;label20.Name" xml:space="preserve">
+    <value>label20</value>
+  </data>
+  <data name="&gt;&gt;label20.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label20.Parent" xml:space="preserve">
+    <value>FrameRecording</value>
+  </data>
+  <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="trackBar1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="trackBar1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 199</value>
+  </data>
+  <data name="trackBar1.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="trackBar1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 112</value>
+  </data>
+  <data name="trackBar1.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="&gt;&gt;trackBar1.Name" xml:space="preserve">
+    <value>trackBar1</value>
+  </data>
+  <data name="&gt;&gt;trackBar1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;trackBar1.Parent" xml:space="preserve">
+    <value>FrameRecording</value>
+  </data>
+  <data name="&gt;&gt;trackBar1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label30.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label30.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 174</value>
+    <value>6, 174</value>
   </data>
   <data name="label30.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 18</value>
+    <value>80, 18</value>
   </data>
   <data name="label30.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
   </data>
   <data name="label30.Text" xml:space="preserve">
-    <value>Volume</value>
+    <value>עוצמת שמע</value>
   </data>
   <data name="label30.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -1785,7 +1854,10 @@
     <value>FrameRecording</value>
   </data>
   <data name="&gt;&gt;label30.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
+  </data>
+  <data name="trackBarVolume1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="trackBarVolume1.Location" type="System.Drawing.Point, System.Drawing">
     <value>26, 197</value>
@@ -1809,7 +1881,7 @@
     <value>FrameRecording</value>
   </data>
   <data name="&gt;&gt;trackBarVolume1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 8pt</value>
@@ -2319,7 +2391,7 @@
     <value>FrameRecording</value>
   </data>
   <data name="&gt;&gt;Frame4.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2346,7 +2418,7 @@
     <value>FrameRecording</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="sevenSegmentArray1.Location" type="System.Drawing.Point, System.Drawing">
     <value>42, 17</value>
@@ -2361,7 +2433,7 @@
     <value>sevenSegmentArray1</value>
   </data>
   <data name="&gt;&gt;sevenSegmentArray1.Type" xml:space="preserve">
-    <value>DmitryBrant.CustomControls.SevenSegmentArray, MyMentor, Version=8.0.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>DmitryBrant.CustomControls.SevenSegmentArray, MyMentor, Version=8.0.4.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;sevenSegmentArray1.Parent" xml:space="preserve">
     <value>groupBox9</value>
@@ -2505,7 +2577,7 @@
     <value>FrameRecording</value>
   </data>
   <data name="&gt;&gt;groupBox9.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="buttonStartRecAppend.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 12pt</value>
@@ -2538,7 +2610,7 @@
     <value>FrameRecording</value>
   </data>
   <data name="&gt;&gt;buttonStartRecAppend.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="buttonStopRecording.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -2574,7 +2646,7 @@
     <value>FrameRecording</value>
   </data>
   <data name="&gt;&gt;buttonStopRecording.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="buttonStartRecNew.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -2610,7 +2682,7 @@
     <value>FrameRecording</value>
   </data>
   <data name="&gt;&gt;buttonStartRecNew.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="FrameRecording.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -2619,10 +2691,10 @@
     <value>Arial, 12pt</value>
   </data>
   <data name="FrameRecording.Location" type="System.Drawing.Point, System.Drawing">
-    <value>612, 24</value>
+    <value>611, 24</value>
   </data>
   <data name="FrameRecording.Size" type="System.Drawing.Size, System.Drawing">
-    <value>554, 317</value>
+    <value>555, 317</value>
   </data>
   <data name="FrameRecording.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
@@ -2868,7 +2940,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="panel2" Row="1" RowSpan="2" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="FrameRecording" Row="1" RowSpan="2" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="framePlayback" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="richTextBox5" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Absolute,48,Percent,50" /&gt;&lt;Rows Styles="Percent,6.25,Percent,67.80627,Percent,26.21083,Absolute,8" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="panel2" Row="1" RowSpan="2" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="FrameRecording" Row="1" RowSpan="2" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="framePlayback" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="richTextBox5" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Absolute,47,Percent,50" /&gt;&lt;Rows Styles="Percent,6.25,Percent,67.80627,Percent,26.21083,Absolute,8" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 46</value>
@@ -2997,13 +3069,13 @@
     <value>2</value>
   </data>
   <data name="timePickerCurrentWord.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 72</value>
+    <value>10, 100</value>
   </data>
   <data name="timePickerCurrentWord.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 6, 6, 6</value>
   </data>
   <data name="timePickerCurrentWord.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 36</value>
+    <value>272, 50</value>
   </data>
   <data name="timePickerCurrentWord.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -3012,7 +3084,7 @@
     <value>timePickerCurrentWord</value>
   </data>
   <data name="&gt;&gt;timePickerCurrentWord.Type" xml:space="preserve">
-    <value>MyMentor.TimeSpinner.TimePickerSpinner, MyMentor, Version=8.0.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MyMentor.TimeSpinner.TimePickerSpinner, MyMentor, Version=8.0.4.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;timePickerCurrentWord.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -4151,6 +4223,9 @@
   <data name="&gt;&gt;dtpReadingDate.ZOrder" xml:space="preserve">
     <value>16</value>
   </data>
+  <data name="btnRemoveDate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="btnRemoveDate.Location" type="System.Drawing.Point, System.Drawing">
     <value>448, 208</value>
   </data>
@@ -4174,6 +4249,9 @@
   </data>
   <data name="&gt;&gt;btnRemoveDate.ZOrder" xml:space="preserve">
     <value>17</value>
+  </data>
+  <data name="btnAddDate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btnAddDate.Location" type="System.Drawing.Point, System.Drawing">
     <value>448, 175</value>
@@ -5622,6 +5700,9 @@
         3uLd5Mjf5uPo5eDa5+Hrz9vt6e/qosO/GvjJ+sj5F/sC+uMHcCCoBAA7AAAAAAAAAAAA
 </value>
   </data>
+  <data name="pictureBox2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>11, 257</value>
   </data>
@@ -6122,38 +6203,38 @@
   <data name="toolStripButton5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         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
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAdHSURBVFhH1VZtUJPZFZZa27W6nZ3R7Y92GGacjnaZzlB3
-        LfZHNV1FQEDBLlLd7haWwVpZC0nQgUrZF7DrEg2C4KJ8JRTGReqCQaGEaiVCkJCQhHysBJIQyAcQSCQQ
-        wG7RnJ775tXZ+qMbdvBHn5kz9ybvvc957rnnnnvX/F+Az+cHnz9//ndouWh8Ho+Xjfabc+fObWKGvBxc
-        uHAhVigUyiiK8lksFpiZmQGPxwOTk5NgMBgAvy2XlZV1FBUVhTNTVgclJSWvXb16tV2n09EObXY7dMm0
-        8Nnf5SBs7YObd5XwhcEI09PT9HciEKN0pbKych1D8c2Bof1hXV2dweVywahlHMqv90BC7mfzMTm3DYc/
-        vqM4wrvbl5DfoY7g3LQl84XLEpkOHj16BCMjI3Dp0qWu4uLi9QzVykEm19TUyGdnZ0GpHYZ3C259+R7v
-        3oBIZu/XWz2jpgmPY2hizqoYcQ839Vh7M6sUHW+fvmGtuNELTqcTTCYTXLx48TpDt3Lgnn9ix3A/HDZD
-        ZJ5o6Uz9gGTIOjc2Nf3Y5XQ+dltdS04iwjA+N64edZmkD6f1hTf0bVF/an1Y+XkvEOFSqRQwiu8zlIED
-        V/+jtra2RbKvXNzT4+VSic7sMltdi7i4x25agHvJaZ702Idt85ZBi9uoMLoNtxV2OVug+pxsiXTgC/B6
-        vYD5M4Z58R2GOjCg6tNmsxm65XqIzmm1tDwY7zNOzNmMjtkJu3tp0uFemhhzzlnNTq95xDFv0I569PKR
-        GU2jdEzCEapvHCt70J5JiZ+Qk9Ld3Q3kBDHUgQFVS6empqCoTgIpJd33+nB1OtucxWjzWkxO7+jo9IJp
-        bGrBYJ7y6IYccyqdxa3oN7llJW1DjZxadT1XqP7bntM3J4ymURgfHycCqhjqwNDY2Dhrs9mAVdT+NO+a
-        tnUABRAHLxqVX+zTWSzLxCiK7/M7V5lJG/PnNo24exDIQioqKnoZ6q8H7tf3nhWbo4W3F/Mata09hhkt
-        OvT+LwHEngsQqCoPFfyj93qHHBwOB1RXV1sY+q8Hnt/vEgFWqxXiqFv/JnvapXX2v+j8RZMNf0VArbrs
-        4EftD0T/VALhweNsYugDA5bVGVJiT6GQE1f6Wxvuj7VLdM47D4Zm2jDbm/HYXdOMe2p6hmbyi0XDR3DP
-        D6PTD7gCVSZHqPqIK1Dz92a16BWaIVoAluj7DHVgKC8v7yRHsEmsgPi8DgW3Tln1SYv+08pOY8lfu0Y/
-        rrlj5hY26RM5tSoWMbZg8AAKeA+FfIgizmTWKPlH8lu9JI80Gg3k5+efZagDA95yJ0jtt9sdkMi9tphR
-        NVDLFSjPE3LihDgjTrOE6l9x6tRv/5cAoToXE7Cz/nY/kBJOtjM7OzuMoQ4M5AKqr693LywsQPv9Qdh7
-        qtnIrlUV+8OryuQKBlPZdeokjMxBYnQf/8N8Yf/2gqSC5M7k5BRdjnNyctoY2pUBixGnv7+frmZ1t2QQ
-        wW02pFfJeRyBOtsf6sHULKHyfWK0c4H65K/P3qk+WnhtccQ8Tt+Mly9fhrS0NB5G4VsMbeAgk0pLS2+R
-        u56IEPdoIOmUyLs/p1X8Qam0iFM7wCZO/1glZ79T0FnB4jRrSLht9gn6at69ezds2LABdu7cCfHx8S2J
-        iYkrvxkxCq9iBt9TKpVAtsOJxKJ7asi9epc+oilU88JJdFreJAXtkBnm5+dp5xkZGYDTYevWrZCXlwfb
-        tm2DuLg42b59+37gZ14BcFXfxgdGCXnxkOJEnJCIkJaEmfSJOLfbDb29vYBPM3dSUhItgNiOHTsA59Ni
-        oqKizJGRkT+hiVcKfGq9gbdkfUNDw6xYLIaenh4gOSKRSEAkEpG7fzQrKys7NTX11ZSUlE7iGKfRtmXL
-        FlILIDQ0FKKjo90xMTG7adJvAvLUQjG/wKN6GLfo99geKiwsfIP5TIPFYr0SGxvbtGvXLggKCqJFbN68
-        mbyS6IiEh4f/CyPxrn/0y0MQrpSHYfetW7eOFrF+/XpA8bBnzx5AkT78dsY/9CUCnRzHaCxv3LiRFrF2
-        7VrAwgQkT8hJwS055x/JgDoum2a6qwLCtx8RERExv2nTpud5kZycDOnp6SQST/GEbKYHE+SkdbmZ7qrg
-        GR+udDvWA3twcPBzESEhIfQRxXz4MRlDIzWyZens8b7Zs+y+WYotf0Rlyl1kFQNiakmvz3ii1598YrEk
-        L5fzjvlK//Kh73JROt0auwq+JOOoE91TZ9KkkznHuhxH40Q6wsdQr0FHwQkJCdqwsDBaANkWzAcF9oPo
-        AQQH36qFQ+ENfvt5PcTvEEJBejHAwh8AFtFI6/1K++w/bB/2nYIDb1XDgTcrIXb7FYh98woQPoaaBkbi
-        +5icxaQwoaAa/P0688mP2O2Ub//PKF80sbBSiAqjfKxfFj+lnb1oxDFjPvxN5VK+yBD+ckQIbzk0lHqy
-        96eUj/Ax1IGBFXbpKdNdFayYjxVWssoCAuVbs+Y/X2xr9OPTs8IAAAAASUVORK5CYII=
+        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
 </value>
   </data>
   <data name="toolStripButton5.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -6304,6 +6385,9 @@
   <data name="button2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9pt</value>
   </data>
+  <data name="button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
     <value>237, 0</value>
   </data>
@@ -6330,6 +6414,9 @@
   </data>
   <data name="trackBarPitch1.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="trackBarPitch1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="trackBarPitch1.Location" type="System.Drawing.Point, System.Drawing">
     <value>289, -7</value>
@@ -6459,7 +6546,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACM
-        FgAAAk1TRnQBSQFMAgEBAgEAAbQBEQG0AREBIAEAASABAAT/AREBAAj/AUIBTQE2BwABNgMAASgDAAGA
+        FgAAAk1TRnQBSQFMAgEBAgEAAdgBEQHYAREBIAEAASABAAT/AREBAAj/AUIBTQE2BwABNgMAASgDAAGA
         AwABIAMAAQEBAAEQBgABIB4AAf8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/
         AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8YAAH/AX8B/wF/Af8BfwH/AX8B/wF/
         Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/Af8BfwH/AX8B/wF/
@@ -11205,6 +11292,9 @@
         ////////gAAAAf//////////wAAAA///////////wAAAA///////////4AAAB///////////8AAAD///
         ////////+AAAH////////////AAAP////////////wAA/////////////8AD//////8=
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>

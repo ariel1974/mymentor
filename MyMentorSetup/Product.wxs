@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="{E0F66803-91BF-4571-B8B2-D442D5513E1D}" Name="MyMentor Studio V2" Language="1033" Version="1.0.0.3" Manufacturer="MyMentor" UpgradeCode="96b5e567-3411-4823-9ee8-f8f5973d97ed">
+  <Product Id="{E0F66803-91BF-4571-B8B2-D442D5513E1D}" Name="MyMentor Studio V2" Language="1033" Version="9.0.0.2" Manufacturer="MyMentor" UpgradeCode="dbb0c767-da1c-4acb-8075-a293ead7da66">
     <Package Id="{8793907F-A2D7-4701-BE6E-90865B83E80A}" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <Upgrade Id="dbb0c767-da1c-4acb-8075-a293ead7da66">
+      <UpgradeVersion
+    Property="PREVIOUSFOUND"
+        Minimum="0.0.0.0" IncludeMinimum="yes"
+        Maximum="19.0.0.0" IncludeMaximum="yes"
+    />
+    </Upgrade>
+    <InstallExecuteSequence>
+      <RemoveExistingProducts After="InstallInitialize"/>
+    </InstallExecuteSequence>
     <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
     <UI>
       <UIRef Id="WixUI_Minimal" />
@@ -15,11 +25,11 @@
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <PropertyRef Id="NETFRAMEWORK45"/>
-
+    
     <Property Id="WixShellExecTarget" Value="[INSTALLFOLDER]MyMentor.exe" />
     <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
 
-    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <!--<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />-->
     <MediaTemplate EmbedCab="yes"/>
 
     <Feature Id="ProductFeature" Title="MyMentorSetup" Level="1">

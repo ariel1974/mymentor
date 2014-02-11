@@ -187,7 +187,7 @@ namespace MyMentor
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.TickFrequency = 10;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             // 
             // label30
             // 
@@ -589,6 +589,12 @@ namespace MyMentor
         {
             buttonStartRecording.Enabled = true;
             buttonPlayAudio.Enabled = true;
+
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            audioSoundRecorder1.SetInputDeviceChannelVolume(m_nCurrInputDevice, m_nCurrInputChannel, (Int16)trackBar1.Value);
 
         }
 

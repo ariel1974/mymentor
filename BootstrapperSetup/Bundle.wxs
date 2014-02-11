@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Bundle Name="MyMentor V2.0 Installer" 
+          Version="2.0.0.1" Manufacturer="MyMentor" 
+          UpgradeCode="5e5f0f1e-58e0-42e5-8306-37533d677535" AboutUrl="http://www.mymentor.co.il" DisableModify="yes">
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+    <Variable Name="InstallFolder" Type="string" Value="[ProgramFilesFolder]MyMentor V2"/>
+
+    <Chain>
+      <PackageGroupRef Id="NetFx45Web" />
+      <MsiPackage
+        Id="Setup" 
+        Compressed="yes"
+        SourceFile="..\MyMentorSetup\bin\Debug\MyMentorSetup.msi"
+        Vital="yes">
+        <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]" />
+      </MsiPackage>
+    </Chain>
+  </Bundle>
+</Wix>

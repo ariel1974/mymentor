@@ -141,12 +141,14 @@ namespace MyMentor
 
         private async void FormReadyTexts_Load(object sender, EventArgs e)
         {
+            string value_key = "value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
+
             this.comboCategory3.DisplayMember = "Value";
             this.comboCategory3.ValueMember = "ObjectId";
             this.comboCategory3.DataSource = (await ParseTables.GetCategory3(m_formMain.ContentType.ObjectId, "0y8A4XTNeR")).Select(c => new Category
             {
                 ObjectId = c.ObjectId,
-                Value = c.Get<string>("value")
+                Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
             }).ToList();
 
             comboCategory3.SelectedItem = null;
@@ -155,14 +157,18 @@ namespace MyMentor
 
         private async void comboCategory1_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            string value_key = "value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
+
             if (comboCategory1.SelectedIndex >= 0)
             {
+                var list = (await ParseTables.GetCategory2((string)comboCategory1.SelectedValue)).Where(o => o.Keys.Count() == 4);
+
                 this.comboCategory2.DisplayMember = "Value";
                 this.comboCategory2.ValueMember = "ObjectId";
-                this.comboCategory2.DataSource = (await ParseTables.GetCategory2((string)comboCategory1.SelectedValue)).Select(c => new Category
+                this.comboCategory2.DataSource = list.Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.Get<string>("value")
+                    Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
                 }).ToList(); ;
 
                 this.comboCategory2.SelectedValue = string.Empty;

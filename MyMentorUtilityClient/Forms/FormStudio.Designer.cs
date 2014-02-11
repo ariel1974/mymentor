@@ -173,7 +173,6 @@
             this.Label8 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.sevenSegmentArray1 = new DmitryBrant.CustomControls.SevenSegmentArray();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.numericUpDownBufferRecord = new System.Windows.Forms.NumericUpDown();
@@ -193,7 +192,6 @@
             this.LabelCurrentWordDuration = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
             this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
             this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.buttonHammer = new System.Windows.Forms.Button();
@@ -315,6 +313,10 @@
             this.timerPreStartFixPlayback = new System.Windows.Forms.Timer(this.components);
             this.timerFixRichText = new System.Windows.Forms.Timer(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.label20 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.sevenSegmentArray1 = new DmitryBrant.CustomControls.SevenSegmentArray();
+            this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWaveZoom)).BeginInit();
@@ -360,6 +362,7 @@
             this.toolStrip2.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPitch1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -1332,6 +1335,8 @@
             // FrameRecording
             // 
             this.FrameRecording.BackColor = System.Drawing.SystemColors.Control;
+            this.FrameRecording.Controls.Add(this.label20);
+            this.FrameRecording.Controls.Add(this.trackBar1);
             this.FrameRecording.Controls.Add(this.label30);
             this.FrameRecording.Controls.Add(this.trackBarVolume1);
             this.FrameRecording.Controls.Add(this.Frame4);
@@ -1358,7 +1363,9 @@
             this.trackBarVolume1.Name = "trackBarVolume1";
             this.trackBarVolume1.TickFrequency = 10;
             this.trackBarVolume1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarVolume1.Value = 100;
             this.trackBarVolume1.Scroll += new System.EventHandler(this.trackBarVolume1_Scroll);
+            this.trackBarVolume1.ValueChanged += new System.EventHandler(this.trackBarVolume1_ValueChanged);
             // 
             // Frame4
             // 
@@ -1519,21 +1526,6 @@
             resources.ApplyResources(this.groupBox9, "groupBox9");
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.TabStop = false;
-            // 
-            // sevenSegmentArray1
-            // 
-            this.sevenSegmentArray1.ArrayCount = 2;
-            this.sevenSegmentArray1.ColorBackground = System.Drawing.Color.DarkGray;
-            this.sevenSegmentArray1.ColorDark = System.Drawing.Color.DimGray;
-            this.sevenSegmentArray1.ColorLight = System.Drawing.Color.Chartreuse;
-            this.sevenSegmentArray1.DecimalShow = true;
-            this.sevenSegmentArray1.ElementPadding = new System.Windows.Forms.Padding(4);
-            this.sevenSegmentArray1.ElementWidth = 10;
-            this.sevenSegmentArray1.ItalicFactor = 0F;
-            resources.ApplyResources(this.sevenSegmentArray1, "sevenSegmentArray1");
-            this.sevenSegmentArray1.Name = "sevenSegmentArray1";
-            this.sevenSegmentArray1.TabStop = false;
-            this.sevenSegmentArray1.Value = "5.0";
             // 
             // label26
             // 
@@ -1706,13 +1698,6 @@
             // 
             resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
-            // 
-            // timePickerCurrentWord
-            // 
-            resources.ApplyResources(this.timePickerCurrentWord, "timePickerCurrentWord");
-            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
-            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerCurrentWord_ValueChanged);
             // 
             // LabelCurrentSchedulingTimer
             // 
@@ -2556,6 +2541,43 @@
             this.imageList1.Images.SetKeyName(0, "1386908105_Record Button2.png");
             this.imageList1.Images.SetKeyName(1, "1386908112_Record Button1.png");
             // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.Name = "label20";
+            // 
+            // trackBar1
+            // 
+            resources.ApplyResources(this.trackBar1, "trackBar1");
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.TickFrequency = 10;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar1.Value = 100;
+            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
+            // 
+            // sevenSegmentArray1
+            // 
+            this.sevenSegmentArray1.ArrayCount = 2;
+            this.sevenSegmentArray1.ColorBackground = System.Drawing.Color.DarkGray;
+            this.sevenSegmentArray1.ColorDark = System.Drawing.Color.DimGray;
+            this.sevenSegmentArray1.ColorLight = System.Drawing.Color.Chartreuse;
+            this.sevenSegmentArray1.DecimalShow = true;
+            this.sevenSegmentArray1.ElementPadding = new System.Windows.Forms.Padding(4);
+            this.sevenSegmentArray1.ElementWidth = 10;
+            this.sevenSegmentArray1.ItalicFactor = 0F;
+            resources.ApplyResources(this.sevenSegmentArray1, "sevenSegmentArray1");
+            this.sevenSegmentArray1.Name = "sevenSegmentArray1";
+            this.sevenSegmentArray1.TabStop = false;
+            this.sevenSegmentArray1.Value = "5.0";
+            // 
+            // timePickerCurrentWord
+            // 
+            resources.ApplyResources(this.timePickerCurrentWord, "timePickerCurrentWord");
+            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
+            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerCurrentWord_ValueChanged);
+            // 
             // FormStudio
             // 
             resources.ApplyResources(this, "$this");
@@ -2632,6 +2654,7 @@
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPitch1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2924,5 +2947,7 @@
         private System.Windows.Forms.Timer timerPreStartFixPlayback;
         private System.Windows.Forms.Timer timerFixRichText;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TrackBar trackBar1;
     }
 }

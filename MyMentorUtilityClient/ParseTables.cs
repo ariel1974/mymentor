@@ -56,7 +56,6 @@ namespace MyMentor
             var query = await (from cat in ParseObject.GetQuery("Category1")
                                where
                                cat["contentType"] == ParseObject.CreateWithoutData("WorldContentType", contentType)
-                               && cat.Get<string>("culture") == MyMentor.Properties.Settings.Default.CultureInfo
                                orderby cat.Get<int>("order")
                                select cat).FindAsync();
 
@@ -101,7 +100,6 @@ namespace MyMentor
             var query = from cat in ParseObject.GetQuery("Category3")
                         where
                         cat["contentType"] == ParseObject.CreateWithoutData("WorldContentType", contentType)
-                        && cat.Get<string>("culture") == MyMentor.Properties.Settings.Default.CultureInfo
                         && (cat["lessonType"] == ParseObject.CreateWithoutData("LessonTypes", "v0SqUiv5mr") || //all
                         cat["lessonType"] == ParseObject.CreateWithoutData("LessonTypes", lessonType))
                         orderby cat.Get<int>("order")
@@ -131,7 +129,6 @@ namespace MyMentor
             var query = from cat in ParseObject.GetQuery("Category4")
                         where
                         cat["contentType"] == ParseObject.CreateWithoutData("WorldContentType", contentType)
-                        && cat.Get<string>("culture") == MyMentor.Properties.Settings.Default.CultureInfo
                         orderby cat.Get<int>("order")
                         select cat;
 
@@ -154,7 +151,7 @@ namespace MyMentor
         {
             //get category 3
             var query = from sta in ParseObject.GetQuery("ClipType")
-                        where sta.Get<string>("value") != ""
+                        where sta.Get<string>("value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_")) != ""
                         select sta;
 
             return await query.FindAsync();

@@ -448,6 +448,7 @@ namespace MyMentor.Forms
         {
             tbClipRemarks.Text = Clip.Current.Remarks;
             tbClipDescription.Text = Clip.Current.Description;
+            tbClipDescriptionEnglish.Text = Clip.Current.EnglishDescription;
             comboCategory1.SelectedValue = Clip.Current.Category1 ?? string.Empty;
             mtbVersion.Text = Clip.Current.Version;
             comboCategory3.SelectedValue = Clip.Current.Category3 ?? string.Empty;
@@ -866,6 +867,9 @@ namespace MyMentor.Forms
 
             m_contentType = contentType;
 
+            string value_key = "value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
+            string status_key = "status_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
+
             try
             {
                 m_strings = await ParseTables.GetStrings();
@@ -875,7 +879,7 @@ namespace MyMentor.Forms
                 this.comboCategory1.DataSource = (await ParseTables.GetCategory1(contentType.ObjectId)).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.Get<string>("value")
+                    Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
                 }).ToList();
 
                 this.comboCategory3.DisplayMember = "Value";
@@ -883,7 +887,7 @@ namespace MyMentor.Forms
                 this.comboCategory3.DataSource = (await ParseTables.GetCategory3(contentType.ObjectId, "HPz65WBzhw")).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.Get<string>("value"),
+                    Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty,
                     MinPrice = (decimal)c.Get<float>("minPrice")
                 }).ToList();
 
@@ -892,7 +896,7 @@ namespace MyMentor.Forms
                 this.comboCategory4.DataSource = (await ParseTables.GetCategory4(contentType.ObjectId)).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.Get<string>("value")
+                    Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
                 }).ToList();
 
                 this.comboStatus.DisplayMember = "Value";
@@ -900,7 +904,7 @@ namespace MyMentor.Forms
                 this.comboStatus.DataSource = (await ParseTables.GetStatuses()).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.Get<string>("status_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_"))
+                    Value = c.Get<string>(status_key)
                 }).ToList();
 
 
@@ -912,7 +916,7 @@ namespace MyMentor.Forms
                     this.comboClipType.DataSource = t.Result.Select(c => new Category
                     {
                         ObjectId = c.ObjectId,
-                        Value = c.Get<string>("value")
+                        Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
                     }).ToList();
 
                     Clip.Current.IsDirty = false;
@@ -2367,14 +2371,18 @@ namespace MyMentor.Forms
 
         private async void comboCategory1_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            string value_key = "value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
+
             if (comboCategory1.SelectedIndex >= 0)
             {
+                var list = (await ParseTables.GetCategory2((string)comboCategory1.SelectedValue)).Where( o => o.Keys.Count() == 4);
+
                 this.comboCategory2.DisplayMember = "Value";
                 this.comboCategory2.ValueMember = "ObjectId";
-                this.comboCategory2.DataSource = (await ParseTables.GetCategory2((string)comboCategory1.SelectedValue)).Select(c => new Category
+                this.comboCategory2.DataSource = list.Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.Get<string>("value")
+                    Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
                 }).ToList(); ;
 
                 if (Clip.Current.Category2 != null)
@@ -2542,7 +2550,6 @@ namespace MyMentor.Forms
 
         private void trackBarVolume1_Scroll(object sender, EventArgs e)
         {
-            var error = audioDjStudio1.MixerVolumeSet(0, AudioDjStudio.enumComponentTypes.COMPONENTTYPE_SRC_WAVEOUT, trackBarVolume1.Value);
 
         }
 
@@ -4208,13 +4215,14 @@ namespace MyMentor.Forms
             bool doDirty = false;
 
             doDirty = !m_whileLoadingClip;
+            string value_key = "value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
 
             this.comboCategory3.DisplayMember = "Value";
             this.comboCategory3.ValueMember = "ObjectId";
             this.comboCategory3.DataSource = (await ParseTables.GetCategory3(m_contentType.ObjectId, lessonType)).Select(c => new Category
             {
                 ObjectId = c.ObjectId,
-                Value = c.Get<string>("value"),
+                Value = c.Get<string>(value_key),
                 MinPrice = (decimal)c.Get<float>("minPrice")
 
             }).ToList();
@@ -4490,6 +4498,18 @@ namespace MyMentor.Forms
         {
             Clip.Current.Keywords = tbKeywords.Text;
             RegenerateClipName(true);
+        }
+
+        private void trackBarVolume1_ValueChanged(object sender, EventArgs e)
+        {
+            var error = audioDjStudio1.MixerVolumeSet(0, AudioDjStudio.enumComponentTypes.COMPONENTTYPE_SRC_WAVEOUT, trackBarVolume1.Value);
+
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            audioSoundRecorder1.SetInputDeviceChannelVolume(0, 0, (Int16)trackBar1.Value);
+
         }
     }
 }

@@ -153,6 +153,9 @@
   <data name="MANDATORY_FIELDS" xml:space="preserve">
     <value>יש למלא שדות חובה למאפייני השיעור</value>
   </data>
+  <data name="MENU_REMOVE_ANCHORS" xml:space="preserve">
+    <value>מחק מעבר זה ואת הבאים אחריו</value>
+  </data>
   <data name="MIN_PRICE" xml:space="preserve">
     <value>מחיר מינ'</value>
   </data>

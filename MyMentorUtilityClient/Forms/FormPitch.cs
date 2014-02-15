@@ -182,7 +182,7 @@ namespace MyMentor
 
 		private void FormPitch_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
 		{
-			e.Handled = FormMain.CheckKeyPress (textBoxSemitones, Convert.ToInt32(e.KeyChar));
+			//e.Handled = FormMain.CheckKeyPress (textBoxSemitones, Convert.ToInt32(e.KeyChar));
 		}
 	}
 }

@@ -195,7 +195,7 @@ namespace MyMentor
 
 		private void FormTempoRate_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
 		{
-			e.Handled = FormMain.CheckKeyPress (textBoxPercentage, Convert.ToInt32(e.KeyChar));
+			//e.Handled = FormStudio.CheckKeyPress (textBoxPercentage, Convert.ToInt32(e.KeyChar));
 		}
 	}
 }

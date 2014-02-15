@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrendanGrant.Helpers.FileAssociation;
@@ -73,9 +74,35 @@ namespace MyMentor
             {
                 file = args[0];
             }
-
-            Application.Run(new FormStudio(file));
+            if (!CheckForInternetConnection())
+            {
+                MessageBox.Show("No internet connection, please try again later.", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+            else
+            {
+                Application.Run(new FormStudio(file));
+            }
             //Application.Run(new FormMain(file));
+        }
+
+
+        private static bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    using (var stream = client.OpenRead("http://www.google.com"))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

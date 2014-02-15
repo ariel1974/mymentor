@@ -24,6 +24,10 @@ namespace MyMentor
             return value.Replace("[3]", string.Empty).Replace("[2]", string.Empty).Replace("[1]", string.Empty).Replace("[0]", string.Empty);
         }
 
+        public static string ClearSpacesAndBreakLines(this string text)
+        {
+            return text.Replace(System.Environment.NewLine, string.Empty).Replace(" ", string.Empty);
+        }
 
         public static string SpecialReplace(this string text, string placeholder, string with)
         {

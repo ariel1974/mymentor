@@ -142,6 +142,11 @@ namespace MyMentor
                         if (nextWord != null)
                         {
                             m_duration = nextWord.StartTime - ((Word)this).StartTime;
+
+                            if (m_duration < TimeSpan.Zero)
+                            {
+                                m_duration = TimeSpan.Zero;
+                            }
                         }
 
                         break;

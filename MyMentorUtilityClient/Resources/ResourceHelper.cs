@@ -4,6 +4,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using MyMentor.Forms;
 
 namespace MyMentor.Resources
 {
@@ -14,7 +15,7 @@ namespace MyMentor.Resources
         static ResourceHelper()
         {
              rm = new ResourceManager("MyMentor.Resources.Strings",
-                                      typeof(FormMain).Assembly);
+                                      typeof(FormStudio).Assembly);
         }
 
         public static string GetLabel(string code)

@@ -977,4 +977,35 @@ namespace MyMentor
         }
 
     }
+
+
+    public struct SectionMatch
+    {
+        private string m_value;
+
+        public int CharIndex { get; set; }
+        public int Length { get; set; }
+        public AnchorType Type { get; set; }
+
+        public string StrippedValue
+        {
+            get
+            {
+                return m_value.Replace("[0]", "").Replace("[1]", "").Replace("[2]", "").Replace("[3]", "");
+            }
+        }
+
+        public string Value
+        {
+            get
+            {
+                return m_value;
+            }
+
+            set
+            {
+                m_value = value;
+            }
+        }
+    }
 }

@@ -53,6 +53,9 @@
     <ApplicationIcon>1386994963_118644.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>MyMentor.exe.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AudioDjStudio, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6dd52dbb299cc1b2, processorArchitecture=MSIL">
       <Private>False</Private>
@@ -164,9 +167,6 @@
     <Compile Include="Forms\FormHostVstEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\FormOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,9 +198,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormVolumeAutomation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormWavesReverb.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\PleaseWaitForm.cs">
@@ -293,14 +290,6 @@
       <DependentUpon>FormHostVstEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormMain.en-US.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormOptions.resx">
       <DependentUpon>FormOptions.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -341,10 +330,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormVolumeAutomation.resx">
       <DependentUpon>FormVolumeAutomation.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormWavesReverb.resx">
-      <DependentUpon>FormWavesReverb.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PleaseWaitForm.en-US.resx">
@@ -389,10 +374,10 @@
     <Content Include="sound_sample.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MyMentor.exe.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="BootstrapperCore.config" />
+    <None Include="MyMentor.exe.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

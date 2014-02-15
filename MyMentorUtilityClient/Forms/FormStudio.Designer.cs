@@ -89,6 +89,7 @@
             this.testAudioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.schedulingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeAllSchedulingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsm_RemoveAnchor = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
@@ -154,6 +155,8 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.FrameRecording = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label30 = new System.Windows.Forms.Label();
             this.trackBarVolume1 = new System.Windows.Forms.TrackBar();
             this.Frame4 = new System.Windows.Forms.GroupBox();
@@ -173,6 +176,7 @@
             this.Label8 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.sevenSegmentArray1 = new DmitryBrant.CustomControls.SevenSegmentArray();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.numericUpDownBufferRecord = new System.Windows.Forms.NumericUpDown();
@@ -192,6 +196,7 @@
             this.LabelCurrentWordDuration = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
             this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
             this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.buttonHammer = new System.Windows.Forms.Button();
@@ -313,10 +318,7 @@
             this.timerPreStartFixPlayback = new System.Windows.Forms.Timer(this.components);
             this.timerFixRichText = new System.Windows.Forms.Timer(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.label20 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.sevenSegmentArray1 = new DmitryBrant.CustomControls.SevenSegmentArray();
-            this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
+            this.timerFirstAnchorScheduling = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWaveZoom)).BeginInit();
@@ -334,6 +336,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.FrameRecording.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).BeginInit();
             this.Frame4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -362,7 +365,6 @@
             this.toolStrip2.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPitch1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -759,7 +761,8 @@
             // schedulingToolStripMenuItem
             // 
             this.schedulingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeAllSchedulingsToolStripMenuItem});
+            this.removeAllSchedulingsToolStripMenuItem,
+            this.tsm_RemoveAnchor});
             this.schedulingToolStripMenuItem.Name = "schedulingToolStripMenuItem";
             resources.ApplyResources(this.schedulingToolStripMenuItem, "schedulingToolStripMenuItem");
             // 
@@ -768,6 +771,12 @@
             this.removeAllSchedulingsToolStripMenuItem.Name = "removeAllSchedulingsToolStripMenuItem";
             resources.ApplyResources(this.removeAllSchedulingsToolStripMenuItem, "removeAllSchedulingsToolStripMenuItem");
             this.removeAllSchedulingsToolStripMenuItem.Click += new System.EventHandler(this.removeAllSchedulingsToolStripMenuItem_Click);
+            // 
+            // tsm_RemoveAnchor
+            // 
+            resources.ApplyResources(this.tsm_RemoveAnchor, "tsm_RemoveAnchor");
+            this.tsm_RemoveAnchor.Name = "tsm_RemoveAnchor";
+            this.tsm_RemoveAnchor.Click += new System.EventHandler(this.tsm_RemoveAnchor_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -1351,6 +1360,21 @@
             this.tableLayoutPanel1.SetRowSpan(this.FrameRecording, 2);
             this.FrameRecording.TabStop = false;
             // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.Name = "label20";
+            // 
+            // trackBar1
+            // 
+            resources.ApplyResources(this.trackBar1, "trackBar1");
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.TickFrequency = 10;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar1.Value = 100;
+            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
+            // 
             // label30
             // 
             resources.ApplyResources(this.label30, "label30");
@@ -1527,6 +1551,21 @@
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.TabStop = false;
             // 
+            // sevenSegmentArray1
+            // 
+            this.sevenSegmentArray1.ArrayCount = 2;
+            this.sevenSegmentArray1.ColorBackground = System.Drawing.Color.DarkGray;
+            this.sevenSegmentArray1.ColorDark = System.Drawing.Color.DimGray;
+            this.sevenSegmentArray1.ColorLight = System.Drawing.Color.Chartreuse;
+            this.sevenSegmentArray1.DecimalShow = true;
+            this.sevenSegmentArray1.ElementPadding = new System.Windows.Forms.Padding(4);
+            this.sevenSegmentArray1.ElementWidth = 10;
+            this.sevenSegmentArray1.ItalicFactor = 0F;
+            resources.ApplyResources(this.sevenSegmentArray1, "sevenSegmentArray1");
+            this.sevenSegmentArray1.Name = "sevenSegmentArray1";
+            this.sevenSegmentArray1.TabStop = false;
+            this.sevenSegmentArray1.Value = "5.0";
+            // 
             // label26
             // 
             resources.ApplyResources(this.label26, "label26");
@@ -1699,6 +1738,13 @@
             resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
             // 
+            // timePickerCurrentWord
+            // 
+            resources.ApplyResources(this.timePickerCurrentWord, "timePickerCurrentWord");
+            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
+            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
+            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerCurrentWord_ValueChanged);
+            // 
             // LabelCurrentSchedulingTimer
             // 
             this.LabelCurrentSchedulingTimer.BackColor = System.Drawing.Color.White;
@@ -1838,6 +1884,7 @@
             this.richTextBox3.Name = "richTextBox3";
             this.richTextBox3.ReadOnly = true;
             this.richTextBox3.SelectionChanged += new System.EventHandler(this.richTextBox3_SelectionChanged);
+            this.richTextBox3.VScroll += new System.EventHandler(this.richTextBox3_VScroll);
             // 
             // tabPage4
             // 
@@ -2541,42 +2588,10 @@
             this.imageList1.Images.SetKeyName(0, "1386908105_Record Button2.png");
             this.imageList1.Images.SetKeyName(1, "1386908112_Record Button1.png");
             // 
-            // label20
+            // timerFirstAnchorScheduling
             // 
-            resources.ApplyResources(this.label20, "label20");
-            this.label20.Name = "label20";
-            // 
-            // trackBar1
-            // 
-            resources.ApplyResources(this.trackBar1, "trackBar1");
-            this.trackBar1.Maximum = 100;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.TickFrequency = 10;
-            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar1.Value = 100;
-            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
-            // 
-            // sevenSegmentArray1
-            // 
-            this.sevenSegmentArray1.ArrayCount = 2;
-            this.sevenSegmentArray1.ColorBackground = System.Drawing.Color.DarkGray;
-            this.sevenSegmentArray1.ColorDark = System.Drawing.Color.DimGray;
-            this.sevenSegmentArray1.ColorLight = System.Drawing.Color.Chartreuse;
-            this.sevenSegmentArray1.DecimalShow = true;
-            this.sevenSegmentArray1.ElementPadding = new System.Windows.Forms.Padding(4);
-            this.sevenSegmentArray1.ElementWidth = 10;
-            this.sevenSegmentArray1.ItalicFactor = 0F;
-            resources.ApplyResources(this.sevenSegmentArray1, "sevenSegmentArray1");
-            this.sevenSegmentArray1.Name = "sevenSegmentArray1";
-            this.sevenSegmentArray1.TabStop = false;
-            this.sevenSegmentArray1.Value = "5.0";
-            // 
-            // timePickerCurrentWord
-            // 
-            resources.ApplyResources(this.timePickerCurrentWord, "timePickerCurrentWord");
-            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
-            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerCurrentWord_ValueChanged);
+            this.timerFirstAnchorScheduling.Interval = 250;
+            this.timerFirstAnchorScheduling.Tick += new System.EventHandler(this.timerFirstAnchorScheduling_Tick);
             // 
             // FormStudio
             // 
@@ -2616,6 +2631,7 @@
             this.panel2.ResumeLayout(false);
             this.FrameRecording.ResumeLayout(false);
             this.FrameRecording.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).EndInit();
             this.Frame4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -2654,7 +2670,6 @@
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPitch1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2949,5 +2964,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.ToolStripMenuItem tsm_RemoveAnchor;
+        private System.Windows.Forms.Timer timerFirstAnchorScheduling;
     }
 }

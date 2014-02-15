@@ -26,7 +26,10 @@ namespace MyMentor
 
         public static string ClearSpacesAndBreakLines(this string text)
         {
-            return text.Replace(System.Environment.NewLine, string.Empty).Replace(" ", string.Empty);
+            return text.Replace(System.Environment.NewLine, string.Empty)
+                .Replace("\r", string.Empty)
+                .Replace("\n", string.Empty)
+                .Replace(" ", string.Empty);
         }
 
         public static string SpecialReplace(this string text, string placeholder, string with)

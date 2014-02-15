@@ -2737,6 +2737,7 @@ namespace MyMentor.Forms
             m_selectedScheduledWord = null;
             m_selectedAnchor = false;
             m_lastAnchorIndexSelected = -1;
+            tsm_RemoveAnchor.Enabled = false;
 
             richTextBox2.Rtf = richTextBox1.Rtf;
             CheckAnchors();
@@ -3977,6 +3978,8 @@ namespace MyMentor.Forms
             {
                 return;
             }
+
+            tsm_RemoveAnchor.Enabled = false;
 
             int selectionIndex = Math.Max(0, richTextBox3.SelectionStart - START_PAUSE_SECTION_ANCHOR.Length);
 

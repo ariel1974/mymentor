@@ -1816,14 +1816,12 @@ namespace MyMentor.Forms
 
         private void mnuZoom_In_Click(object sender, EventArgs e)
         {
-            audioSoundEditor1.DisplayWaveformAnalyzer.ZoomIn();
-
+            toolStripButton2_Click(null, new EventArgs());
         }
 
         private void mnuZoom_Out_Click(object sender, EventArgs e)
         {
-            audioSoundEditor1.DisplayWaveformAnalyzer.ZoomOut();
-
+            toolStripButton1_Click(null, new EventArgs());
         }
 
         private void testAudioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2453,13 +2451,58 @@ namespace MyMentor.Forms
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            audioSoundEditor1.DisplayWaveformAnalyzer.ZoomOut();
+            bool bSelectionAvailable = false;
+            Int32 nBeginSelectionInMs = 0;
+            Int32 nEndSelectionInMs = 0;
+            Int32 nBeginPosInMs = 0;
+            Int32 nEndPosInMs = 0;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
 
+            int center = 0;
+
+            if (nBeginSelectionInMs != nEndSelectionInMs)
+            {
+                center = ((nEndSelectionInMs - nBeginSelectionInMs) / 2) + nBeginSelectionInMs;
+            }
+            else
+            {
+                center = nBeginSelectionInMs;
+            }
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nBeginPosInMs, ref nEndPosInMs);
+
+            int nNewBeginPosInMs = center - (int)((nEndPosInMs - nBeginPosInMs) * 1.35);
+            int nNewEndPosInMs = center + (int)((nEndPosInMs - nBeginPosInMs) * 1.35);
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange(nNewBeginPosInMs, nNewEndPosInMs);
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            audioSoundEditor1.DisplayWaveformAnalyzer.ZoomIn();
+            bool bSelectionAvailable = false;
+            Int32 nBeginSelectionInMs = 0;
+            Int32 nEndSelectionInMs = 0;
+            Int32 nBeginPosInMs = 0;
+            Int32 nEndPosInMs = 0;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+            int center = 0;
+
+            if (nBeginSelectionInMs != nEndSelectionInMs)
+            {
+                center = ((nEndSelectionInMs - nBeginSelectionInMs) / 2) + nBeginSelectionInMs;
+            }
+            else
+            {
+                center = nBeginSelectionInMs;
+            }
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nBeginPosInMs, ref nEndPosInMs);
+
+            int nNewBeginPosInMs = center - (int)((nEndPosInMs - nBeginPosInMs) * 0.35);
+            int nNewEndPosInMs = center + (int)((nEndPosInMs - nBeginPosInMs) * 0.35);
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange(nNewBeginPosInMs, nNewEndPosInMs);
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -4714,6 +4757,34 @@ namespace MyMentor.Forms
                 }
             }
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            bool bSelectionAvailable = false;
+            Int32 nBeginSelectionInMs = 0;
+            Int32 nEndSelectionInMs = 0;
+            Int32 nBeginPosInMs = 0;
+            Int32 nEndPosInMs = 0;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+            int center = 0;
+
+            if (nBeginSelectionInMs != nEndSelectionInMs)
+            {
+                center = ((nEndSelectionInMs - nBeginSelectionInMs) / 2)  +  nBeginSelectionInMs; 
+            }
+            else
+            {
+                center = nBeginSelectionInMs;
+            }
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nBeginPosInMs, ref nEndPosInMs);
+
+            nBeginPosInMs = center - (int)((nEndPosInMs - nBeginPosInMs) * 0.35);
+            nEndPosInMs = center + (int)((nEndPosInMs - nBeginPosInMs) * 0.35);
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange(nBeginPosInMs, nEndPosInMs);
         }
 
     }

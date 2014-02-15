@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="{E0F66803-91BF-4571-B8B2-D442D5513E1D}" Name="MyMentor Studio V2" Language="1033" Version="9.0.0.9" Manufacturer="MyMentor" UpgradeCode="dbb0c767-da1c-4acb-8075-a293ead7da66">
+  <Product Id="{E0F66803-91BF-4571-B8B2-D442D5513E1D}" Name="MyMentor Studio V2" Language="1033" Version="9.0.1.0" Manufacturer="MyMentor" UpgradeCode="dbb0c767-da1c-4acb-8075-a293ead7da66">
     <Package Id="{8793907F-A2D7-4701-BE6E-90865B83E80A}" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <Upgrade Id="dbb0c767-da1c-4acb-8075-a293ead7da66">
       <UpgradeVersion

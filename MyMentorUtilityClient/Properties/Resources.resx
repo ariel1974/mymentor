@@ -118,22 +118,61 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="1386909646_519838-50_Cloud_Arrow_Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1386909646_519838-50_Cloud_Arrow_Up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bg16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1386908112_Record Button1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1386908112_Record Button1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1393683320_icon-volume-medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1393683320_icon-volume-medium.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1388144426_arrow_sans_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1388144426_arrow_sans_right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bg1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1386947558_anchor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1386947558_anchor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1386909293_auction_hammer_gavel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1386909293_auction_hammer_gavel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1393683104_black_8_audio_micro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1393683104_black_8_audio_micro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="word_anchor_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\word_anchor_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bg33" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg33.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1386908112_Record Button1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1386908112_Record Button1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mnuFile" xml:space="preserve">
     <value>קובץ</value>
   </data>
-  <data name="1388144426_arrow_sans_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1388144426_arrow_sans_right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1386909646_519838-50_Cloud_Arrow_Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1386909646_519838-50_Cloud_Arrow_Up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bg331" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg331.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="par_anchor_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\par_anchor_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="word_anchor_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\word_anchor_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="par_anchor_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\par_anchor_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1x1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1x1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1386909293_auction_hammer_gavel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1386909293_auction_hammer_gavel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bg332" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg332.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

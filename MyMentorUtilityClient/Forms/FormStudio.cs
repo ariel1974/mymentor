@@ -24,7 +24,7 @@ namespace MyMentor.Forms
     {
         private string m_currentFingerPrint = string.Empty;
         private bool m_bRecAppendMode;
-        private bool m_bRecOverwriteMode;
+        private bool m_bContinueRecordingAfterPlayback;
         private TimeSpan m_overwriteModeDeletePosition = TimeSpan.Zero;
         private IntPtr m_hWndVuMeterLeft;
         private IntPtr m_hWndVuMeterRight;
@@ -167,6 +167,13 @@ namespace MyMentor.Forms
             audioSoundEditor1.EncodeFormats.FormatToUse = enumEncodingFormats.ENCODING_FORMAT_MP3;
             audioSoundEditor1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_CBR;
             audioSoundEditor1.EncodeFormats.MP3.CBR = 128000;
+
+            //ToolBarSettings();
+        }
+
+        void ToolBarSettings()
+        {
+            tbrWord.Image = imageList2.Images[3];
         }
 
         void mnuItemRemoveAnchors_Click(object sender, EventArgs e)
@@ -217,25 +224,8 @@ namespace MyMentor.Forms
             {
                 // the whole song was deleted, let's free all
                 audioSoundEditor1.CloseSound();
-
-                // reset formatted strings
-                LabelRangeBegin.Text = "00:00:00.000";
-                LabelRangeEnd.Text = "00:00:00.000";
-                LabelRangeDuration.Text = "00:00:00.000";
-                LabelSelectionBegin.Text = "00:00:00.000";
-                LabelSelectionEnd.Text = "00:00:00.000";
-                LabelSelectionDuration.Text = "00:00:00.000";
-                LabelTotalDuration.Text = "00:00:00.000";
-                LabelTotalDuration2.Text = "00:00:00.000";
                 return;
             }
-
-            // display updated sound duration
-            LabelTotalDuration.Text = audioSoundEditor1.GetFormattedTime(nDurationInMs, true, true);
-            LabelTotalDuration.Refresh();
-
-            LabelTotalDuration2.Text = audioSoundEditor1.GetFormattedTime(nDurationInMs, true, true);
-            LabelTotalDuration2.Refresh();
 
             // check if the song was loaded from a previous recording session
             if (audioSoundRecorder1.RecordedSound.GetDuration() > 0)
@@ -355,6 +345,8 @@ namespace MyMentor.Forms
             // check if there is a sound available
             if (audioSoundEditor1.GetSoundDuration() > 0)
             {
+                tsbContinueRecord.Enabled = nBeginSelectionInMs == nEndSelectionInMs;
+
                 // enable Select all
                 mnuAudioSelectedPart_SelectAll.Enabled = true;
 
@@ -370,6 +362,8 @@ namespace MyMentor.Forms
             }
             else
             {
+                tsbContinueRecord.Enabled = false;
+
                 // disable Select all
                 mnuAudioSelectedPart_SelectAll.Enabled = false;
 
@@ -382,6 +376,102 @@ namespace MyMentor.Forms
 
                 // disable zoom
                 mnuZoom.Enabled = false;
+
+                //disable buttons
+                foreach (var btn in toolStrip2.Items)
+                {
+                    var tsb = (ToolStripItem)btn;
+
+                    if (
+                        (tsb.Tag != null && tsb.Name != "tsbImportFile" && tsb.Name != "tsbStartRecordNew")
+                        )
+                    {
+                        tsb.Enabled = false;
+                    }
+                }
+            }
+
+            if (audioSoundRecorder1.Status == AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING
+                || audioSoundRecorder1.Status == AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING_CLIPBOARD)
+            {
+                //disable buttons
+                foreach (var btn in toolStrip2.Items)
+                {
+                    var tsb = (ToolStripItem)btn;
+
+                    if (
+                        (tsb.Tag != null && tsb.Tag.ToString() == "I")
+                        )
+                    {
+                        tsb.Enabled = false;
+                    }
+                }
+
+                tsbPlay.Enabled = false;
+                tsbStop.Enabled = false;
+
+                if (m_bRecAppendMode && m_bContinueRecordingAfterPlayback)
+                {
+                    tsbStartRecordNew.Enabled = false;
+                    tsbContinueRecord.Enabled = true;
+                }
+                else
+                {
+                    tsbContinueRecord.Enabled = false;
+                    tsbStartRecordNew.Enabled = true;
+                }
+            }
+            else if ( audioSoundEditor1.GetSoundDuration() > 0 )
+            {
+                if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING
+                    || audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PAUSED)
+                {
+                    //disable buttons
+                    foreach (var btn in toolStrip2.Items)
+                    {
+                        var tsb = (ToolStripItem)btn;
+
+                        if (
+                            (tsb.Tag != null && tsb.Tag.ToString() == "I")
+                            )
+                        {
+                            tsb.Enabled = false;
+                        }
+                    }
+
+                    tsbStartRecordNew.Enabled = false;
+
+                    if (m_bContinueRecordingAfterPlayback)
+                    {
+                        tsbContinueRecord.Enabled = true;
+                        tsbPlay.Enabled = false;
+                        tsbStop.Enabled = false;
+                    }
+                    else
+                    {
+                        tsbContinueRecord.Enabled = false;
+                        tsbPlay.Enabled = true;
+                        tsbStop.Enabled = true;
+                    }
+                }
+                else
+                {
+                    //enable all buttons
+                    foreach (var btn in toolStrip2.Items)
+                    {
+                        var tsb = (ToolStripItem)btn;
+                        if (
+                            (tsb.Tag != null && tsb.Tag.ToString() == "I")
+                            )
+                        {
+                            tsb.Enabled = true;
+                        }
+                    }
+
+                    tsbStartRecordNew.Enabled = true;
+                    tsbPlay.Enabled = true;
+                    tsbStop.Enabled = false;
+                }
             }
         }
 
@@ -737,8 +827,6 @@ namespace MyMentor.Forms
                     break;
                 }
             }
-
-
 
         }
 
@@ -1445,16 +1533,6 @@ namespace MyMentor.Forms
             // free the actual editing session
             audioSoundEditor1.CloseSound();
 
-            // reset formatted strings
-            LabelRangeBegin.Text = "00:00:00.000";
-            LabelRangeEnd.Text = "00:00:00.000";
-            LabelRangeDuration.Text = "00:00:00.000";
-            LabelSelectionBegin.Text = "00:00:00.000";
-            LabelSelectionEnd.Text = "00:00:00.000";
-            LabelSelectionDuration.Text = "00:00:00.000";
-            LabelTotalDuration.Text = "00:00:00.000";
-            LabelTotalDuration2.Text = "00:00:00.000";
-
             openFileDialog1.Filter =
                 "Supported Sounds (*.mp3;*.mp2;*.wav;*.ogg;*.aiff;*.wma;*.wmv;*.asx;*.asf;" +
                 "*.m4a;*.mp4;*.flac;*.aac;*.ac3;*.wv;" +
@@ -1862,7 +1940,6 @@ namespace MyMentor.Forms
                     audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
                     m_endLineUniqueId = -1;
 
-                    LabelCurrentSchedulingTimer.Text = audioSoundEditor1.FromMsToFormattedTime(0, true, true);// GetFormattedTime(e.nBeginPosInMs, true, true);
                     richTextBox3.SelectionStart = 4;
                     buttonStartSchedulingPlayback.Text = ResourceHelper.GetLabel("START");
                     buttonHammer.Enabled = true;
@@ -2360,35 +2437,6 @@ namespace MyMentor.Forms
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            using (FormReadyTexts form = new FormReadyTexts(this))
-            {
-                if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                {
-                    richTextBox1.Text = form.SelectedSource.Text;
-
-                    if (form.SelectedSource.Category1 != null)
-                    {
-                        comboCategory1.SelectedValue = form.SelectedSource.Category1.ObjectId;
-
-                        comboCategory1_SelectionChangeCommitted(null, new EventArgs());
-                    }
-
-                    if (form.SelectedSource.Category2 != null)
-                    {
-                        comboCategory2.SelectedValue = form.SelectedSource.Category2.ObjectId;
-                    }
-
-                    if (form.SelectedSource.Category3 != null)
-                    {
-                        comboCategory3.SelectedValue = form.SelectedSource.Category3.ObjectId;
-                    }
-
-                    tbClipDescription.Text = form.SelectedSource.Description;
-                    tbClipDescriptionEnglish.Text = form.SelectedSource.DescriptionEnglish;
-
-                    MessageBox.Show(m_strings.Single(a => a.Key == "STD_AFTER_SOURCE_SELECTION").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                }
-            }
 
         }
 
@@ -2639,25 +2687,6 @@ namespace MyMentor.Forms
 
         }
 
-        private void buttonRecOverwritePlayback_Click(object sender, EventArgs e)
-        {
-            audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
-
-            buttonRecOverwritePlayback.Enabled = false;
-
-            m_stopWatch.Reset();
-            m_stopWatch.Start();
-
-            timerRefreshLedDisplay.Enabled = true;
-            timerPreStartFixPlayback.Enabled = true;
-
-        }
-
-        private void numericUpDownBufferRecord_ValueChanged(object sender, EventArgs e)
-        {
-            sevenSegmentArray1.Value = numericUpDownBufferRecord.Value.ToString("0.0");
-
-        }
 
         private void trackBarVolume1_Scroll(object sender, EventArgs e)
         {
@@ -2856,19 +2885,6 @@ namespace MyMentor.Forms
 
         }
 
-        private void buttonPause_Click(object sender, EventArgs e)
-        {
-            if (buttonPause.Text == ResourceHelper.GetLabel("PAUSE"))
-            {
-                audioDjStudio1.PauseSound(0);
-            }
-            else
-            {
-                audioDjStudio1.ResumeSound(0);
-            }
-
-        }
-
         private void buttonPlaySelection_Click(object sender, EventArgs e)
         {
             audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
@@ -2915,8 +2931,6 @@ namespace MyMentor.Forms
             //int mm = audioSoundEditor1.GetPlaybackPosition();
             var position = new TimeSpan(0, 0, 0, 0, Math.Max((int)fPosition, 0)); ;
 
-            LabelCurrentSchedulingTimer.Text = audioSoundEditor1.FromMsToFormattedTime((long)fPosition, true, true);// GetFormattedTime(e.nBeginPosInMs, true, true);
-
             //during playing check if the current position moved over to the next word
             if (Clip.Current.Chapter.Paragraphs != null)// && !m_selectedAnchor)
             {
@@ -2928,9 +2942,6 @@ namespace MyMentor.Forms
                     if (position >= Clip.Current.Chapter.FirstWord.StartTime && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
                     {
                         Debug.WriteLine(string.Format("_Tick: position ({0}) is equal or bigger than first word start time ({1}) AND start time > 0", audioSoundEditor1.FromMsToFormattedTime((long)position.TotalMilliseconds, false, true), audioSoundEditor1.FromMsToFormattedTime((long)Clip.Current.Chapter.FirstWord.StartTime.TotalMilliseconds, false, true)));
-
-                        //set time picker
-                        timePickerCurrentWord.Value = position;
 
                         Debug.WriteLine(string.Format("_Tick: set timePickerCurrentWord to position ({0})", audioSoundEditor1.FromMsToFormattedTime((long)position.TotalMilliseconds, false, true)));
 
@@ -2954,9 +2965,6 @@ namespace MyMentor.Forms
                     {
                         Debug.WriteLine(string.Format("_Tick: moving to next word start time : {0}", audioSoundEditor1.FromMsToFormattedTime((long)m_selectedScheduledWord.NextWord.StartTime.TotalMilliseconds, false, true)));
 
-                        //set time picker
-                        timePickerCurrentWord.Value = m_selectedScheduledWord.NextWord.StartTime;// position;
-
                         Debug.WriteLine(string.Format("_Tick: moving to char index {0}", m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length));
                         richTextBox3.SelectionStart = m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
                     }
@@ -2969,8 +2977,6 @@ namespace MyMentor.Forms
                         )
                     {
                         Debug.WriteLine(string.Format("_Tick: !!last word!! : moving to next word start time : {0}", audioSoundEditor1.FromMsToFormattedTime((long)m_selectedScheduledWord.NextWord.StartTime.TotalMilliseconds, false, true)));
-                        //set time picker
-                        timePickerCurrentWord.Value = m_selectedScheduledWord.NextWord.StartTime;// position;
 
                         Debug.WriteLine(string.Format("_Tick: moving to char index {0}", m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length));
                         richTextBox3.SelectionStart = m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
@@ -2984,9 +2990,6 @@ namespace MyMentor.Forms
                     {
                         Debug.WriteLine(string.Format("_Tick: !!Passed the end line!! on time : {0}", audioSoundEditor1.FromMsToFormattedTime((long)(m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration).TotalMilliseconds, false, true)));
 
-                        //set time picker
-                        timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration;
-
                         richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + m_selectedScheduledWord.Length + 1;
                     }
                 }
@@ -2994,30 +2997,6 @@ namespace MyMentor.Forms
 
         }
 
-        private void timerRefreshLedDisplay_Tick(object sender, EventArgs e)
-        {
-            if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
-            {
-                bool bSelectionAvailable = false;
-                Int32 nBeginSelectionInMs = 0;
-                Int32 nEndSelectionInMs = 0;
-                audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
-
-                if (m_targetStartFixInMs > nBeginSelectionInMs)
-                {
-                    double d = (double)((m_targetStartFixInMs - nBeginSelectionInMs) / (double)1000);
-
-                    // playing music
-                    sevenSegmentArray1.Value = d.ToString("0.0");
-                }
-            }
-            else
-            {
-                // in silent pre playback
-                sevenSegmentArray1.Value = ((double)(numericUpDownBufferRecord.Value * 1000 - m_stopWatch.ElapsedMilliseconds) / (double)1000).ToString("0.0");
-            }
-
-        }
 
         private void timerDisplayWaveform_Tick(object sender, EventArgs e)
         {
@@ -3030,15 +3009,27 @@ namespace MyMentor.Forms
 
         private void timerRecordIcon_Tick(object sender, EventArgs e)
         {
-            if (b_recordIconRed)
+            if (!m_bRecAppendMode)
             {
-                pictureBox1.Image = imageList1.Images[1];
-                pictureBox1.Refresh();
+                if (b_recordIconRed)
+                {
+                    tsbStartRecordNew.Image = imageList1.Images[1];
+                }
+                else
+                {
+                    tsbStartRecordNew.Image = imageList1.Images[0];
+                }
             }
             else
             {
-                pictureBox1.Image = imageList1.Images[0];
-                pictureBox1.Refresh();
+                if (b_recordIconRed)
+                {
+                    tsbContinueRecord.Image = imageList1.Images[2];
+                }
+                else
+                {
+                    tsbContinueRecord.Image = imageList1.Images[3];
+                }
             }
             b_recordIconRed = !b_recordIconRed;
 
@@ -3049,17 +3040,7 @@ namespace MyMentor.Forms
             timerRecordingDone.Enabled = false;
 
             // check if the latest recording session must replace or appended to the previous editing session
-            if (m_bRecOverwriteMode)
-            {
-                m_bRecOverwriteMode = false;
-                TimeSpan startSelectionTime = TimeSpan.Parse(LabelSelectionBegin.Text);
-                TimeSpan endSelectionTime = TimeSpan.Parse(LabelSelectionEnd.Text);
-
-                audioSoundEditor1.UseThreadsInSyncMode(true);
-                audioSoundEditor1.DeleteRange((int)m_overwriteModeDeletePosition.TotalMilliseconds, -1);
-                audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_APPEND);
-            }
-            else if (m_bRecAppendMode)
+            if (m_bRecAppendMode)
                 // append mode
                 audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_APPEND);
             else
@@ -3068,52 +3049,37 @@ namespace MyMentor.Forms
 
             // load recorded sound inside the editor
             audioSoundEditor1.LoadSoundFromRecordingSession(audioSoundRecorder1.Handle);
+
+            m_bRecAppendMode = false;
+            m_bContinueRecordingAfterPlayback = false;
         }
 
         private void timerStartRecordingAfterPlayingBuffer_Tick(object sender, EventArgs e)
         {
             timerStartRecordingAfterPlayingBuffer.Enabled = false;
+            
+            // get the position selected on the waveform analyzer, if any
+            //bool bSelectionAvailable = false;
+            //Int32 nBeginSelectionInMs = 0;
+            //Int32 nEndSelectionInMs = 0;
+            //audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
 
-            if (m_bRecOverwriteMode)
-            {
-                TimeSpan startSelectionTime = TimeSpan.Parse(LabelSelectionBegin.Text);
+            //if (m_bRecOverwriteMode)
+            //{
+            //    TimeSpan startSelectionTime = new TimeSpan(0, 0, 0, 0, nBeginSelectionInMs);
 
-                m_overwriteModeDeletePosition = startSelectionTime;
+                //m_overwriteModeDeletePosition = startSelectionTime;
 
                 // create a fresh new recording session
-                audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_NEW);
+                audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_APPEND);
 
                 // start recording in memory from system default input device and input channel
                 audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
 
-            }
+            //}
 
         }
 
-        private void timerPreStartFixPlayback_Tick(object sender, EventArgs e)
-        {
-            timerPreStartFixPlayback.Enabled = false;
-            m_stopWatch.Stop();
-
-            // get the position selected on the waveform analyzer, if any
-            bool bSelectionAvailable = false;
-            Int32 nBeginSelectionInMs = 0;
-            Int32 nEndSelectionInMs = 0;
-            audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
-
-            TimeSpan buffer = new TimeSpan(0, 0, (int)numericUpDownBufferRecord.Value);
-
-            int nBeginPlaying = Math.Max(0, nBeginSelectionInMs - (int)buffer.TotalMilliseconds);
-
-            // if a selection is available
-            if (bSelectionAvailable)
-            {
-                // play selected range only
-                audioDjStudio1.PlaySound(0, nBeginPlaying, nBeginSelectionInMs);
-                m_bRecOverwriteMode = true;
-            }
-
-        }
 
         private void timerFixRichText_Tick(object sender, EventArgs e)
         {
@@ -3144,12 +3110,7 @@ namespace MyMentor.Forms
 
         private void audioSoundRecorder1_RecordingStarted(object sender, EventArgs e)
         {
-            buttonStartRecNew.Enabled = false;
-            buttonStartRecAppend.Enabled = false;
-            buttonStopRecording.Enabled = true;
             timerRecordIcon.Enabled = true;
-            framePlayback.Enabled = false;
-
         }
 
         private void audioSoundRecorder1_RecordingStopped(object sender, AudioSoundRecorder.RecordingStoppedEventArgs e)
@@ -3158,12 +3119,8 @@ namespace MyMentor.Forms
             timerRecordingDone.Enabled = true;
             timerRecordIcon.Enabled = false;
 
-            buttonStartRecNew.Enabled = true;
-            buttonStartRecAppend.Enabled = true;
-            buttonStopRecording.Enabled = false;
-
-            framePlayback.Enabled = true;
-
+            tsbStartRecordNew.Image = imageList1.Images[0];
+            tsbContinueRecord.Image = imageList1.Images[2];
         }
 
         private void audioSoundRecorder1_VUMeterValueChange(object sender, AudioSoundRecorder.VUMeterValueChangeEventArgs e)
@@ -3184,13 +3141,6 @@ namespace MyMentor.Forms
             {
                 // success, force a new analysis of the recorded sound
                 TimerReload.Enabled = true;
-
-                Int32 nDuration = audioSoundEditor1.GetSoundDuration();
-                LabelTotalDuration.Text = audioSoundEditor1.GetFormattedTime(nDuration, true, true);
-                LabelTotalDuration.Refresh();
-
-                LabelTotalDuration2.Text = audioSoundEditor1.GetFormattedTime(nDuration, true, true);
-                LabelTotalDuration2.Refresh();
             }
 
         }
@@ -3319,13 +3269,11 @@ namespace MyMentor.Forms
 
         private void audioSoundEditor1_SoundPlaybackDone(object sender, EventArgs e)
         {
-            buttonPause.Text = ResourceHelper.GetLabel("PAUSE");
             LabelStatus.Text = "Status: Idle";
             LabelStatus.Refresh();
 
             buttonStartSchedulingPlayback.Text = ResourceHelper.GetLabel("START");
             buttonRestartScheduling.Enabled = true;
-            timePickerCurrentWord.Enabled = true;
 
             if (m_selectedAnchor)
             {
@@ -3336,13 +3284,10 @@ namespace MyMentor.Forms
             //in case just finished playing anchor fix
             if (m_rem_anchorFixRecording > TimeSpan.Zero)
             {
-                timePickerCurrentWord.Value = m_rem_anchorFixRecording;
                 m_rem_anchorFixRecording = TimeSpan.Zero;
             }
 
-            FrameRecording.Enabled = true;
-
-            if (m_bRecOverwriteMode)
+            if (m_bRecAppendMode && m_bContinueRecordingAfterPlayback)
             {
                 timerStartRecordingAfterPlayingBuffer.Enabled = true;
             }
@@ -3351,30 +3296,20 @@ namespace MyMentor.Forms
 
         private void audioSoundEditor1_SoundPlaybackPaused(object sender, EventArgs e)
         {
-            buttonPause.Text = ResourceHelper.GetLabel("CONTINUE");
             LabelStatus.Text = "Status: Playback paused";
             LabelStatus.Refresh();
-
-
         }
 
         private void audioSoundEditor1_SoundPlaybackPlaying(object sender, EventArgs e)
         {
-            buttonPause.Text = ResourceHelper.GetLabel("PAUSE");
             LabelStatus.Text = "Status: Playing...";
             LabelStatus.Refresh();
-
-            timePickerCurrentWord.Enabled = false;
-
         }
 
         private void audioSoundEditor1_SoundPlaybackStopped(object sender, EventArgs e)
         {
-            buttonPause.Text = ResourceHelper.GetLabel("PAUSE");
             LabelStatus.Text = "Status: Idle";
             LabelStatus.Refresh();
-
-            FrameRecording.Enabled = true;
 
             timerUpdateTimePickerSpinner.Enabled = false;
 
@@ -3412,20 +3347,11 @@ namespace MyMentor.Forms
 
             progressBar1.Visible = false;
             LabelStatus.Text = "Status: Idle";
-
-            buttonPlay.Enabled = true;
-            buttonPause.Enabled = true;
-            buttonStop.Enabled = true;
-
         }
 
 
         private void audioSoundEditor1_WaveAnalyzerDisplayRangeChange(object sender, WaveAnalyzerDisplayRangeChangeEventArgs e)
         {
-            // display formatted strings
-            LabelRangeBegin.Text = audioSoundEditor1.GetFormattedTime(e.nBeginPosInMs, true, true);
-            LabelRangeEnd.Text = audioSoundEditor1.GetFormattedTime(e.nEndPosInMs, true, true);
-            LabelRangeDuration.Text = audioSoundEditor1.GetFormattedTime(e.nEndPosInMs - e.nBeginPosInMs, true, true);
 
         }
 
@@ -3525,67 +3451,6 @@ namespace MyMentor.Forms
 
         private void audioSoundEditor1_WaveAnalyzerSelectionChange(object sender, WaveAnalyzerSelectionChangeEventArgs e)
         {
-            if (e.bSelectionAvailable)
-            {
-                // check if this is not only a position selection
-                if ((e.nEndPosInMs - e.nBeginPosInMs) > 0)
-                {
-                    // selection can be played
-                    buttonPlaySelection.Enabled = true;
-                    buttonRecOverwritePlayback.Enabled = false;
-                }
-                else
-                {
-                    // selection cannot be played because it's simply a position selection
-                    buttonPlaySelection.Enabled = false;
-                    buttonRecOverwritePlayback.Enabled = true;
-                }
-
-                // display formatted strings
-                LabelSelectionBegin.Text = audioSoundEditor1.GetFormattedTime(e.nBeginPosInMs, true, true);
-                LabelSelectionEnd.Text = audioSoundEditor1.GetFormattedTime(e.nEndPosInMs, true, true);
-                LabelSelectionDuration.Text = audioSoundEditor1.GetFormattedTime(e.nEndPosInMs - e.nBeginPosInMs, true, true);
-
-                if (audioDjStudio1.GetPlayerStatus(0) != AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
-                {
-
-                    TimeSpan tp = new TimeSpan(0, 0, 0, 0, e.nBeginPosInMs);
-
-                    if (new TimeSpan(0, 0, 0, 0, 1000 * (int)numericUpDownBufferRecord.Value) > new TimeSpan(0, 0, (int)tp.TotalSeconds))
-                    {
-                        timerPreStartFixPlayback.Interval = (int)(new TimeSpan(0, 0, 0, 0, 1000 * (int)numericUpDownBufferRecord.Value) - new TimeSpan(0, 0, (int)tp.TotalSeconds)).TotalMilliseconds;
-                    }
-                    else
-                    {
-                        timerPreStartFixPlayback.Interval = 1;
-                    }
-
-                    m_targetStartFixInMs = e.nBeginPosInMs;
-                }
-
-                // select relevent part
-                //if (Clip.Current.Paragraphs != null 
-                //    && !m_blSelectionCausedByText)
-                //{
-                //    var word = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).FirstOrDefault(w => w.StartTime.TotalMilliseconds >= e.nBeginPosInMs);
-
-                //    if (word != null)
-                //    {
-                //        richTextBox3.SelectionStart = word.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + 1;
-                //    }
-                //}              
-            }
-            else
-            {
-                // no selection to play
-                buttonPlaySelection.Enabled = false;
-
-                // display formatted strings
-                LabelSelectionBegin.Text = "00:00:00.000";
-                LabelSelectionEnd.Text = "00:00:00.000";
-                LabelSelectionDuration.Text = "00:00:00.000";
-            }
-
         }
 
         private void audioDjStudio1_SoundClosed(object sender, AudioDjStudio.PlayerEventArgs e)
@@ -3598,13 +3463,11 @@ namespace MyMentor.Forms
             timerUpdateDuringPlayback.Enabled = false;
             m_stopWatch.Stop();
 
-            buttonPause.Text = ResourceHelper.GetLabel("PAUSE");
             LabelStatus.Text = "Status: Idle";
             LabelStatus.Refresh();
 
             buttonStartSchedulingPlayback.Text = ResourceHelper.GetLabel("START");
             buttonRestartScheduling.Enabled = true;
-            timePickerCurrentWord.Enabled = true;
 
             if (m_selectedAnchor)
             {
@@ -3623,18 +3486,17 @@ namespace MyMentor.Forms
             //in case just finished playing anchor fix
             if (m_rem_anchorFixRecording > TimeSpan.Zero)
             {
-                timePickerCurrentWord.Value = m_rem_anchorFixRecording;
                 m_rem_anchorFixRecording = TimeSpan.Zero;
             }
 
-            FrameRecording.Enabled = true;
-
-            if (m_bRecOverwriteMode)
+            if (m_bRecAppendMode && m_bContinueRecordingAfterPlayback)
             {
                 timerStartRecordingAfterPlayingBuffer.Enabled = true;
             }
             else
             {
+                tsbPlay.Image = imageList1.Images[6];
+
                 if (m_LastSelections.Count() > 0)
                 {
                     audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, m_LastSelections[0], m_LastSelections[1]);
@@ -3652,34 +3514,37 @@ namespace MyMentor.Forms
 
         private void audioDjStudio1_SoundPaused(object sender, AudioDjStudio.PlayerEventArgs e)
         {
-            buttonPause.Text = ResourceHelper.GetLabel("CONTINUE");
             LabelStatus.Text = "Status: Playback paused";
             LabelStatus.Refresh();
             timerUpdateDuringPlayback.Enabled = false;
+
+            if (m_bRecAppendMode)
+            {
+                tsbContinueRecord.Image = imageList1.Images[2];
+            }
+            else
+            {
+                tsbPlay.Image = imageList1.Images[6];
+            }
 
         }
 
         private void audioDjStudio1_SoundPlaying(object sender, AudioDjStudio.PlayerEventArgs e)
         {
-            buttonPause.Text = ResourceHelper.GetLabel("PAUSE");
             LabelStatus.Text = "Status: Playing...";
             LabelStatus.Refresh();
 
             timerUpdateDuringPlayback.Enabled = true;
-            timePickerCurrentWord.Enabled = false;
-
         }
 
         private void audioDjStudio1_SoundStopped(object sender, AudioDjStudio.PlayerEventArgs e)
         {
             timerUpdateDuringPlayback.Enabled = false;
-            buttonPause.Text = ResourceHelper.GetLabel("PAUSE");
             LabelStatus.Text = "Status: Idle";
             LabelStatus.Refresh();
 
-            FrameRecording.Enabled = true;
-
             timerUpdateTimePickerSpinner.Enabled = false;
+            tsbPlay.Image = imageList1.Images[6];
 
         }
 
@@ -3724,14 +3589,12 @@ namespace MyMentor.Forms
 
                 buttonRestartScheduling.Enabled = false;
                 timerUpdateTimePickerSpinner.Enabled = true;
-                timePickerCurrentWord.Enabled = false;
             }
             else if (buttonStartSchedulingPlayback.Text == ResourceHelper.GetLabel("STOP"))
             {
                 n_hammerLastTimePressed = TimeSpan.Zero;
                 buttonHammer.Enabled = false;
                 buttonRestartScheduling.Enabled = true;
-                timePickerCurrentWord.Enabled = true;
                 timerUpdateTimePickerSpinner.Enabled = false;
                 //audioSoundEditor1.StopSound();
                 audioDjStudio1.StopSound(0);
@@ -3742,10 +3605,6 @@ namespace MyMentor.Forms
 
         private void buttonRestartScheduling_Click(object sender, EventArgs e)
         {
-            //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, 0, 0);
-            LabelCurrentSchedulingTimer.Text = audioSoundEditor1.FromMsToFormattedTime(0, true, true);// GetFormattedTime(e.nBeginPosInMs, true, true);
-
-            //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_guidLineUniqueId, 0, 0);
             audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);
             //timePickerCurrentWord.Value = TimeSpan.Zero;
             richTextBox3.SelectionStart = 4;
@@ -3760,7 +3619,13 @@ namespace MyMentor.Forms
             // PLAYBACK
             if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
             {
-                n_hammerLastTimePressed = TimeSpan.Parse(LabelCurrentSchedulingTimer.Text);// timePickerCurrentWord.Value;
+                Int32 nBeginSelectionInMs = 0;
+                Int32 nEndSelectionInMs = 0;
+                bool bSelection = true;
+
+                audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelection, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+                n_hammerLastTimePressed = new TimeSpan(0, 0, 0, 0, nBeginSelectionInMs);
 
                 //it resets when it pass the selected event
                 var saveIt = n_hammerLastTimePressed;
@@ -3844,68 +3709,6 @@ namespace MyMentor.Forms
 
         }
 
-        private void timePickerCurrentWord_ValueChanged(object sender, EventArgs e)
-        {
-            if (!m_selectedAnchor && !m_selectedStartAnchor
-    && audioSoundEditor1.GetPlaybackStatus() != enumPlaybackStatus.PLAYBACK_PLAYING)
-            {
-                //end anchor
-                if (m_selectedEndAnchor && Clip.Current.Chapter.LastWord != null)
-                {
-                    if (timePickerCurrentWord.Value < Clip.Current.Chapter.LastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, 500)))
-                    {
-                        timePickerCurrentWord.Value = Clip.Current.Chapter.LastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, 500));
-                        return;
-                    }
-
-                    //set duration to last word
-                    Clip.Current.Chapter.LastWord.Duration = timePickerCurrentWord.Value - Clip.Current.Chapter.LastWord.StartTime;
-
-                    //move relevet line
-                    audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_endLineUniqueId,
-                        (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
-                }
-                else
-                {
-                    //we have selected section with graphical line exists
-                    if (m_selectedScheduledWord != null && m_selectedScheduledWord.GraphicItemUnique > 0)
-                    {
-                        if (m_selectedScheduledWord.PreviousWord != null &&
-                            timePickerCurrentWord.Value <= m_selectedScheduledWord.PreviousWord.StartTime + new TimeSpan(0, 0, 0, 0, 500))
-                        {
-                            timePickerCurrentWord.Value = m_selectedScheduledWord.PreviousWord.StartTime + new TimeSpan(0, 0, 0, 0, 500);
-                            return;
-                        }
-
-                        if (m_selectedScheduledWord.NextWord != null &&
-                            timePickerCurrentWord.Value >= m_selectedScheduledWord.NextWord.StartTime + new TimeSpan(0, 0, 0, 0, 500))
-                        {
-                            timePickerCurrentWord.Value = m_selectedScheduledWord.NextWord.StartTime + new TimeSpan(0, 0, 0, 0, 500);
-                            return;
-                        }
-
-                        //in all other cases we talk about start time
-                        m_selectedScheduledWord.StartTime = timePickerCurrentWord.Value;
-
-                        //move relevet line
-                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_selectedScheduledWord.GraphicItemUnique,
-                            (int)timePickerCurrentWord.Value.TotalMilliseconds, (int)timePickerCurrentWord.Value.TotalMilliseconds);
-
-                        //if its the last word move the red line also
-                        if (m_selectedScheduledWord.NextWord == null)
-                        {
-                            //move relevet line
-                            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_endLineUniqueId,
-                                (int)(timePickerCurrentWord.Value.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds),
-                                 (int)(timePickerCurrentWord.Value.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds));
-                        }
-
-                    }
-                }
-            }
-
-        }
-
         private void buttonScheduleAnchor_Click(object sender, EventArgs e)
         {
             if (buttonScheduleAnchor.Text == ResourceHelper.GetLabel("PAUSE"))
@@ -3934,13 +3737,18 @@ namespace MyMentor.Forms
                     var interval = new TimeSpan(0, 0, (int)(numericUpDownInterval.Value * 2));
 
                     timerUpdateTimePickerSpinner.Enabled = true;
+                    Int32 nBeginSelectionInMs = 0;
+                    Int32 nEndSelectionInMs = 0;
+                    bool bSelection = true;
 
-                    m_rem_anchorFixRecording = timePickerCurrentWord.Value;
+                    audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelection, ref nBeginSelectionInMs, ref nEndSelectionInMs);//   .GraphicItemHorzPositionGet(m_guidLineUniqueId, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+                    m_rem_anchorFixRecording = new TimeSpan(0, 0, 0, 0, nBeginSelectionInMs);
 
                     //play the range
                     audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
-                    audioDjStudio1.PlaySound(0, (int)timePickerCurrentWord.Value.TotalMilliseconds,
-                            (int)timePickerCurrentWord.Value.TotalMilliseconds + (int)interval.TotalMilliseconds);
+                    audioDjStudio1.PlaySound(0, nBeginSelectionInMs,
+                            nBeginSelectionInMs + (int)interval.TotalMilliseconds);
 
                     buttonScheduleAnchor.Text = ResourceHelper.GetLabel("PAUSE");
                 }
@@ -3950,8 +3758,8 @@ namespace MyMentor.Forms
 
         private void buttonZoomTestableArea_Click(object sender, EventArgs e)
         {
-            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, (int)timePickerCurrentWord.Value.TotalMilliseconds,
-    (int)timePickerCurrentWord.Value.TotalMilliseconds + ((int)numericUpDownInterval.Value * 2 * 1000));
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, (int)m_rem_anchorFixRecording.TotalMilliseconds,
+    (int)m_rem_anchorFixRecording.TotalMilliseconds + ((int)numericUpDownInterval.Value * 2 * 1000));
             audioSoundEditor1.DisplayWaveformAnalyzer.ZoomToSelection(false);
 
             int nWidthInMs = 0;
@@ -3961,8 +3769,8 @@ namespace MyMentor.Forms
 
             var ten_per = nWidthInMs * 0.1;
 
-            audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange((int)((int)timePickerCurrentWord.Value.TotalMilliseconds - ten_per),
-                (int)((int)timePickerCurrentWord.Value.TotalMilliseconds + ((int)numericUpDownInterval.Value * 2 * 1000) + ten_per));
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange((int)((int)m_rem_anchorFixRecording.TotalMilliseconds - ten_per),
+                (int)((int)m_rem_anchorFixRecording.TotalMilliseconds + ((int)numericUpDownInterval.Value * 2 * 1000) + ten_per));
 
         }
 
@@ -3985,10 +3793,6 @@ namespace MyMentor.Forms
 
             if (selectionIndex == 0 && m_selectedScheduledWord != null) // start anchor
             {
-                //set current word start time when clicking word offline
-                timePickerCurrentWord.Value = TimeSpan.Zero;
-                timePickerCurrentWord.Enabled = false;
-
                 m_skipSelectionChange = true;
                 richTextBox3.SelectionStart = 0;
                 richTextBox3.SelectionLength = START_PAUSE_SECTION_ANCHOR.Length;
@@ -4000,7 +3804,6 @@ namespace MyMentor.Forms
 
                 //take first word
                 m_selectedScheduledWord = Clip.Current.Chapter.FirstWord;
-                LabelCurrentWordDuration.Text = audioSoundEditor1.FromMsToFormattedTime((int)m_selectedScheduledWord.StartTime.TotalMilliseconds, true, true);
 
                 //move line to start
                 audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);
@@ -4018,21 +3821,13 @@ namespace MyMentor.Forms
                 m_selectedStartAnchor = false;
                 m_selectedEndAnchor = true;
 
-                //set current word start time when clicking word offline
-                timePickerCurrentWord.Value = Clip.Current.Chapter.LastWord.StartTime + Clip.Current.Chapter.LastWord.Duration;
-                timePickerCurrentWord.Enabled = true;
-
-                LabelCurrentWordDuration.Text = audioSoundEditor1.FromMsToFormattedTime(
-                    (int)audioSoundEditor1.GetSoundDuration() - (int)timePickerCurrentWord.Value.TotalMilliseconds, //rest of the file
-                    true, true);
-
                 //set as null
                 m_selectedScheduledWord = null;
 
                 //move line
                 audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true,
-                    (int)timePickerCurrentWord.Value.TotalMilliseconds,
-                    (int)timePickerCurrentWord.Value.TotalMilliseconds);
+                    (int)(Clip.Current.Chapter.LastWord.StartTime + Clip.Current.Chapter.LastWord.Duration).TotalMilliseconds,
+                    (int)(Clip.Current.Chapter.LastWord.StartTime + Clip.Current.Chapter.LastWord.Duration).TotalMilliseconds);
             }
             else if (Clip.Current.Chapter.Paragraphs != null)
             {
@@ -4059,20 +3854,13 @@ namespace MyMentor.Forms
                         richTextBox3.SelectionLength = 3;
 
                         var interval = new TimeSpan(0, 0, (int)numericUpDownInterval.Value);
-
-                        //set current word start time when clicking word offline
-                        if ((m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration).TotalSeconds >= interval.TotalSeconds)
-                        {
-                            timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration - interval;
-                            timePickerCurrentWord.Enabled = false;
-                            LabelCurrentWordDuration.Text = "00:00:00.000";
-                        }
+                        var selected = m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration - interval;
 
                         if ((m_selectedScheduledWord.StartTime.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds) > 0)
                         {
                             m_LastSelections.Clear();
-                            m_LastSelections.Add((int)timePickerCurrentWord.Value.TotalMilliseconds);
-                            m_LastSelections.Add((int)timePickerCurrentWord.Value.TotalMilliseconds + (int)interval.TotalMilliseconds * 2);
+                            m_LastSelections.Add((int)selected.TotalMilliseconds);
+                            m_LastSelections.Add((int)selected.TotalMilliseconds + (int)interval.TotalMilliseconds * 2);
 
                             audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true,
                                 m_LastSelections[0],
@@ -4086,9 +3874,9 @@ namespace MyMentor.Forms
                         }
                         else
                         {
-                            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true,
-                                (int)timePickerCurrentWord.Value.TotalMilliseconds,
-                                (int)timePickerCurrentWord.Value.TotalMilliseconds);
+                            //audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true,
+                            //    (int)timePickerCurrentWord.Value.TotalMilliseconds,
+                            //    (int)timePickerCurrentWord.Value.TotalMilliseconds);
                         }
                     }
                     else
@@ -4109,10 +3897,10 @@ namespace MyMentor.Forms
                         }
                         else if (audioDjStudio1.GetPlayerStatus(0) != AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
                         {
-                            //set current word start time when clicking word offline
-                            timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime;
-                            LabelCurrentWordDuration.Text = audioSoundEditor1.FromMsToFormattedTime((int)m_selectedScheduledWord.Duration.TotalMilliseconds, true, true);
-                            timePickerCurrentWord.Enabled = true;
+                            ////set current word start time when clicking word offline
+                            //timePickerCurrentWord.Value = m_selectedScheduledWord.StartTime;
+                            //LabelCurrentWordDuration.Text = audioSoundEditor1.FromMsToFormattedTime((int)m_selectedScheduledWord.Duration.TotalMilliseconds, true, true);
+                            //timePickerCurrentWord.Enabled = true;
                         }
 
                         //move guid line
@@ -4788,6 +4576,212 @@ namespace MyMentor.Forms
             nEndPosInMs = center + (int)((nEndPosInMs - nBeginPosInMs) * 0.35);
 
             audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange(nBeginPosInMs, nEndPosInMs);
+        }
+
+        private void tsbStartRecordNew_Click(object sender, EventArgs e)
+        {
+            if (audioSoundRecorder1.Status == AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING ||
+                audioSoundRecorder1.Status == AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING_MEMORY)
+            {
+                audioSoundRecorder1.Stop();
+                return;
+            }
+
+
+            // check if we already have an editing session in memory
+            DialogResult result;
+            if (audioSoundEditor1.GetSoundDuration() > 0)
+            {
+                // ask the user if he wants to go on
+                result = MessageBox.Show(ResourceHelper.GetLabel("OVERWRITE_AUDIO_CONFIRM"), "MyMentor", MessageBoxButtons.YesNo);
+                if (result == DialogResult.No)
+                    return;
+            }
+
+            // set the flag for "new" mode
+            m_bRecAppendMode = false;
+
+            // create a fresh new recording session
+            audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_NEW);
+
+            // start recording in memory from system default input device and input channel
+            audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
+        }
+
+        private void toolStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void RefreshToolstripItemsState()
+        {
+        }
+
+        private void tsbContinueRecord_Click(object sender, EventArgs e)
+        {
+            if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
+            {
+                audioDjStudio1.PauseSound(0);
+            }
+            else if (audioSoundRecorder1.Status == AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING ||
+                audioSoundRecorder1.Status == AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING_CLIPBOARD)
+            {
+                audioSoundRecorder1.Stop();
+            }
+            else
+            {
+                audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
+                tsbContinueRecord.Image = imageList1.Images[4];
+
+                // get the position selected on the waveform analyzer, if any
+                bool bSelectionAvailable = false;
+                Int32 nBeginSelectionInMs = 0;
+                Int32 nEndSelectionInMs = 0;
+                audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+                m_bRecAppendMode = true;
+                m_bContinueRecordingAfterPlayback = true;
+
+                // play selected range only
+                var error = audioDjStudio1.PlaySound(0, nBeginSelectionInMs, -1);
+            }
+        }
+
+        private void timerPlayerIcon_Tick(object sender, EventArgs e)
+        {
+            if (b_recordIconRed)
+            {
+                tsbStartRecordNew.Image = imageList1.Images[1];
+            }
+            else
+            {
+                tsbStartRecordNew.Image = imageList1.Images[0];
+            }
+            b_recordIconRed = !b_recordIconRed;
+        }
+
+        private void tsbPlay_Click(object sender, EventArgs e)
+        {
+            if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
+            {
+                audioDjStudio1.PauseSound(0);
+            }
+            else if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PAUSED)
+            {
+                tsbPlay.Image = imageList1.Images[5];
+
+                audioDjStudio1.ResumeSound(0);
+            }
+            else
+            {
+                m_bContinueRecordingAfterPlayback = false;
+
+                tsbPlay.Image = imageList1.Images[5];
+
+                audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
+
+                // get the position selected on the waveform analyzer, if any
+                bool bSelectionAvailable = false;
+                Int32 nBeginSelectionInMs = 0;
+                Int32 nEndSelectionInMs = 0;
+                audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+                // if a selection is available
+                if (bSelectionAvailable)
+                {
+                    // play selected range only
+                    var error = audioDjStudio1.PlaySound(0, nBeginSelectionInMs, nEndSelectionInMs == nBeginSelectionInMs ? -1 : nEndSelectionInMs);
+
+                    m_LastSelections.Clear();
+                    m_LastSelections.Add(nBeginSelectionInMs);
+                    m_LastSelections.Add(nEndSelectionInMs);
+                }
+            }
+        
+        }
+
+        private void tsbStop_Click(object sender, EventArgs e)
+        {
+            if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING
+                || audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PAUSED)
+            {
+                audioDjStudio1.StopSound(0);
+            }
+        }
+
+        private void tsbForward_Click(object sender, EventArgs e)
+        {
+            int nBeginPosInMs = 0;
+            int nEndPosInMs = 0;
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nBeginPosInMs, ref nEndPosInMs);
+
+            var buffer = (nEndPosInMs - nBeginPosInMs) / 100;
+
+            bool bSelectionAvailable = false;
+            Int32 nBeginSelectionInMs = 0;
+            Int32 nEndSelectionInMs = 0;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, Math.Min( nBeginSelectionInMs + buffer, audioSoundEditor1.GetSoundDuration())  ,
+                Math.Min( nEndSelectionInMs + buffer, audioSoundEditor1.GetSoundDuration()));
+        }
+
+        private void tsbRewind_Click(object sender, EventArgs e)
+        {
+            int nBeginPosInMs = 0;
+            int nEndPosInMs = 0;
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nBeginPosInMs, ref nEndPosInMs);
+
+            var buffer = (nEndPosInMs - nBeginPosInMs) / 100;
+
+            bool bSelectionAvailable = false;
+            Int32 nBeginSelectionInMs = 0;
+            Int32 nEndSelectionInMs = 0;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, Math.Max( nBeginSelectionInMs - buffer , 0), Math.Max(nEndSelectionInMs - buffer , 0));
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            using (FormReadyTexts form = new FormReadyTexts(this))
+            {
+                if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    richTextBox1.Text = form.SelectedSource.Text;
+
+                    if (form.SelectedSource.Category1 != null)
+                    {
+                        comboCategory1.SelectedValue = form.SelectedSource.Category1.ObjectId;
+
+                        comboCategory1_SelectionChangeCommitted(null, new EventArgs());
+                    }
+
+                    if (form.SelectedSource.Category2 != null)
+                    {
+                        comboCategory2.SelectedValue = form.SelectedSource.Category2.ObjectId;
+                    }
+
+                    if (form.SelectedSource.Category3 != null)
+                    {
+                        comboCategory3.SelectedValue = form.SelectedSource.Category3.ObjectId;
+                    }
+
+                    tbClipDescription.Text = form.SelectedSource.Description;
+                    tbClipDescriptionEnglish.Text = form.SelectedSource.DescriptionEnglish;
+
+                    MessageBox.Show(m_strings.Single(a => a.Key == "STD_AFTER_SOURCE_SELECTION").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                }
+            }
+
+        }
+
+        private void menuLanguages_Click(object sender, EventArgs e)
+        {
+            toolsToolStripMenuItem.ShowDropDown();
+            languageToolStripMenuItem.ShowDropDown();
         }
 
     }

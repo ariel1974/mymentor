@@ -94,11 +94,17 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
             this.showDebugDetailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuLanguages = new System.Windows.Forms.ToolStripMenuItem();
             this.audioDjStudio1 = new AudioDjStudio.AudioDjStudio();
             this.audioSoundEditor1 = new AudioSoundEditor.AudioSoundEditor();
             this.audioSoundRecorder1 = new AudioSoundRecorder.AudioSoundRecorder();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.trackBarWaveZoom = new System.Windows.Forms.TrackBar();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Picture1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -146,59 +152,16 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label28 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.FrameRecording = new System.Windows.Forms.GroupBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.label30 = new System.Windows.Forms.Label();
-            this.trackBarVolume1 = new System.Windows.Forms.TrackBar();
-            this.Frame4 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.Label2 = new System.Windows.Forms.Label();
-            this.Label3 = new System.Windows.Forms.Label();
-            this.Label4 = new System.Windows.Forms.Label();
-            this.Label5 = new System.Windows.Forms.Label();
-            this.Label6 = new System.Windows.Forms.Label();
-            this.LabelSelectionBegin = new System.Windows.Forms.Label();
-            this.LabelSelectionEnd = new System.Windows.Forms.Label();
-            this.LabelSelectionDuration = new System.Windows.Forms.Label();
-            this.LabelRangeBegin = new System.Windows.Forms.Label();
-            this.LabelRangeEnd = new System.Windows.Forms.Label();
-            this.LabelRangeDuration = new System.Windows.Forms.Label();
-            this.LabelTotalDuration = new System.Windows.Forms.Label();
-            this.Label8 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.numericUpDownBufferRecord = new System.Windows.Forms.NumericUpDown();
-            this.buttonRecOverwritePlayback = new System.Windows.Forms.Button();
-            this.buttonStartRecAppend = new System.Windows.Forms.Button();
-            this.buttonStopRecording = new System.Windows.Forms.Button();
-            this.buttonStartRecNew = new System.Windows.Forms.Button();
-            this.framePlayback = new System.Windows.Forms.GroupBox();
-            this.buttonPause = new System.Windows.Forms.Button();
-            this.buttonPlay = new System.Windows.Forms.Button();
-            this.buttonStop = new System.Windows.Forms.Button();
-            this.buttonPlaySelection = new System.Windows.Forms.Button();
             this.richTextBox5 = new System.Windows.Forms.RichTextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.LabelCurrentWordDuration = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.LabelCurrentSchedulingTimer = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.buttonRestartScheduling = new System.Windows.Forms.Button();
             this.buttonHammer = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
             this.buttonStartSchedulingPlayback = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonZoomAllClip = new System.Windows.Forms.Button();
@@ -240,7 +203,6 @@
             this.comboCategory2 = new System.Windows.Forms.ComboBox();
             this.comboCategory1 = new System.Windows.Forms.ComboBox();
             this.lblCategory1 = new System.Windows.Forms.Label();
-            this.LabelTotalDuration2 = new System.Windows.Forms.Label();
             this.comboStatus = new System.Windows.Forms.ComboBox();
             this.comboCategory3 = new System.Windows.Forms.ComboBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
@@ -285,21 +247,29 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.lblLoginUser = new System.Windows.Forms.Label();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.tsbImportFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.tsbUndo = new System.Windows.Forms.ToolStripButton();
+            this.tsbZoomOut = new System.Windows.Forms.ToolStripButton();
+            this.tsbZoomIn = new System.Windows.Forms.ToolStripButton();
+            this.tsbZoomAll = new System.Windows.Forms.ToolStripButton();
+            this.tsbZoomSelection = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
+            this.tsbContinueRecord = new System.Windows.Forms.ToolStripButton();
+            this.tsbMoveEnd = new System.Windows.Forms.ToolStripButton();
+            this.tsbForward = new System.Windows.Forms.ToolStripButton();
+            this.tsbPlay = new System.Windows.Forms.ToolStripButton();
+            this.tsbStop = new System.Windows.Forms.ToolStripButton();
+            this.tsbRewind = new System.Windows.Forms.ToolStripButton();
+            this.tsbMoveStart = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
+            this.tsbStartRecordNew = new System.Windows.Forms.ToolStripButton();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label37 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.trackBarPitch1 = new System.Windows.Forms.TrackBar();
+            this.trackBarVolume1 = new System.Windows.Forms.TrackBar();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.TimerReload = new System.Windows.Forms.Timer(this.components);
             this.TimerMenuEnabler = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -317,12 +287,14 @@
             this.timerFixRichText = new System.Windows.Forms.Timer(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.timerFirstAnchorScheduling = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.sevenSegmentArray1 = new DmitryBrant.CustomControls.SevenSegmentArray();
-            this.timePickerCurrentWord = new MyMentor.TimeSpinner.TimePickerSpinner();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.timerPlayerIcon = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWaveZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -332,18 +304,8 @@
             this.panel7.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.panel8.SuspendLayout();
-            this.groupBox10.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.FrameRecording.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).BeginInit();
-            this.Frame4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBufferRecord)).BeginInit();
-            this.framePlayback.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -366,6 +328,8 @@
             this.toolStrip2.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPitch1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -376,7 +340,8 @@
             this.textToolStripMenuItem,
             this.audioToolStripMenuItem,
             this.schedulingToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.menuLanguages});
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
@@ -805,6 +770,12 @@
             resources.ApplyResources(this.showDebugDetailToolStripMenuItem, "showDebugDetailToolStripMenuItem");
             this.showDebugDetailToolStripMenuItem.Click += new System.EventHandler(this.showDebugDetailToolStripMenuItem_Click);
             // 
+            // menuLanguages
+            // 
+            this.menuLanguages.Name = "menuLanguages";
+            resources.ApplyResources(this.menuLanguages, "menuLanguages");
+            this.menuLanguages.Click += new System.EventHandler(this.menuLanguages_Click);
+            // 
             // audioDjStudio1
             // 
             this.audioDjStudio1.Fader = ((AudioDjStudio.FaderObject)(resources.GetObject("audioDjStudio1.Fader")));
@@ -879,14 +850,46 @@
             // tableLayoutPanel4
             // 
             resources.ApplyResources(this.tableLayoutPanel4, "tableLayoutPanel4");
+            this.tableLayoutPanel4.Controls.Add(this.pictureBox3, 3, 1);
+            this.tableLayoutPanel4.Controls.Add(this.panel2, 4, 2);
             this.tableLayoutPanel4.Controls.Add(this.trackBarWaveZoom, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.trackBar1, 3, 2);
             this.tableLayoutPanel4.Controls.Add(this.panel1, 1, 2);
             this.tableLayoutPanel4.Controls.Add(this.tabControl1, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel3, 1, 3);
             this.tableLayoutPanel4.Controls.Add(this.panel5, 2, 3);
             this.tableLayoutPanel4.Controls.Add(this.toolStrip2, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 1);
+            this.tableLayoutPanel4.Controls.Add(this.trackBarVolume1, 5, 2);
+            this.tableLayoutPanel4.Controls.Add(this.pictureBox4, 5, 1);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::MyMentor.Properties.Resources._1393683104_black_8_audio_micro;
+            resources.ApplyResources(this.pictureBox3, "pictureBox3");
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.label18);
+            this.panel2.Controls.Add(this.label17);
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Name = "panel2";
+            // 
+            // label18
+            // 
+            this.label18.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // label17
+            // 
+            this.label17.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
             // 
             // trackBarWaveZoom
             // 
@@ -898,6 +901,16 @@
             this.trackBarWaveZoom.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarWaveZoom.Value = 100;
             this.trackBarWaveZoom.Scroll += new System.EventHandler(this.trackBarWaveZoom_Scroll);
+            // 
+            // trackBar1
+            // 
+            resources.ApplyResources(this.trackBar1, "trackBar1");
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.TickFrequency = 10;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar1.Value = 100;
+            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             // 
             // panel1
             // 
@@ -917,7 +930,7 @@
             // 
             // tabControl1
             // 
-            this.tableLayoutPanel4.SetColumnSpan(this.tabControl1, 3);
+            this.tableLayoutPanel4.SetColumnSpan(this.tabControl1, 6);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -1106,10 +1119,11 @@
             // tbrParagraph
             // 
             this.tbrParagraph.BackColor = System.Drawing.Color.Red;
+            this.tbrParagraph.BackgroundImage = global::MyMentor.Properties.Resources.bg332;
+            resources.ApplyResources(this.tbrParagraph, "tbrParagraph");
             this.tbrParagraph.CheckOnClick = true;
             this.tbrParagraph.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tbrParagraph.ForeColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.tbrParagraph, "tbrParagraph");
             this.tbrParagraph.Name = "tbrParagraph";
             this.tbrParagraph.Click += new System.EventHandler(this.tbrParagraph_Click);
             // 
@@ -1121,10 +1135,11 @@
             // tbrSentense
             // 
             this.tbrSentense.BackColor = System.Drawing.Color.Violet;
+            this.tbrSentense.BackgroundImage = global::MyMentor.Properties.Resources.bg332;
+            resources.ApplyResources(this.tbrSentense, "tbrSentense");
             this.tbrSentense.CheckOnClick = true;
             this.tbrSentense.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tbrSentense.ForeColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.tbrSentense, "tbrSentense");
             this.tbrSentense.Name = "tbrSentense";
             this.tbrSentense.Click += new System.EventHandler(this.tbrSentense_Click);
             // 
@@ -1136,10 +1151,11 @@
             // tbrSection
             // 
             this.tbrSection.BackColor = System.Drawing.Color.LimeGreen;
+            this.tbrSection.BackgroundImage = global::MyMentor.Properties.Resources.bg332;
+            resources.ApplyResources(this.tbrSection, "tbrSection");
             this.tbrSection.CheckOnClick = true;
             this.tbrSection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tbrSection.ForeColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.tbrSection, "tbrSection");
             this.tbrSection.Name = "tbrSection";
             this.tbrSection.Click += new System.EventHandler(this.tbrSection_Click);
             // 
@@ -1151,9 +1167,11 @@
             // tbrWord
             // 
             this.tbrWord.BackColor = System.Drawing.Color.Yellow;
+            this.tbrWord.BackgroundImage = global::MyMentor.Properties.Resources.bg332;
+            resources.ApplyResources(this.tbrWord, "tbrWord");
             this.tbrWord.CheckOnClick = true;
             this.tbrWord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            resources.ApplyResources(this.tbrWord, "tbrWord");
+            this.tbrWord.Image = global::MyMentor.Properties.Resources.word_anchor_on;
             this.tbrWord.Name = "tbrWord";
             this.tbrWord.Click += new System.EventHandler(this.tbrWord_Click);
             // 
@@ -1280,29 +1298,19 @@
             // panel8
             // 
             this.tableLayoutPanel2.SetColumnSpan(this.panel8, 3);
-            this.panel8.Controls.Add(this.groupBox10);
+            this.panel8.Controls.Add(this.button3);
             resources.ApplyResources(this.panel8, "panel8");
             this.panel8.Name = "panel8";
             // 
-            // groupBox10
+            // button3
             // 
-            this.groupBox10.Controls.Add(this.linkLabel1);
-            this.groupBox10.Controls.Add(this.label28);
-            resources.ApplyResources(this.groupBox10, "groupBox10");
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.TabStop = false;
-            // 
-            // linkLabel1
-            // 
-            resources.ApplyResources(this.linkLabel1, "linkLabel1");
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // label28
-            // 
-            resources.ApplyResources(this.label28, "label28");
-            this.label28.Name = "label28";
+            this.button3.BackColor = System.Drawing.SystemColors.Control;
+            resources.ApplyResources(this.button3, "button3");
+            this.button3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button3.Name = "button3";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // tabPage2
             // 
@@ -1315,362 +1323,16 @@
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.FrameRecording, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.framePlayback, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.richTextBox5, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.richTextBox5, 0, 1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.label18);
-            this.panel2.Controls.Add(this.label17);
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Name = "panel2";
-            this.tableLayoutPanel1.SetRowSpan(this.panel2, 2);
-            // 
-            // label18
-            // 
-            this.label18.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
-            // 
-            // label17
-            // 
-            this.label17.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.label17, "label17");
-            this.label17.Name = "label17";
-            // 
-            // FrameRecording
-            // 
-            this.FrameRecording.BackColor = System.Drawing.SystemColors.Control;
-            this.FrameRecording.Controls.Add(this.label20);
-            this.FrameRecording.Controls.Add(this.trackBar1);
-            this.FrameRecording.Controls.Add(this.label30);
-            this.FrameRecording.Controls.Add(this.trackBarVolume1);
-            this.FrameRecording.Controls.Add(this.Frame4);
-            this.FrameRecording.Controls.Add(this.pictureBox1);
-            this.FrameRecording.Controls.Add(this.groupBox9);
-            this.FrameRecording.Controls.Add(this.buttonStartRecAppend);
-            this.FrameRecording.Controls.Add(this.buttonStopRecording);
-            this.FrameRecording.Controls.Add(this.buttonStartRecNew);
-            resources.ApplyResources(this.FrameRecording, "FrameRecording");
-            this.FrameRecording.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FrameRecording.Name = "FrameRecording";
-            this.tableLayoutPanel1.SetRowSpan(this.FrameRecording, 2);
-            this.FrameRecording.TabStop = false;
-            // 
-            // label20
-            // 
-            resources.ApplyResources(this.label20, "label20");
-            this.label20.Name = "label20";
-            // 
-            // trackBar1
-            // 
-            resources.ApplyResources(this.trackBar1, "trackBar1");
-            this.trackBar1.Maximum = 100;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.TickFrequency = 10;
-            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar1.Value = 100;
-            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
-            // 
-            // label30
-            // 
-            resources.ApplyResources(this.label30, "label30");
-            this.label30.Name = "label30";
-            // 
-            // trackBarVolume1
-            // 
-            resources.ApplyResources(this.trackBarVolume1, "trackBarVolume1");
-            this.trackBarVolume1.Maximum = 100;
-            this.trackBarVolume1.Name = "trackBarVolume1";
-            this.trackBarVolume1.TickFrequency = 10;
-            this.trackBarVolume1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarVolume1.Value = 100;
-            this.trackBarVolume1.Scroll += new System.EventHandler(this.trackBarVolume1_Scroll);
-            this.trackBarVolume1.ValueChanged += new System.EventHandler(this.trackBarVolume1_ValueChanged);
-            // 
-            // Frame4
-            // 
-            this.Frame4.BackColor = System.Drawing.SystemColors.Control;
-            this.Frame4.Controls.Add(this.label1);
-            this.Frame4.Controls.Add(this.Label2);
-            this.Frame4.Controls.Add(this.Label3);
-            this.Frame4.Controls.Add(this.Label4);
-            this.Frame4.Controls.Add(this.Label5);
-            this.Frame4.Controls.Add(this.Label6);
-            this.Frame4.Controls.Add(this.LabelSelectionBegin);
-            this.Frame4.Controls.Add(this.LabelSelectionEnd);
-            this.Frame4.Controls.Add(this.LabelSelectionDuration);
-            this.Frame4.Controls.Add(this.LabelRangeBegin);
-            this.Frame4.Controls.Add(this.LabelRangeEnd);
-            this.Frame4.Controls.Add(this.LabelRangeDuration);
-            this.Frame4.Controls.Add(this.LabelTotalDuration);
-            this.Frame4.Controls.Add(this.Label8);
-            resources.ApplyResources(this.Frame4, "Frame4");
-            this.Frame4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Frame4.Name = "Frame4";
-            this.Frame4.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.SystemColors.Control;
-            this.label1.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Name = "label1";
-            // 
-            // Label2
-            // 
-            this.Label2.BackColor = System.Drawing.SystemColors.Control;
-            this.Label2.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.Label2, "Label2");
-            this.Label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label2.Name = "Label2";
-            // 
-            // Label3
-            // 
-            this.Label3.BackColor = System.Drawing.SystemColors.Control;
-            this.Label3.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.Label3, "Label3");
-            this.Label3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label3.Name = "Label3";
-            // 
-            // Label4
-            // 
-            this.Label4.BackColor = System.Drawing.SystemColors.Control;
-            this.Label4.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.Label4, "Label4");
-            this.Label4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label4.Name = "Label4";
-            // 
-            // Label5
-            // 
-            this.Label5.BackColor = System.Drawing.SystemColors.Control;
-            this.Label5.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.Label5, "Label5");
-            this.Label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label5.Name = "Label5";
-            // 
-            // Label6
-            // 
-            this.Label6.BackColor = System.Drawing.SystemColors.Control;
-            this.Label6.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.Label6, "Label6");
-            this.Label6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label6.Name = "Label6";
-            // 
-            // LabelSelectionBegin
-            // 
-            this.LabelSelectionBegin.BackColor = System.Drawing.Color.White;
-            this.LabelSelectionBegin.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelSelectionBegin.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.LabelSelectionBegin, "LabelSelectionBegin");
-            this.LabelSelectionBegin.ForeColor = System.Drawing.Color.Black;
-            this.LabelSelectionBegin.Name = "LabelSelectionBegin";
-            // 
-            // LabelSelectionEnd
-            // 
-            this.LabelSelectionEnd.BackColor = System.Drawing.Color.White;
-            this.LabelSelectionEnd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelSelectionEnd.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.LabelSelectionEnd, "LabelSelectionEnd");
-            this.LabelSelectionEnd.ForeColor = System.Drawing.Color.Black;
-            this.LabelSelectionEnd.Name = "LabelSelectionEnd";
-            // 
-            // LabelSelectionDuration
-            // 
-            this.LabelSelectionDuration.BackColor = System.Drawing.Color.White;
-            this.LabelSelectionDuration.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelSelectionDuration.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.LabelSelectionDuration, "LabelSelectionDuration");
-            this.LabelSelectionDuration.ForeColor = System.Drawing.Color.Black;
-            this.LabelSelectionDuration.Name = "LabelSelectionDuration";
-            // 
-            // LabelRangeBegin
-            // 
-            this.LabelRangeBegin.BackColor = System.Drawing.Color.White;
-            this.LabelRangeBegin.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelRangeBegin.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.LabelRangeBegin, "LabelRangeBegin");
-            this.LabelRangeBegin.ForeColor = System.Drawing.Color.Black;
-            this.LabelRangeBegin.Name = "LabelRangeBegin";
-            // 
-            // LabelRangeEnd
-            // 
-            this.LabelRangeEnd.BackColor = System.Drawing.Color.White;
-            this.LabelRangeEnd.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelRangeEnd.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.LabelRangeEnd, "LabelRangeEnd");
-            this.LabelRangeEnd.ForeColor = System.Drawing.Color.Black;
-            this.LabelRangeEnd.Name = "LabelRangeEnd";
-            // 
-            // LabelRangeDuration
-            // 
-            this.LabelRangeDuration.BackColor = System.Drawing.Color.White;
-            this.LabelRangeDuration.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelRangeDuration.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.LabelRangeDuration, "LabelRangeDuration");
-            this.LabelRangeDuration.ForeColor = System.Drawing.Color.Black;
-            this.LabelRangeDuration.Name = "LabelRangeDuration";
-            // 
-            // LabelTotalDuration
-            // 
-            this.LabelTotalDuration.BackColor = System.Drawing.Color.White;
-            this.LabelTotalDuration.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelTotalDuration.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.LabelTotalDuration, "LabelTotalDuration");
-            this.LabelTotalDuration.ForeColor = System.Drawing.Color.Black;
-            this.LabelTotalDuration.Name = "LabelTotalDuration";
-            // 
-            // Label8
-            // 
-            this.Label8.BackColor = System.Drawing.SystemColors.Control;
-            this.Label8.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.Label8, "Label8");
-            this.Label8.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label8.Name = "Label8";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Image = global::MyMentor.Properties.Resources._1386908112_Record_Button1;
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.sevenSegmentArray1);
-            this.groupBox9.Controls.Add(this.label26);
-            this.groupBox9.Controls.Add(this.label27);
-            this.groupBox9.Controls.Add(this.numericUpDownBufferRecord);
-            this.groupBox9.Controls.Add(this.buttonRecOverwritePlayback);
-            resources.ApplyResources(this.groupBox9, "groupBox9");
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.TabStop = false;
-            // 
-            // label26
-            // 
-            resources.ApplyResources(this.label26, "label26");
-            this.label26.Name = "label26";
-            // 
-            // label27
-            // 
-            resources.ApplyResources(this.label27, "label27");
-            this.label27.Name = "label27";
-            // 
-            // numericUpDownBufferRecord
-            // 
-            resources.ApplyResources(this.numericUpDownBufferRecord, "numericUpDownBufferRecord");
-            this.numericUpDownBufferRecord.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            this.numericUpDownBufferRecord.Name = "numericUpDownBufferRecord";
-            this.numericUpDownBufferRecord.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numericUpDownBufferRecord.ValueChanged += new System.EventHandler(this.numericUpDownBufferRecord_ValueChanged);
-            // 
-            // buttonRecOverwritePlayback
-            // 
-            this.buttonRecOverwritePlayback.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonRecOverwritePlayback.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.buttonRecOverwritePlayback, "buttonRecOverwritePlayback");
-            this.buttonRecOverwritePlayback.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonRecOverwritePlayback.Name = "buttonRecOverwritePlayback";
-            this.buttonRecOverwritePlayback.UseVisualStyleBackColor = false;
-            this.buttonRecOverwritePlayback.Click += new System.EventHandler(this.buttonRecOverwritePlayback_Click);
-            // 
-            // buttonStartRecAppend
-            // 
-            this.buttonStartRecAppend.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonStartRecAppend.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.buttonStartRecAppend, "buttonStartRecAppend");
-            this.buttonStartRecAppend.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartRecAppend.Name = "buttonStartRecAppend";
-            this.buttonStartRecAppend.UseVisualStyleBackColor = false;
-            this.buttonStartRecAppend.Click += new System.EventHandler(this.buttonStartRecAppend_Click);
-            // 
-            // buttonStopRecording
-            // 
-            this.buttonStopRecording.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonStopRecording.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.buttonStopRecording, "buttonStopRecording");
-            this.buttonStopRecording.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStopRecording.Name = "buttonStopRecording";
-            this.buttonStopRecording.UseVisualStyleBackColor = false;
-            this.buttonStopRecording.Click += new System.EventHandler(this.buttonStopRecording_Click);
-            // 
-            // buttonStartRecNew
-            // 
-            this.buttonStartRecNew.BackColor = System.Drawing.SystemColors.Control;
-            resources.ApplyResources(this.buttonStartRecNew, "buttonStartRecNew");
-            this.buttonStartRecNew.Cursor = System.Windows.Forms.Cursors.Default;
-            this.buttonStartRecNew.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartRecNew.Name = "buttonStartRecNew";
-            this.buttonStartRecNew.UseVisualStyleBackColor = false;
-            this.buttonStartRecNew.Click += new System.EventHandler(this.buttonStartRecNew_Click);
-            // 
-            // framePlayback
-            // 
-            this.framePlayback.BackColor = System.Drawing.SystemColors.Control;
-            this.framePlayback.Controls.Add(this.buttonPause);
-            this.framePlayback.Controls.Add(this.buttonPlay);
-            this.framePlayback.Controls.Add(this.buttonStop);
-            this.framePlayback.Controls.Add(this.buttonPlaySelection);
-            resources.ApplyResources(this.framePlayback, "framePlayback");
-            this.framePlayback.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.framePlayback.Name = "framePlayback";
-            this.framePlayback.TabStop = false;
-            // 
-            // buttonPause
-            // 
-            resources.ApplyResources(this.buttonPause, "buttonPause");
-            this.buttonPause.Name = "buttonPause";
-            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
-            // 
-            // buttonPlay
-            // 
-            this.buttonPlay.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonPlay.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.buttonPlay, "buttonPlay");
-            this.buttonPlay.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonPlay.Name = "buttonPlay";
-            this.buttonPlay.UseVisualStyleBackColor = false;
-            this.buttonPlay.Click += new System.EventHandler(this.buttonPlay_Click);
-            // 
-            // buttonStop
-            // 
-            this.buttonStop.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonStop.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.buttonStop, "buttonStop");
-            this.buttonStop.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStop.Name = "buttonStop";
-            this.buttonStop.UseVisualStyleBackColor = false;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
-            // 
-            // buttonPlaySelection
-            // 
-            this.buttonPlaySelection.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonPlaySelection.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.buttonPlaySelection, "buttonPlaySelection");
-            this.buttonPlaySelection.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonPlaySelection.Name = "buttonPlaySelection";
-            this.buttonPlaySelection.UseVisualStyleBackColor = false;
-            this.buttonPlaySelection.Click += new System.EventHandler(this.buttonPlaySelection_Click);
             // 
             // richTextBox5
             // 
+            this.tableLayoutPanel1.SetColumnSpan(this.richTextBox5, 3);
             resources.ApplyResources(this.richTextBox5, "richTextBox5");
             this.richTextBox5.Name = "richTextBox5";
             this.richTextBox5.ReadOnly = true;
+            this.tableLayoutPanel1.SetRowSpan(this.richTextBox5, 2);
             // 
             // tabPage3
             // 
@@ -1692,47 +1354,20 @@
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.LabelCurrentWordDuration);
-            this.groupBox1.Controls.Add(this.label29);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.timePickerCurrentWord);
-            this.groupBox1.Controls.Add(this.LabelCurrentSchedulingTimer);
             this.groupBox1.Controls.Add(this.buttonRestartScheduling);
             this.groupBox1.Controls.Add(this.buttonHammer);
-            this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.buttonStartSchedulingPlayback);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // LabelCurrentWordDuration
+            // button1
             // 
-            this.LabelCurrentWordDuration.BackColor = System.Drawing.Color.White;
-            this.LabelCurrentWordDuration.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelCurrentWordDuration.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.LabelCurrentWordDuration, "LabelCurrentWordDuration");
-            this.LabelCurrentWordDuration.ForeColor = System.Drawing.Color.Black;
-            this.LabelCurrentWordDuration.Name = "LabelCurrentWordDuration";
-            // 
-            // label29
-            // 
-            resources.ApplyResources(this.label29, "label29");
-            this.label29.Name = "label29";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // LabelCurrentSchedulingTimer
-            // 
-            this.LabelCurrentSchedulingTimer.BackColor = System.Drawing.Color.White;
-            this.LabelCurrentSchedulingTimer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelCurrentSchedulingTimer.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.LabelCurrentSchedulingTimer, "LabelCurrentSchedulingTimer");
-            this.LabelCurrentSchedulingTimer.ForeColor = System.Drawing.Color.Black;
-            this.LabelCurrentSchedulingTimer.Name = "LabelCurrentSchedulingTimer";
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonRestartScheduling
             // 
@@ -1754,11 +1389,6 @@
             this.buttonHammer.Name = "buttonHammer";
             this.buttonHammer.UseVisualStyleBackColor = false;
             this.buttonHammer.Click += new System.EventHandler(this.buttonHammer_Click);
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
             // 
             // buttonStartSchedulingPlayback
             // 
@@ -1911,7 +1541,6 @@
             this.groupBox3.Controls.Add(this.comboCategory2);
             this.groupBox3.Controls.Add(this.comboCategory1);
             this.groupBox3.Controls.Add(this.lblCategory1);
-            this.groupBox3.Controls.Add(this.LabelTotalDuration2);
             this.groupBox3.Controls.Add(this.comboStatus);
             this.groupBox3.Controls.Add(this.comboCategory3);
             this.groupBox3.Controls.Add(this.textBox7);
@@ -2106,15 +1735,6 @@
             // 
             resources.ApplyResources(this.lblCategory1, "lblCategory1");
             this.lblCategory1.Name = "lblCategory1";
-            // 
-            // LabelTotalDuration2
-            // 
-            this.LabelTotalDuration2.BackColor = System.Drawing.Color.White;
-            this.LabelTotalDuration2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LabelTotalDuration2.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.LabelTotalDuration2, "LabelTotalDuration2");
-            this.LabelTotalDuration2.ForeColor = System.Drawing.Color.Black;
-            this.LabelTotalDuration2.Name = "LabelTotalDuration2";
             // 
             // comboStatus
             // 
@@ -2398,90 +2018,153 @@
             this.toolStrip2.BackColor = System.Drawing.SystemColors.Control;
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton4,
+            this.tsbImportFile,
             this.toolStripSeparator9,
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.toolStripButton3,
-            this.toolStripButton5,
+            this.tsbUndo,
+            this.tsbZoomOut,
+            this.tsbZoomIn,
+            this.tsbZoomAll,
+            this.tsbZoomSelection,
             this.toolStripSeparator12,
-            this.toolStripButton6,
-            this.toolStripButton7,
+            this.tsbContinueRecord,
+            this.tsbMoveEnd,
+            this.tsbForward,
+            this.tsbPlay,
+            this.tsbStop,
+            this.tsbRewind,
+            this.tsbMoveStart,
             this.toolStripSeparator11,
-            this.toolStripButton10});
+            this.tsbStartRecordNew});
             resources.ApplyResources(this.toolStrip2, "toolStrip2");
             this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip2_ItemClicked);
             // 
-            // toolStripButton4
+            // tsbImportFile
             // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.toolStripButton4, "toolStripButton4");
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+            this.tsbImportFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbImportFile, "tsbImportFile");
+            this.tsbImportFile.Name = "tsbImportFile";
+            this.tsbImportFile.Tag = "I";
+            this.tsbImportFile.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
             resources.ApplyResources(this.toolStripSeparator9, "toolStripSeparator9");
             // 
-            // toolStripButton1
+            // tsbUndo
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.toolStripButton1, "toolStripButton1");
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.tsbUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbUndo, "tsbUndo");
+            this.tsbUndo.Name = "tsbUndo";
+            this.tsbUndo.Tag = "I";
+            this.tsbUndo.Click += new System.EventHandler(this.toolStripButton10_Click);
             // 
-            // toolStripButton2
+            // tsbZoomOut
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.toolStripButton2, "toolStripButton2");
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.tsbZoomOut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbZoomOut, "tsbZoomOut");
+            this.tsbZoomOut.Name = "tsbZoomOut";
+            this.tsbZoomOut.Tag = "I";
+            this.tsbZoomOut.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
-            // toolStripButton3
+            // tsbZoomIn
             // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.toolStripButton3, "toolStripButton3");
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            this.tsbZoomIn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbZoomIn, "tsbZoomIn");
+            this.tsbZoomIn.Name = "tsbZoomIn";
+            this.tsbZoomIn.Tag = "I";
+            this.tsbZoomIn.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
-            // toolStripButton5
+            // tsbZoomAll
             // 
-            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.toolStripButton5, "toolStripButton5");
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
+            this.tsbZoomAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbZoomAll, "tsbZoomAll");
+            this.tsbZoomAll.Name = "tsbZoomAll";
+            this.tsbZoomAll.Tag = "I";
+            this.tsbZoomAll.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // tsbZoomSelection
+            // 
+            this.tsbZoomSelection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbZoomSelection, "tsbZoomSelection");
+            this.tsbZoomSelection.Name = "tsbZoomSelection";
+            this.tsbZoomSelection.Tag = "I";
+            this.tsbZoomSelection.Click += new System.EventHandler(this.toolStripButton5_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
             resources.ApplyResources(this.toolStripSeparator12, "toolStripSeparator12");
             // 
-            // toolStripButton6
+            // tsbContinueRecord
             // 
-            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.toolStripButton6, "toolStripButton6");
-            this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
+            this.tsbContinueRecord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbContinueRecord, "tsbContinueRecord");
+            this.tsbContinueRecord.Name = "tsbContinueRecord";
+            this.tsbContinueRecord.Tag = "RC";
+            this.tsbContinueRecord.Click += new System.EventHandler(this.tsbContinueRecord_Click);
             // 
-            // toolStripButton7
+            // tsbMoveEnd
             // 
-            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.toolStripButton7, "toolStripButton7");
-            this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
+            this.tsbMoveEnd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbMoveEnd, "tsbMoveEnd");
+            this.tsbMoveEnd.Name = "tsbMoveEnd";
+            this.tsbMoveEnd.Tag = "I";
+            this.tsbMoveEnd.Click += new System.EventHandler(this.toolStripButton6_Click);
+            // 
+            // tsbForward
+            // 
+            this.tsbForward.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbForward, "tsbForward");
+            this.tsbForward.Name = "tsbForward";
+            this.tsbForward.Tag = "I";
+            this.tsbForward.Click += new System.EventHandler(this.tsbForward_Click);
+            // 
+            // tsbPlay
+            // 
+            this.tsbPlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbPlay, "tsbPlay");
+            this.tsbPlay.Name = "tsbPlay";
+            this.tsbPlay.Tag = "P";
+            this.tsbPlay.Click += new System.EventHandler(this.tsbPlay_Click);
+            // 
+            // tsbStop
+            // 
+            this.tsbStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbStop, "tsbStop");
+            this.tsbStop.Name = "tsbStop";
+            this.tsbStop.Tag = "P";
+            this.tsbStop.Click += new System.EventHandler(this.tsbStop_Click);
+            // 
+            // tsbRewind
+            // 
+            this.tsbRewind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbRewind, "tsbRewind");
+            this.tsbRewind.Name = "tsbRewind";
+            this.tsbRewind.Tag = "I";
+            this.tsbRewind.Click += new System.EventHandler(this.tsbRewind_Click);
+            // 
+            // tsbMoveStart
+            // 
+            this.tsbMoveStart.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbMoveStart, "tsbMoveStart");
+            this.tsbMoveStart.Name = "tsbMoveStart";
+            this.tsbMoveStart.Tag = "I";
+            this.tsbMoveStart.Click += new System.EventHandler(this.toolStripButton7_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
             resources.ApplyResources(this.toolStripSeparator11, "toolStripSeparator11");
             // 
-            // toolStripButton10
+            // tsbStartRecordNew
             // 
-            this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.toolStripButton10, "toolStripButton10");
-            this.toolStripButton10.Name = "toolStripButton10";
-            this.toolStripButton10.Click += new System.EventHandler(this.toolStripButton10_Click);
+            this.tsbStartRecordNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbStartRecordNew, "tsbStartRecordNew");
+            this.tsbStartRecordNew.Name = "tsbStartRecordNew";
+            this.tsbStartRecordNew.Tag = "RA";
+            this.tsbStartRecordNew.Click += new System.EventHandler(this.tsbStartRecordNew_Click);
             // 
             // panel9
             // 
@@ -2514,6 +2197,24 @@
             this.trackBarPitch1.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarPitch1.Scroll += new System.EventHandler(this.trackBarPitch1_Scroll);
             // 
+            // trackBarVolume1
+            // 
+            resources.ApplyResources(this.trackBarVolume1, "trackBarVolume1");
+            this.trackBarVolume1.Maximum = 100;
+            this.trackBarVolume1.Name = "trackBarVolume1";
+            this.trackBarVolume1.TickFrequency = 10;
+            this.trackBarVolume1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarVolume1.Value = 100;
+            this.trackBarVolume1.Scroll += new System.EventHandler(this.trackBarVolume1_Scroll);
+            this.trackBarVolume1.ValueChanged += new System.EventHandler(this.trackBarVolume1_ValueChanged);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::MyMentor.Properties.Resources._1393683320_icon_volume_medium;
+            resources.ApplyResources(this.pictureBox4, "pictureBox4");
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.TabStop = false;
+            // 
             // TimerReload
             // 
             this.TimerReload.Tick += new System.EventHandler(this.TimerReload_Tick);
@@ -2526,13 +2227,9 @@
             // 
             this.timerUpdateDuringPlayback.Tick += new System.EventHandler(this.timerUpdateDuringPlayback_Tick);
             // 
-            // timerRefreshLedDisplay
-            // 
-            this.timerRefreshLedDisplay.Tick += new System.EventHandler(this.timerRefreshLedDisplay_Tick);
-            // 
             // timerStartRecordingAfterPlayingBuffer
             // 
-            this.timerStartRecordingAfterPlayingBuffer.Interval = 50;
+            this.timerStartRecordingAfterPlayingBuffer.Interval = 10;
             this.timerStartRecordingAfterPlayingBuffer.Tick += new System.EventHandler(this.timerStartRecordingAfterPlayingBuffer_Tick);
             // 
             // timerRecordingDone
@@ -2552,10 +2249,6 @@
             // 
             this.djLineTimer.Interval = 50;
             // 
-            // timerPreStartFixPlayback
-            // 
-            this.timerPreStartFixPlayback.Tick += new System.EventHandler(this.timerPreStartFixPlayback_Tick);
-            // 
             // timerFixRichText
             // 
             this.timerFixRichText.Interval = 300;
@@ -2565,42 +2258,33 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "1386908105_Record Button2.png");
-            this.imageList1.Images.SetKeyName(1, "1386908112_Record Button1.png");
+            this.imageList1.Images.SetKeyName(0, "1393682622_media-record.png");
+            this.imageList1.Images.SetKeyName(1, "1393682622_media-record_off.png");
+            this.imageList1.Images.SetKeyName(2, "1393682686_black_4_audio_pla555y.png");
+            this.imageList1.Images.SetKeyName(3, "1393682686_black_4_audio_pla555y_off.png");
+            this.imageList1.Images.SetKeyName(4, "1393682686_black_4_audio_playing.png");
+            this.imageList1.Images.SetKeyName(5, "1393705868_icon-ios7-pause.png");
+            this.imageList1.Images.SetKeyName(6, "1393682686_black_4_audio_play.png");
+            this.imageList1.Images.SetKeyName(7, "1393705868_icon-ios7-stop.png");
             // 
             // timerFirstAnchorScheduling
             // 
             this.timerFirstAnchorScheduling.Interval = 250;
             this.timerFirstAnchorScheduling.Tick += new System.EventHandler(this.timerFirstAnchorScheduling_Tick);
             // 
-            // button1
+            // imageList2
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "par_anchor_off.png");
+            this.imageList2.Images.SetKeyName(1, "par_anchor_on.png");
+            this.imageList2.Images.SetKeyName(2, "word_anchor_off.png");
+            this.imageList2.Images.SetKeyName(3, "word_anchor_on.png");
             // 
-            // sevenSegmentArray1
+            // timerPlayerIcon
             // 
-            this.sevenSegmentArray1.ArrayCount = 2;
-            this.sevenSegmentArray1.ColorBackground = System.Drawing.Color.DarkGray;
-            this.sevenSegmentArray1.ColorDark = System.Drawing.Color.DimGray;
-            this.sevenSegmentArray1.ColorLight = System.Drawing.Color.Chartreuse;
-            this.sevenSegmentArray1.DecimalShow = true;
-            this.sevenSegmentArray1.ElementPadding = new System.Windows.Forms.Padding(4);
-            this.sevenSegmentArray1.ElementWidth = 10;
-            this.sevenSegmentArray1.ItalicFactor = 0F;
-            resources.ApplyResources(this.sevenSegmentArray1, "sevenSegmentArray1");
-            this.sevenSegmentArray1.Name = "sevenSegmentArray1";
-            this.sevenSegmentArray1.TabStop = false;
-            this.sevenSegmentArray1.Value = "5.0";
-            // 
-            // timePickerCurrentWord
-            // 
-            resources.ApplyResources(this.timePickerCurrentWord, "timePickerCurrentWord");
-            this.timePickerCurrentWord.Name = "timePickerCurrentWord";
-            this.timePickerCurrentWord.Value = System.TimeSpan.Parse("00:00:00");
-            this.timePickerCurrentWord.ValueChanged += new System.EventHandler(this.timePickerCurrentWord_ValueChanged);
+            this.timerPlayerIcon.Interval = 500;
+            this.timerPlayerIcon.Tick += new System.EventHandler(this.timerPlayerIcon_Tick);
             // 
             // FormStudio
             // 
@@ -2621,7 +2305,10 @@
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWaveZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).EndInit();
             this.tabControl1.ResumeLayout(false);
@@ -2633,25 +2320,11 @@
             this.panel7.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.FrameRecording.ResumeLayout(false);
-            this.FrameRecording.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).EndInit();
-            this.Frame4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBufferRecord)).EndInit();
-            this.framePlayback.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
@@ -2679,6 +2352,8 @@
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPitch1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2801,59 +2476,18 @@
         public System.Windows.Forms.Label label24;
         public System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label28;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
-        public System.Windows.Forms.GroupBox FrameRecording;
-        private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TrackBar trackBarVolume1;
-        public System.Windows.Forms.GroupBox Frame4;
-        public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Label Label2;
-        public System.Windows.Forms.Label Label3;
-        public System.Windows.Forms.Label Label4;
-        public System.Windows.Forms.Label Label5;
-        public System.Windows.Forms.Label Label6;
-        public System.Windows.Forms.Label LabelSelectionBegin;
-        public System.Windows.Forms.Label LabelSelectionEnd;
-        public System.Windows.Forms.Label LabelSelectionDuration;
-        public System.Windows.Forms.Label LabelRangeBegin;
-        public System.Windows.Forms.Label LabelRangeEnd;
-        public System.Windows.Forms.Label LabelRangeDuration;
-        public System.Windows.Forms.Label LabelTotalDuration;
-        public System.Windows.Forms.Label Label8;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private DmitryBrant.CustomControls.SevenSegmentArray sevenSegmentArray1;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.NumericUpDown numericUpDownBufferRecord;
-        public System.Windows.Forms.Button buttonRecOverwritePlayback;
-        public System.Windows.Forms.Button buttonStartRecAppend;
-        public System.Windows.Forms.Button buttonStopRecording;
-        public System.Windows.Forms.Button buttonStartRecNew;
-        public System.Windows.Forms.GroupBox framePlayback;
-        private System.Windows.Forms.Button buttonPause;
-        public System.Windows.Forms.Button buttonPlay;
-        public System.Windows.Forms.Button buttonStop;
-        public System.Windows.Forms.Button buttonPlaySelection;
         private System.Windows.Forms.RichTextBox richTextBox5;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         public System.Windows.Forms.GroupBox groupBox1;
-        public System.Windows.Forms.Label LabelCurrentWordDuration;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label10;
-        private TimeSpinner.TimePickerSpinner timePickerCurrentWord;
-        public System.Windows.Forms.Label LabelCurrentSchedulingTimer;
         public System.Windows.Forms.Button buttonRestartScheduling;
         public System.Windows.Forms.Button buttonHammer;
-        private System.Windows.Forms.Label label9;
         public System.Windows.Forms.Button buttonStartSchedulingPlayback;
         private System.Windows.Forms.GroupBox groupBox2;
         public System.Windows.Forms.Button buttonZoomAllClip;
@@ -2895,7 +2529,6 @@
         private System.Windows.Forms.ComboBox comboCategory2;
         private System.Windows.Forms.ComboBox comboCategory1;
         private System.Windows.Forms.Label lblCategory1;
-        public System.Windows.Forms.Label LabelTotalDuration2;
         private System.Windows.Forms.ComboBox comboStatus;
         private System.Windows.Forms.ComboBox comboCategory3;
         private System.Windows.Forms.TextBox textBox7;
@@ -2940,17 +2573,17 @@
         private System.Windows.Forms.Panel panel5;
         public System.Windows.Forms.Label lblLoginUser;
         private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ToolStripButton tsbImportFile;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.ToolStripButton toolStripButton5;
+        private System.Windows.Forms.ToolStripButton tsbZoomOut;
+        private System.Windows.Forms.ToolStripButton tsbZoomIn;
+        private System.Windows.Forms.ToolStripButton tsbZoomAll;
+        private System.Windows.Forms.ToolStripButton tsbZoomSelection;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
-        private System.Windows.Forms.ToolStripButton toolStripButton6;
-        private System.Windows.Forms.ToolStripButton toolStripButton7;
+        private System.Windows.Forms.ToolStripButton tsbMoveEnd;
+        private System.Windows.Forms.ToolStripButton tsbMoveStart;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
-        private System.Windows.Forms.ToolStripButton toolStripButton10;
+        private System.Windows.Forms.ToolStripButton tsbUndo;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Button button2;
@@ -2971,10 +2604,21 @@
         private System.Windows.Forms.Timer timerPreStartFixPlayback;
         private System.Windows.Forms.Timer timerFixRichText;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.ToolStripMenuItem tsm_RemoveAnchor;
         private System.Windows.Forms.Timer timerFirstAnchorScheduling;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ImageList imageList2;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.ToolStripButton tsbContinueRecord;
+        private System.Windows.Forms.ToolStripButton tsbForward;
+        private System.Windows.Forms.ToolStripButton tsbPlay;
+        private System.Windows.Forms.ToolStripButton tsbRewind;
+        private System.Windows.Forms.ToolStripButton tsbStartRecordNew;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Timer timerPlayerIcon;
+        private System.Windows.Forms.ToolStripButton tsbStop;
+        public System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ToolStripMenuItem menuLanguages;
     }
 }

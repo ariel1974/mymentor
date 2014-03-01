@@ -371,6 +371,19 @@
     <EmbeddedResource Include="TimeSpinner\TimePickerSpinner.resx">
       <DependentUpon>TimePickerSpinner.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Resources\1393683104_black_8_audio_micro.png" />
+    <None Include="Resources\1393683320_icon-volume-medium.png" />
+    <None Include="Resources\par_anchor_off.png" />
+    <None Include="Resources\par_anchor_on.png" />
+    <None Include="Resources\1x1.png" />
+    <None Include="Resources\bg.png" />
+    <None Include="Resources\bg1.png" />
+    <None Include="Resources\bg33.png" />
+    <None Include="Resources\bg16.png" />
+    <None Include="Resources\bg331.png" />
+    <None Include="Resources\bg332.png" />
+    <Content Include="Resources\word_anchor_off.png" />
+    <Content Include="Resources\word_anchor_on.png" />
     <Content Include="sound_sample.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

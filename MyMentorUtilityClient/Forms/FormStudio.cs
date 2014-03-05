@@ -25,6 +25,7 @@ namespace MyMentor.Forms
         private string m_currentFingerPrint = string.Empty;
         private bool m_bRecAppendMode;
         private bool m_bContinueRecordingAfterPlayback;
+        private short m_nRangeSelection = -1;
         private TimeSpan m_overwriteModeDeletePosition = TimeSpan.Zero;
         private IntPtr m_hWndVuMeterLeft;
         private IntPtr m_hWndVuMeterRight;
@@ -2637,12 +2638,6 @@ namespace MyMentor.Forms
 
         }
 
-        private void trackBarPitch1_Scroll(object sender, EventArgs e)
-        {
-            audioDjStudio1.SetRatePerc(0, (short)trackBarPitch1.Value);
-
-        }
-
         private void buttonStartRecNew_Click(object sender, EventArgs e)
         {
             // check if we already have an editing session in memory
@@ -3500,8 +3495,13 @@ namespace MyMentor.Forms
                 if (m_LastSelections.Count() > 0)
                 {
                     audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, m_LastSelections[0], m_LastSelections[1]);
-
                     m_LastSelections.Clear();
+
+                    if (m_nRangeSelection != -1)
+                    {
+                        audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_nRangeSelection);
+                        m_nRangeSelection = -1;
+                    }
                 }
                 else
                 {
@@ -3545,6 +3545,19 @@ namespace MyMentor.Forms
 
             timerUpdateTimePickerSpinner.Enabled = false;
             tsbPlay.Image = imageList1.Images[6];
+
+            if (m_LastSelections.Count() > 0)
+            {
+                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, m_LastSelections[0], m_LastSelections[1]);
+                m_LastSelections.Clear();
+
+                if (m_nRangeSelection != -1)
+                {
+                    audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_nRangeSelection);
+                    m_nRangeSelection = -1;
+                }
+            }
+
 
         }
 
@@ -4689,6 +4702,19 @@ namespace MyMentor.Forms
                 // if a selection is available
                 if (bSelectionAvailable)
                 {
+                    //mark range
+                    if (nBeginSelectionInMs != nEndSelectionInMs)
+                    {
+                        m_nRangeSelection = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemWaveRangeAdd("RANGE", "",
+                            nBeginSelectionInMs, nEndSelectionInMs, 
+                            new WANALYZER_WAVE_RANGE
+                            {
+                                colorBack = Color.DarkSlateGray,
+                                colorWaveLinePeak = Color.Green,
+                               colorWaveLineCenter = Color.LimeGreen
+                            });
+                    }
+
                     // play selected range only
                     var error = audioDjStudio1.PlaySound(0, nBeginSelectionInMs, nEndSelectionInMs == nBeginSelectionInMs ? -1 : nEndSelectionInMs);
 
@@ -4782,6 +4808,21 @@ namespace MyMentor.Forms
         {
             toolsToolStripMenuItem.ShowDropDown();
             languageToolStripMenuItem.ShowDropDown();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            trackBarPitch1.Value = 0;
+        }
+
+        private void trackBarPitch_ValueChanged(object sender, EventArgs e)
+        {
+            //audioDjStudio1.SetPitch(0, (short)trackBarPitch.Value);
+        }
+
+        private void trackBarPitch1_ValueChanged(object sender, EventArgs e)
+        {
+            audioDjStudio1.SetTempoPerc(0, (float)trackBarPitch1.Value);
         }
 
     }

@@ -2184,6 +2184,7 @@
             resources.ApplyResources(this.button2, "button2");
             this.button2.Name = "button2";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // trackBarPitch1
             // 
@@ -2195,7 +2196,7 @@
             this.trackBarPitch1.SmallChange = 10;
             this.trackBarPitch1.TickFrequency = 10;
             this.trackBarPitch1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarPitch1.Scroll += new System.EventHandler(this.trackBarPitch1_Scroll);
+            this.trackBarPitch1.ValueChanged += new System.EventHandler(this.trackBarPitch1_ValueChanged);
             // 
             // trackBarVolume1
             // 

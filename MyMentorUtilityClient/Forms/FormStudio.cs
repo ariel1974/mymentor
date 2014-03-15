@@ -2791,6 +2791,16 @@ namespace MyMentor.Forms
 
             audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, (int)fPosition, (int)fPosition);
 
+            int nBeginPosInMs = 0;
+            int nEndPosInMs = 0;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nBeginPosInMs, ref nEndPosInMs);
+
+            if (nBeginPosInMs > 0 && nEndPosInMs < audioSoundEditor1.GetSoundDuration() &&
+                fPosition + 1000 > nEndPosInMs)
+            {
+                audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange((int)nBeginPosInMs + 1000,(int)nEndPosInMs + 1000);
+            }
+
             int mm = audioSoundEditor1.GetPlaybackPosition();
             var position = new TimeSpan(0, 0, 0, 0, Math.Max((int)fPosition, 0)); ;
 

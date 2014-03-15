@@ -158,19 +158,6 @@
             this.richTextBox5 = new System.Windows.Forms.RichTextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.buttonRestartScheduling = new System.Windows.Forms.Button();
-            this.buttonHammer = new System.Windows.Forms.Button();
-            this.buttonStartSchedulingPlayback = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.buttonZoomAllClip = new System.Windows.Forms.Button();
-            this.buttonZoomTestableArea = new System.Windows.Forms.Button();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownInterval = new System.Windows.Forms.NumericUpDown();
-            this.buttonScheduleAnchor = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -264,6 +251,7 @@
             this.tsbMoveStart = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbStartRecordNew = new System.Windows.Forms.ToolStripButton();
+            this.tsbHammer = new System.Windows.Forms.ToolStripButton();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label37 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -275,20 +263,21 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.timerUpdateDuringPlayback = new System.Windows.Forms.Timer(this.components);
-            this.timerRefreshLedDisplay = new System.Windows.Forms.Timer(this.components);
-            this.timerUpdateTimePickerSpinner = new System.Windows.Forms.Timer(this.components);
+            this.timerUpdateDuringSchedulingPlayback = new System.Windows.Forms.Timer(this.components);
             this.timerStartRecordingAfterPlayingBuffer = new System.Windows.Forms.Timer(this.components);
             this.timerRecordingDone = new System.Windows.Forms.Timer(this.components);
             this.timerRecordIcon = new System.Windows.Forms.Timer(this.components);
             this.timerDisplayWaveform = new System.Windows.Forms.Timer(this.components);
-            this.djLineTimer = new System.Windows.Forms.Timer(this.components);
-            this.timerPreStartFixPlayback = new System.Windows.Forms.Timer(this.components);
-            this.timerFixRichText = new System.Windows.Forms.Timer(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.timerFirstAnchorScheduling = new System.Windows.Forms.Timer(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.timerPlayerIcon = new System.Windows.Forms.Timer(this.components);
+            this.cbInterval = new System.Windows.Forms.ComboBox();
+            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMoveAnchorForward = new System.Windows.Forms.ToolStripButton();
+            this.tsbMoveAnchorRewind = new System.Windows.Forms.ToolStripButton();
+            this.lblInterval1 = new System.Windows.Forms.Label();
+            this.lblInterval2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -308,9 +297,6 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
             this.panel6.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -812,6 +798,7 @@
             this.audioSoundEditor1.SoundLoadingDone += new AudioSoundEditor.AudioSoundEditor.SoundLoadingDoneEventHandler(this.audioSoundEditor1_SoundLoadingDone);
             this.audioSoundEditor1.WaveAnalyzerLineMoving += new AudioSoundEditor.AudioSoundEditor.WaveAnalyzerLineMovingEventHandler(this.audioSoundEditor1_WaveAnalyzerLineMoving);
             this.audioSoundEditor1.WaveAnalyzerGraphicItemClick += new AudioSoundEditor.AudioSoundEditor.WaveAnalyzerGraphicItemClickEventHandler(this.audioSoundEditor1_WaveAnalyzerGraphicItemClick);
+            this.audioSoundEditor1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.audioSoundEditor1_KeyPress);
             // 
             // audioSoundRecorder1
             // 
@@ -1195,6 +1182,7 @@
             this.tableLayoutPanel2.SetRowSpan(this.richTextBox1, 2);
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
             this.richTextBox1.VScroll += new System.EventHandler(this.richTextBox1_VScroll);
+            this.richTextBox1.Click += new System.EventHandler(this.richTextBox1_Click);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // panel7
@@ -1345,138 +1333,8 @@
             // 
             this.tableLayoutPanel3.BackColor = System.Drawing.SystemColors.Control;
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
-            this.tableLayoutPanel3.Controls.Add(this.groupBox1, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.groupBox2, 1, 3);
             this.tableLayoutPanel3.Controls.Add(this.panel6, 0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.buttonRestartScheduling);
-            this.groupBox1.Controls.Add(this.buttonHammer);
-            this.groupBox1.Controls.Add(this.buttonStartSchedulingPlayback);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // button1
-            // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // buttonRestartScheduling
-            // 
-            this.buttonRestartScheduling.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonRestartScheduling.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.buttonRestartScheduling, "buttonRestartScheduling");
-            this.buttonRestartScheduling.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonRestartScheduling.Name = "buttonRestartScheduling";
-            this.buttonRestartScheduling.UseVisualStyleBackColor = false;
-            this.buttonRestartScheduling.Click += new System.EventHandler(this.buttonRestartScheduling_Click);
-            // 
-            // buttonHammer
-            // 
-            this.buttonHammer.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonHammer.BackgroundImage = global::MyMentor.Properties.Resources._1386909293_auction_hammer_gavel;
-            resources.ApplyResources(this.buttonHammer, "buttonHammer");
-            this.buttonHammer.Cursor = System.Windows.Forms.Cursors.Default;
-            this.buttonHammer.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonHammer.Name = "buttonHammer";
-            this.buttonHammer.UseVisualStyleBackColor = false;
-            this.buttonHammer.Click += new System.EventHandler(this.buttonHammer_Click);
-            // 
-            // buttonStartSchedulingPlayback
-            // 
-            this.buttonStartSchedulingPlayback.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonStartSchedulingPlayback.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.buttonStartSchedulingPlayback, "buttonStartSchedulingPlayback");
-            this.buttonStartSchedulingPlayback.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonStartSchedulingPlayback.Name = "buttonStartSchedulingPlayback";
-            this.buttonStartSchedulingPlayback.UseVisualStyleBackColor = false;
-            this.buttonStartSchedulingPlayback.Click += new System.EventHandler(this.buttonStartSchedulingPlayback_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.buttonZoomAllClip);
-            this.groupBox2.Controls.Add(this.buttonZoomTestableArea);
-            this.groupBox2.Controls.Add(this.label25);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.numericUpDownInterval);
-            this.groupBox2.Controls.Add(this.buttonScheduleAnchor);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
-            // 
-            // buttonZoomAllClip
-            // 
-            this.buttonZoomAllClip.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonZoomAllClip.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.buttonZoomAllClip, "buttonZoomAllClip");
-            this.buttonZoomAllClip.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonZoomAllClip.Name = "buttonZoomAllClip";
-            this.buttonZoomAllClip.UseVisualStyleBackColor = false;
-            this.buttonZoomAllClip.Click += new System.EventHandler(this.buttonZoomAllClip_Click);
-            // 
-            // buttonZoomTestableArea
-            // 
-            this.buttonZoomTestableArea.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonZoomTestableArea.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.buttonZoomTestableArea, "buttonZoomTestableArea");
-            this.buttonZoomTestableArea.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonZoomTestableArea.Name = "buttonZoomTestableArea";
-            this.buttonZoomTestableArea.UseVisualStyleBackColor = false;
-            this.buttonZoomTestableArea.Click += new System.EventHandler(this.buttonZoomTestableArea_Click);
-            // 
-            // label25
-            // 
-            resources.ApplyResources(this.label25, "label25");
-            this.label25.Name = "label25";
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // numericUpDownInterval
-            // 
-            resources.ApplyResources(this.numericUpDownInterval, "numericUpDownInterval");
-            this.numericUpDownInterval.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numericUpDownInterval.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownInterval.Name = "numericUpDownInterval";
-            this.numericUpDownInterval.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // buttonScheduleAnchor
-            // 
-            this.buttonScheduleAnchor.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonScheduleAnchor.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.buttonScheduleAnchor, "buttonScheduleAnchor");
-            this.buttonScheduleAnchor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonScheduleAnchor.Name = "buttonScheduleAnchor";
-            this.buttonScheduleAnchor.UseVisualStyleBackColor = false;
-            this.buttonScheduleAnchor.Click += new System.EventHandler(this.buttonScheduleAnchor_Click);
             // 
             // panel6
             // 
@@ -1495,6 +1353,10 @@
             this.richTextBox3.ReadOnly = true;
             this.richTextBox3.SelectionChanged += new System.EventHandler(this.richTextBox3_SelectionChanged);
             this.richTextBox3.VScroll += new System.EventHandler(this.richTextBox3_VScroll);
+            this.richTextBox3.DoubleClick += new System.EventHandler(this.richTextBox3_DoubleClick);
+            this.richTextBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBox3_KeyDown);
+            this.richTextBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox3_KeyPress);
+            this.richTextBox3.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox3_MouseDoubleClick);
             // 
             // tabPage4
             // 
@@ -2034,7 +1896,11 @@
             this.tsbRewind,
             this.tsbMoveStart,
             this.toolStripSeparator11,
-            this.tsbStartRecordNew});
+            this.tsbStartRecordNew,
+            this.tsbHammer,
+            this.toolStripSeparator13,
+            this.tsbMoveAnchorForward,
+            this.tsbMoveAnchorRewind});
             resources.ApplyResources(this.toolStrip2, "toolStrip2");
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip2_ItemClicked);
@@ -2166,8 +2032,18 @@
             this.tsbStartRecordNew.Tag = "RA";
             this.tsbStartRecordNew.Click += new System.EventHandler(this.tsbStartRecordNew_Click);
             // 
+            // tsbHammer
+            // 
+            this.tsbHammer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbHammer, "tsbHammer");
+            this.tsbHammer.Name = "tsbHammer";
+            this.tsbHammer.Click += new System.EventHandler(this.tsbHammer_Click);
+            // 
             // panel9
             // 
+            this.panel9.Controls.Add(this.lblInterval2);
+            this.panel9.Controls.Add(this.lblInterval1);
+            this.panel9.Controls.Add(this.cbInterval);
             this.panel9.Controls.Add(this.label37);
             this.panel9.Controls.Add(this.button2);
             this.panel9.Controls.Add(this.trackBarPitch1);
@@ -2191,7 +2067,7 @@
             resources.ApplyResources(this.trackBarPitch1, "trackBarPitch1");
             this.trackBarPitch1.LargeChange = 20;
             this.trackBarPitch1.Maximum = 100;
-            this.trackBarPitch1.Minimum = -100;
+            this.trackBarPitch1.Minimum = -70;
             this.trackBarPitch1.Name = "trackBarPitch1";
             this.trackBarPitch1.SmallChange = 10;
             this.trackBarPitch1.TickFrequency = 10;
@@ -2224,9 +2100,9 @@
             // 
             this.TimerMenuEnabler.Tick += new System.EventHandler(this.TimerMenuEnabler_Tick);
             // 
-            // timerUpdateDuringPlayback
+            // timerUpdateDuringSchedulingPlayback
             // 
-            this.timerUpdateDuringPlayback.Tick += new System.EventHandler(this.timerUpdateDuringPlayback_Tick);
+            this.timerUpdateDuringSchedulingPlayback.Tick += new System.EventHandler(this.timerUpdateDuringPlayback_Tick);
             // 
             // timerStartRecordingAfterPlayingBuffer
             // 
@@ -2246,15 +2122,6 @@
             // 
             this.timerDisplayWaveform.Tick += new System.EventHandler(this.timerDisplayWaveform_Tick);
             // 
-            // djLineTimer
-            // 
-            this.djLineTimer.Interval = 50;
-            // 
-            // timerFixRichText
-            // 
-            this.timerFixRichText.Interval = 300;
-            this.timerFixRichText.Tick += new System.EventHandler(this.timerFixRichText_Tick);
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -2267,6 +2134,8 @@
             this.imageList1.Images.SetKeyName(5, "1393705868_icon-ios7-pause.png");
             this.imageList1.Images.SetKeyName(6, "1393682686_black_4_audio_play.png");
             this.imageList1.Images.SetKeyName(7, "1393705868_icon-ios7-stop.png");
+            this.imageList1.Images.SetKeyName(8, "1394795642_free-for-job.png");
+            this.imageList1.Images.SetKeyName(9, "1394795642_free-for-job2.png");
             // 
             // timerFirstAnchorScheduling
             // 
@@ -2286,6 +2155,50 @@
             // 
             this.timerPlayerIcon.Interval = 500;
             this.timerPlayerIcon.Tick += new System.EventHandler(this.timerPlayerIcon_Tick);
+            // 
+            // cbInterval
+            // 
+            this.cbInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbInterval.FormattingEnabled = true;
+            this.cbInterval.Items.AddRange(new object[] {
+            resources.GetString("cbInterval.Items"),
+            resources.GetString("cbInterval.Items1"),
+            resources.GetString("cbInterval.Items2"),
+            resources.GetString("cbInterval.Items3"),
+            resources.GetString("cbInterval.Items4")});
+            resources.ApplyResources(this.cbInterval, "cbInterval");
+            this.cbInterval.Name = "cbInterval";
+            // 
+            // toolStripSeparator13
+            // 
+            this.toolStripSeparator13.Name = "toolStripSeparator13";
+            resources.ApplyResources(this.toolStripSeparator13, "toolStripSeparator13");
+            // 
+            // tsbMoveAnchorForward
+            // 
+            this.tsbMoveAnchorForward.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbMoveAnchorForward, "tsbMoveAnchorForward");
+            this.tsbMoveAnchorForward.Name = "tsbMoveAnchorForward";
+            this.tsbMoveAnchorForward.Tag = "I-";
+            this.tsbMoveAnchorForward.Click += new System.EventHandler(this.tsbMoveAnchorForward_Click);
+            // 
+            // tsbMoveAnchorRewind
+            // 
+            this.tsbMoveAnchorRewind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbMoveAnchorRewind, "tsbMoveAnchorRewind");
+            this.tsbMoveAnchorRewind.Name = "tsbMoveAnchorRewind";
+            this.tsbMoveAnchorRewind.Tag = "I-";
+            this.tsbMoveAnchorRewind.Click += new System.EventHandler(this.tsbMoveAnchorRewind_Click);
+            // 
+            // lblInterval1
+            // 
+            resources.ApplyResources(this.lblInterval1, "lblInterval1");
+            this.lblInterval1.Name = "lblInterval1";
+            // 
+            // lblInterval2
+            // 
+            resources.ApplyResources(this.lblInterval2, "lblInterval2");
+            this.lblInterval2.Name = "lblInterval2";
             // 
             // FormStudio
             // 
@@ -2325,10 +2238,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
             this.panel6.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -2486,18 +2395,6 @@
         private System.Windows.Forms.RichTextBox richTextBox5;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        public System.Windows.Forms.GroupBox groupBox1;
-        public System.Windows.Forms.Button buttonRestartScheduling;
-        public System.Windows.Forms.Button buttonHammer;
-        public System.Windows.Forms.Button buttonStartSchedulingPlayback;
-        private System.Windows.Forms.GroupBox groupBox2;
-        public System.Windows.Forms.Button buttonZoomAllClip;
-        public System.Windows.Forms.Button buttonZoomTestableArea;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDownInterval;
-        public System.Windows.Forms.Button buttonScheduleAnchor;
         private System.Windows.Forms.Panel panel6;
         public System.Windows.Forms.RichTextBox richTextBox3;
         private System.Windows.Forms.TabPage tabPage4;
@@ -2594,21 +2491,15 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.FontDialog fontDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Timer timerUpdateDuringPlayback;
-        private System.Windows.Forms.Timer timerRefreshLedDisplay;
-        private System.Windows.Forms.Timer timerUpdateTimePickerSpinner;
+        private System.Windows.Forms.Timer timerUpdateDuringSchedulingPlayback;
         private System.Windows.Forms.Timer timerStartRecordingAfterPlayingBuffer;
         private System.Windows.Forms.Timer timerRecordingDone;
         private System.Windows.Forms.Timer timerRecordIcon;
         private System.Windows.Forms.Timer timerDisplayWaveform;
-        private System.Windows.Forms.Timer djLineTimer;
-        private System.Windows.Forms.Timer timerPreStartFixPlayback;
-        private System.Windows.Forms.Timer timerFixRichText;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.ToolStripMenuItem tsm_RemoveAnchor;
         private System.Windows.Forms.Timer timerFirstAnchorScheduling;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ImageList imageList2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.ToolStripButton tsbContinueRecord;
@@ -2621,5 +2512,12 @@
         private System.Windows.Forms.ToolStripButton tsbStop;
         public System.Windows.Forms.Button button3;
         private System.Windows.Forms.ToolStripMenuItem menuLanguages;
+        private System.Windows.Forms.ToolStripButton tsbHammer;
+        private System.Windows.Forms.ComboBox cbInterval;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
+        private System.Windows.Forms.ToolStripButton tsbMoveAnchorForward;
+        private System.Windows.Forms.ToolStripButton tsbMoveAnchorRewind;
+        private System.Windows.Forms.Label lblInterval1;
+        private System.Windows.Forms.Label lblInterval2;
     }
 }

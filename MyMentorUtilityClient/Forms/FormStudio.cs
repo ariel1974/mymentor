@@ -2624,8 +2624,11 @@ namespace MyMentor.Forms
             }
             else
             {
+                Clip.Current.Devide();
+
                 tableLayoutPanel4.RowStyles[1].Height = 38;
                 tableLayoutPanel4.RowStyles[2].Height = 160;
+
                 if (tabControl1.SelectedIndex == 1)
                 {
                     tableLayoutPanel4.ColumnStyles[3].Width = 40;
@@ -2653,6 +2656,7 @@ namespace MyMentor.Forms
                     cbInterval.Visible = true;
                 }
                 audioSoundEditor1.DisplayWaveformAnalyzer.Move(Picture1.Left, Picture1.Top, panel1.Width, panel1.Height);
+                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);                
             }
 
             //check if we have to refresh display
@@ -3168,6 +3172,8 @@ namespace MyMentor.Forms
             }
             else
                 MessageBox.Show("Sound failed to load with the following error code: " + audioSoundEditor1.LastError.ToString());
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);
 
         }
 
@@ -4568,7 +4574,7 @@ namespace MyMentor.Forms
                 audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
 
                 // get the position selected on the waveform analyzer, if any
-                bool bSelectionAvailable = false;
+                bool bSelectionAvailable = true;
                 Int32 nBeginSelectionInMs = 0;
                 Int32 nEndSelectionInMs = 0;
                 audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);

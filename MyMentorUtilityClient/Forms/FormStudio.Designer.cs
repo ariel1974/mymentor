@@ -252,7 +252,13 @@
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbStartRecordNew = new System.Windows.Forms.ToolStripButton();
             this.tsbHammer = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbMoveAnchorForward = new System.Windows.Forms.ToolStripButton();
+            this.tsbMoveAnchorRewind = new System.Windows.Forms.ToolStripButton();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.lblInterval2 = new System.Windows.Forms.Label();
+            this.lblInterval1 = new System.Windows.Forms.Label();
+            this.cbInterval = new System.Windows.Forms.ComboBox();
             this.label37 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.trackBarPitch1 = new System.Windows.Forms.TrackBar();
@@ -272,12 +278,7 @@
             this.timerFirstAnchorScheduling = new System.Windows.Forms.Timer(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.timerPlayerIcon = new System.Windows.Forms.Timer(this.components);
-            this.cbInterval = new System.Windows.Forms.ComboBox();
-            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbMoveAnchorForward = new System.Windows.Forms.ToolStripButton();
-            this.tsbMoveAnchorRewind = new System.Windows.Forms.ToolStripButton();
-            this.lblInterval1 = new System.Windows.Forms.Label();
-            this.lblInterval2 = new System.Windows.Forms.Label();
+            this.tsbCheckAnchor = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -1900,7 +1901,8 @@
             this.tsbHammer,
             this.toolStripSeparator13,
             this.tsbMoveAnchorForward,
-            this.tsbMoveAnchorRewind});
+            this.tsbMoveAnchorRewind,
+            this.tsbCheckAnchor});
             resources.ApplyResources(this.toolStrip2, "toolStrip2");
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip2_ItemClicked);
@@ -2039,6 +2041,27 @@
             this.tsbHammer.Name = "tsbHammer";
             this.tsbHammer.Click += new System.EventHandler(this.tsbHammer_Click);
             // 
+            // toolStripSeparator13
+            // 
+            this.toolStripSeparator13.Name = "toolStripSeparator13";
+            resources.ApplyResources(this.toolStripSeparator13, "toolStripSeparator13");
+            // 
+            // tsbMoveAnchorForward
+            // 
+            this.tsbMoveAnchorForward.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbMoveAnchorForward, "tsbMoveAnchorForward");
+            this.tsbMoveAnchorForward.Name = "tsbMoveAnchorForward";
+            this.tsbMoveAnchorForward.Tag = "I-";
+            this.tsbMoveAnchorForward.Click += new System.EventHandler(this.tsbMoveAnchorForward_Click);
+            // 
+            // tsbMoveAnchorRewind
+            // 
+            this.tsbMoveAnchorRewind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbMoveAnchorRewind, "tsbMoveAnchorRewind");
+            this.tsbMoveAnchorRewind.Name = "tsbMoveAnchorRewind";
+            this.tsbMoveAnchorRewind.Tag = "I-";
+            this.tsbMoveAnchorRewind.Click += new System.EventHandler(this.tsbMoveAnchorRewind_Click);
+            // 
             // panel9
             // 
             this.panel9.Controls.Add(this.lblInterval2);
@@ -2049,6 +2072,29 @@
             this.panel9.Controls.Add(this.trackBarPitch1);
             resources.ApplyResources(this.panel9, "panel9");
             this.panel9.Name = "panel9";
+            // 
+            // lblInterval2
+            // 
+            resources.ApplyResources(this.lblInterval2, "lblInterval2");
+            this.lblInterval2.Name = "lblInterval2";
+            // 
+            // lblInterval1
+            // 
+            resources.ApplyResources(this.lblInterval1, "lblInterval1");
+            this.lblInterval1.Name = "lblInterval1";
+            // 
+            // cbInterval
+            // 
+            this.cbInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbInterval.FormattingEnabled = true;
+            this.cbInterval.Items.AddRange(new object[] {
+            resources.GetString("cbInterval.Items"),
+            resources.GetString("cbInterval.Items1"),
+            resources.GetString("cbInterval.Items2"),
+            resources.GetString("cbInterval.Items3"),
+            resources.GetString("cbInterval.Items4")});
+            resources.ApplyResources(this.cbInterval, "cbInterval");
+            this.cbInterval.Name = "cbInterval";
             // 
             // label37
             // 
@@ -2156,49 +2202,11 @@
             this.timerPlayerIcon.Interval = 500;
             this.timerPlayerIcon.Tick += new System.EventHandler(this.timerPlayerIcon_Tick);
             // 
-            // cbInterval
+            // tsbCheckAnchor
             // 
-            this.cbInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbInterval.FormattingEnabled = true;
-            this.cbInterval.Items.AddRange(new object[] {
-            resources.GetString("cbInterval.Items"),
-            resources.GetString("cbInterval.Items1"),
-            resources.GetString("cbInterval.Items2"),
-            resources.GetString("cbInterval.Items3"),
-            resources.GetString("cbInterval.Items4")});
-            resources.ApplyResources(this.cbInterval, "cbInterval");
-            this.cbInterval.Name = "cbInterval";
-            // 
-            // toolStripSeparator13
-            // 
-            this.toolStripSeparator13.Name = "toolStripSeparator13";
-            resources.ApplyResources(this.toolStripSeparator13, "toolStripSeparator13");
-            // 
-            // tsbMoveAnchorForward
-            // 
-            this.tsbMoveAnchorForward.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.tsbMoveAnchorForward, "tsbMoveAnchorForward");
-            this.tsbMoveAnchorForward.Name = "tsbMoveAnchorForward";
-            this.tsbMoveAnchorForward.Tag = "I-";
-            this.tsbMoveAnchorForward.Click += new System.EventHandler(this.tsbMoveAnchorForward_Click);
-            // 
-            // tsbMoveAnchorRewind
-            // 
-            this.tsbMoveAnchorRewind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.tsbMoveAnchorRewind, "tsbMoveAnchorRewind");
-            this.tsbMoveAnchorRewind.Name = "tsbMoveAnchorRewind";
-            this.tsbMoveAnchorRewind.Tag = "I-";
-            this.tsbMoveAnchorRewind.Click += new System.EventHandler(this.tsbMoveAnchorRewind_Click);
-            // 
-            // lblInterval1
-            // 
-            resources.ApplyResources(this.lblInterval1, "lblInterval1");
-            this.lblInterval1.Name = "lblInterval1";
-            // 
-            // lblInterval2
-            // 
-            resources.ApplyResources(this.lblInterval2, "lblInterval2");
-            this.lblInterval2.Name = "lblInterval2";
+            this.tsbCheckAnchor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbCheckAnchor, "tsbCheckAnchor");
+            this.tsbCheckAnchor.Name = "tsbCheckAnchor";
             // 
             // FormStudio
             // 
@@ -2519,5 +2527,6 @@
         private System.Windows.Forms.ToolStripButton tsbMoveAnchorRewind;
         private System.Windows.Forms.Label lblInterval1;
         private System.Windows.Forms.Label lblInterval2;
+        private System.Windows.Forms.ToolStripButton tsbCheckAnchor;
     }
 }

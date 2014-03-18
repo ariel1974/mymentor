@@ -450,6 +450,7 @@ namespace MyMentor.Forms
                     tsbStartRecordNew.Enabled = false;
                     tsbMoveAnchorForward.Enabled = false;
                     tsbMoveAnchorRewind.Enabled = false;
+                    tsbCheckAnchor.Enabled = false;
                     tsbHammer.Enabled = true;
 
                     if (m_bContinueRecordingAfterPlayback)
@@ -489,12 +490,14 @@ namespace MyMentor.Forms
                     {
                         tsbMoveAnchorForward.Enabled = true;
                         tsbMoveAnchorRewind.Enabled = true;
+                        tsbCheckAnchor.Enabled = true;
                     }
                     else if (m_selectedGraphicItemSelected == -1 && 
                         tsbMoveAnchorForward.Enabled)
                     {
                         tsbMoveAnchorForward.Enabled = false;
                         tsbMoveAnchorRewind.Enabled = false;
+                        tsbCheckAnchor.Enabled = false;
                     }
                 }
             }
@@ -535,6 +538,7 @@ namespace MyMentor.Forms
                 NewClip();
             }
 
+            tabControl1.SelectedIndex = 0;
         }
 
         private void NewClip()
@@ -2598,7 +2602,6 @@ namespace MyMentor.Forms
             //remove guid line & end line
             audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_endLineUniqueId);
             m_endLineUniqueId = -1;
-            //audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_guidLineUniqueId);
             audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
 
         }
@@ -2638,6 +2641,7 @@ namespace MyMentor.Forms
                     tsbHammer.Visible = false;
                     tsbMoveAnchorRewind.Visible = false;
                     tsbMoveAnchorForward.Visible = false;
+                    tsbCheckAnchor.Visible = false;
                     lblInterval1.Visible = false;
                     lblInterval2.Visible = false;
                     cbInterval.Visible = false;
@@ -2651,6 +2655,7 @@ namespace MyMentor.Forms
                     tsbHammer.Visible = true;
                     tsbMoveAnchorRewind.Visible = true;
                     tsbMoveAnchorForward.Visible = true;
+                    tsbCheckAnchor.Visible = true;
                     lblInterval1.Visible = true;
                     lblInterval2.Visible = true;
                     cbInterval.Visible = true;
@@ -2665,7 +2670,7 @@ namespace MyMentor.Forms
                 //copy text and insert start anchor
                 richTextBox5.Clear();
                 richTextBox5.Rtf = richTextBox1.Rtf;
-                richTextBox5.Text = richTextBox5.Text.RemoveAnchors();
+                richTextBox5.RemoveAnchors();
 
                 if (m_waveFormTabIndex != 1)
                 {
@@ -2798,11 +2803,21 @@ namespace MyMentor.Forms
             int nBeginPosInMs = 0;
             int nEndPosInMs = 0;
             audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nBeginPosInMs, ref nEndPosInMs);
+            int soundDuration = audioSoundEditor1.GetSoundDuration();
 
-            if (nBeginPosInMs > 0 && nEndPosInMs < audioSoundEditor1.GetSoundDuration() &&
-                fPosition + 1000 > nEndPosInMs)
+            var buffer = (nEndPosInMs - nBeginPosInMs) / 100;
+
+            if ((nBeginPosInMs > 0 || nEndPosInMs < soundDuration ) &&
+                fPosition + buffer > nEndPosInMs)
             {
-                audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange((int)nBeginPosInMs + 1000,(int)nEndPosInMs + 1000);
+                if ((int)nEndPosInMs + (nEndPosInMs - nBeginPosInMs) - buffer < soundDuration)
+                {
+                    audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange((int)nEndPosInMs - buffer, (int)nEndPosInMs + (nEndPosInMs - nBeginPosInMs) - buffer);
+                }
+                else if ( nEndPosInMs < soundDuration )
+                {
+                    audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange((int)nBeginPosInMs, soundDuration);
+                }
             }
 
             int mm = audioSoundEditor1.GetPlaybackPosition();
@@ -2811,7 +2826,7 @@ namespace MyMentor.Forms
             Debug.WriteLine(string.Format("_Tick: position ({0})", audioSoundEditor1.FromMsToFormattedTime((long)position.TotalMilliseconds, false, true)));
 
             //during playing check if the current position moved over to the next word
-            if (Clip.Current.Chapter.Paragraphs != null)
+            if (Clip.Current.Chapter.Paragraphs != null && Clip.Current.Chapter.FirstWord != null)
             {
                 //select start anchor
                 if (position < Clip.Current.Chapter.FirstWord.StartTime)
@@ -2852,71 +2867,6 @@ namespace MyMentor.Forms
                     }
 
                 }
-
-                //var word = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections)
-                //    .SelectMany(sc => sc.Words).Where(w => w.Index == index).FirstOrDefault();
-
-
-
-                ////in case start part
-                //if (m_selectedStartAnchor)
-                //{
-                //    Debug.WriteLine(string.Format("_Tick: m_selectedStartAnchor is true"));
-
-                //    if (position >= Clip.Current.Chapter.FirstWord.StartTime && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
-                //    {
-                //        Debug.WriteLine(string.Format("_Tick: position ({0}) is equal or bigger than first word start time ({1}) AND start time > 0", audioSoundEditor1.FromMsToFormattedTime((long)position.TotalMilliseconds, false, true), audioSoundEditor1.FromMsToFormattedTime((long)Clip.Current.Chapter.FirstWord.StartTime.TotalMilliseconds, false, true)));
-
-                //        Debug.WriteLine(string.Format("_Tick: set timePickerCurrentWord to position ({0})", audioSoundEditor1.FromMsToFormattedTime((long)position.TotalMilliseconds, false, true)));
-
-                //        Debug.WriteLine(string.Format("_Tick: moving selection start to {0}", Clip.Current.Chapter.FirstWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + 1));
-                //        richTextBox3.SelectionStart = Clip.Current.Chapter.FirstWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + 1;
-                //    }
-                //}
-                //else if (m_selectedEndAnchor)
-                //{
-                //    //Do nothing for now
-                //}
-                //else
-                //{
-                //    //get next word in case timer moving and pass next start time word
-                //    //catch all the words until the last one
-                //    if (m_selectedScheduledWord != null &&
-                //        m_selectedScheduledWord.NextWord != null
-                //        && position >= m_selectedScheduledWord.NextWord.StartTime
-                //        && m_selectedScheduledWord.NextWord.NextWord != null
-                //        && position < m_selectedScheduledWord.NextWord.NextWord.StartTime)
-                //    {
-                //        Debug.WriteLine(string.Format("_Tick: moving to next word start time : {0}", audioSoundEditor1.FromMsToFormattedTime((long)m_selectedScheduledWord.NextWord.StartTime.TotalMilliseconds, false, true)));
-
-                //        Debug.WriteLine(string.Format("_Tick: moving to char index {0}", m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length));
-                //        richTextBox3.SelectionStart = m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
-                //    }
-                //    // catch the last word as the last one
-                //    else if (m_selectedScheduledWord != null &&
-                //        m_selectedScheduledWord.NextWord != null
-                //        && position >= m_selectedScheduledWord.NextWord.StartTime
-                //        && position < m_selectedScheduledWord.NextWord.StartTime + m_selectedScheduledWord.NextWord.Duration
-                //        && m_selectedScheduledWord.NextWord.NextWord == null
-                //        )
-                //    {
-                //        Debug.WriteLine(string.Format("_Tick: !!last word!! : moving to next word start time : {0}", audioSoundEditor1.FromMsToFormattedTime((long)m_selectedScheduledWord.NextWord.StartTime.TotalMilliseconds, false, true)));
-
-                //        Debug.WriteLine(string.Format("_Tick: moving to char index {0}", m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length));
-                //        richTextBox3.SelectionStart = m_selectedScheduledWord.NextWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length;
-                //    }
-                //    // catch when passed the red line end border 
-                //    else if (m_selectedScheduledWord != null &&
-                //        m_selectedScheduledWord.NextWord == null &&
-                //        m_selectedScheduledWord.Duration > TimeSpan.Zero
-                //        && position >= m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration
-                //        )
-                //    {
-                //        Debug.WriteLine(string.Format("_Tick: !!Passed the end line!! on time : {0}", audioSoundEditor1.FromMsToFormattedTime((long)(m_selectedScheduledWord.StartTime + m_selectedScheduledWord.Duration).TotalMilliseconds, false, true)));
-
-                //        richTextBox3.SelectionStart = m_selectedScheduledWord.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length + m_selectedScheduledWord.Length + 1;
-                //    }
-                //}
             }
 
         }
@@ -3566,7 +3516,7 @@ namespace MyMentor.Forms
                 //take first word
                 m_selectedScheduledWord = Clip.Current.Chapter.FirstWord;
 
-                if (audioDjStudio1.GetPlayerStatus(0) != AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
+                if (audioDjStudio1.GetPlayerStatus(0) != AudioDjStudio.enumPlayerStatus.SOUND_PLAYING && m_selectedScheduledWord != null)
                 {
                     //move line to start grapohic line
                     if (!m_bClickedWaveAnalyzer)
@@ -4960,6 +4910,11 @@ namespace MyMentor.Forms
 
         private void tsbMoveAnchorForward_Click(object sender, EventArgs e)
         {
+            int nBeginPosInMs = 0;
+            int nEndPosInMs = 0;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nBeginPosInMs, ref nEndPosInMs);
+            var buffer = (nEndPosInMs - nBeginPosInMs) / 100;
+
             if (m_selectedGraphicItemSelected >= 0)
             {
                 var word = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).Where(w => w.GraphicItemUnique == m_selectedGraphicItemSelected).FirstOrDefault();
@@ -4972,9 +4927,9 @@ namespace MyMentor.Forms
                     {
                         max = word.NextWord.StartTime.Subtract(new TimeSpan(0, 0, 0, 0, 500));
 
-                        if (word.StartTime.Add(new TimeSpan(0, 0, 0, 0, 250)) < max)
+                        if (word.StartTime.Add(new TimeSpan(0, 0, 0, 0, buffer)) < max)
                         {
-                            word.StartTime = word.StartTime.Add(new TimeSpan(0, 0, 0, 0, 250));
+                            word.StartTime = word.StartTime.Add(new TimeSpan(0, 0, 0, 0, buffer));
                             audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_selectedGraphicItemSelected,
                                 (int)word.StartTime.TotalMilliseconds,
                                 (int)word.StartTime.TotalMilliseconds);
@@ -4987,7 +4942,7 @@ namespace MyMentor.Forms
 
                         if (word.StartTime.Add(new TimeSpan(0, 0, 0, 0, 500)).Add(word.Duration) < max)
                         {
-                            word.StartTime = word.StartTime.Add(new TimeSpan(0, 0, 0, 0, 250));
+                            word.StartTime = word.StartTime.Add(new TimeSpan(0, 0, 0, 0, buffer));
                             audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_selectedGraphicItemSelected,
                                 (int)word.StartTime.TotalMilliseconds,
                                 (int)word.StartTime.TotalMilliseconds);
@@ -5007,7 +4962,7 @@ namespace MyMentor.Forms
 
                     if (last_word.StartTime.Add(new TimeSpan(0, 0, 0, 0, 500)).Add(last_word.Duration) < max)
                     {
-                        last_word.Duration = last_word.Duration.Add(new TimeSpan(0, 0, 0, 0, 250));
+                        last_word.Duration = last_word.Duration.Add(new TimeSpan(0, 0, 0, 0, buffer));
                         audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_endLineUniqueId,
                             (int)last_word.StartTime.TotalMilliseconds + (int)last_word.Duration.TotalMilliseconds,
                             (int)last_word.StartTime.TotalMilliseconds + (int)last_word.Duration.TotalMilliseconds);
@@ -5018,6 +4973,11 @@ namespace MyMentor.Forms
 
         private void tsbMoveAnchorRewind_Click(object sender, EventArgs e)
         {
+            int nBeginPosInMs = 0;
+            int nEndPosInMs = 0;
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nBeginPosInMs, ref nEndPosInMs);
+            var buffer = (nEndPosInMs - nBeginPosInMs) / 100;
+
             if (m_selectedGraphicItemSelected >= 0)
             {
                 var word = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).Where(w => w.GraphicItemUnique == m_selectedGraphicItemSelected).FirstOrDefault();
@@ -5032,7 +4992,7 @@ namespace MyMentor.Forms
 
                         if (word.StartTime.Subtract(new TimeSpan(0, 0, 0, 0, 500)) > min)
                         {
-                            word.StartTime = word.StartTime.Subtract(new TimeSpan(0, 0, 0, 0, 250));
+                            word.StartTime = word.StartTime.Subtract(new TimeSpan(0, 0, 0, 0, buffer));
                             audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_selectedGraphicItemSelected,
                                 (int)word.StartTime.TotalMilliseconds,
                                 (int)word.StartTime.TotalMilliseconds);
@@ -5044,7 +5004,7 @@ namespace MyMentor.Forms
 
                         if (word.StartTime.Subtract(new TimeSpan(0, 0, 0, 0, 500)) > min)
                         {
-                            word.StartTime = word.StartTime.Subtract(new TimeSpan(0, 0, 0, 0, 250));
+                            word.StartTime = word.StartTime.Subtract(new TimeSpan(0, 0, 0, 0, buffer));
                             audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_selectedGraphicItemSelected,
                                 (int)word.StartTime.TotalMilliseconds,
                                 (int)word.StartTime.TotalMilliseconds);
@@ -5067,7 +5027,7 @@ namespace MyMentor.Forms
 
                     if (last_word.StartTime.Subtract(new TimeSpan(0, 0, 0, 0, 500)).Add(last_word.Duration) > min)
                     {
-                        last_word.Duration = last_word.Duration.Subtract(new TimeSpan(0, 0, 0, 0, 250));
+                        last_word.Duration = last_word.Duration.Subtract(new TimeSpan(0, 0, 0, 0, buffer));
                         audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionSet(m_endLineUniqueId,
                             (int)last_word.StartTime.TotalMilliseconds + (int)last_word.Duration.TotalMilliseconds,
                             (int)last_word.StartTime.TotalMilliseconds + (int)last_word.Duration.TotalMilliseconds);

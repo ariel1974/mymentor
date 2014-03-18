@@ -320,6 +320,8 @@ namespace MyMentor
                                 matchesWords.Add(matchSection);
                             }
 
+                            short graphicItemUnique = -1;
+
                             foreach (SectionMatch matchWord in matchesWords)
                             {
                                 wordIndex++;
@@ -335,6 +337,7 @@ namespace MyMentor
                                     if (ex_word != null)
                                     {
                                         start = ex_word.StartTime;
+                                        graphicItemUnique = ex_word.GraphicItemUnique;
 
                                         if (ex_word.NextWord == null)
                                         {
@@ -350,7 +353,8 @@ namespace MyMentor
                                     - (3 * Math.Max(0, paragraphs_local[paragraphIndex].Sentences[innerSentenceIndex].Sections[innerSectionIndex].Words.Count())),
                                     Index = wordIndex,
                                     Content = matchWord.Value,
-                                    StartTime = start
+                                    StartTime = start,
+                                    GraphicItemUnique = graphicItemUnique
                                 };
 
                                 //in case last word grab the duration

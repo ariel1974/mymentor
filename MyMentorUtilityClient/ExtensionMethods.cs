@@ -9,11 +9,29 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MyMentor
 {
     public static class ExtensionMethods
     {
+        public static void RemoveAnchors(this RichTextBox myRtb)
+        {
+            string[] anchors = { "[3]", "[2]", "[1]", "[0]" };
+            myRtb.ReadOnly = false;
+            foreach (var anchor in anchors)
+            {
+                int index = myRtb.Find(anchor, 0, RichTextBoxFinds.None);
+
+                while (index >= 0)
+                {
+                    myRtb.SelectedText = "";
+                    index = myRtb.Find(anchor, index + 1, RichTextBoxFinds.None);
+                }
+            }
+            myRtb.ReadOnly = true;
+        }
+
         public static string RemovePunctation(this string value)
         {
             return RemovePunctation(value, false);

@@ -32,7 +32,7 @@ namespace MyMentor.Forms
         private TimeSpan n_hammerLastTimePressed = TimeSpan.Zero;
         private Word m_selectedScheduledWord = null;
         private short m_selectedGraphicItemSelected = -1;
-        private bool m_selectedAnchor = false;
+        private short m_pauseOnAnchorGraphicItem = -1;
         private int m_lastAnchorIndexSelected = -1;
         private bool m_selectedStartAnchor = false;
         private bool m_selectedEndAnchor = false;
@@ -2609,7 +2609,6 @@ namespace MyMentor.Forms
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             m_selectedScheduledWord = null;
-            m_selectedAnchor = false;
             m_lastAnchorIndexSelected = -1;
             tsm_RemoveAnchor.Enabled = false;
 
@@ -2824,6 +2823,24 @@ namespace MyMentor.Forms
             var position = new TimeSpan(0, 0, 0, 0, Math.Max((int)fPosition, 0)); ;
 
             Debug.WriteLine(string.Format("_Tick: position ({0})", audioSoundEditor1.FromMsToFormattedTime((long)position.TotalMilliseconds, false, true)));
+
+            //check anchor check
+            if (m_pauseOnAnchorGraphicItem >= 0)
+            {
+                int nGraphicItemStart = 0;
+                int nGraphicItemEnd = 0;
+                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionGet(m_pauseOnAnchorGraphicItem, ref nGraphicItemStart, ref nGraphicItemEnd);
+
+                if ((int)fPosition + 60 >= nGraphicItemStart)
+                {
+                    m_pauseOnAnchorGraphicItem = -1;
+                    audioDjStudio1.PauseSound(0);
+                    audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, nGraphicItemStart, nGraphicItemStart);
+                    TimerMenuEnabler.Enabled = false;
+                    timerPlayAnchorCheckPause.Enabled = true;
+                    return;
+                }
+            }
 
             //during playing check if the current position moved over to the next word
             if (Clip.Current.Chapter.Paragraphs != null && Clip.Current.Chapter.FirstWord != null)
@@ -3509,7 +3526,6 @@ namespace MyMentor.Forms
 
                 m_lastAnchorIndexSelected = richTextBox3.SelectionStart;
 
-                m_selectedAnchor = false;
                 m_selectedStartAnchor = true;
                 m_selectedEndAnchor = false;
 
@@ -3575,7 +3591,6 @@ namespace MyMentor.Forms
 
                 m_lastAnchorIndexSelected = richTextBox3.SelectionStart;
 
-                m_selectedAnchor = false;
                 m_selectedStartAnchor = false;
                 m_selectedEndAnchor = true;
 
@@ -3660,8 +3675,6 @@ namespace MyMentor.Forms
 
                         m_lastAnchorIndexSelected = richTextBox3.SelectionStart;
 
-                        m_selectedAnchor = true;
-
                         //clicked wave display - set selection on the graphic line
                         if (m_selectedScheduledWord.NextWord != null && m_selectedScheduledWord.NextWord.GraphicItemUnique >= 0)
                         {
@@ -3744,8 +3757,6 @@ namespace MyMentor.Forms
                                 (int)m_selectedScheduledWord.StartTime.TotalMilliseconds,
                                 (int)m_selectedScheduledWord.StartTime.TotalMilliseconds + (int)m_selectedScheduledWord.Duration.TotalMilliseconds);
                         }
-
-                        m_selectedAnchor = false;
                     }
 
                     m_skipSelectionChange = false;
@@ -4495,7 +4506,7 @@ namespace MyMentor.Forms
             if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
             {
                 audioDjStudio1.PauseSound(0);
-
+                
                 if (tabControl1.SelectedIndex == 2)
                 {
                     timerRecordIcon.Enabled = false;
@@ -5055,6 +5066,42 @@ namespace MyMentor.Forms
         private void richTextBox3_KeyPress(object sender, KeyPressEventArgs e)
         {
             Debug.Write(e.KeyChar);
+        }
+
+        private void richTextBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsbCheckAnchor_Click(object sender, EventArgs e)
+        {
+            var interval = (int)(float.Parse(cbInterval.Text) * 1000);
+
+            if (m_selectedGraphicItemSelected >= 0)
+            {
+                int nStartPosInMs = 0;
+                int nEndPosInMs = 0;
+
+                var selected = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemHorzPositionGet(m_selectedGraphicItemSelected, ref nStartPosInMs, ref nEndPosInMs);
+                m_LastSelections.Clear();
+                m_LastSelections.Add((int)(nStartPosInMs - interval));
+                m_LastSelections.Add((int)(nStartPosInMs + interval));
+
+                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true,
+                    m_LastSelections[0],
+                    m_LastSelections[1]);
+
+                m_pauseOnAnchorGraphicItem = m_selectedGraphicItemSelected;
+
+                tsbPlay_Click(null, new EventArgs());
+            }
+        }
+
+        private void timerPlayAnchorCheckPause_Tick(object sender, EventArgs e)
+        {
+            timerPlayAnchorCheckPause.Enabled = false;
+            audioDjStudio1.ResumeSound(0);
+            TimerMenuEnabler.Enabled = true;
         }
 
     }

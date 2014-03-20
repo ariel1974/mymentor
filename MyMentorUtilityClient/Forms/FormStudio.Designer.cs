@@ -255,6 +255,7 @@
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbMoveAnchorForward = new System.Windows.Forms.ToolStripButton();
             this.tsbMoveAnchorRewind = new System.Windows.Forms.ToolStripButton();
+            this.tsbCheckAnchor = new System.Windows.Forms.ToolStripButton();
             this.panel9 = new System.Windows.Forms.Panel();
             this.lblInterval2 = new System.Windows.Forms.Label();
             this.lblInterval1 = new System.Windows.Forms.Label();
@@ -278,7 +279,7 @@
             this.timerFirstAnchorScheduling = new System.Windows.Forms.Timer(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.timerPlayerIcon = new System.Windows.Forms.Timer(this.components);
-            this.tsbCheckAnchor = new System.Windows.Forms.ToolStripButton();
+            this.timerPlayAnchorCheckPause = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -1354,6 +1355,7 @@
             this.richTextBox3.ReadOnly = true;
             this.richTextBox3.SelectionChanged += new System.EventHandler(this.richTextBox3_SelectionChanged);
             this.richTextBox3.VScroll += new System.EventHandler(this.richTextBox3_VScroll);
+            this.richTextBox3.TextChanged += new System.EventHandler(this.richTextBox3_TextChanged);
             this.richTextBox3.DoubleClick += new System.EventHandler(this.richTextBox3_DoubleClick);
             this.richTextBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBox3_KeyDown);
             this.richTextBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox3_KeyPress);
@@ -2062,6 +2064,13 @@
             this.tsbMoveAnchorRewind.Tag = "I-";
             this.tsbMoveAnchorRewind.Click += new System.EventHandler(this.tsbMoveAnchorRewind_Click);
             // 
+            // tsbCheckAnchor
+            // 
+            this.tsbCheckAnchor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbCheckAnchor, "tsbCheckAnchor");
+            this.tsbCheckAnchor.Name = "tsbCheckAnchor";
+            this.tsbCheckAnchor.Click += new System.EventHandler(this.tsbCheckAnchor_Click);
+            // 
             // panel9
             // 
             this.panel9.Controls.Add(this.lblInterval2);
@@ -2202,11 +2211,10 @@
             this.timerPlayerIcon.Interval = 500;
             this.timerPlayerIcon.Tick += new System.EventHandler(this.timerPlayerIcon_Tick);
             // 
-            // tsbCheckAnchor
+            // timerPlayAnchorCheckPause
             // 
-            this.tsbCheckAnchor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.tsbCheckAnchor, "tsbCheckAnchor");
-            this.tsbCheckAnchor.Name = "tsbCheckAnchor";
+            this.timerPlayAnchorCheckPause.Interval = 500;
+            this.timerPlayAnchorCheckPause.Tick += new System.EventHandler(this.timerPlayAnchorCheckPause_Tick);
             // 
             // FormStudio
             // 
@@ -2528,5 +2536,6 @@
         private System.Windows.Forms.Label lblInterval1;
         private System.Windows.Forms.Label lblInterval2;
         private System.Windows.Forms.ToolStripButton tsbCheckAnchor;
+        private System.Windows.Forms.Timer timerPlayAnchorCheckPause;
     }
 }

@@ -162,72 +162,73 @@
             this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.buttonPublish = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.tbClipDescriptionEnglish = new System.Windows.Forms.TextBox();
-            this.lblClipRemarksEnglish = new System.Windows.Forms.Label();
-            this.tbClipRemarksEnglish = new System.Windows.Forms.TextBox();
-            this.dateTimeExpired = new System.Windows.Forms.DateTimePicker();
-            this.lblExpired = new System.Windows.Forms.Label();
-            this.lblClipRemarks = new System.Windows.Forms.Label();
-            this.tbClipRemarks = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tbClipDescription = new System.Windows.Forms.TextBox();
+            this.lblDescription = new System.Windows.Forms.Label();
             this.numericPriceSupport = new System.Windows.Forms.NumericUpDown();
-            this.numericPrice = new System.Windows.Forms.NumericUpDown();
+            this.dateTimeExpired = new System.Windows.Forms.DateTimePicker();
             this.label33 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
+            this.numericPrice = new System.Windows.Forms.NumericUpDown();
+            this.lblExpired = new System.Windows.Forms.Label();
             this.lblMinValue = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.lblPrice = new System.Windows.Forms.Label();
+            this.tbClipDescriptionEnglish = new System.Windows.Forms.TextBox();
+            this.comboStatus = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.lblReadingDates = new System.Windows.Forms.Label();
+            this.listBoxDates = new System.Windows.Forms.ListBox();
+            this.btnAddDate = new System.Windows.Forms.Button();
+            this.btnRemoveDate = new System.Windows.Forms.Button();
+            this.dtpReadingDate = new System.Windows.Forms.DateTimePicker();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboCategory2 = new System.Windows.Forms.ComboBox();
+            this.lblCategory3 = new System.Windows.Forms.Label();
+            this.comboCategory3 = new System.Windows.Forms.ComboBox();
+            this.lblClipRemarksEnglish = new System.Windows.Forms.Label();
+            this.lblCategory1 = new System.Windows.Forms.Label();
+            this.tbClipRemarksEnglish = new System.Windows.Forms.TextBox();
+            this.comboCategory1 = new System.Windows.Forms.ComboBox();
+            this.lblCategory2 = new System.Windows.Forms.Label();
+            this.lblCategory4 = new System.Windows.Forms.Label();
+            this.lblClipRemarks = new System.Windows.Forms.Label();
+            this.comboCategory4 = new System.Windows.Forms.ComboBox();
+            this.tbClipRemarks = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.lblClipType = new System.Windows.Forms.Label();
             this.comboClipType = new System.Windows.Forms.ComboBox();
-            this.dtpReadingDate = new System.Windows.Forms.DateTimePicker();
-            this.btnRemoveDate = new System.Windows.Forms.Button();
-            this.btnAddDate = new System.Windows.Forms.Button();
-            this.listBoxDates = new System.Windows.Forms.ListBox();
-            this.lblReadingDates = new System.Windows.Forms.Label();
-            this.comboCategory4 = new System.Windows.Forms.ComboBox();
-            this.lblCategory4 = new System.Windows.Forms.Label();
-            this.lblCategory2 = new System.Windows.Forms.Label();
-            this.comboCategory2 = new System.Windows.Forms.ComboBox();
-            this.comboCategory1 = new System.Windows.Forms.ComboBox();
-            this.lblCategory1 = new System.Windows.Forms.Label();
-            this.comboStatus = new System.Windows.Forms.ComboBox();
-            this.comboCategory3 = new System.Windows.Forms.ComboBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.sop_teacher1l = new System.Windows.Forms.CheckBox();
-            this.sop_studentl = new System.Windows.Forms.CheckBox();
-            this.sop_teacher2l = new System.Windows.Forms.CheckBox();
-            this.sop_teacherAndStudentl = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.sop_teacher1 = new System.Windows.Forms.CheckBox();
             this.sop_student = new System.Windows.Forms.CheckBox();
+            this.sop_teacher1l = new System.Windows.Forms.CheckBox();
             this.sop_teacher2 = new System.Windows.Forms.CheckBox();
+            this.sop_studentl = new System.Windows.Forms.CheckBox();
             this.sop_teacherAndStudent = new System.Windows.Forms.CheckBox();
+            this.sop_teacher2l = new System.Windows.Forms.CheckBox();
+            this.sop_teacherAndStudentl = new System.Windows.Forms.CheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.loc_par = new System.Windows.Forms.CheckBox();
-            this.loc_wor = new System.Windows.Forms.CheckBox();
-            this.loc_sec = new System.Windows.Forms.CheckBox();
-            this.loc_sen = new System.Windows.Forms.CheckBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.def_sen = new System.Windows.Forms.CheckBox();
+            this.loc_par = new System.Windows.Forms.CheckBox();
             this.def_par = new System.Windows.Forms.CheckBox();
             this.def_wor = new System.Windows.Forms.CheckBox();
+            this.loc_wor = new System.Windows.Forms.CheckBox();
             this.def_sec = new System.Windows.Forms.CheckBox();
-            this.lblDescription = new System.Windows.Forms.Label();
-            this.tbClipDescription = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
+            this.loc_sec = new System.Windows.Forms.CheckBox();
+            this.loc_sen = new System.Windows.Forms.CheckBox();
             this.lblKeywords = new System.Windows.Forms.Label();
             this.tbKeywords = new System.Windows.Forms.TextBox();
-            this.lblCategory3 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.tbClipTitle = new System.Windows.Forms.TextBox();
             this.mtbVersion = new System.Windows.Forms.MaskedTextBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.buttonPublish = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.LabelStatus = new System.Windows.Forms.Label();
@@ -280,6 +281,7 @@
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.timerPlayerIcon = new System.Windows.Forms.Timer(this.components);
             this.timerPlayAnchorCheckPause = new System.Windows.Forms.Timer(this.components);
+            this.audioSoundRecorder2 = new AudioSoundRecorder.AudioSoundRecorder();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -302,15 +304,17 @@
             this.panel6.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericPriceSupport)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericPrice)).BeginInit();
-            this.groupBox5.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericPriceSupport)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericPrice)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -1372,55 +1376,44 @@
             // 
             this.tableLayoutPanel5.BackColor = System.Drawing.SystemColors.Control;
             resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
-            this.tableLayoutPanel5.Controls.Add(this.groupBox3, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.panel4, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.groupBox3, 0, 0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.pictureBox2);
+            this.panel4.Controls.Add(this.buttonPublish);
+            resources.ApplyResources(this.panel4, "panel4");
+            this.panel4.Name = "panel4";
+            // 
+            // pictureBox2
+            // 
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.TabStop = false;
+            // 
+            // buttonPublish
+            // 
+            this.buttonPublish.BackgroundImage = global::MyMentor.Properties.Resources._1386909646_519838_50_Cloud_Arrow_Up;
+            resources.ApplyResources(this.buttonPublish, "buttonPublish");
+            this.buttonPublish.Name = "buttonPublish";
+            this.buttonPublish.UseVisualStyleBackColor = true;
+            this.buttonPublish.Click += new System.EventHandler(this.buttonPublish_Click);
             // 
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.tbClipDescriptionEnglish);
-            this.groupBox3.Controls.Add(this.lblClipRemarksEnglish);
-            this.groupBox3.Controls.Add(this.tbClipRemarksEnglish);
-            this.groupBox3.Controls.Add(this.dateTimeExpired);
-            this.groupBox3.Controls.Add(this.lblExpired);
-            this.groupBox3.Controls.Add(this.lblClipRemarks);
-            this.groupBox3.Controls.Add(this.tbClipRemarks);
-            this.groupBox3.Controls.Add(this.numericPriceSupport);
-            this.groupBox3.Controls.Add(this.numericPrice);
-            this.groupBox3.Controls.Add(this.label33);
-            this.groupBox3.Controls.Add(this.label31);
-            this.groupBox3.Controls.Add(this.lblMinValue);
-            this.groupBox3.Controls.Add(this.lblPrice);
+            this.groupBox3.Controls.Add(this.groupBox2);
+            this.groupBox3.Controls.Add(this.groupBox1);
             this.groupBox3.Controls.Add(this.lblClipType);
             this.groupBox3.Controls.Add(this.comboClipType);
-            this.groupBox3.Controls.Add(this.dtpReadingDate);
-            this.groupBox3.Controls.Add(this.btnRemoveDate);
-            this.groupBox3.Controls.Add(this.btnAddDate);
-            this.groupBox3.Controls.Add(this.listBoxDates);
-            this.groupBox3.Controls.Add(this.lblReadingDates);
-            this.groupBox3.Controls.Add(this.comboCategory4);
-            this.groupBox3.Controls.Add(this.lblCategory4);
-            this.groupBox3.Controls.Add(this.lblCategory2);
-            this.groupBox3.Controls.Add(this.comboCategory2);
-            this.groupBox3.Controls.Add(this.comboCategory1);
-            this.groupBox3.Controls.Add(this.lblCategory1);
-            this.groupBox3.Controls.Add(this.comboStatus);
-            this.groupBox3.Controls.Add(this.comboCategory3);
             this.groupBox3.Controls.Add(this.textBox7);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.groupBox5);
-            this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Controls.Add(this.groupBox6);
-            this.groupBox3.Controls.Add(this.groupBox7);
-            this.groupBox3.Controls.Add(this.lblDescription);
-            this.groupBox3.Controls.Add(this.tbClipDescription);
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.lblKeywords);
             this.groupBox3.Controls.Add(this.tbKeywords);
-            this.groupBox3.Controls.Add(this.lblCategory3);
             this.groupBox3.Controls.Add(this.label22);
             this.groupBox3.Controls.Add(this.tbClipTitle);
             this.groupBox3.Controls.Add(this.mtbVersion);
@@ -1429,50 +1422,40 @@
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
-            // label13
+            // groupBox2
             // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
+            this.groupBox2.Controls.Add(this.tbClipDescription);
+            this.groupBox2.Controls.Add(this.lblDescription);
+            this.groupBox2.Controls.Add(this.numericPriceSupport);
+            this.groupBox2.Controls.Add(this.dateTimeExpired);
+            this.groupBox2.Controls.Add(this.label33);
+            this.groupBox2.Controls.Add(this.numericPrice);
+            this.groupBox2.Controls.Add(this.lblExpired);
+            this.groupBox2.Controls.Add(this.lblMinValue);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.lblPrice);
+            this.groupBox2.Controls.Add(this.tbClipDescriptionEnglish);
+            this.groupBox2.Controls.Add(this.comboStatus);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.lblReadingDates);
+            this.groupBox2.Controls.Add(this.listBoxDates);
+            this.groupBox2.Controls.Add(this.btnAddDate);
+            this.groupBox2.Controls.Add(this.btnRemoveDate);
+            this.groupBox2.Controls.Add(this.dtpReadingDate);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
             // 
-            // tbClipDescriptionEnglish
+            // tbClipDescription
             // 
-            resources.ApplyResources(this.tbClipDescriptionEnglish, "tbClipDescriptionEnglish");
-            this.tbClipDescriptionEnglish.Name = "tbClipDescriptionEnglish";
-            this.tbClipDescriptionEnglish.TextChanged += new System.EventHandler(this.tbClipDescriptionEnglish_TextChanged);
+            resources.ApplyResources(this.tbClipDescription, "tbClipDescription");
+            this.tbClipDescription.Name = "tbClipDescription";
+            this.tbClipDescription.TextChanged += new System.EventHandler(this.tbClipDescription_TextChanged);
             // 
-            // lblClipRemarksEnglish
+            // lblDescription
             // 
-            resources.ApplyResources(this.lblClipRemarksEnglish, "lblClipRemarksEnglish");
-            this.lblClipRemarksEnglish.Name = "lblClipRemarksEnglish";
-            // 
-            // tbClipRemarksEnglish
-            // 
-            resources.ApplyResources(this.tbClipRemarksEnglish, "tbClipRemarksEnglish");
-            this.tbClipRemarksEnglish.Name = "tbClipRemarksEnglish";
-            // 
-            // dateTimeExpired
-            // 
-            this.dateTimeExpired.Checked = false;
-            resources.ApplyResources(this.dateTimeExpired, "dateTimeExpired");
-            this.dateTimeExpired.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimeExpired.Name = "dateTimeExpired";
-            this.dateTimeExpired.ShowCheckBox = true;
-            // 
-            // lblExpired
-            // 
-            resources.ApplyResources(this.lblExpired, "lblExpired");
-            this.lblExpired.Name = "lblExpired";
-            // 
-            // lblClipRemarks
-            // 
-            resources.ApplyResources(this.lblClipRemarks, "lblClipRemarks");
-            this.lblClipRemarks.Name = "lblClipRemarks";
-            // 
-            // tbClipRemarks
-            // 
-            resources.ApplyResources(this.tbClipRemarks, "tbClipRemarks");
-            this.tbClipRemarks.Name = "tbClipRemarks";
-            this.tbClipRemarks.TextChanged += new System.EventHandler(this.tbClipRemarks_TextChanged);
+            resources.ApplyResources(this.lblDescription, "lblDescription");
+            this.lblDescription.Name = "lblDescription";
             // 
             // numericPriceSupport
             // 
@@ -1485,6 +1468,19 @@
             0});
             this.numericPriceSupport.Name = "numericPriceSupport";
             // 
+            // dateTimeExpired
+            // 
+            this.dateTimeExpired.Checked = false;
+            resources.ApplyResources(this.dateTimeExpired, "dateTimeExpired");
+            this.dateTimeExpired.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeExpired.Name = "dateTimeExpired";
+            this.dateTimeExpired.ShowCheckBox = true;
+            // 
+            // label33
+            // 
+            resources.ApplyResources(this.label33, "label33");
+            this.label33.Name = "label33";
+            // 
             // numericPrice
             // 
             this.numericPrice.DecimalPlaces = 2;
@@ -1496,10 +1492,166 @@
             0});
             this.numericPrice.Name = "numericPrice";
             // 
-            // label33
+            // lblExpired
             // 
-            resources.ApplyResources(this.label33, "label33");
-            this.label33.Name = "label33";
+            resources.ApplyResources(this.lblExpired, "lblExpired");
+            this.lblExpired.Name = "lblExpired";
+            // 
+            // lblMinValue
+            // 
+            resources.ApplyResources(this.lblMinValue, "lblMinValue");
+            this.lblMinValue.Name = "lblMinValue";
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            // 
+            // lblPrice
+            // 
+            resources.ApplyResources(this.lblPrice, "lblPrice");
+            this.lblPrice.Name = "lblPrice";
+            // 
+            // tbClipDescriptionEnglish
+            // 
+            resources.ApplyResources(this.tbClipDescriptionEnglish, "tbClipDescriptionEnglish");
+            this.tbClipDescriptionEnglish.Name = "tbClipDescriptionEnglish";
+            this.tbClipDescriptionEnglish.TextChanged += new System.EventHandler(this.tbClipDescriptionEnglish_TextChanged);
+            // 
+            // comboStatus
+            // 
+            this.comboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboStatus.FormattingEnabled = true;
+            resources.ApplyResources(this.comboStatus, "comboStatus");
+            this.comboStatus.Name = "comboStatus";
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // lblReadingDates
+            // 
+            resources.ApplyResources(this.lblReadingDates, "lblReadingDates");
+            this.lblReadingDates.Name = "lblReadingDates";
+            // 
+            // listBoxDates
+            // 
+            this.listBoxDates.FormattingEnabled = true;
+            resources.ApplyResources(this.listBoxDates, "listBoxDates");
+            this.listBoxDates.Name = "listBoxDates";
+            // 
+            // btnAddDate
+            // 
+            resources.ApplyResources(this.btnAddDate, "btnAddDate");
+            this.btnAddDate.Name = "btnAddDate";
+            this.btnAddDate.UseVisualStyleBackColor = true;
+            this.btnAddDate.Click += new System.EventHandler(this.btnAddDate_Click);
+            // 
+            // btnRemoveDate
+            // 
+            resources.ApplyResources(this.btnRemoveDate, "btnRemoveDate");
+            this.btnRemoveDate.Name = "btnRemoveDate";
+            this.btnRemoveDate.UseVisualStyleBackColor = true;
+            this.btnRemoveDate.Click += new System.EventHandler(this.btnRemoveDate_Click);
+            // 
+            // dtpReadingDate
+            // 
+            resources.ApplyResources(this.dtpReadingDate, "dtpReadingDate");
+            this.dtpReadingDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpReadingDate.Name = "dtpReadingDate";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.comboCategory2);
+            this.groupBox1.Controls.Add(this.lblCategory3);
+            this.groupBox1.Controls.Add(this.comboCategory3);
+            this.groupBox1.Controls.Add(this.lblClipRemarksEnglish);
+            this.groupBox1.Controls.Add(this.lblCategory1);
+            this.groupBox1.Controls.Add(this.tbClipRemarksEnglish);
+            this.groupBox1.Controls.Add(this.comboCategory1);
+            this.groupBox1.Controls.Add(this.lblCategory2);
+            this.groupBox1.Controls.Add(this.lblCategory4);
+            this.groupBox1.Controls.Add(this.lblClipRemarks);
+            this.groupBox1.Controls.Add(this.comboCategory4);
+            this.groupBox1.Controls.Add(this.tbClipRemarks);
+            this.groupBox1.Controls.Add(this.label31);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // comboCategory2
+            // 
+            this.comboCategory2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboCategory2.FormattingEnabled = true;
+            resources.ApplyResources(this.comboCategory2, "comboCategory2");
+            this.comboCategory2.Name = "comboCategory2";
+            this.comboCategory2.SelectionChangeCommitted += new System.EventHandler(this.comboCategory2_SelectionChangeCommitted);
+            // 
+            // lblCategory3
+            // 
+            resources.ApplyResources(this.lblCategory3, "lblCategory3");
+            this.lblCategory3.Name = "lblCategory3";
+            // 
+            // comboCategory3
+            // 
+            this.comboCategory3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboCategory3.FormattingEnabled = true;
+            resources.ApplyResources(this.comboCategory3, "comboCategory3");
+            this.comboCategory3.Name = "comboCategory3";
+            this.comboCategory3.SelectionChangeCommitted += new System.EventHandler(this.comboCategory3_SelectionChangeCommitted);
+            // 
+            // lblClipRemarksEnglish
+            // 
+            resources.ApplyResources(this.lblClipRemarksEnglish, "lblClipRemarksEnglish");
+            this.lblClipRemarksEnglish.Name = "lblClipRemarksEnglish";
+            // 
+            // lblCategory1
+            // 
+            resources.ApplyResources(this.lblCategory1, "lblCategory1");
+            this.lblCategory1.Name = "lblCategory1";
+            // 
+            // tbClipRemarksEnglish
+            // 
+            resources.ApplyResources(this.tbClipRemarksEnglish, "tbClipRemarksEnglish");
+            this.tbClipRemarksEnglish.Name = "tbClipRemarksEnglish";
+            // 
+            // comboCategory1
+            // 
+            this.comboCategory1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboCategory1.FormattingEnabled = true;
+            resources.ApplyResources(this.comboCategory1, "comboCategory1");
+            this.comboCategory1.Name = "comboCategory1";
+            this.comboCategory1.SelectionChangeCommitted += new System.EventHandler(this.comboCategory1_SelectionChangeCommitted);
+            // 
+            // lblCategory2
+            // 
+            resources.ApplyResources(this.lblCategory2, "lblCategory2");
+            this.lblCategory2.Name = "lblCategory2";
+            // 
+            // lblCategory4
+            // 
+            resources.ApplyResources(this.lblCategory4, "lblCategory4");
+            this.lblCategory4.Name = "lblCategory4";
+            // 
+            // lblClipRemarks
+            // 
+            resources.ApplyResources(this.lblClipRemarks, "lblClipRemarks");
+            this.lblClipRemarks.Name = "lblClipRemarks";
+            // 
+            // comboCategory4
+            // 
+            this.comboCategory4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboCategory4.FormattingEnabled = true;
+            resources.ApplyResources(this.comboCategory4, "comboCategory4");
+            this.comboCategory4.Name = "comboCategory4";
+            this.comboCategory4.SelectionChangeCommitted += new System.EventHandler(this.comboCategory4_SelectionChangeCommitted);
+            // 
+            // tbClipRemarks
+            // 
+            resources.ApplyResources(this.tbClipRemarks, "tbClipRemarks");
+            this.tbClipRemarks.Name = "tbClipRemarks";
+            this.tbClipRemarks.TextChanged += new System.EventHandler(this.tbClipRemarks_TextChanged);
             // 
             // label31
             // 
@@ -1507,16 +1659,6 @@
             this.label31.BackColor = System.Drawing.Color.Transparent;
             this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label31.Name = "label31";
-            // 
-            // lblMinValue
-            // 
-            resources.ApplyResources(this.lblMinValue, "lblMinValue");
-            this.lblMinValue.Name = "lblMinValue";
-            // 
-            // lblPrice
-            // 
-            resources.ApplyResources(this.lblPrice, "lblPrice");
-            this.lblPrice.Name = "lblPrice";
             // 
             // lblClipType
             // 
@@ -1531,91 +1673,6 @@
             this.comboClipType.Name = "comboClipType";
             this.comboClipType.SelectionChangeCommitted += new System.EventHandler(this.comboClipType_SelectionChangeCommitted);
             // 
-            // dtpReadingDate
-            // 
-            resources.ApplyResources(this.dtpReadingDate, "dtpReadingDate");
-            this.dtpReadingDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpReadingDate.Name = "dtpReadingDate";
-            // 
-            // btnRemoveDate
-            // 
-            resources.ApplyResources(this.btnRemoveDate, "btnRemoveDate");
-            this.btnRemoveDate.Name = "btnRemoveDate";
-            this.btnRemoveDate.UseVisualStyleBackColor = true;
-            this.btnRemoveDate.Click += new System.EventHandler(this.btnRemoveDate_Click);
-            // 
-            // btnAddDate
-            // 
-            resources.ApplyResources(this.btnAddDate, "btnAddDate");
-            this.btnAddDate.Name = "btnAddDate";
-            this.btnAddDate.UseVisualStyleBackColor = true;
-            this.btnAddDate.Click += new System.EventHandler(this.btnAddDate_Click);
-            // 
-            // listBoxDates
-            // 
-            this.listBoxDates.FormattingEnabled = true;
-            resources.ApplyResources(this.listBoxDates, "listBoxDates");
-            this.listBoxDates.Name = "listBoxDates";
-            // 
-            // lblReadingDates
-            // 
-            resources.ApplyResources(this.lblReadingDates, "lblReadingDates");
-            this.lblReadingDates.Name = "lblReadingDates";
-            // 
-            // comboCategory4
-            // 
-            this.comboCategory4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCategory4.FormattingEnabled = true;
-            resources.ApplyResources(this.comboCategory4, "comboCategory4");
-            this.comboCategory4.Name = "comboCategory4";
-            this.comboCategory4.SelectionChangeCommitted += new System.EventHandler(this.comboCategory4_SelectionChangeCommitted);
-            // 
-            // lblCategory4
-            // 
-            resources.ApplyResources(this.lblCategory4, "lblCategory4");
-            this.lblCategory4.Name = "lblCategory4";
-            // 
-            // lblCategory2
-            // 
-            resources.ApplyResources(this.lblCategory2, "lblCategory2");
-            this.lblCategory2.Name = "lblCategory2";
-            // 
-            // comboCategory2
-            // 
-            this.comboCategory2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCategory2.FormattingEnabled = true;
-            resources.ApplyResources(this.comboCategory2, "comboCategory2");
-            this.comboCategory2.Name = "comboCategory2";
-            this.comboCategory2.SelectionChangeCommitted += new System.EventHandler(this.comboCategory2_SelectionChangeCommitted);
-            // 
-            // comboCategory1
-            // 
-            this.comboCategory1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCategory1.FormattingEnabled = true;
-            resources.ApplyResources(this.comboCategory1, "comboCategory1");
-            this.comboCategory1.Name = "comboCategory1";
-            this.comboCategory1.SelectionChangeCommitted += new System.EventHandler(this.comboCategory1_SelectionChangeCommitted);
-            // 
-            // lblCategory1
-            // 
-            resources.ApplyResources(this.lblCategory1, "lblCategory1");
-            this.lblCategory1.Name = "lblCategory1";
-            // 
-            // comboStatus
-            // 
-            this.comboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboStatus.FormattingEnabled = true;
-            resources.ApplyResources(this.comboStatus, "comboStatus");
-            this.comboStatus.Name = "comboStatus";
-            // 
-            // comboCategory3
-            // 
-            this.comboCategory3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCategory3.FormattingEnabled = true;
-            resources.ApplyResources(this.comboCategory3, "comboCategory3");
-            this.comboCategory3.Name = "comboCategory3";
-            this.comboCategory3.SelectionChangeCommitted += new System.EventHandler(this.comboCategory3_SelectionChangeCommitted);
-            // 
             // textBox7
             // 
             resources.ApplyResources(this.textBox7, "textBox7");
@@ -1629,47 +1686,25 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.pictureBox1);
+            this.groupBox5.Controls.Add(this.sop_teacher1);
+            this.groupBox5.Controls.Add(this.sop_student);
             this.groupBox5.Controls.Add(this.sop_teacher1l);
+            this.groupBox5.Controls.Add(this.sop_teacher2);
             this.groupBox5.Controls.Add(this.sop_studentl);
+            this.groupBox5.Controls.Add(this.sop_teacherAndStudent);
             this.groupBox5.Controls.Add(this.sop_teacher2l);
             this.groupBox5.Controls.Add(this.sop_teacherAndStudentl);
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
             // 
-            // sop_teacher1l
+            // pictureBox1
             // 
-            resources.ApplyResources(this.sop_teacher1l, "sop_teacher1l");
-            this.sop_teacher1l.Name = "sop_teacher1l";
-            this.sop_teacher1l.UseVisualStyleBackColor = true;
-            // 
-            // sop_studentl
-            // 
-            resources.ApplyResources(this.sop_studentl, "sop_studentl");
-            this.sop_studentl.Name = "sop_studentl";
-            this.sop_studentl.UseVisualStyleBackColor = true;
-            // 
-            // sop_teacher2l
-            // 
-            resources.ApplyResources(this.sop_teacher2l, "sop_teacher2l");
-            this.sop_teacher2l.Name = "sop_teacher2l";
-            this.sop_teacher2l.UseVisualStyleBackColor = true;
-            // 
-            // sop_teacherAndStudentl
-            // 
-            resources.ApplyResources(this.sop_teacherAndStudentl, "sop_teacherAndStudentl");
-            this.sop_teacherAndStudentl.Name = "sop_teacherAndStudentl";
-            this.sop_teacherAndStudentl.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.sop_teacher1);
-            this.groupBox4.Controls.Add(this.sop_student);
-            this.groupBox4.Controls.Add(this.sop_teacher2);
-            this.groupBox4.Controls.Add(this.sop_teacherAndStudent);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.TabStop = false;
+            this.pictureBox1.Image = global::MyMentor.Properties.Resources._1395486322_icon_locked;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
             // 
             // sop_teacher1
             // 
@@ -1683,11 +1718,23 @@
             this.sop_student.Name = "sop_student";
             this.sop_student.UseVisualStyleBackColor = true;
             // 
+            // sop_teacher1l
+            // 
+            resources.ApplyResources(this.sop_teacher1l, "sop_teacher1l");
+            this.sop_teacher1l.Name = "sop_teacher1l";
+            this.sop_teacher1l.UseVisualStyleBackColor = true;
+            // 
             // sop_teacher2
             // 
             resources.ApplyResources(this.sop_teacher2, "sop_teacher2");
             this.sop_teacher2.Name = "sop_teacher2";
             this.sop_teacher2.UseVisualStyleBackColor = true;
+            // 
+            // sop_studentl
+            // 
+            resources.ApplyResources(this.sop_studentl, "sop_studentl");
+            this.sop_studentl.Name = "sop_studentl";
+            this.sop_studentl.UseVisualStyleBackColor = true;
             // 
             // sop_teacherAndStudent
             // 
@@ -1695,55 +1742,51 @@
             this.sop_teacherAndStudent.Name = "sop_teacherAndStudent";
             this.sop_teacherAndStudent.UseVisualStyleBackColor = true;
             // 
+            // sop_teacher2l
+            // 
+            resources.ApplyResources(this.sop_teacher2l, "sop_teacher2l");
+            this.sop_teacher2l.Name = "sop_teacher2l";
+            this.sop_teacher2l.UseVisualStyleBackColor = true;
+            // 
+            // sop_teacherAndStudentl
+            // 
+            resources.ApplyResources(this.sop_teacherAndStudentl, "sop_teacherAndStudentl");
+            this.sop_teacherAndStudentl.Name = "sop_teacherAndStudentl";
+            this.sop_teacherAndStudentl.UseVisualStyleBackColor = true;
+            // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.pictureBox5);
+            this.groupBox6.Controls.Add(this.def_sen);
             this.groupBox6.Controls.Add(this.loc_par);
+            this.groupBox6.Controls.Add(this.def_par);
+            this.groupBox6.Controls.Add(this.def_wor);
             this.groupBox6.Controls.Add(this.loc_wor);
+            this.groupBox6.Controls.Add(this.def_sec);
             this.groupBox6.Controls.Add(this.loc_sec);
             this.groupBox6.Controls.Add(this.loc_sen);
             resources.ApplyResources(this.groupBox6, "groupBox6");
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.TabStop = false;
             // 
-            // loc_par
+            // pictureBox5
             // 
-            resources.ApplyResources(this.loc_par, "loc_par");
-            this.loc_par.Name = "loc_par";
-            this.loc_par.UseVisualStyleBackColor = true;
-            // 
-            // loc_wor
-            // 
-            resources.ApplyResources(this.loc_wor, "loc_wor");
-            this.loc_wor.Name = "loc_wor";
-            this.loc_wor.UseVisualStyleBackColor = true;
-            // 
-            // loc_sec
-            // 
-            resources.ApplyResources(this.loc_sec, "loc_sec");
-            this.loc_sec.Name = "loc_sec";
-            this.loc_sec.UseVisualStyleBackColor = true;
-            // 
-            // loc_sen
-            // 
-            resources.ApplyResources(this.loc_sen, "loc_sen");
-            this.loc_sen.Name = "loc_sen";
-            this.loc_sen.UseVisualStyleBackColor = true;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.def_sen);
-            this.groupBox7.Controls.Add(this.def_par);
-            this.groupBox7.Controls.Add(this.def_wor);
-            this.groupBox7.Controls.Add(this.def_sec);
-            resources.ApplyResources(this.groupBox7, "groupBox7");
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.TabStop = false;
+            this.pictureBox5.Image = global::MyMentor.Properties.Resources._1395486322_icon_locked;
+            resources.ApplyResources(this.pictureBox5, "pictureBox5");
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.TabStop = false;
             // 
             // def_sen
             // 
             resources.ApplyResources(this.def_sen, "def_sen");
             this.def_sen.Name = "def_sen";
             this.def_sen.UseVisualStyleBackColor = true;
+            // 
+            // loc_par
+            // 
+            resources.ApplyResources(this.loc_par, "loc_par");
+            this.loc_par.Name = "loc_par";
+            this.loc_par.UseVisualStyleBackColor = true;
             // 
             // def_par
             // 
@@ -1757,32 +1800,29 @@
             this.def_wor.Name = "def_wor";
             this.def_wor.UseVisualStyleBackColor = true;
             // 
+            // loc_wor
+            // 
+            resources.ApplyResources(this.loc_wor, "loc_wor");
+            this.loc_wor.Name = "loc_wor";
+            this.loc_wor.UseVisualStyleBackColor = true;
+            // 
             // def_sec
             // 
             resources.ApplyResources(this.def_sec, "def_sec");
             this.def_sec.Name = "def_sec";
             this.def_sec.UseVisualStyleBackColor = true;
             // 
-            // lblDescription
+            // loc_sec
             // 
-            resources.ApplyResources(this.lblDescription, "lblDescription");
-            this.lblDescription.Name = "lblDescription";
+            resources.ApplyResources(this.loc_sec, "loc_sec");
+            this.loc_sec.Name = "loc_sec";
+            this.loc_sec.UseVisualStyleBackColor = true;
             // 
-            // tbClipDescription
+            // loc_sen
             // 
-            resources.ApplyResources(this.tbClipDescription, "tbClipDescription");
-            this.tbClipDescription.Name = "tbClipDescription";
-            this.tbClipDescription.TextChanged += new System.EventHandler(this.tbClipDescription_TextChanged);
-            // 
-            // label15
-            // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.Name = "label16";
+            resources.ApplyResources(this.loc_sen, "loc_sen");
+            this.loc_sen.Name = "loc_sen";
+            this.loc_sen.UseVisualStyleBackColor = true;
             // 
             // lblKeywords
             // 
@@ -1794,11 +1834,6 @@
             resources.ApplyResources(this.tbKeywords, "tbKeywords");
             this.tbKeywords.Name = "tbKeywords";
             this.tbKeywords.TextChanged += new System.EventHandler(this.tbKeywords_TextChanged);
-            // 
-            // lblCategory3
-            // 
-            resources.ApplyResources(this.lblCategory3, "lblCategory3");
-            this.lblCategory3.Name = "lblCategory3";
             // 
             // label22
             // 
@@ -1821,27 +1856,6 @@
             // 
             resources.ApplyResources(this.label23, "label23");
             this.label23.Name = "label23";
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.pictureBox2);
-            this.panel4.Controls.Add(this.buttonPublish);
-            resources.ApplyResources(this.panel4, "panel4");
-            this.panel4.Name = "panel4";
-            // 
-            // pictureBox2
-            // 
-            resources.ApplyResources(this.pictureBox2, "pictureBox2");
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.TabStop = false;
-            // 
-            // buttonPublish
-            // 
-            this.buttonPublish.BackgroundImage = global::MyMentor.Properties.Resources._1386909646_519838_50_Cloud_Arrow_Up;
-            resources.ApplyResources(this.buttonPublish, "buttonPublish");
-            this.buttonPublish.Name = "buttonPublish";
-            this.buttonPublish.UseVisualStyleBackColor = true;
-            this.buttonPublish.Click += new System.EventHandler(this.buttonPublish_Click);
             // 
             // panel3
             // 
@@ -2216,10 +2230,40 @@
             this.timerPlayAnchorCheckPause.Interval = 500;
             this.timerPlayAnchorCheckPause.Tick += new System.EventHandler(this.timerPlayAnchorCheckPause_Tick);
             // 
+            // audioSoundRecorder2
+            // 
+            this.audioSoundRecorder2.EncodeAacCustomString = null;
+            this.audioSoundRecorder2.EncodeAacMode = AudioSoundRecorder.enumAacEncodeModes.AAC_ENCODE_VBR_QUALITY;
+            this.audioSoundRecorder2.EncodeAacQuality = 0F;
+            this.audioSoundRecorder2.EncodeAacWrapInMP4 = false;
+            this.audioSoundRecorder2.EncodeFormatForCdRipping = AudioSoundRecorder.enumEncodingFormats.ENCODING_FORMAT_WAV;
+            this.audioSoundRecorder2.EncodeFormatForExporting = AudioSoundRecorder.enumEncodingFormats.ENCODING_FORMAT_WAV;
+            this.audioSoundRecorder2.EncodeFormatForRecording = AudioSoundRecorder.enumEncodingFormats.ENCODING_FORMAT_WAV;
+            this.audioSoundRecorder2.EncodeMp3ABR = 0;
+            this.audioSoundRecorder2.EncodeMp3CBR = 0;
+            this.audioSoundRecorder2.EncodeMp3CustomString = null;
+            this.audioSoundRecorder2.EncodeMp3Downmix = false;
+            this.audioSoundRecorder2.EncodeMp3Mode = AudioSoundRecorder.enumMp3EncodeModes.MP3_ENCODE_PRESETS;
+            this.audioSoundRecorder2.EncodeMp3Presets = AudioSoundRecorder.enumMp3EncodePresets.MP3_PRESET_MEDIUM;
+            this.audioSoundRecorder2.EncodeOggBitrate = -1;
+            this.audioSoundRecorder2.EncodeOggCustomString = "";
+            this.audioSoundRecorder2.EncodeOggDownmix = false;
+            this.audioSoundRecorder2.EncodeOggMode = AudioSoundRecorder.enumOggEncodeModes.OGG_ENCODE_QUALITY;
+            this.audioSoundRecorder2.EncodeOggQuality = 3F;
+            this.audioSoundRecorder2.EncodeOggResampleFreq = -1;
+            this.audioSoundRecorder2.EncodeWmaCBR = -1;
+            this.audioSoundRecorder2.EncodeWmaMode = AudioSoundRecorder.enumWmaEncodeModes.WMA_ENCODE_VBR_QUALITY;
+            this.audioSoundRecorder2.EncodeWmaVBRQuality = 100;
+            resources.ApplyResources(this.audioSoundRecorder2, "audioSoundRecorder2");
+            this.audioSoundRecorder2.Name = "audioSoundRecorder2";
+            this.audioSoundRecorder2.SilenceThreshold = ((short)(0));
+            this.audioSoundRecorder2.VUMeterValueChange += new AudioSoundRecorder.AudioSoundRecorder.VUMeterValueChangeEventHandler(this.audioSoundRecorder2_VUMeterValueChange);
+            // 
             // FormStudio
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.audioSoundRecorder2);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.audioDjStudio1);
             this.Controls.Add(this.audioSoundEditor1);
@@ -2257,20 +2301,22 @@
             this.panel6.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericPriceSupport)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericPrice)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericPriceSupport)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericPrice)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.toolStrip2.ResumeLayout(false);
@@ -2452,7 +2498,6 @@
         private System.Windows.Forms.CheckBox sop_studentl;
         private System.Windows.Forms.CheckBox sop_teacher2l;
         private System.Windows.Forms.CheckBox sop_teacherAndStudentl;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.CheckBox sop_teacher1;
         private System.Windows.Forms.CheckBox sop_student;
         private System.Windows.Forms.CheckBox sop_teacher2;
@@ -2462,14 +2507,12 @@
         private System.Windows.Forms.CheckBox loc_wor;
         private System.Windows.Forms.CheckBox loc_sec;
         private System.Windows.Forms.CheckBox loc_sen;
-        private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.CheckBox def_sen;
         private System.Windows.Forms.CheckBox def_par;
         private System.Windows.Forms.CheckBox def_wor;
         private System.Windows.Forms.CheckBox def_sec;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.TextBox tbClipDescription;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label lblKeywords;
         private System.Windows.Forms.TextBox tbKeywords;
@@ -2537,5 +2580,10 @@
         private System.Windows.Forms.Label lblInterval2;
         private System.Windows.Forms.ToolStripButton tsbCheckAnchor;
         private System.Windows.Forms.Timer timerPlayAnchorCheckPause;
+        private AudioSoundRecorder.AudioSoundRecorder audioSoundRecorder2;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox5;
     }
 }

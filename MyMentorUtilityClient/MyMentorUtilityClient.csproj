@@ -106,11 +106,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox.cs">
+    <Compile Include="Forms\FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox.Designer.cs">
-      <DependentUpon>AboutBox.cs</DependentUpon>
+    <Compile Include="Forms\FormAbout.Designer.cs">
+      <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
     <Compile Include="CalendarColumn.cs">
       <SubType>Component</SubType>
@@ -149,25 +149,10 @@
     <Compile Include="FileAssociation\RegistryWrapper.cs" />
     <Compile Include="FileAssociation\ShellNotification.cs" />
     <Compile Include="Fingerprint.cs" />
-    <Compile Include="Forms\FormBalance.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormBassBoost.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\FormChooseBackgroundFile.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormEqualizer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormExport.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormHostVstEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormOptions.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormPitch.cs">
@@ -194,36 +179,30 @@
     <Compile Include="Forms\FormTestSound.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormVolume.cs">
+    <Compile Include="Forms\FormPleaseWait.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormVolumeAutomation.cs">
+    <Compile Include="Forms\FormPleaseWait.Designer.cs">
+      <DependentUpon>FormPleaseWait.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormGoto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PleaseWaitForm.cs">
+    <Compile Include="Forms\FormGoto.Designer.cs">
+      <DependentUpon>FormGoto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormJsonDebugFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PleaseWaitForm.Designer.cs">
-      <DependentUpon>PleaseWaitForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GotoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GotoForm.Designer.cs">
-      <DependentUpon>GotoForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\JsonDebugFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\JsonDebugFrm.Designer.cs">
-      <DependentUpon>JsonDebugFrm.cs</DependentUpon>
+    <Compile Include="Forms\FormJsonDebugFrm.Designer.cs">
+      <DependentUpon>FormJsonDebugFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Json\jsonClip.cs" />
-    <Compile Include="LoginForm.cs">
+    <Compile Include="Forms\FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <Compile Include="Forms\FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="ParseObjects\Cat_Kria.cs" />
     <Compile Include="ParseObjects\ClipStatus.cs" />
@@ -260,19 +239,14 @@
     <Compile Include="TimeSpinner\TimePickerSpinner.Designer.cs">
       <DependentUpon>TimePickerSpinner.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutBox.resx">
-      <DependentUpon>AboutBox.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormAbout.en-US.resx">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormAbout.resx">
+      <DependentUpon>FormAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ComboBox\PopupComboBox.resx">
       <DependentUpon>PopupComboBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormBalance.resx">
-      <DependentUpon>FormBalance.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormBassBoost.resx">
-      <DependentUpon>FormBassBoost.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormChooseBackgroundFile.resx">
       <DependentUpon>FormChooseBackgroundFile.cs</DependentUpon>
@@ -280,18 +254,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEqualizer.resx">
       <DependentUpon>FormEqualizer.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormExport.resx">
-      <DependentUpon>FormExport.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormHostVstEditor.resx">
-      <DependentUpon>FormHostVstEditor.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormOptions.resx">
-      <DependentUpon>FormOptions.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormPitch.resx">
@@ -307,6 +269,9 @@
     <EmbeddedResource Include="Forms\FormSilence.resx">
       <DependentUpon>FormSilence.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormStudio.en-GB.resx">
+      <DependentUpon>FormStudio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormStudio.en-US.resx">
       <DependentUpon>FormStudio.cs</DependentUpon>
@@ -324,31 +289,23 @@
     <EmbeddedResource Include="Forms\FormTestSound.resx">
       <DependentUpon>FormTestSound.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormVolume.resx">
-      <DependentUpon>FormVolume.cs</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Forms\FormPleaseWait.en-US.resx">
+      <DependentUpon>FormPleaseWait.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormVolumeAutomation.resx">
-      <DependentUpon>FormVolumeAutomation.cs</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Forms\FormPleaseWait.resx">
+      <DependentUpon>FormPleaseWait.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PleaseWaitForm.en-US.resx">
-      <DependentUpon>PleaseWaitForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormGoto.resx">
+      <DependentUpon>FormGoto.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PleaseWaitForm.resx">
-      <DependentUpon>PleaseWaitForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormJsonDebugFrm.resx">
+      <DependentUpon>FormJsonDebugFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GotoForm.resx">
-      <DependentUpon>GotoForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormLogin.en-US.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JsonDebugFrm.resx">
-      <DependentUpon>JsonDebugFrm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.en-US.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -382,6 +339,7 @@
     <None Include="Resources\bg16.png" />
     <None Include="Resources\bg331.png" />
     <None Include="Resources\bg332.png" />
+    <None Include="Resources\1395486322_icon-locked.png" />
     <Content Include="Resources\word_anchor_off.png" />
     <Content Include="Resources\word_anchor_on.png" />
     <Content Include="sound_sample.mp3">

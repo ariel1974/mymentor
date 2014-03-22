@@ -27,8 +27,10 @@ namespace MyMentor.Forms
         private bool m_bContinueRecordingAfterPlayback;
         private short m_nRangeSelection = -1;
         private TimeSpan m_overwriteModeDeletePosition = TimeSpan.Zero;
-        private IntPtr m_hWndVuMeterLeft;
-        private IntPtr m_hWndVuMeterRight;
+        private IntPtr m_hWndVuMeterLeft1;
+        private IntPtr m_hWndVuMeterRight1;
+        private IntPtr m_hWndVuMeterLeft2;
+        private IntPtr m_hWndVuMeterRight2;
         private TimeSpan n_hammerLastTimePressed = TimeSpan.Zero;
         private Word m_selectedScheduledWord = null;
         private short m_selectedGraphicItemSelected = -1;
@@ -116,6 +118,9 @@ namespace MyMentor.Forms
             // init controls
             audioSoundRecorder1.InitRecordingSystem();
             audioSoundRecorder1.SetInputDeviceChannelVolume(0, 0, 100);
+            
+            audioSoundRecorder2.InitRecordingSystem();
+            audioSoundRecorder2.SetInputDeviceChannelVolume(0, 0, 100);
 
             audioSoundEditor1.InitEditor();
             audioSoundEditor1.UndoEnable(true);
@@ -126,8 +131,13 @@ namespace MyMentor.Forms
 
             // create the recorder's VU-Meter
             audioSoundRecorder1.DisplayVUMeter.Create(IntPtr.Zero);
-            m_hWndVuMeterLeft = CreateVuMeter(label17, AudioSoundRecorder.enumGraphicBarOrientations.GRAPHIC_BAR_ORIENT_VERTICAL);
-            m_hWndVuMeterRight = CreateVuMeter(label18, AudioSoundRecorder.enumGraphicBarOrientations.GRAPHIC_BAR_ORIENT_VERTICAL);
+            m_hWndVuMeterLeft1 = CreateVuMeter(label17, AudioSoundRecorder.enumGraphicBarOrientations.GRAPHIC_BAR_ORIENT_VERTICAL);
+            m_hWndVuMeterRight1 = CreateVuMeter(label18, AudioSoundRecorder.enumGraphicBarOrientations.GRAPHIC_BAR_ORIENT_VERTICAL);
+
+            // create the recorder's VU-Meter
+            audioSoundRecorder2.DisplayVUMeter.Create(IntPtr.Zero);
+            m_hWndVuMeterLeft2 = CreateVuMeter(label17, AudioSoundRecorder.enumGraphicBarOrientations.GRAPHIC_BAR_ORIENT_VERTICAL);
+            m_hWndVuMeterRight2 = CreateVuMeter(label18, AudioSoundRecorder.enumGraphicBarOrientations.GRAPHIC_BAR_ORIENT_VERTICAL);
 
             // create the waveform analyzer (always call this function on the end of the form's Load fucntion)
             audioSoundEditor1.DisplayWaveformAnalyzer.Create(panel1.Handle, Picture1.Left, Picture1.Top, panel1.Width, panel1.Height);
@@ -166,6 +176,11 @@ namespace MyMentor.Forms
 
             rtbMainEditorGraphics = richTextBox1.CreateGraphics();
             rtbAlternateEditorGraphics = richTextBox3.CreateGraphics();
+
+            //set second recorder
+            audioSoundRecorder2.EncodeFormats = new AudioSoundRecorder.EncodeFormatsMan();
+            audioSoundRecorder2.EncodeFormats.ForRecording = AudioSoundRecorder.enumEncodingFormats.ENCODING_FORMAT_NOFILE;
+            AudioSoundRecorder.enumErrorCodes nResult = audioSoundRecorder2.StartFromDirectSoundDevice(0, 0, "");
 
             audioSoundEditor1.EncodeFormats.FormatToUse = enumEncodingFormats.ENCODING_FORMAT_MP3;
             audioSoundEditor1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_CBR;
@@ -975,7 +990,7 @@ namespace MyMentor.Forms
 
             if (ParseUser.CurrentUser == null)
             {
-                LoginForm frmLogin = new LoginForm();
+                FormLogin frmLogin = new FormLogin();
 
                 var result = frmLogin.ShowDialog();
 
@@ -1000,7 +1015,7 @@ namespace MyMentor.Forms
                 lblLoginUser.Text = ResourceHelper.GetLabel("LOGIN_AS") + ParseUser.CurrentUser.Username;
             }
 
-            PleaseWaitForm form = new PleaseWaitForm();
+            FormPleaseWait form = new FormPleaseWait();
             form.Show();
             Application.DoEvents();
 
@@ -1118,18 +1133,20 @@ namespace MyMentor.Forms
                 NewClip();
             }
 
+
+            m_whileLoadingClip = false;
+            audioSoundEditor1.DisplayWaveformAnalyzer.Move(Picture1.Left, Picture1.Top, panel1.Width, panel1.Height);
+
             //test recorder
             if (MyMentor.Properties.Settings.Default.TestSound)
             {
                 FormTestSound frmTest = new FormTestSound();
 
                 frmTest.ShowDialog();
+
+                trackBar1.Value = frmTest.RecordVolume;
+                trackBarVolume1.Value = frmTest.PlayerVolume;
             }
-
-
-            m_whileLoadingClip = false;
-            audioSoundEditor1.DisplayWaveformAnalyzer.Move(Picture1.Left, Picture1.Top, panel1.Width, panel1.Height);
-
         }
 
         private void richTextBox1_SelectionChanged(object sender, EventArgs e)
@@ -1436,7 +1453,7 @@ namespace MyMentor.Forms
 
         private void gotoCharIndexToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new GotoForm())
+            using (var form = new FormGoto())
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
@@ -1941,8 +1958,11 @@ namespace MyMentor.Forms
 
         private void testAudioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormTestSound f = new FormTestSound();
-            f.ShowDialog();
+            FormTestSound frmTest = new FormTestSound();
+            frmTest.ShowDialog();
+
+            trackBar1.Value = frmTest.RecordVolume;
+            trackBarVolume1.Value = frmTest.PlayerVolume;
 
         }
 
@@ -3025,8 +3045,8 @@ namespace MyMentor.Forms
 
         private void audioSoundRecorder1_VUMeterValueChange(object sender, AudioSoundRecorder.VUMeterValueChangeEventArgs e)
         {
-            audioSoundRecorder1.GraphicBarsManager.SetValue(m_hWndVuMeterLeft, e.nPeakLeft);
-            audioSoundRecorder1.GraphicBarsManager.SetValue(m_hWndVuMeterRight, e.nPeakRight);
+            audioSoundRecorder1.GraphicBarsManager.SetValue(m_hWndVuMeterLeft1, e.nPeakLeft);
+            audioSoundRecorder1.GraphicBarsManager.SetValue(m_hWndVuMeterRight1, e.nPeakRight);
 
         }
 
@@ -3534,6 +3554,8 @@ namespace MyMentor.Forms
 
                 if (audioDjStudio1.GetPlayerStatus(0) != AudioDjStudio.enumPlayerStatus.SOUND_PLAYING && m_selectedScheduledWord != null)
                 {
+                    tsm_RemoveAnchor.Enabled = true;
+
                     //move line to start grapohic line
                     if (!m_bClickedWaveAnalyzer)
                     {
@@ -3548,8 +3570,6 @@ namespace MyMentor.Forms
                             audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true,
                                 m_LastSelections[0],
                                 m_LastSelections[1]);
-
-                            tsm_RemoveAnchor.Enabled = true;
                         }
                         else
                         {
@@ -3982,10 +4002,8 @@ namespace MyMentor.Forms
             // clip
             if (comboClipType.SelectedValue != null && (string)comboClipType.SelectedValue == "enaWrne5xe") //source
             {
-                groupBox4.Visible = false;
                 groupBox5.Visible = false;
                 groupBox6.Visible = false;
-                groupBox7.Visible = false;
 
                 lessonType = "0y8A4XTNeR"; //source
 
@@ -4019,10 +4037,8 @@ namespace MyMentor.Forms
             }
             else
             {
-                groupBox4.Visible = true;
                 groupBox5.Visible = true;
                 groupBox6.Visible = true;
-                groupBox7.Visible = true;
 
                 dateTimeExpired.Enabled = true;
                 dateTimeExpired.Visible = true;
@@ -4101,10 +4117,6 @@ namespace MyMentor.Forms
 
             try
             {
-                RemoveAnchor(AnchorType.Paragraph);
-                RemoveAnchor(AnchorType.Sentence);
-                RemoveAnchor(AnchorType.Section);
-                RemoveAnchor(AnchorType.Word);
                 int anchors = 0;
                 int index = 0;
                 int enterKeys = 0;
@@ -4635,7 +4647,7 @@ namespace MyMentor.Forms
             {
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    richTextBox1.Text = form.SelectedSource.Text;
+                    richTextBox1.Rtf = form.SelectedSource.Rtf;
 
                     if (form.SelectedSource.Category1 != null)
                     {
@@ -5102,6 +5114,12 @@ namespace MyMentor.Forms
             timerPlayAnchorCheckPause.Enabled = false;
             audioDjStudio1.ResumeSound(0);
             TimerMenuEnabler.Enabled = true;
+        }
+
+        private void audioSoundRecorder2_VUMeterValueChange(object sender, AudioSoundRecorder.VUMeterValueChangeEventArgs e)
+        {
+            audioSoundRecorder2.GraphicBarsManager.SetValue(m_hWndVuMeterLeft2, e.nPeakLeft);
+            audioSoundRecorder2.GraphicBarsManager.SetValue(m_hWndVuMeterRight2, e.nPeakRight);
         }
 
     }

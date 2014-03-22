@@ -11,9 +11,9 @@ using Parse;
 
 namespace MyMentor
 {
-    public partial class LoginForm : Form
+    public partial class FormLogin : Form
     {
-        public LoginForm()
+        public FormLogin()
         {
             InitializeComponent();
         }

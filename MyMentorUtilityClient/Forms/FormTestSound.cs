@@ -49,6 +49,22 @@ namespace MyMentor
         private AudioSoundEditor.AudioSoundEditor audioSoundEditor1;
 		private IntPtr	m_hWndVuMeterRight;
 
+        public short RecordVolume
+        {
+            get
+            {
+                return (short)trackBar1.Value;
+            }
+        }
+
+        public short PlayerVolume
+        {
+            get
+            {
+                return (short)trackBarVolume1.Value;
+            }
+        }
+
 		public FormTestSound()
 		{
 			//

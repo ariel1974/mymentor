@@ -1,6 +1,6 @@
 ﻿namespace MyMentor
 {
-    partial class GotoForm
+    partial class FormGoto
     {
         /// <summary>
         /// Required designer variable.

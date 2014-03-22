@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace MyMentor
 {
-    public partial class GotoForm : Form
+    public partial class FormGoto : Form
     {
         public int CharIndex { get; set; }
 
-        public GotoForm()
+        public FormGoto()
         {
             InitializeComponent();
         }

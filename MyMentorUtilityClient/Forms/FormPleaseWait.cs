@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace MyMentor.Forms
 {
-    public partial class PleaseWaitForm : Form
+    public partial class FormPleaseWait : Form
     {
-        public PleaseWaitForm()
+        public FormPleaseWait()
         {
             InitializeComponent();
         }

@@ -659,6 +659,7 @@ namespace MyMentor
             }
 
             clip["name"] = this.Title;
+            clip["clipSourceRtf"] = this.RtfText;
             clip["clipSourceText"] = this.Text;
             clip["description"] = this.Description;
             clip["descriptionEnglish"] = this.EnglishDescription;

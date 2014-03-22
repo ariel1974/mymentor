@@ -1,6 +1,6 @@
 ﻿namespace MyMentor.Forms
 {
-    partial class PleaseWaitForm
+    partial class FormPleaseWait
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PleaseWaitForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPleaseWait));
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label33 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -45,7 +45,7 @@
             resources.ApplyResources(this.label33, "label33");
             this.label33.Name = "label33";
             // 
-            // PleaseWaitForm
+            // FormPleaseWait
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -56,7 +56,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "PleaseWaitForm";
+            this.Name = "FormPleaseWait";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.TopMost = true;

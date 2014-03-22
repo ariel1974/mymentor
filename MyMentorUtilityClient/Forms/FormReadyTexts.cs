@@ -99,7 +99,7 @@ namespace MyMentor
                     Index = counter++,
                     ObjectId = a.ObjectId,
                     Name = a.Get<string>("name"),
-                    Text = a.Get<string>("clipSourceText"),
+                    Rtf = a.Get<string>("clipSourceRtf"),
                     Category1 = a.Get<ParseObject>("category1"),
                     Category2 = a.Get<ParseObject>("category2"),
                     Category3 = a.Get<ParseObject>("category3"),
@@ -179,11 +179,6 @@ namespace MyMentor
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
@@ -208,7 +203,7 @@ namespace MyMentor
         public int Index { get; set; }
         public string ObjectId { get; set; }
         public string Name { get; set; }
-        public string Text { get; set; }
+        public string Rtf { get; set; }
         public ParseObject Category1 { get; set; }
         public ParseObject Category2 { get; set; }
         public ParseObject Category3 { get; set; }

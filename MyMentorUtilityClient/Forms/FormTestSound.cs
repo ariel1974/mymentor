@@ -38,7 +38,6 @@ namespace MyMentor
         private Button button1;
         private Label label30;
         private TrackBar trackBarVolume1;
-        private Button button2;
         private CheckBox checkBox1;
         private Label label2;
         private PictureBox pictureBox2;
@@ -65,7 +64,7 @@ namespace MyMentor
             }
         }
 
-		public FormTestSound()
+		public FormTestSound(short volume, short record)
 		{
 			//
 			// Required for Windows Form Designer support
@@ -75,6 +74,8 @@ namespace MyMentor
 			//
 			// TODO: Add any constructor code after InitializeComponent call
 			//
+            trackBarVolume1.Value = volume;
+            trackBar1.Value = record;
 		}
 
 		/// <summary>
@@ -121,7 +122,6 @@ namespace MyMentor
             this.labelVuMeterLeft = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.audioSoundEditor1 = new AudioSoundEditor.AudioSoundEditor();
@@ -134,7 +134,6 @@ namespace MyMentor
             // 
             // audioSoundRecorder1
             // 
-            resources.ApplyResources(this.audioSoundRecorder1, "audioSoundRecorder1");
             this.audioSoundRecorder1.EncodeAacCustomString = null;
             this.audioSoundRecorder1.EncodeAacMode = AudioSoundRecorder.enumAacEncodeModes.AAC_ENCODE_VBR_QUALITY;
             this.audioSoundRecorder1.EncodeAacQuality = 0F;
@@ -157,6 +156,7 @@ namespace MyMentor
             this.audioSoundRecorder1.EncodeWmaCBR = -1;
             this.audioSoundRecorder1.EncodeWmaMode = AudioSoundRecorder.enumWmaEncodeModes.WMA_ENCODE_VBR_QUALITY;
             this.audioSoundRecorder1.EncodeWmaVBRQuality = 100;
+            resources.ApplyResources(this.audioSoundRecorder1, "audioSoundRecorder1");
             this.audioSoundRecorder1.Name = "audioSoundRecorder1";
             this.audioSoundRecorder1.SilenceThreshold = ((short)(0));
             this.audioSoundRecorder1.RecordingStarted += new AudioSoundRecorder.AudioSoundRecorder.EventHandler(this.audioSoundRecorder1_RecordingStarted);
@@ -169,13 +169,13 @@ namespace MyMentor
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.pictureBox2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.trackBar1);
             this.groupBox2.Controls.Add(this.label30);
             this.groupBox2.Controls.Add(this.trackBarVolume1);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
@@ -186,8 +186,8 @@ namespace MyMentor
             // 
             // pictureBox2
             // 
-            resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Image = global::MyMentor.Properties.Resources._1388144426_arrow_sans_right;
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
             // 
@@ -221,13 +221,13 @@ namespace MyMentor
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.buttonPlayAudio);
             this.groupBox1.Controls.Add(this.comboInputChannels);
             this.groupBox1.Controls.Add(this.comboInputDevices);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.buttonStartRecording);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -239,15 +239,15 @@ namespace MyMentor
             // 
             // comboInputChannels
             // 
-            resources.ApplyResources(this.comboInputChannels, "comboInputChannels");
             this.comboInputChannels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.comboInputChannels, "comboInputChannels");
             this.comboInputChannels.Name = "comboInputChannels";
             this.comboInputChannels.SelectedIndexChanged += new System.EventHandler(this.comboInputChannels_SelectedIndexChanged);
             // 
             // comboInputDevices
             // 
-            resources.ApplyResources(this.comboInputDevices, "comboInputDevices");
             this.comboInputDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.comboInputDevices, "comboInputDevices");
             this.comboInputDevices.Name = "comboInputDevices";
             this.comboInputDevices.SelectedIndexChanged += new System.EventHandler(this.comboInputDevices_SelectedIndexChanged);
             // 
@@ -274,14 +274,14 @@ namespace MyMentor
             // 
             // labelVuMeterRight
             // 
-            resources.ApplyResources(this.labelVuMeterRight, "labelVuMeterRight");
             this.labelVuMeterRight.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.labelVuMeterRight, "labelVuMeterRight");
             this.labelVuMeterRight.Name = "labelVuMeterRight";
             // 
             // labelVuMeterLeft
             // 
-            resources.ApplyResources(this.labelVuMeterLeft, "labelVuMeterLeft");
             this.labelVuMeterLeft.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.labelVuMeterLeft, "labelVuMeterLeft");
             this.labelVuMeterLeft.Name = "labelVuMeterLeft";
             // 
             // timer1
@@ -294,12 +294,6 @@ namespace MyMentor
             resources.ApplyResources(this.button1, "button1");
             this.button1.Name = "button1";
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // checkBox1
             // 
@@ -326,7 +320,6 @@ namespace MyMentor
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.audioSoundEditor1);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.labelVuMeterRight);
             this.Controls.Add(this.labelVuMeterLeft);
@@ -409,7 +402,6 @@ namespace MyMentor
 				string	strInputDevice = audioSoundRecorder1.GetInputDeviceDesc(i);
 				comboInputDevices.Items.Add (strInputDevice);
 			}
-            trackBarVolume1.Value = 100;
             audioSoundRecorder1.EncodeFormats = new EncodeFormatsMan();
             audioSoundRecorder1.EncodeFormats.ForRecording = enumEncodingFormats.ENCODING_FORMAT_NOFILE;
             //audioSoundRecorder1.EncodeFormats.MP3.EncodeMode = enumMp3EncodeModes.MP3_ENCODE_PRESETS;
@@ -443,6 +435,8 @@ namespace MyMentor
             enumErrorCodes nResult = audioSoundRecorder1.StartFromDirectSoundDevice(m_nCurrInputDevice, m_nCurrInputChannel, "");
             if (nResult != enumErrorCodes.ERR_NOERROR)
                 MessageBox.Show(string.Format("{0} Cannot start recording: probably a parameter is not compatible with the current resample format", nResult.ToString()));
+
+            checkBox1.Checked = !MyMentor.Properties.Settings.Default.TestSound;
 
 		}
 

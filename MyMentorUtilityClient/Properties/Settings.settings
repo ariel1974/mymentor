@@ -17,5 +17,11 @@
     <Setting Name="CultureInfo" Type="System.String" Scope="User">
       <Value Profile="(Default)">he-il</Value>
     </Setting>
+    <Setting Name="VolumeLevel" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="RecordingLevel" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

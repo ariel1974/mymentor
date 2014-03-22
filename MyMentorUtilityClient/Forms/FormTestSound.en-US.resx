@@ -176,16 +176,7 @@
     <value>Hello, in this screen we will check the audio devices installed in your computers by recording short 5 seconds playback</value>
   </data>
   <data name="button1.Text" xml:space="preserve">
-    <value>OK, let's continue</value>
-  </data>
-  <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>334, 339</value>
-  </data>
-  <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 40</value>
-  </data>
-  <data name="button2.Text" xml:space="preserve">
-    <value>Skip this test</value>
+    <value>Close form</value>
   </data>
   <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 22</value>

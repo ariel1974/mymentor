@@ -187,7 +187,9 @@ namespace MyMentor.Forms
             audioSoundEditor1.EncodeFormats.MP3.CBR = 128000;
 
             cbInterval.Text = "1.5";
-            //ToolBarSettings();
+
+            trackBarVolume1.Value = Properties.Settings.Default.VolumeLevel == 0 ? 100 : Properties.Settings.Default.VolumeLevel;
+            trackBar1.Value = Properties.Settings.Default.RecordingLevel == 0 ? 100 : Properties.Settings.Default.RecordingLevel;
         }
 
         void ToolBarSettings()
@@ -1140,7 +1142,7 @@ namespace MyMentor.Forms
             //test recorder
             if (MyMentor.Properties.Settings.Default.TestSound)
             {
-                FormTestSound frmTest = new FormTestSound();
+                FormTestSound frmTest = new FormTestSound((short)trackBarVolume1.Value, (short)trackBar1.Value);
 
                 frmTest.ShowDialog();
 
@@ -1958,7 +1960,7 @@ namespace MyMentor.Forms
 
         private void testAudioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormTestSound frmTest = new FormTestSound();
+            FormTestSound frmTest = new FormTestSound((short)trackBarVolume1.Value, (short)trackBar1.Value);
             frmTest.ShowDialog();
 
             trackBar1.Value = frmTest.RecordVolume;
@@ -3018,23 +3020,27 @@ namespace MyMentor.Forms
 
         private void audioSoundRecorder1_RecordingPaused(object sender, EventArgs e)
         {
+            AudioSoundRecorder.enumErrorCodes nResult = audioSoundRecorder2.StartFromDirectSoundDevice(0, 0, "");
             timerRecordIcon.Enabled = false;
 
         }
 
         private void audioSoundRecorder1_RecordingResumed(object sender, EventArgs e)
         {
+            audioSoundRecorder2.Stop();
             timerRecordIcon.Enabled = true;
 
         }
 
         private void audioSoundRecorder1_RecordingStarted(object sender, EventArgs e)
         {
+            audioSoundRecorder2.Stop();
             timerRecordIcon.Enabled = true;
         }
 
         private void audioSoundRecorder1_RecordingStopped(object sender, AudioSoundRecorder.RecordingStoppedEventArgs e)
         {
+            AudioSoundRecorder.enumErrorCodes nResult = audioSoundRecorder2.StartFromDirectSoundDevice(0, 0, "");
             // force loading the recording session into the editor
             timerRecordingDone.Enabled = true;
             timerRecordIcon.Enabled = false;
@@ -5120,6 +5126,13 @@ namespace MyMentor.Forms
         {
             audioSoundRecorder2.GraphicBarsManager.SetValue(m_hWndVuMeterLeft2, e.nPeakLeft);
             audioSoundRecorder2.GraphicBarsManager.SetValue(m_hWndVuMeterRight2, e.nPeakRight);
+        }
+
+        private void FormStudio_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.VolumeLevel = trackBarVolume1.Value;
+            Properties.Settings.Default.RecordingLevel = trackBar1.Value;
+            Properties.Settings.Default.Save();
         }
 
     }

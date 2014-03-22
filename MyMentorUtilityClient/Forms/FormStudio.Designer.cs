@@ -2271,6 +2271,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormStudio";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormStudio_FormClosing);
             this.Load += new System.EventHandler(this.FormStudio_Load);
             this.Shown += new System.EventHandler(this.FormStudio_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormStudio_Paint);

@@ -361,7 +361,7 @@
     <value>81</value>
   </data>
   <data name="btnSearch.Text" xml:space="preserve">
-    <value>חיפוש</value>
+    <value>חפש</value>
   </data>
   <data name="&gt;&gt;btnSearch.Name" xml:space="preserve">
     <value>btnSearch</value>
@@ -408,21 +408,6 @@
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="columnHeader1.Text" xml:space="preserve">
-    <value>שם שיעור</value>
-  </data>
-  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
-    <value>550</value>
-  </data>
-  <data name="columnHeader2.Text" xml:space="preserve">
-    <value>סטאטוס</value>
-  </data>
-  <data name="columnHeader2.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 123</value>
   </data>
@@ -447,9 +432,21 @@
   <data name="&gt;&gt;listView1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>en-US</value>
-  </metadata>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>שם שיעור</value>
+  </data>
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>550</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>סטאטוס</value>
+  </data>
+  <data name="columnHeader2.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="columnHeader2.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -475,7 +472,7 @@
     <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>חיפוש טקסט מקורות</value>
+    <value>חיפוש טקסט במאגר</value>
   </data>
   <data name="&gt;&gt;timer1.Name" xml:space="preserve">
     <value>timer1</value>

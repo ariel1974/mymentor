@@ -51,6 +51,18 @@ namespace MyMentor
 
         private async void btnSearch_Click(object sender, EventArgs e)
         {
+            if (comboCategory1.SelectedItem != null && comboCategory2.SelectedItem == null)
+            {
+                MessageBox.Show(m_formMain.Strings.Single(a => a.Key == "STD_NEED_TO_SELECT_CATEGORY2").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : 0));
+                return;
+            }
+
+            if (comboCategory1.SelectedItem == null && comboCategory3.SelectedItem == null)
+            {
+                MessageBox.Show(m_formMain.Strings.Single(a => a.Key == "STD_NEED_TO_SELECT_CATEGORY").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : 0));
+                return;
+            }
+
             btnSearch.Enabled = false;
             button2.Enabled = false;
             listView1.Items.Clear();
@@ -194,6 +206,21 @@ namespace MyMentor
             else
             {
                 button2.Enabled = false;
+            }
+        }
+
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                int indexer = listView1.SelectedItems[0].Index;
+                m_selected = m_result.Single(a => a.Index == indexer);
+
+                if (m_selected != null)
+                {
+                    button2.Enabled = true;
+                    button2.PerformClick();
+                }
             }
         }
     }

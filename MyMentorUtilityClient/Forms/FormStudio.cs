@@ -924,24 +924,9 @@ namespace MyMentor.Forms
 
             int width = Convert.ToInt32(rtbMainEditorGraphics.MeasureString(number, richTextBox2.SelectionFont).Width);
 
-            if (richTextBox2.SelectionFont.Size >= 32)
-            {
-                factor1 = 25;
-                factor2 = -12;
-                factor3 = 20;
-            }
-            else if (richTextBox2.SelectionFont.Size >= 16 && richTextBox2.SelectionFont.Size < 32)
-            {
-                factor1 = 13;
-                factor2 = -7;
-                factor3 = 10;
-            }
-            else if (richTextBox2.SelectionFont.Size < 16)
-            {
-                factor1 = 11;
-                factor2 = -6;
-                factor3 = 8;
-            }
+            factor1 = (int)(richTextBox2.SelectionFont.Size * 0.72222);
+            factor2 = (int)(richTextBox2.SelectionFont.Size * - 0.38888);
+            factor3 = (int)(richTextBox2.SelectionFont.Size * 0.55555);
 
             // rectangle to specify which region to paint too
             Rectangle r1 = new Rectangle();
@@ -2637,6 +2622,7 @@ namespace MyMentor.Forms
             richTextBox2.Rtf = richTextBox1.Rtf;
             CheckAnchors();
             richTextBox1.Rtf = richTextBox2.Rtf;
+            Clip.Current.Devide();
 
             if (tabControl1.SelectedIndex == 0
                 || tabControl1.SelectedIndex == 3)
@@ -2648,8 +2634,6 @@ namespace MyMentor.Forms
             }
             else
             {
-                Clip.Current.Devide();
-
                 tableLayoutPanel4.RowStyles[1].Height = 38;
                 tableLayoutPanel4.RowStyles[2].Height = 160;
 
@@ -2736,9 +2720,9 @@ namespace MyMentor.Forms
                 }
 
                 //selects first word
-                richTextBox3.SelectionStart = 0;
-                richTextBox3.SelectionLength = 0;
-                richTextBox3.Focus();
+                //richTextBox3.SelectionStart = 0;
+                //richTextBox3.SelectionLength = 0;
+                cbInterval.Focus();
             }
 
             PaintGraphics();
@@ -2988,26 +2972,12 @@ namespace MyMentor.Forms
         private void timerStartRecordingAfterPlayingBuffer_Tick(object sender, EventArgs e)
         {
             timerStartRecordingAfterPlayingBuffer.Enabled = false;
-            
-            // get the position selected on the waveform analyzer, if any
-            //bool bSelectionAvailable = false;
-            //Int32 nBeginSelectionInMs = 0;
-            //Int32 nEndSelectionInMs = 0;
-            //audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
 
-            //if (m_bRecOverwriteMode)
-            //{
-            //    TimeSpan startSelectionTime = new TimeSpan(0, 0, 0, 0, nBeginSelectionInMs);
+            // create a fresh new recording session
+            audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_APPEND);
 
-                //m_overwriteModeDeletePosition = startSelectionTime;
-
-                // create a fresh new recording session
-                audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_APPEND);
-
-                // start recording in memory from system default input device and input channel
-                audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
-
-            //}
+            // start recording in memory from system default input device and input channel
+            audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
 
         }
 
@@ -4700,6 +4670,7 @@ namespace MyMentor.Forms
         private void trackBarPitch1_ValueChanged(object sender, EventArgs e)
         {
             audioDjStudio1.SetTempoPerc(0, (float)trackBarPitch1.Value);
+            label1.Text =trackBarPitch1.Value.ToString();
         }
 
         private void richTextBox1_Click(object sender, EventArgs e)
@@ -5133,6 +5104,17 @@ namespace MyMentor.Forms
             Properties.Settings.Default.VolumeLevel = trackBarVolume1.Value;
             Properties.Settings.Default.RecordingLevel = trackBar1.Value;
             Properties.Settings.Default.Save();
+        }
+
+        private void richTextBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            PaintGraphics();
+        }
+
+        private void tsbSave_Click(object sender, EventArgs e)
+        {
+            mnuFile_Save_Click(null, new EventArgs());
+
         }
 
     }

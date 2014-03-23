@@ -233,6 +233,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.LabelStatus = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblLoginUser = new System.Windows.Forms.Label();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.tsbImportFile = new System.Windows.Forms.ToolStripButton();
@@ -282,6 +283,7 @@
             this.timerPlayerIcon = new System.Windows.Forms.Timer(this.components);
             this.timerPlayAnchorCheckPause = new System.Windows.Forms.Timer(this.components);
             this.audioSoundRecorder2 = new AudioSoundRecorder.AudioSoundRecorder();
+            this.tsbSave = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -1190,6 +1192,7 @@
             this.richTextBox1.VScroll += new System.EventHandler(this.richTextBox1_VScroll);
             this.richTextBox1.Click += new System.EventHandler(this.richTextBox1_Click);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            this.richTextBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.richTextBox1_MouseUp);
             // 
             // panel7
             // 
@@ -1879,9 +1882,15 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.label1);
             this.panel5.Controls.Add(this.lblLoginUser);
             resources.ApplyResources(this.panel5, "panel5");
             this.panel5.Name = "panel5";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // lblLoginUser
             // 
@@ -1899,6 +1908,7 @@
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbImportFile,
             this.toolStripSeparator9,
+            this.tsbSave,
             this.tsbUndo,
             this.tsbZoomOut,
             this.tsbZoomIn,
@@ -2175,7 +2185,7 @@
             // 
             // timerStartRecordingAfterPlayingBuffer
             // 
-            this.timerStartRecordingAfterPlayingBuffer.Interval = 10;
+            this.timerStartRecordingAfterPlayingBuffer.Interval = 1;
             this.timerStartRecordingAfterPlayingBuffer.Tick += new System.EventHandler(this.timerStartRecordingAfterPlayingBuffer_Tick);
             // 
             // timerRecordingDone
@@ -2259,6 +2269,14 @@
             this.audioSoundRecorder2.SilenceThreshold = ((short)(0));
             this.audioSoundRecorder2.VUMeterValueChange += new AudioSoundRecorder.AudioSoundRecorder.VUMeterValueChangeEventHandler(this.audioSoundRecorder2_VUMeterValueChange);
             // 
+            // tsbSave
+            // 
+            this.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbSave, "tsbSave");
+            this.tsbSave.Name = "tsbSave";
+            this.tsbSave.Tag = "I";
+            this.tsbSave.Click += new System.EventHandler(this.tsbSave_Click);
+            // 
             // FormStudio
             // 
             resources.ApplyResources(this, "$this");
@@ -2320,6 +2338,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             this.panel9.ResumeLayout(false);
@@ -2586,5 +2605,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripButton tsbSave;
     }
 }

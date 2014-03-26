@@ -167,6 +167,8 @@
             this.buttonPublish = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.tbClipDescription = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.numericPriceSupport = new System.Windows.Forms.NumericUpDown();
@@ -186,6 +188,9 @@
             this.btnRemoveDate = new System.Windows.Forms.Button();
             this.dtpReadingDate = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.comboCategory2 = new System.Windows.Forms.ComboBox();
             this.lblCategory3 = new System.Windows.Forms.Label();
             this.comboCategory3 = new System.Windows.Forms.ComboBox();
@@ -238,6 +243,7 @@
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.tsbImportFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbSave = new System.Windows.Forms.ToolStripButton();
             this.tsbUndo = new System.Windows.Forms.ToolStripButton();
             this.tsbZoomOut = new System.Windows.Forms.ToolStripButton();
             this.tsbZoomIn = new System.Windows.Forms.ToolStripButton();
@@ -283,7 +289,6 @@
             this.timerPlayerIcon = new System.Windows.Forms.Timer(this.components);
             this.timerPlayAnchorCheckPause = new System.Windows.Forms.Timer(this.components);
             this.audioSoundRecorder2 = new AudioSoundRecorder.AudioSoundRecorder();
-            this.tsbSave = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -1427,6 +1432,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.tbClipDescription);
             this.groupBox2.Controls.Add(this.lblDescription);
             this.groupBox2.Controls.Add(this.numericPriceSupport);
@@ -1448,6 +1455,20 @@
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label6.Name = "label6";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label5.Name = "label5";
             // 
             // tbClipDescription
             // 
@@ -1566,6 +1587,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.comboCategory2);
             this.groupBox1.Controls.Add(this.lblCategory3);
             this.groupBox1.Controls.Add(this.comboCategory3);
@@ -1582,6 +1606,27 @@
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label4.Name = "label4";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label3.Name = "label3";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label2.Name = "label2";
             // 
             // comboCategory2
             // 
@@ -1712,12 +1757,16 @@
             // sop_teacher1
             // 
             resources.ApplyResources(this.sop_teacher1, "sop_teacher1");
+            this.sop_teacher1.Checked = true;
+            this.sop_teacher1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.sop_teacher1.Name = "sop_teacher1";
             this.sop_teacher1.UseVisualStyleBackColor = true;
             // 
             // sop_student
             // 
             resources.ApplyResources(this.sop_student, "sop_student");
+            this.sop_student.Checked = true;
+            this.sop_student.CheckState = System.Windows.Forms.CheckState.Checked;
             this.sop_student.Name = "sop_student";
             this.sop_student.UseVisualStyleBackColor = true;
             // 
@@ -1730,6 +1779,8 @@
             // sop_teacher2
             // 
             resources.ApplyResources(this.sop_teacher2, "sop_teacher2");
+            this.sop_teacher2.Checked = true;
+            this.sop_teacher2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.sop_teacher2.Name = "sop_teacher2";
             this.sop_teacher2.UseVisualStyleBackColor = true;
             // 
@@ -1742,6 +1793,8 @@
             // sop_teacherAndStudent
             // 
             resources.ApplyResources(this.sop_teacherAndStudent, "sop_teacherAndStudent");
+            this.sop_teacherAndStudent.Checked = true;
+            this.sop_teacherAndStudent.CheckState = System.Windows.Forms.CheckState.Checked;
             this.sop_teacherAndStudent.Name = "sop_teacherAndStudent";
             this.sop_teacherAndStudent.UseVisualStyleBackColor = true;
             // 
@@ -1782,6 +1835,8 @@
             // def_sen
             // 
             resources.ApplyResources(this.def_sen, "def_sen");
+            this.def_sen.Checked = true;
+            this.def_sen.CheckState = System.Windows.Forms.CheckState.Checked;
             this.def_sen.Name = "def_sen";
             this.def_sen.UseVisualStyleBackColor = true;
             // 
@@ -1794,12 +1849,16 @@
             // def_par
             // 
             resources.ApplyResources(this.def_par, "def_par");
+            this.def_par.Checked = true;
+            this.def_par.CheckState = System.Windows.Forms.CheckState.Checked;
             this.def_par.Name = "def_par";
             this.def_par.UseVisualStyleBackColor = true;
             // 
             // def_wor
             // 
             resources.ApplyResources(this.def_wor, "def_wor");
+            this.def_wor.Checked = true;
+            this.def_wor.CheckState = System.Windows.Forms.CheckState.Checked;
             this.def_wor.Name = "def_wor";
             this.def_wor.UseVisualStyleBackColor = true;
             // 
@@ -1812,6 +1871,8 @@
             // def_sec
             // 
             resources.ApplyResources(this.def_sec, "def_sec");
+            this.def_sec.Checked = true;
+            this.def_sec.CheckState = System.Windows.Forms.CheckState.Checked;
             this.def_sec.Name = "def_sec";
             this.def_sec.UseVisualStyleBackColor = true;
             // 
@@ -1945,6 +2006,14 @@
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
             resources.ApplyResources(this.toolStripSeparator9, "toolStripSeparator9");
+            // 
+            // tsbSave
+            // 
+            this.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tsbSave, "tsbSave");
+            this.tsbSave.Name = "tsbSave";
+            this.tsbSave.Tag = "I";
+            this.tsbSave.Click += new System.EventHandler(this.tsbSave_Click);
             // 
             // tsbUndo
             // 
@@ -2146,7 +2215,7 @@
             resources.ApplyResources(this.trackBarPitch1, "trackBarPitch1");
             this.trackBarPitch1.LargeChange = 20;
             this.trackBarPitch1.Maximum = 100;
-            this.trackBarPitch1.Minimum = -70;
+            this.trackBarPitch1.Minimum = -35;
             this.trackBarPitch1.Name = "trackBarPitch1";
             this.trackBarPitch1.SmallChange = 10;
             this.trackBarPitch1.TickFrequency = 10;
@@ -2268,14 +2337,6 @@
             this.audioSoundRecorder2.Name = "audioSoundRecorder2";
             this.audioSoundRecorder2.SilenceThreshold = ((short)(0));
             this.audioSoundRecorder2.VUMeterValueChange += new AudioSoundRecorder.AudioSoundRecorder.VUMeterValueChangeEventHandler(this.audioSoundRecorder2_VUMeterValueChange);
-            // 
-            // tsbSave
-            // 
-            this.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.tsbSave, "tsbSave");
-            this.tsbSave.Name = "tsbSave";
-            this.tsbSave.Tag = "I";
-            this.tsbSave.Click += new System.EventHandler(this.tsbSave_Click);
             // 
             // FormStudio
             // 
@@ -2607,5 +2668,10 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripButton tsbSave;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }

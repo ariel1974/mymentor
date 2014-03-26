@@ -115,6 +115,8 @@ namespace MyMentor
                     Category1 = a.Get<ParseObject>("category1"),
                     Category2 = a.Get<ParseObject>("category2"),
                     Category3 = a.Get<ParseObject>("category3"),
+                    Remarks = a.Get<string>("remarks"),
+                    RemarksEnglish = a.ContainsKey("remarksEnglish") ? a.Get<string>("remarksEnglish") : string.Empty,
                     Description = a.Get<string>("description"),
                     DescriptionEnglish = a.ContainsKey("descriptionEnglish") ? a.Get<string>("descriptionEnglish") : string.Empty,
                     Status = a.Get<ParseObject>("status").FetchIfNeededAsync().Result
@@ -234,6 +236,8 @@ namespace MyMentor
         public ParseObject Category1 { get; set; }
         public ParseObject Category2 { get; set; }
         public ParseObject Category3 { get; set; }
+        public string Remarks { get; set; }
+        public string RemarksEnglish { get; set; }
         public string Description { get; set; }
         public string DescriptionEnglish { get; set; }
         public ParseObject Status { get; set; }

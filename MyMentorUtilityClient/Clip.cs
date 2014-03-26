@@ -73,6 +73,7 @@ namespace MyMentor
         public string Description { get; set; }
         public string EnglishDescription { get; set; }
         public string Remarks { get; set; }
+        public string RemarksEnglish { get; set; }
         public string Version { get; set; }
         public string Category1 { get; set; }
         public string Category2 { get; set; }
@@ -664,6 +665,7 @@ namespace MyMentor
             clip["description"] = this.Description;
             clip["descriptionEnglish"] = this.EnglishDescription;
             clip["remarks"] = this.Remarks;
+            clip["remarksEnglish"] = this.RemarksEnglish;
             clip["version"] = this.Version;
             clip["fingerPrint"] = this.FingerPrint;
             clip["clipType"] = ParseObject.CreateWithoutData("ClipType", this.ClipType);

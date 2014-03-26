@@ -187,7 +187,7 @@ namespace MyMentor.Forms
             audioSoundEditor1.EncodeFormats.MP3.CBR = 128000;
 
             cbInterval.Text = "1.5";
-
+            dtpReadingDate.MinDate = DateTime.Today;
             trackBarVolume1.Value = Properties.Settings.Default.VolumeLevel == 0 ? 100 : Properties.Settings.Default.VolumeLevel;
             trackBar1.Value = Properties.Settings.Default.RecordingLevel == 0 ? 100 : Properties.Settings.Default.RecordingLevel;
         }
@@ -572,6 +572,15 @@ namespace MyMentor.Forms
             Clip.Current.ClipType = "piL85bMGtR";
             Clip.Current.Expired = null;
             Clip.Current.ContentType = this.ContentType.ObjectId;
+            Clip.Current.DefaultSections.paragraph = 1;
+            Clip.Current.DefaultSections.sentence = 1;
+            Clip.Current.DefaultSections.section = 1;
+            Clip.Current.DefaultSections.chapter = 1;
+            Clip.Current.DefaultLearningOptions.teacher1 = 1;
+            Clip.Current.DefaultLearningOptions.teacherAndStudent = 1;
+            Clip.Current.DefaultLearningOptions.teacher2 = 1;
+            Clip.Current.DefaultLearningOptions.student = 1;
+
 
             this.Text = "MyMentor - " + Clip.Current.Name;
 
@@ -599,6 +608,7 @@ namespace MyMentor.Forms
         private async void SetClipProperties()
         {
             tbClipRemarks.Text = Clip.Current.Remarks;
+            tbClipRemarksEnglish.Text = Clip.Current.RemarksEnglish;
             tbClipDescription.Text = Clip.Current.Description;
             tbClipDescriptionEnglish.Text = Clip.Current.EnglishDescription;
             comboCategory1.SelectedValue = Clip.Current.Category1 ?? string.Empty;
@@ -666,8 +676,6 @@ namespace MyMentor.Forms
 
                 }
             }
-
-
 
             if (comboCategory3.SelectedIndex >= 0 && ((Category)comboCategory3.SelectedItem).MinPrice > 0)
             {
@@ -2631,6 +2639,7 @@ namespace MyMentor.Forms
                 tableLayoutPanel4.RowStyles[2].Height = 0;
 
                 RegenerateClipName();
+                m_waveFormTabIndex = -1;
             }
             else
             {
@@ -2892,6 +2901,19 @@ namespace MyMentor.Forms
                 }
             }
 
+            if (m_bRecAppendMode && m_bContinueRecordingAfterPlayback &&
+                 soundDuration - fPosition <= 200 ) 
+            {
+                if (audioSoundRecorder1.Status != AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING &&
+                    audioSoundRecorder1.Status != AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING_MEMORY)
+                {
+                    // create a fresh new recording session
+                    audioSoundRecorder1.SetRecordingMode(AudioSoundRecorder.enumRecordingModes.REC_MODE_APPEND);
+
+                    // start recording in memory from system default input device and input channel
+                    audioSoundRecorder1.StartFromDirectSoundDevice(0, -1, "");
+                }
+            }
         }
 
 
@@ -3374,7 +3396,7 @@ namespace MyMentor.Forms
 
             if (m_bRecAppendMode && m_bContinueRecordingAfterPlayback)
             {
-                timerStartRecordingAfterPlayingBuffer.Enabled = true;
+                //timerStartRecordingAfterPlayingBuffer.Enabled = true;
             }
             else
             {
@@ -4060,6 +4082,10 @@ namespace MyMentor.Forms
             {
                 comboCategory3.SelectedItem = Clip.Current.Category3;
             }
+            else
+            {
+                comboCategory3.SelectedIndex = -1;
+            }
 
             RegenerateClipName(doDirty);
 
@@ -4644,6 +4670,9 @@ namespace MyMentor.Forms
 
                     tbClipDescription.Text = form.SelectedSource.Description;
                     tbClipDescriptionEnglish.Text = form.SelectedSource.DescriptionEnglish;
+
+                    tbClipRemarks.Text = form.SelectedSource.Remarks;
+                    tbClipRemarksEnglish.Text = form.SelectedSource.RemarksEnglish;
 
                     MessageBox.Show(m_strings.Single(a => a.Key == "STD_AFTER_SOURCE_SELECTION").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 }

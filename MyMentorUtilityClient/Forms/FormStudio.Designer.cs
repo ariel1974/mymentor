@@ -167,8 +167,8 @@
             this.buttonPublish = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblAsterikPrice = new System.Windows.Forms.Label();
+            this.lblAsterikReadingDates = new System.Windows.Forms.Label();
             this.tbClipDescription = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.numericPriceSupport = new System.Windows.Forms.NumericUpDown();
@@ -188,7 +188,7 @@
             this.btnRemoveDate = new System.Windows.Forms.Button();
             this.dtpReadingDate = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblAsterikCategory4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboCategory2 = new System.Windows.Forms.ComboBox();
@@ -1432,8 +1432,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.lblAsterikPrice);
+            this.groupBox2.Controls.Add(this.lblAsterikReadingDates);
             this.groupBox2.Controls.Add(this.tbClipDescription);
             this.groupBox2.Controls.Add(this.lblDescription);
             this.groupBox2.Controls.Add(this.numericPriceSupport);
@@ -1456,19 +1456,19 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
-            // label6
+            // lblAsterikPrice
             // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label6.Name = "label6";
+            resources.ApplyResources(this.lblAsterikPrice, "lblAsterikPrice");
+            this.lblAsterikPrice.BackColor = System.Drawing.Color.Transparent;
+            this.lblAsterikPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblAsterikPrice.Name = "lblAsterikPrice";
             // 
-            // label5
+            // lblAsterikReadingDates
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.lblAsterikReadingDates, "lblAsterikReadingDates");
+            this.lblAsterikReadingDates.BackColor = System.Drawing.Color.Transparent;
+            this.lblAsterikReadingDates.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblAsterikReadingDates.Name = "lblAsterikReadingDates";
             // 
             // tbClipDescription
             // 
@@ -1587,7 +1587,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.lblAsterikCategory4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.comboCategory2);
@@ -1607,12 +1607,12 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // label4
+            // lblAsterikCategory4
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Name = "label4";
+            resources.ApplyResources(this.lblAsterikCategory4, "lblAsterikCategory4");
+            this.lblAsterikCategory4.BackColor = System.Drawing.Color.Transparent;
+            this.lblAsterikCategory4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblAsterikCategory4.Name = "lblAsterikCategory4";
             // 
             // label3
             // 
@@ -2668,9 +2668,9 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripButton tsbSave;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblAsterikPrice;
+        private System.Windows.Forms.Label lblAsterikReadingDates;
+        private System.Windows.Forms.Label lblAsterikCategory4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
     }

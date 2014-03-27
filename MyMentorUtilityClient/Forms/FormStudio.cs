@@ -383,7 +383,10 @@ namespace MyMentor.Forms
             }
             else
             {
+                tsbStartRecordNew.Enabled = true;
                 tsbContinueRecord.Enabled = false;
+                tsbImportFile.Enabled = true;
+                tsbSave.Enabled = true;
 
                 // disable Select all
                 mnuAudioSelectedPart_SelectAll.Enabled = false;
@@ -663,7 +666,7 @@ namespace MyMentor.Forms
                     this.comboCategory2.DataSource = (await ParseTables.GetCategory2((string)comboCategory1.SelectedValue)).Select(c => new Category
                     {
                         ObjectId = c.ObjectId,
-                        Value = c.Get<string>("value")
+                        Value = c.Get<string>("value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_"))
                     }).ToList(); ;
 
                     if (Clip.Current.Category2 != null)
@@ -675,6 +678,10 @@ namespace MyMentor.Forms
                 {
 
                 }
+            }
+            else
+            {
+                comboCategory2.SelectedValue = string.Empty;
             }
 
             if (comboCategory3.SelectedIndex >= 0 && ((Category)comboCategory3.SelectedItem).MinPrice > 0)
@@ -724,10 +731,10 @@ namespace MyMentor.Forms
             this.tbClipTitle.Text = clipTitle;
             Clip.Current.Title = clipTitle;
 
-            if (isDirty && !m_whileLoadingClip)
-            {
-                Clip.Current.IsDirty = true;
-            }
+            //if (isDirty && !m_whileLoadingClip)
+            //{
+            //    Clip.Current.IsDirty = true;
+            //}
         }
 
         private void OpenClip()
@@ -738,6 +745,12 @@ namespace MyMentor.Forms
         private void OpenClip(string file)
         {
             m_whileLoadingClip = true;
+            
+            audioSoundRecorder1.RecordedSound.FreeMemory();
+            audioSoundEditor1.CloseSound();
+            audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
+
+            TimerReload.Enabled = true;
 
             if (string.IsNullOrEmpty(file))
             {
@@ -1367,6 +1380,7 @@ namespace MyMentor.Forms
             Clip.Current.Title = tbClipTitle.Text;
             Clip.Current.Description = tbClipDescription.Text;
             Clip.Current.Remarks = tbClipRemarks.Text;
+            Clip.Current.RemarksEnglish = tbClipRemarksEnglish.Text;
 
             if (dateTimeExpired.Checked)
             {
@@ -2656,6 +2670,7 @@ namespace MyMentor.Forms
                     tsbMoveAnchorRewind.Visible = false;
                     tsbMoveAnchorForward.Visible = false;
                     tsbCheckAnchor.Visible = false;
+                    tsbImportFile.Visible = true;
                     lblInterval1.Visible = false;
                     lblInterval2.Visible = false;
                     cbInterval.Visible = false;
@@ -2670,6 +2685,7 @@ namespace MyMentor.Forms
                     tsbMoveAnchorRewind.Visible = true;
                     tsbMoveAnchorForward.Visible = true;
                     tsbCheckAnchor.Visible = true;
+                    tsbImportFile.Visible = false;
                     lblInterval1.Visible = true;
                     lblInterval2.Visible = true;
                     cbInterval.Visible = true;
@@ -2902,7 +2918,7 @@ namespace MyMentor.Forms
             }
 
             if (m_bRecAppendMode && m_bContinueRecordingAfterPlayback &&
-                 soundDuration - fPosition <= 200 ) 
+                 soundDuration - fPosition <= 60 ) 
             {
                 if (audioSoundRecorder1.Status != AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING &&
                     audioSoundRecorder1.Status != AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING_MEMORY)
@@ -4019,6 +4035,7 @@ namespace MyMentor.Forms
                 numericPrice.Enabled = false;
                 numericPrice.Value = 0;
                 lblPrice.Visible = false;
+                lblAsterikPrice.Visible = false;
                 numericPrice.Visible = false;
                 lblMinValue.Visible = false;
 
@@ -4029,9 +4046,11 @@ namespace MyMentor.Forms
                 dateTimeExpired.Visible = false;
                 dtpReadingDate.Visible = false;
                 lblReadingDates.Visible = false;
+                lblAsterikReadingDates.Visible = true;
 
                 comboCategory4.Visible = false;
                 lblCategory4.Visible = false;
+                lblAsterikCategory4.Visible = false;
             }
             else
             {
@@ -4048,9 +4067,11 @@ namespace MyMentor.Forms
                 //lblDescription.Visible = true;
                 numericPrice.Enabled = true;
                 lblPrice.Visible = true;
+                lblAsterikPrice.Visible = false;
                 numericPrice.Visible = true;
                 lblMinValue.Visible = true;
                 lblReadingDates.Visible = true;
+                lblAsterikReadingDates.Visible = true;
 
                 tbKeywords.Visible = true;
                 lblKeywords.Visible = true;
@@ -4061,6 +4082,7 @@ namespace MyMentor.Forms
 
                 comboCategory4.Visible = true;
                 lblCategory4.Visible = true;
+                lblAsterikCategory4.Visible = true;
             }
 
             bool doDirty = false;

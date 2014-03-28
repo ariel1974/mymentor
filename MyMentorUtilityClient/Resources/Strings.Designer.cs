@@ -250,6 +250,24 @@ namespace MyMentor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to יש לבחור לפחות אפשרות עוגן אחת.
+        /// </summary>
+        internal static string SOURCE_NEED_TO_SELECT_OPTION {
+            get {
+                return ResourceManager.GetString("SOURCE_NEED_TO_SELECT_OPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to בחירה לא חוקית.
+        /// </summary>
+        internal static string SOURCE_UNLEGAL_OPTION {
+            get {
+                return ResourceManager.GetString("SOURCE_UNLEGAL_OPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to התחל.
         /// </summary>
         internal static string START {

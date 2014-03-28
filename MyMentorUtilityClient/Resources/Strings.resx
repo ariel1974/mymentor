@@ -180,6 +180,12 @@
   <data name="REMOVE_SCHEDULING_CONFIRM" xml:space="preserve">
     <value>האם אתה בטוח להסיר את התזמונים לשיעור זה ?</value>
   </data>
+  <data name="SOURCE_NEED_TO_SELECT_OPTION" xml:space="preserve">
+    <value>יש לבחור לפחות אפשרות עוגן אחת</value>
+  </data>
+  <data name="SOURCE_UNLEGAL_OPTION" xml:space="preserve">
+    <value>בחירה לא חוקית</value>
+  </data>
   <data name="START" xml:space="preserve">
     <value>התחל</value>
   </data>

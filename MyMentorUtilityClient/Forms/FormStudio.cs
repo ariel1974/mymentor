@@ -68,6 +68,7 @@ namespace MyMentor.Forms
         private Graphics rtbMainEditorGraphics;
         private Graphics rtbAlternateEditorGraphics;
         private WorldContentType m_contentType;
+        private MessageBoxOptions m_msgOptionsRtl;
         private short m_endLineUniqueId = -1;
         private int m_targetStartFixInMs = 0;
 
@@ -99,11 +100,13 @@ namespace MyMentor.Forms
             {
                 mnuTools_UI_Hebrew.Checked = true;
                 mnuTools_UI_English.Checked = false;
+                m_msgOptionsRtl = MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading;
             }
             else
             {
                 mnuTools_UI_Hebrew.Checked = false;
                 mnuTools_UI_English.Checked = true;
+                m_msgOptionsRtl = 0;
             }
 
             m_initClip = initClip;
@@ -548,7 +551,7 @@ namespace MyMentor.Forms
             if (Clip.Current.IsDirty)
             {
                 if (Clip.Current.IsDirty &&
-                    MessageBox.Show(m_strings.Single(a => a.Key == "STD_CLIP_NOT_SAVED_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : 0)) == System.Windows.Forms.DialogResult.Yes)
+                    MessageBox.Show(m_strings.Single(a => a.Key == "STD_CLIP_NOT_SAVED_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.Yes)
                 {
                     NewClip();
                 }
@@ -769,18 +772,18 @@ namespace MyMentor.Forms
                 if (Clip.Current.FingerPrint != m_currentFingerPrint)
                 {
                     NewClip();
-                    MessageBox.Show(ResourceHelper.GetLabel("FINGERPRINT_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    MessageBox.Show(ResourceHelper.GetLabel("FINGERPRINT_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                     return;
                 }
             }
             catch (ApplicationException ex)
             {
-                MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ResourceHelper.GetLabel("CLIP_FILE_FORMAT_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(ResourceHelper.GetLabel("CLIP_FILE_FORMAT_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
             }
 
@@ -802,7 +805,7 @@ namespace MyMentor.Forms
 
                 if (error != enumErrorCodes.ERR_NOERROR)
                 {
-                    MessageBox.Show(string.Format("נסיון טעינה של קובץ המוזיקה נכשל בגלל הסיבה :{0}\n\nאנא נסה שוב מאוחר יותר", error.ToString()), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    MessageBox.Show(string.Format("{0}", error.ToString()), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 }
             }
 
@@ -1246,7 +1249,7 @@ namespace MyMentor.Forms
         {
             if (Clip.Current.IsDirty)
             {
-                if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_CLIP_NOT_SAVED_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : 0)) == System.Windows.Forms.DialogResult.Yes)
+                if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_CLIP_NOT_SAVED_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.Yes)
                 {
                     OpenClip();
                     mnuFile_SaveAs.Enabled = true;
@@ -1340,7 +1343,7 @@ namespace MyMentor.Forms
 
                     if (audioSoundEditor1.GetSoundDuration() <= 0 && !excludeClipFile)
                     {
-                        MessageBox.Show(ResourceHelper.GetLabel("CLIP_SAVED_SUCCESSFULLY"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                        MessageBox.Show(ResourceHelper.GetLabel("CLIP_SAVED_SUCCESSFULLY"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                         mnuFile_SaveAs.Enabled = true;
                         Clip.Current.Saved = true;
                     }
@@ -1363,7 +1366,7 @@ namespace MyMentor.Forms
 
                 if (audioSoundEditor1.GetSoundDuration() <= 0 && !excludeClipFile)
                 {
-                    MessageBox.Show(ResourceHelper.GetLabel("CLIP_SAVED_SUCCESSFULLY"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    MessageBox.Show(ResourceHelper.GetLabel("CLIP_SAVED_SUCCESSFULLY"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                     mnuFile_SaveAs.Enabled = true;
                     Clip.Current.Saved = true;
                 }
@@ -1427,7 +1430,7 @@ namespace MyMentor.Forms
         {
             if (Clip.Current.IsDirty)
             {
-                if (MessageBox.Show(ResourceHelper.GetLabel("EXIT_CONFIRM"), "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : 0)) == System.Windows.Forms.DialogResult.Yes)
+                if (MessageBox.Show(ResourceHelper.GetLabel("EXIT_CONFIRM"), "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.Yes)
                 {
                     Application.Exit();
                 }
@@ -1442,21 +1445,21 @@ namespace MyMentor.Forms
         {
             MyMentor.Properties.Settings.Default.CultureInfo = "he-il";
             MyMentor.Properties.Settings.Default.Save();
-            MessageBox.Show(ResourceHelper.GetLabel("HEBREW_CHANGE_LANGUAGE"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            MessageBox.Show(ResourceHelper.GetLabel("HEBREW_CHANGE_LANGUAGE"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
         }
 
         private void mnuTools_UI_English_Click(object sender, EventArgs e)
         {
             MyMentor.Properties.Settings.Default.CultureInfo = "en-us";
             MyMentor.Properties.Settings.Default.Save();
-            MessageBox.Show(ResourceHelper.GetLabel("ENGLISH_CHANGE_LANGUAGE"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            MessageBox.Show(ResourceHelper.GetLabel("ENGLISH_CHANGE_LANGUAGE"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
         }
 
         private void loginAsOtherUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ParseUser.LogOut();
 
-            MessageBox.Show(ResourceHelper.GetLabel("LOGIN_OTHER_USER"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            MessageBox.Show(ResourceHelper.GetLabel("LOGIN_OTHER_USER"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
             Application.Exit();
         }
 
@@ -1588,7 +1591,7 @@ namespace MyMentor.Forms
             if (audioSoundEditor1.GetSoundDuration() > 0)
             {
                 // ask the user if he wants to go on
-                result = MessageBox.Show(ResourceHelper.GetLabel("OVERWRITE_AUDIO_CONFIRM"), "MyMentor", MessageBoxButtons.YesNo);
+                result = MessageBox.Show(ResourceHelper.GetLabel("OVERWRITE_AUDIO_CONFIRM"), "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 if (result == DialogResult.No)
                     return;
             }
@@ -1979,7 +1982,7 @@ namespace MyMentor.Forms
         {
             if (Clip.Current.Chapter.Paragraphs != null)
             {
-                if (MessageBox.Show(ResourceHelper.GetLabel("REMOVE_SCHEDULING_CONFIRM"), "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : 0)) == System.Windows.Forms.DialogResult.Yes)
+                if (MessageBox.Show(ResourceHelper.GetLabel("REMOVE_SCHEDULING_CONFIRM"), "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.Yes)
                 {
                     Clip.Current.IsDirty = true;
 
@@ -2525,7 +2528,7 @@ namespace MyMentor.Forms
             if (audioSoundEditor1.GetSoundDuration() > 0)
             {
                 // ask the user if he wants to go on
-                result = MessageBox.Show(ResourceHelper.GetLabel("OVERWRITE_AUDIO_CONFIRM"), "MyMentor", MessageBoxButtons.YesNo);
+                result = MessageBox.Show(ResourceHelper.GetLabel("OVERWRITE_AUDIO_CONFIRM"), "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 if (result == DialogResult.No)
                     return;
             }
@@ -2759,7 +2762,7 @@ namespace MyMentor.Forms
     audioSoundEditor1.GetSoundDuration() <= 0)
             {
                 // ask the user if he wants to go on
-                MessageBox.Show(ResourceHelper.GetLabel("NO_AUDIO_EXISTS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(ResourceHelper.GetLabel("NO_AUDIO_EXISTS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 e.Cancel = true;
             }
         }
@@ -3118,7 +3121,7 @@ namespace MyMentor.Forms
                 MessageBox.Show(e.nResult.ToString());
             else
             {
-                MessageBox.Show(ResourceHelper.GetLabel("CLIP_SAVED_SUCCESSFULLY"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(ResourceHelper.GetLabel("CLIP_SAVED_SUCCESSFULLY"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 mnuFile_SaveAs.Enabled = true;
             }
 
@@ -3878,20 +3881,20 @@ namespace MyMentor.Forms
             if (audioSoundEditor1.GetSoundDuration() <= 0 && !m_admin)
             {
                 // ask the user if he wants to go on
-                MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NO_SCHEDULING_EXISTS").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NO_SCHEDULING_EXISTS").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
             }
 
             if (Clip.Current.IsNew)
             {
                 // ask the user if he wants to go on
-                MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NOT_SAVED").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NOT_SAVED").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
             }
 
             if ((string)comboClipType.SelectedValue != "piL85bMGtR" && !m_admin)
             {
-                MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NO_PERMISSIONS").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NO_PERMISSIONS").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
             }
 
@@ -3900,25 +3903,25 @@ namespace MyMentor.Forms
             {
                 if (dateTimeExpired.Checked && dateTimeExpired.Value <= DateTime.Today)
                 {
-                    MessageBox.Show(ResourceHelper.GetLabel("EXPIRED_DATE_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    MessageBox.Show(ResourceHelper.GetLabel("EXPIRED_DATE_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                     return;
                 }
 
                 if (comboCategory3.SelectedIndex < 0)
                 {
-                    MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                     return;
                 }
 
                 if (((Category)comboCategory3.SelectedItem).MinPrice > numericPrice.Value)
                 {
-                    MessageBox.Show(ResourceHelper.GetLabel("MIN_PRICE_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    MessageBox.Show(ResourceHelper.GetLabel("MIN_PRICE_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                     return;
                 }
 
                 //if (((Category)comboCategory3.SelectedItem).MinPrice > numericPriceSupport.Value)
                 //{
-                //    MessageBox.Show("מחיר השיעור כולל תמיכה קטן מהמינימום המותר לסוג זה", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                //    MessageBox.Show("מחיר השיעור כולל תמיכה קטן מהמינימום המותר לסוג זה", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 //    return;
                 //}
 
@@ -3926,14 +3929,14 @@ namespace MyMentor.Forms
 
             if ((string)comboClipType.SelectedValue == "piL85bMGtR")
             {
-                if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : 0)) == System.Windows.Forms.DialogResult.No)
+                if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.No)
                 {
                     return;
                 }
             }
             else
             {
-                if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : 0)) == System.Windows.Forms.DialogResult.No)
+                if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.No)
                 {
                     return;
                 }
@@ -3990,14 +3993,14 @@ namespace MyMentor.Forms
                             buttonPublish.Enabled = true;
                             pictureBox2.Visible = false;
                             progressBar1.Visible = true;
-                            MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_SUCCESFULLY").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                            MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_SUCCESFULLY").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("Error :\n\n{0}", ex.ToString()), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(string.Format("Error :\n\n{0}", ex.ToString()), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
             }
             finally
             {
@@ -4121,19 +4124,19 @@ namespace MyMentor.Forms
 
             if (parDelimiters.Count() == 0 && senDelimiters.Count() == 0 && worDelimiters.Count() == 0)
             {
-                MessageBox.Show("יש לבחור לפחות אפשרות עוגן אחת", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show( ResourceHelper.GetLabel("SOURCE_NEED_TO_SELECT_OPTION") , "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
             }
 
             if (parDelimiters.Exists(a => a == "ENTER") && senDelimiters.Exists(a => a == "ENTER"))
             {
-                MessageBox.Show("בחירה לא חוקית", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(ResourceHelper.GetLabel("SOURCE_UNLEGAL_OPTION"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
             }
 
             if (parDelimiters.Exists(a => a == "שני ENTER") && senDelimiters.Exists(a => a == "שני ENTER"))
             {
-                MessageBox.Show("בחירה לא חוקית", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                MessageBox.Show(ResourceHelper.GetLabel("SOURCE_UNLEGAL_OPTION"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
             }
 
@@ -4183,7 +4186,7 @@ namespace MyMentor.Forms
                             continue;
                         }
 
-                        if (parDelimiters.Exists(a => a == "שני ENTER") && enterKeys % 2 == 0 && charactersFromLastAnchor > 0)
+                        if (parDelimiters.Exists(a => a == "שני ENTER" || a == "2th ENTER") && enterKeys % 2 == 0 && charactersFromLastAnchor > 0)
                         {
                             AddAnchor(AnchorType.Paragraph, index - 1);
                             anchors++;
@@ -4196,9 +4199,9 @@ namespace MyMentor.Forms
                         {
                             sentenses += 1;
 
-                            if (charactersFromLastAnchor > 0 && (sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
-                                (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
-                                (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                            if (charactersFromLastAnchor > 0 && (sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES")) ||
+                                (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES")) ||
+                                (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES")))
                             {
                                 AddAnchor(AnchorType.Paragraph, index - 1);
                                 anchors++;
@@ -4215,13 +4218,13 @@ namespace MyMentor.Forms
                             continue;
                         }
 
-                        if (senDelimiters.Exists(a => a == "שני ENTER") && enterKeys % 2 == 0 && charactersFromLastAnchor > 0)
+                        if (senDelimiters.Exists(a => a == "שני ENTER" || a == "2th ENTER") && enterKeys % 2 == 0 && charactersFromLastAnchor > 0)
                         {
                             sentenses += 1;
 
-                            if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
-                                (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
-                                (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                            if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES")) ||
+                                (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES")) ||
+                                (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES")))
                             {
                                 AddAnchor(AnchorType.Paragraph, index - 1);
                                 anchors++;
@@ -4254,9 +4257,9 @@ namespace MyMentor.Forms
                     {
                         sentenses += 1;
 
-                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
-                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
-                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES")) ||
+                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES")) ||
+                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES")))
                         {
                             AddAnchor(AnchorType.Paragraph, index);
                             anchors++;
@@ -4277,9 +4280,9 @@ namespace MyMentor.Forms
                     {
                         sentenses += 1;
 
-                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
-                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
-                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES")) ||
+                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES")) ||
+                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES")))
                         {
                             AddAnchor(AnchorType.Paragraph, index);
                             anchors++;
@@ -4300,9 +4303,9 @@ namespace MyMentor.Forms
                     {
                         sentenses += 1;
 
-                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים")) ||
-                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים")) ||
-                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים")))
+                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES")) ||
+                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES")) ||
+                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES")))
                         {
                             AddAnchor(AnchorType.Paragraph, index);
                             anchors++;
@@ -4319,7 +4322,7 @@ namespace MyMentor.Forms
                         continue;
                     }
 
-                    if ((richTextBox2.SelectedText == " " && worDelimiters.Exists(a => a == "רווח") && charactersFromLastAnchor > 0)
+                    if ((richTextBox2.SelectedText == " " && worDelimiters.Exists(a => a == "רווח" || a == "SPACE") && charactersFromLastAnchor > 0)
                         ||
                         (worDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0))
                     {
@@ -4671,32 +4674,35 @@ namespace MyMentor.Forms
             {
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    richTextBox1.Rtf = form.SelectedSource.Rtf;
-
-                    if (form.SelectedSource.Category1 != null)
+                    if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_SOURCE_TEXT_ARE_YOU_SURE").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        comboCategory1.SelectedValue = form.SelectedSource.Category1.ObjectId;
+                        richTextBox1.Rtf = form.SelectedSource.Rtf;
 
-                        comboCategory1_SelectionChangeCommitted(null, new EventArgs());
+                        if (form.SelectedSource.Category1 != null)
+                        {
+                            comboCategory1.SelectedValue = form.SelectedSource.Category1.ObjectId;
+
+                            comboCategory1_SelectionChangeCommitted(null, new EventArgs());
+                        }
+
+                        if (form.SelectedSource.Category2 != null)
+                        {
+                            comboCategory2.SelectedValue = form.SelectedSource.Category2.ObjectId;
+                        }
+
+                        if (form.SelectedSource.Category3 != null)
+                        {
+                            comboCategory3.SelectedValue = form.SelectedSource.Category3.ObjectId;
+                        }
+
+                        tbClipDescription.Text = form.SelectedSource.Description;
+                        tbClipDescriptionEnglish.Text = form.SelectedSource.DescriptionEnglish;
+
+                        tbClipRemarks.Text = form.SelectedSource.Remarks;
+                        tbClipRemarksEnglish.Text = form.SelectedSource.RemarksEnglish;
+
+                        MessageBox.Show(m_strings.Single(a => a.Key == "STD_AFTER_SOURCE_SELECTION").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                     }
-
-                    if (form.SelectedSource.Category2 != null)
-                    {
-                        comboCategory2.SelectedValue = form.SelectedSource.Category2.ObjectId;
-                    }
-
-                    if (form.SelectedSource.Category3 != null)
-                    {
-                        comboCategory3.SelectedValue = form.SelectedSource.Category3.ObjectId;
-                    }
-
-                    tbClipDescription.Text = form.SelectedSource.Description;
-                    tbClipDescriptionEnglish.Text = form.SelectedSource.DescriptionEnglish;
-
-                    tbClipRemarks.Text = form.SelectedSource.Remarks;
-                    tbClipRemarksEnglish.Text = form.SelectedSource.RemarksEnglish;
-
-                    MessageBox.Show(m_strings.Single(a => a.Key == "STD_AFTER_SOURCE_SELECTION").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 }
             }
 

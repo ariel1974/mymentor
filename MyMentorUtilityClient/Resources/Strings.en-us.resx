@@ -180,6 +180,12 @@
   <data name="REMOVE_SCHEDULING_CONFIRM" xml:space="preserve">
     <value>Are you sure to remove all scheduling for this clip ?</value>
   </data>
+  <data name="SOURCE_NEED_TO_SELECT_OPTION" xml:space="preserve">
+    <value>You have to select at least one option</value>
+  </data>
+  <data name="SOURCE_UNLEGAL_OPTION" xml:space="preserve">
+    <value>Not valid option</value>
+  </data>
   <data name="START" xml:space="preserve">
     <value>Start</value>
   </data>

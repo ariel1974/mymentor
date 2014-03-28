@@ -948,15 +948,15 @@ namespace MyMentor.Forms
 
             int width = Convert.ToInt32(rtbMainEditorGraphics.MeasureString(number, richTextBox2.SelectionFont).Width);
 
-            factor1 = (int)(richTextBox2.SelectionFont.Size * 0.72222);
-            factor2 = (int)(richTextBox2.SelectionFont.Size * - 0.38888);
-            factor3 = (int)(richTextBox2.SelectionFont.Size * 0.55555);
+            factor1 = (int)(richTextBox2.SelectionFont.Size *  0.98222);
+            factor2 = (int)(richTextBox2.SelectionFont.Size * - 0.48888);
+            factor3 = (int)(richTextBox2.SelectionFont.Size * 0.78555);
 
             // rectangle to specify which region to paint too
             Rectangle r1 = new Rectangle();
 
             // specify dimensions
-            r1.X = positionMainEditor.X + (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? factor1 - width : 0);
+            r1.X = positionMainEditor.X +  factor1 - width ;
             r1.Y = positionMainEditor.Y;
             r1.Width = width + factor2;
             r1.Height =
@@ -3745,8 +3745,6 @@ namespace MyMentor.Forms
                                 audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true,
                                     m_LastSelections[0],
                                     m_LastSelections[1]);
-
-                                tsm_RemoveAnchor.Enabled = true;
                             }
                             else
                             {
@@ -3761,6 +3759,8 @@ namespace MyMentor.Forms
                                 (int)(m_selectedScheduledWord.StartTime.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds),
                                 (int)(m_selectedScheduledWord.StartTime.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds));
                         }
+
+                        tsm_RemoveAnchor.Enabled = true;
                     }
                     else
                     {
@@ -4049,7 +4049,7 @@ namespace MyMentor.Forms
                 dateTimeExpired.Visible = false;
                 dtpReadingDate.Visible = false;
                 lblReadingDates.Visible = false;
-                lblAsterikReadingDates.Visible = true;
+                lblAsterikReadingDates.Visible = false;
 
                 comboCategory4.Visible = false;
                 lblCategory4.Visible = false;
@@ -4369,8 +4369,17 @@ namespace MyMentor.Forms
             if (!string.IsNullOrEmpty(richTextBox2.SelectedText.ClearSpacesAndBreakLines()))
             {
                 richTextBox2.SelectionStart = index;
-                richTextBox2.SelectionLength = 0;
-                richTextBox2.SelectedText = anchor;
+                richTextBox2.SelectionLength = 3;
+
+                if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")
+                {
+                    richTextBox2.SelectedText = anchor;
+                }
+                else
+                {
+                    richTextBox2.SelectionLength = 0;
+                    richTextBox2.SelectedText = anchor;
+                }
             }
 
         }
@@ -4414,6 +4423,8 @@ namespace MyMentor.Forms
 
             RemoveWaveFormGraphics();
             PaintWaveFormGraphics();
+
+            tsm_RemoveAnchor.Enabled = false;
         }
 
         private void timerFirstAnchorScheduling_Tick(object sender, EventArgs e)

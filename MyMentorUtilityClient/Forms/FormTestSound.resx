@@ -328,7 +328,7 @@
     <value>72</value>
   </data>
   <data name="buttonPlayAudio.Text" xml:space="preserve">
-    <value>נגן קובץ דוגמא</value>
+    <value>נגן קובץ דוגמה</value>
   </data>
   <data name="&gt;&gt;buttonPlayAudio.Name" xml:space="preserve">
     <value>buttonPlayAudio</value>

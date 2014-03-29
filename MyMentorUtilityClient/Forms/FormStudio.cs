@@ -101,12 +101,26 @@ namespace MyMentor.Forms
                 mnuTools_UI_Hebrew.Checked = true;
                 mnuTools_UI_English.Checked = false;
                 m_msgOptionsRtl = MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading;
+
             }
             else
             {
                 mnuTools_UI_Hebrew.Checked = false;
                 mnuTools_UI_English.Checked = true;
                 m_msgOptionsRtl = 0;
+
+                toolStrip2.Items.Remove(tsbRewind);
+                toolStrip2.Items.Remove(tsbMoveStart);
+                toolStrip2.Items.Remove(tsbForward);
+                toolStrip2.Items.Remove(tsbMoveEnd);
+                toolStrip2.Items.Remove(tsbStop);
+
+                toolStrip2.Items.Insert(10, tsbMoveStart);
+                toolStrip2.Items.Insert(11, tsbRewind);
+                toolStrip2.Items.Insert(12, tsbStop);
+
+                toolStrip2.Items.Insert(14, tsbForward);
+                toolStrip2.Items.Insert(15, tsbMoveEnd);
             }
 
             m_initClip = initClip;
@@ -4134,7 +4148,7 @@ namespace MyMentor.Forms
                 return;
             }
 
-            if (parDelimiters.Exists(a => a == "שני ENTER") && senDelimiters.Exists(a => a == "שני ENTER"))
+            if (parDelimiters.Exists(a => a == "שני ENTER" || a == "2th ENTER") && senDelimiters.Exists(a => a == "שני ENTER" || a == "2th ENTER"))
             {
                 MessageBox.Show(ResourceHelper.GetLabel("SOURCE_UNLEGAL_OPTION"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
@@ -4253,7 +4267,7 @@ namespace MyMentor.Forms
                     }
 
                     if ((richTextBox2.SelectedText == ":" || richTextBox2.SelectedText == "׃")
-                        && senDelimiters.Exists(a => a == "נקודותיים (:)") && charactersFromLastAnchor > 0)
+                        && senDelimiters.Exists(a => a == "נקודותיים (:)" || a == "COLON (:)") && charactersFromLastAnchor > 0)
                     {
                         sentenses += 1;
 
@@ -4276,7 +4290,7 @@ namespace MyMentor.Forms
                         continue;
                     }
 
-                    if (richTextBox2.SelectedText == "." && senDelimiters.Exists(a => a == "נקודה (.)") && charactersFromLastAnchor > 0)
+                    if (richTextBox2.SelectedText == "." && senDelimiters.Exists(a => a == "נקודה (.)" || a == "DOT (.)") && charactersFromLastAnchor > 0)
                     {
                         sentenses += 1;
 

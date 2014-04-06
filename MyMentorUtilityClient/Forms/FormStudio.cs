@@ -955,6 +955,7 @@ namespace MyMentor.Forms
             int factor1 = 0;
             int factor2 = 0;
             int factor3 = 0;
+            int factor4 = 0;
 
             var positionMainEditor = richTextBox1.GetPositionFromCharIndex(index);
             richTextBox2.SelectionStart = index;// -3;
@@ -965,22 +966,23 @@ namespace MyMentor.Forms
             factor1 = (int)(richTextBox2.SelectionFont.Size *  0.98222);
             factor2 = (int)(richTextBox2.SelectionFont.Size * - 0.48888);
             factor3 = (int)(richTextBox2.SelectionFont.Size * 0.78555);
+            factor4 = (int)(richTextBox2.SelectionFont.Size * - 0.19855);
 
             // rectangle to specify which region to paint too
             Rectangle r1 = new Rectangle();
 
             // specify dimensions
-            r1.X = positionMainEditor.X +  factor1 - width ;
+            r1.X = positionMainEditor.X + (richTextBox1.SelectionAlignment == HorizontalAlignment.Right ? factor1 - width : 0);
             r1.Y = positionMainEditor.Y;
             r1.Width = width + factor2;
             r1.Height =
-                Convert.ToInt32(richTextBox2.SelectionFont.Height * richTextBox2.ZoomFactor);
+                Convert.ToInt32(richTextBox1.SelectionFont.Height * richTextBox2.ZoomFactor);
 
             rtbMainEditorGraphics.DrawRectangle(cp, r1);
             rtbMainEditorGraphics.FillRectangle(cb, r1);
 
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(type == AnchorType.Word ? System.Drawing.Color.Black : System.Drawing.Color.White);
-            float x = positionMainEditor.X + (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? factor3 - width : 0);
+            float x = positionMainEditor.X + (richTextBox1.SelectionAlignment == HorizontalAlignment.Right ? factor3 - width : factor4);// (this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? factor3 - width : 0);
             float y = positionMainEditor.Y;
             System.Drawing.StringFormat drawFormat = new System.Drawing.StringFormat();
             rtbMainEditorGraphics.DrawString(number, richTextBox2.SelectionFont, drawBrush, x, y, drawFormat);
@@ -988,7 +990,7 @@ namespace MyMentor.Forms
             if (tabControl1.SelectedIndex == 2)
             {
                 var positionAlternateEditor = richTextBox3.GetPositionFromCharIndex(index + START_PAUSE_SECTION_ANCHOR.Length);
-                r1.X = positionAlternateEditor.X + factor1 - width;
+                r1.X = positionAlternateEditor.X + (richTextBox1.SelectionAlignment == HorizontalAlignment.Right ? factor1 - width : 0);
                 r1.Y = positionAlternateEditor.Y;
 
                 //anchor
@@ -1001,7 +1003,7 @@ namespace MyMentor.Forms
                 rtbAlternateEditorGraphics.DrawRectangle(cp, r1);
                 rtbAlternateEditorGraphics.FillRectangle(cb, r1);
 
-                x = positionAlternateEditor.X + factor3 - width;
+                x = positionAlternateEditor.X + (richTextBox1.SelectionAlignment == HorizontalAlignment.Right ? factor3 - width : 0);
                 y = positionAlternateEditor.Y;
                 drawFormat = new System.Drawing.StringFormat();
                 rtbAlternateEditorGraphics.DrawString(number, richTextBox2.SelectionFont, drawBrush, x, y, drawFormat);
@@ -1040,11 +1042,13 @@ namespace MyMentor.Forms
                 lblLoginUser.Text = ResourceHelper.GetLabel("LOGIN_AS") + ParseUser.CurrentUser.Username;
             }
 
-            FormPleaseWait form = new FormPleaseWait();
-            form.Show();
+            FormPleaseWait pleaseWaitFrm = new FormPleaseWait();
+            pleaseWaitFrm.Show();
             Application.DoEvents();
 
             WorldContentType contentType = await ParseTables.GetContentType();
+
+            pleaseWaitFrm.Progress = 5;
 
             m_contentType = contentType;
 
@@ -1063,6 +1067,8 @@ namespace MyMentor.Forms
                     Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
                 }).ToList();
 
+                pleaseWaitFrm.Progress = 15;
+
                 this.comboCategory3.DisplayMember = "Value";
                 this.comboCategory3.ValueMember = "ObjectId";
                 this.comboCategory3.DataSource = (await ParseTables.GetCategory3(contentType.ObjectId, "HPz65WBzhw")).Select(c => new Category
@@ -1072,6 +1078,8 @@ namespace MyMentor.Forms
                     MinPrice = (decimal)c.Get<float>("minPrice")
                 }).ToList();
 
+                pleaseWaitFrm.Progress = 30;
+
                 this.comboCategory4.DisplayMember = "Value";
                 this.comboCategory4.ValueMember = "ObjectId";
                 this.comboCategory4.DataSource = (await ParseTables.GetCategory4(contentType.ObjectId)).Select(c => new Category
@@ -1079,6 +1087,8 @@ namespace MyMentor.Forms
                     ObjectId = c.ObjectId,
                     Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
                 }).ToList();
+
+                pleaseWaitFrm.Progress = 45;
 
                 this.comboStatus.DisplayMember = "Value";
                 this.comboStatus.ValueMember = "ObjectId";
@@ -1088,6 +1098,7 @@ namespace MyMentor.Forms
                     Value = c.Get<string>(status_key)
                 }).ToList();
 
+                pleaseWaitFrm.Progress = 70;
 
                 await ParseTables.GetTypes().ContinueWith((t) =>
                 {
@@ -1104,6 +1115,7 @@ namespace MyMentor.Forms
                     Clip.Current.IsDirty = false;
                 });
 
+                pleaseWaitFrm.Progress = 90;
 
                 ParseObject labels = await ParseTables.GetCategoryLabels(contentType.ObjectId);
 
@@ -1135,6 +1147,8 @@ namespace MyMentor.Forms
                 lblClipType.Visible = true;
             }
 
+            pleaseWaitFrm.Progress = 100;
+
             await Task.Factory.StartNew(() =>
             {
                 m_currentFingerPrint = FingerPrint.Value(ParseUser.CurrentUser.ObjectId);
@@ -1144,7 +1158,7 @@ namespace MyMentor.Forms
                 Clip.Current.FingerPrint = m_currentFingerPrint;
             });
 
-            form.Close();
+            pleaseWaitFrm.Close();
             this.Enabled = true;
             richTextBox1.Focus();
 
@@ -2174,6 +2188,7 @@ namespace MyMentor.Forms
                 richTextBox1.SelectAll();
                 richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
                 richTextBox1.Select(0, 0);
+                PaintGraphics();
             }
             catch
             {
@@ -2189,6 +2204,7 @@ namespace MyMentor.Forms
                 richTextBox1.SelectAll();
                 richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
                 richTextBox1.Select(0, 0);
+                PaintGraphics();
             }
             catch
             {

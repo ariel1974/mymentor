@@ -12,6 +12,19 @@ namespace MyMentor.Forms
 {
     public partial class FormPleaseWait : Form
     {
+        public int Progress
+        {
+            get
+            {
+                return this.progressBar1.Value;
+            }
+            set
+            {
+                this.progressBar1.Value = value;
+            }
+        }
+
+
         public FormPleaseWait()
         {
             InitializeComponent();

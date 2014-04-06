@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="{E0F66803-91BF-4571-B8B2-D442D5513E1D}" Name="MyMentor Studio V2" Language="1033" Version="9.0.4.1" Manufacturer="MyMentor" UpgradeCode="dbb0c767-da1c-4acb-8075-a293ead7da66">
+  <Product Id="{E0F66803-91BF-4571-B8B2-D442D5513E1D}" Name="MyMentor Studio V2" Language="1033" Version="9.0.4.4" Manufacturer="MyMentor" UpgradeCode="dbb0c767-da1c-4acb-8075-a293ead7da66">
     <Package Id="{8793907F-A2D7-4701-BE6E-90865B83E80A}" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <Upgrade Id="dbb0c767-da1c-4acb-8075-a293ead7da66">
       <UpgradeVersion
@@ -41,6 +41,7 @@
       <Feature Id='MainProgram' Title='Program' Description='The main executable.' Level='1'>
         <ComponentRef Id='MainExecutable' />
         <ComponentRef Id='ThirdParty' />
+        <ComponentRef Id='ResourceEnUs_Files' />
         <ComponentRef Id="ApplicationShortcut" />
       </Feature>
     </Feature>
@@ -70,7 +71,9 @@
         <Directory Id="INSTALLFOLDER" Name="MyMentor Studio V2">
           <Directory Id="RFT2HTMLFOLDER" Name="Rtf2Html">
           </Directory>
-          </Directory> 
+          <Directory Id="RES_EN_US" Name="en-us">
+          </Directory>
+        </Directory> 
       </Directory>
       <Directory Id="DesktopFolder"  SourceName="Desktop"/>
       <Directory Id="ProgramMenuFolder">
@@ -104,7 +107,14 @@
 
       </Component>
     </ComponentGroup>
-   <ComponentGroup Id="Rtf2Html" Directory="RFT2HTMLFOLDER">
+    
+    <ComponentGroup Id="ResourceEnUs" Directory="RES_EN_US">
+      <Component Id="ResourceEnUs_Files" Guid='{85BE1088-E38F-49E6-9691-46F669711258}'>
+        <File Id='resourceEnUs' Name='MyMentor.resources.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\en-us\MyMentor.resources.dll' KeyPath='no'/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="Rtf2Html" Directory="RFT2HTMLFOLDER">
       <Component Id="ThirdParty" Guid='{2ABA8FC6-F380-4913-89AC-6FF8C3367CF4}'>
         <File Id='Itenso.Rtf.Converter.Html.dll' Name='Itenso.Rtf.Converter.Html.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Rtf.Converter.Html.dll' KeyPath='no'/>
         <File Id='Itenso.Rtf.Interpreter.dll' Name='Itenso.Rtf.Interpreter.dll' DiskId='1' Source='..\MyMentorUtilityClient\bin\debug\Rtf2Html\Itenso.Rtf.Interpreter.dll' KeyPath='no'/>

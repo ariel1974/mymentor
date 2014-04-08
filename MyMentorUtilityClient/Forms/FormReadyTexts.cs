@@ -42,7 +42,7 @@ namespace MyMentor
             lblCategory2.Text = labels[1];
             lblCategory3.Text = labels[2];
 
-            this.comboCategory1.DisplayMember = "Value";
+            this.comboCategory1.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
             this.comboCategory1.ValueMember = "ObjectId";
             comboCategory1.DataSource = m_formMain.GetCategory1();
 
@@ -110,22 +110,22 @@ namespace MyMentor
                 {
                     Index = counter++,
                     ObjectId = a.ObjectId,
-                    Name = a.Get<string>("name"),
+                    Name = a.ContainsKey("name_" + MyMentor.Properties.Settings.Default.CultureInfo.ToLower().Replace("-", "_")) ? a.Get<string>("name_" + MyMentor.Properties.Settings.Default.CultureInfo.ToLower().Replace("-", "_")) : string.Empty,
                     Rtf = a.Get<string>("clipSourceRtf"),
                     Category1 = a.Get<ParseObject>("category1"),
                     Category2 = a.Get<ParseObject>("category2"),
                     Category3 = a.Get<ParseObject>("category3"),
-                    Remarks = a.Get<string>("remarks"),
-                    RemarksEnglish = a.ContainsKey("remarksEnglish") ? a.Get<string>("remarksEnglish") : string.Empty,
-                    Description = a.Get<string>("description"),
-                    DescriptionEnglish = a.ContainsKey("descriptionEnglish") ? a.Get<string>("descriptionEnglish") : string.Empty,
+                    Remarks = a.ContainsKey("remarks_he_il") ? a.Get<string>("remarks_he_il") : string.Empty,
+                    RemarksEnglish = a.ContainsKey("remarks_en_us") ? a.Get<string>("remarks_en_us") : string.Empty,
+                    Description = a.ContainsKey("description_he_il") ? a.Get<string>("description_he_il") : string.Empty,
+                    DescriptionEnglish = a.ContainsKey("description_en_us") ? a.Get<string>("description_en_us") : string.Empty,
                     Status = a.Get<ParseObject>("status").FetchIfNeededAsync().Result
                 }));
 
                 foreach (var o in m_result)
                 {
                     ListViewItem lvi = listView1.Items.Add(o.ObjectId, o.Name, -1);
-                    lvi.SubItems.Add(o.Status.Get<string>("status_he_il"));
+                    lvi.SubItems.Add(o.Status.Get<string>("status_" + MyMentor.Properties.Settings.Default.CultureInfo.ToLower().Replace("-","_") ));
                 }
 
             }
@@ -155,14 +155,16 @@ namespace MyMentor
 
         private async void FormReadyTexts_Load(object sender, EventArgs e)
         {
-            string value_key = "value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
+            string he_il_value_key = "value_he_il";
+            string en_us_value_key = "value_en_us";
 
-            this.comboCategory3.DisplayMember = "Value";
+            this.comboCategory3.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
             this.comboCategory3.ValueMember = "ObjectId";
             this.comboCategory3.DataSource = (await ParseTables.GetCategory3(m_formMain.ContentType.ObjectId, "0y8A4XTNeR")).Select(c => new Category
             {
                 ObjectId = c.ObjectId,
-                Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
+                HebrewValue = c.ContainsKey(he_il_value_key) ? c.Get<string>(he_il_value_key) : string.Empty,
+                EnglishValue = c.ContainsKey(en_us_value_key) ? c.Get<string>(en_us_value_key) : string.Empty
             }).ToList();
 
             comboCategory3.SelectedItem = null;
@@ -171,18 +173,20 @@ namespace MyMentor
 
         private async void comboCategory1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            string value_key = "value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
+            string he_il_value_key = "value_he_il";
+            string us_en_value_key = "value_en_us";
 
             if (comboCategory1.SelectedIndex >= 0)
             {
                 var list = (await ParseTables.GetCategory2((string)comboCategory1.SelectedValue)).Where(o => o.Keys.Count() == 4);
 
-                this.comboCategory2.DisplayMember = "Value";
+                this.comboCategory2.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
                 this.comboCategory2.ValueMember = "ObjectId";
                 this.comboCategory2.DataSource = list.Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
+                    HebrewValue = c.ContainsKey(he_il_value_key) ? c.Get<string>(he_il_value_key) : string.Empty,
+                    EnglishValue = c.ContainsKey(us_en_value_key) ? c.Get<string>(us_en_value_key) : string.Empty
                 }).ToList(); ;
 
                 this.comboCategory2.SelectedValue = string.Empty;

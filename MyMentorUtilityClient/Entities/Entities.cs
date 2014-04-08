@@ -12,7 +12,8 @@ namespace MyMentor
     public class Category
     {
         public string ObjectId { get; set; }
-        public string Value { get; set; }
+        public string HebrewValue { get; set; }
+        public string EnglishValue { get; set; }
         public decimal MinPrice { get; set; }
     }
     public class SectionCellData

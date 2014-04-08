@@ -68,7 +68,8 @@ namespace MyMentor
         public decimal PriceSupport { get; set; }
         public string User { get; set; }
         public string Name { get; set; }
-        public string Title { get; set; }
+        public string HebrewTitle { get; set; }
+        public string EnglishTitle { get; set; }
         public bool RightAlignment { get; set; }
         public string Description { get; set; }
         public string EnglishDescription { get; set; }
@@ -659,13 +660,14 @@ namespace MyMentor
                 clip["clipId"] = this.ID.ToString();
             }
 
-            clip["name"] = this.Title;
+            clip["name_he_il"] = this.HebrewTitle;
+            clip["name_en_us"] = this.EnglishTitle;
             clip["clipSourceRtf"] = this.RtfText;
             clip["clipSourceText"] = this.Text;
-            clip["description"] = this.Description;
-            clip["descriptionEnglish"] = this.EnglishDescription;
-            clip["remarks"] = this.Remarks;
-            clip["remarksEnglish"] = this.RemarksEnglish;
+            clip["description_he_il"] = this.Description;
+            clip["description_en_us"] = this.EnglishDescription;
+            clip["remarks_he_il"] = this.Remarks;
+            clip["remarks_en_us"] = this.RemarksEnglish;
             clip["version"] = this.Version;
             clip["fingerPrint"] = this.FingerPrint;
             clip["clipType"] = ParseObject.CreateWithoutData("ClipType", this.ClipType);
@@ -957,7 +959,7 @@ namespace MyMentor
 
             jsonClip clip = new jsonClip();
             clip.id = this.ID.ToString();
-            clip.name = this.Title;
+            clip.name = this.HebrewTitle;
             clip.description = this.Description;
             clip.remarks = this.Remarks;
             clip.clipVersion = this.Version;

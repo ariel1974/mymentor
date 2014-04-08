@@ -23,7 +23,7 @@ namespace MyMentor
         static void Main(string[] args)
         {
             //ParseObject.RegisterSubclass<Cat_Kria>();
-            ParseObject.RegisterSubclass<WorldContentType>();
+            //ParseObject.RegisterSubclass<WorldContentType>();
             //ParseObject.RegisterSubclass<ClipStatus>();
             //ParseObject.RegisterSubclass<ClipsV2>();
             ParseClient.Initialize("qvC0Pgq7QGSqntpqnA75vGnNUBewQ08DplQcJtMI", "65j2W36stF0GXUhJwAEuTwJp6geDEWeaUSSFyHKg");

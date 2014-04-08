@@ -15,6 +15,44 @@ namespace MyMentor
 {
     public static class ExtensionMethods
     {
+        public static string GetHebrewText(this ComboBox combo)
+        {
+            if (combo.SelectedItem != null)
+            {
+                if (combo.SelectedItem is Category)
+                {
+                    return ((Category)combo.SelectedItem).HebrewValue;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        public static string GetEnglishText(this ComboBox combo)
+        {
+            if (combo.SelectedItem != null)
+            {
+                if (combo.SelectedItem is Category)
+                {
+                    return ((Category)combo.SelectedItem).EnglishValue;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
         public static void RemoveAnchors(this RichTextBox myRtb)
         {
             string[] anchors = { "[3]", "[2]", "[1]", "[0]" };

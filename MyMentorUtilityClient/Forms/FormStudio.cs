@@ -67,7 +67,7 @@ namespace MyMentor.Forms
         private bool b_recordIconRed;
         private Graphics rtbMainEditorGraphics;
         private Graphics rtbAlternateEditorGraphics;
-        private WorldContentType m_contentType;
+        private ParseObject m_contentType;
         private MessageBoxOptions m_msgOptionsRtl;
         private short m_endLineUniqueId = -1;
         private int m_targetStartFixInMs = 0;
@@ -80,7 +80,7 @@ namespace MyMentor.Forms
             get { return m_strings; }
         }
 
-        public WorldContentType ContentType
+        public ParseObject ContentType
         {
             get
             {
@@ -678,12 +678,14 @@ namespace MyMentor.Forms
             {
                 try
                 {
-                    this.comboCategory2.DisplayMember = "Value";
+                    this.comboCategory2.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
                     this.comboCategory2.ValueMember = "ObjectId";
                     this.comboCategory2.DataSource = (await ParseTables.GetCategory2((string)comboCategory1.SelectedValue)).Select(c => new Category
                     {
                         ObjectId = c.ObjectId,
-                        Value = c.Get<string>("value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_"))
+                        HebrewValue = c.ContainsKey("value_he_il") ? c.Get<string>("value_he_il") : string.Empty,
+                        EnglishValue = c.ContainsKey("value_en_us") ? c.Get<string>("value_en_us") : string.Empty
+
                     }).ToList(); ;
 
                     if (Clip.Current.Category2 != null)
@@ -731,27 +733,45 @@ namespace MyMentor.Forms
                 return;
             }
 
-            Debug.WriteLine(string.Format("ClipPattern:{0}", m_contentType.ClipTitlePattern));
-            Debug.WriteLine(string.Format("SourcePattern:{0}", m_contentType.SourceTitlePattern));
+            var hebrewPattern = (string)comboClipType.SelectedValue == "enaWrne5xe" ? 
+                m_contentType.Get<string>("sourceTitlePattern_he_il") : 
+                m_contentType.Get<string>("clipTitlePattern_he_il");
 
-            var pattern = (string)comboClipType.SelectedValue == "enaWrne5xe" ? m_contentType.SourceTitlePattern : m_contentType.ClipTitlePattern;
-            var clipTitle = pattern.SpecialReplace("[category1]", comboCategory1.Text)
-                .SpecialReplace("[category2]", comboCategory2.Text)
-                .SpecialReplace("[category3]", comboCategory3.Text)
-                .SpecialReplace("[category4]", comboCategory4.Text)
+            var englishPattern = (string)comboClipType.SelectedValue == "enaWrne5xe" ? 
+                m_contentType.Get<string>("sourceTitlePattern_en_us") : 
+                m_contentType.Get<string>("clipTitlePattern_en_us");
+
+            var clipHebrewTitle = hebrewPattern.SpecialReplace("[category1]", comboCategory1.GetHebrewText())
+                .SpecialReplace("[category2]", comboCategory2.GetHebrewText())
+                .SpecialReplace("[category3]", comboCategory3.GetHebrewText())
+                .SpecialReplace("[category4]", comboCategory4.GetHebrewText())
                 .SpecialReplace("[description]", Clip.Current.Description)
                 .SpecialReplace("[remarks]", Clip.Current.Remarks)
                 .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName") ? ParseTables.CurrentUser.Get<string>("firstName") : string.Empty)
                 .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName") ? ParseTables.CurrentUser.Get<string>("lastName") : string.Empty)
                 .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence") ? ParseTables.CurrentUser.Get<string>("cityOfResidence") : string.Empty);
 
-            this.tbClipTitle.Text = clipTitle;
-            Clip.Current.Title = clipTitle;
+            var clipEnglishTitle = englishPattern.SpecialReplace("[category1]", comboCategory1.GetEnglishText())
+                .SpecialReplace("[category2]", comboCategory2.GetEnglishText())
+                .SpecialReplace("[category3]", comboCategory3.GetEnglishText())
+                .SpecialReplace("[category4]", comboCategory4.GetEnglishText())
+                .SpecialReplace("[description]", Clip.Current.EnglishDescription)
+                .SpecialReplace("[remarks]", Clip.Current.RemarksEnglish)
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName") ? ParseTables.CurrentUser.Get<string>("firstName") : string.Empty)
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName") ? ParseTables.CurrentUser.Get<string>("lastName") : string.Empty)
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence") ? ParseTables.CurrentUser.Get<string>("cityOfResidence") : string.Empty);
 
-            //if (isDirty && !m_whileLoadingClip)
-            //{
-            //    Clip.Current.IsDirty = true;
-            //}
+            if (MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il")
+            {
+                this.tbClipTitle.Text = clipHebrewTitle;
+            }
+            else
+            {
+                this.tbClipTitle.Text = clipEnglishTitle;
+            }
+
+            Clip.Current.HebrewTitle = clipHebrewTitle;
+            Clip.Current.EnglishTitle = clipEnglishTitle;
         }
 
         private void OpenClip()
@@ -1046,56 +1066,60 @@ namespace MyMentor.Forms
             pleaseWaitFrm.Show();
             Application.DoEvents();
 
-            WorldContentType contentType = await ParseTables.GetContentType();
+            ParseObject contentType = await ParseTables.GetContentType();
 
             pleaseWaitFrm.Progress = 5;
 
             m_contentType = contentType;
 
-            string value_key = "value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
+            string he_il_value_key = "value_he_il";
+            string en_us_value_key = "value_en_us";
             string status_key = "status_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
 
             try
             {
                 m_strings = await ParseTables.GetStrings();
 
-                this.comboCategory1.DisplayMember = "Value";
+                this.comboCategory1.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
                 this.comboCategory1.ValueMember = "ObjectId";
                 this.comboCategory1.DataSource = (await ParseTables.GetCategory1(contentType.ObjectId)).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
+                    HebrewValue = c.ContainsKey(he_il_value_key) ? c.Get<string>(he_il_value_key) : string.Empty,
+                    EnglishValue = c.ContainsKey(en_us_value_key) ? c.Get<string>(en_us_value_key) : string.Empty
                 }).ToList();
 
                 pleaseWaitFrm.Progress = 15;
 
-                this.comboCategory3.DisplayMember = "Value";
+                this.comboCategory3.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
                 this.comboCategory3.ValueMember = "ObjectId";
                 this.comboCategory3.DataSource = (await ParseTables.GetCategory3(contentType.ObjectId, "HPz65WBzhw")).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty,
+                    HebrewValue = c.ContainsKey(he_il_value_key) ? c.Get<string>(he_il_value_key) : string.Empty,
+                    EnglishValue = c.ContainsKey(en_us_value_key) ? c.Get<string>(en_us_value_key) : string.Empty,
                     MinPrice = (decimal)c.Get<float>("minPrice")
                 }).ToList();
 
                 pleaseWaitFrm.Progress = 30;
 
-                this.comboCategory4.DisplayMember = "Value";
+                this.comboCategory4.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
                 this.comboCategory4.ValueMember = "ObjectId";
                 this.comboCategory4.DataSource = (await ParseTables.GetCategory4(contentType.ObjectId)).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
+                    HebrewValue = c.ContainsKey(he_il_value_key) ? c.Get<string>(he_il_value_key) : string.Empty,
+                    EnglishValue = c.ContainsKey(en_us_value_key) ? c.Get<string>(en_us_value_key) : string.Empty
                 }).ToList();
 
                 pleaseWaitFrm.Progress = 45;
 
-                this.comboStatus.DisplayMember = "Value";
+                this.comboStatus.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
                 this.comboStatus.ValueMember = "ObjectId";
                 this.comboStatus.DataSource = (await ParseTables.GetStatuses()).Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.Get<string>(status_key)
+                    HebrewValue = c.Get<string>(status_key)
                 }).ToList();
 
                 pleaseWaitFrm.Progress = 70;
@@ -1103,13 +1127,14 @@ namespace MyMentor.Forms
                 await ParseTables.GetTypes().ContinueWith((t) =>
                 {
 
-                    this.comboClipType.DisplayMember = "Value";
+                    this.comboClipType.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
                     this.comboClipType.ValueMember = "ObjectId";
 
                     this.comboClipType.DataSource = t.Result.Select(c => new Category
                     {
                         ObjectId = c.ObjectId,
-                        Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
+                        HebrewValue = c.ContainsKey(he_il_value_key) ? c.Get<string>(he_il_value_key) : string.Empty,
+                        EnglishValue = c.ContainsKey(en_us_value_key) ? c.Get<string>(en_us_value_key) : string.Empty
                     }).ToList();
 
                     Clip.Current.IsDirty = false;
@@ -1335,15 +1360,15 @@ namespace MyMentor.Forms
                     string name = "";
                     if (comboCategory1.SelectedItem != null)
                     {
-                        name = ((Category)comboCategory1.SelectedItem).Value;
+                        name = ((Category)comboCategory1.SelectedItem).HebrewValue;
                     }
                     if (comboCategory2.SelectedItem != null)
                     {
-                        name += " " + ((Category)comboCategory2.SelectedItem).Value;
+                        name += " " + ((Category)comboCategory2.SelectedItem).HebrewValue;
                     }
                     if (comboCategory3.SelectedItem != null)
                     {
-                        name += " " + ((Category)comboCategory3.SelectedItem).Value;
+                        name += " " + ((Category)comboCategory3.SelectedItem).HebrewValue;
                     }
 
                     saveFileDialog1.FileName = name;
@@ -1408,7 +1433,7 @@ namespace MyMentor.Forms
         private void SavePropertiesToClip()
         {
             //set properties
-            Clip.Current.Title = tbClipTitle.Text;
+            Clip.Current.HebrewTitle = tbClipTitle.Text;
             Clip.Current.Description = tbClipDescription.Text;
             Clip.Current.Remarks = tbClipRemarks.Text;
             Clip.Current.RemarksEnglish = tbClipRemarksEnglish.Text;
@@ -2382,12 +2407,12 @@ namespace MyMentor.Forms
             {
                 var list = (await ParseTables.GetCategory2((string)comboCategory1.SelectedValue)).Where(o => o.Keys.Count() == 4);
 
-                this.comboCategory2.DisplayMember = "Value";
+                this.comboCategory2.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
                 this.comboCategory2.ValueMember = "ObjectId";
                 this.comboCategory2.DataSource = list.Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    Value = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
+                    HebrewValue = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
                 }).ToList(); ;
 
                 if (Clip.Current.Category2 != null)
@@ -4123,12 +4148,12 @@ namespace MyMentor.Forms
             doDirty = !m_whileLoadingClip;
             string value_key = "value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
 
-            this.comboCategory3.DisplayMember = "Value";
+            this.comboCategory3.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
             this.comboCategory3.ValueMember = "ObjectId";
             this.comboCategory3.DataSource = (await ParseTables.GetCategory3(m_contentType.ObjectId, lessonType)).Select(c => new Category
             {
                 ObjectId = c.ObjectId,
-                Value = c.Get<string>(value_key),
+                HebrewValue = c.Get<string>(value_key),
                 MinPrice = (decimal)c.Get<float>("minPrice")
 
             }).ToList();

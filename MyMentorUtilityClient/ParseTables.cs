@@ -13,7 +13,7 @@ namespace MyMentor
     {
         public static ParseObject CurrentUser;
 
-        public static async Task<WorldContentType> GetContentType()
+        public static async Task<ParseObject> GetContentType()
         {
             // Create new stopwatch
             Stopwatch stopwatch = new Stopwatch();
@@ -28,10 +28,10 @@ namespace MyMentor
             ParseTables.CurrentUser = q;
 
             Debug.WriteLine("current user: " + q.ObjectId);
-            Debug.WriteLine("current content type: " + q.Get<WorldContentType>("contentType").ObjectId);
+            Debug.WriteLine("current content type: " + q.Get<ParseObject>("contentType").ObjectId);
 
-            var query = await (from armor in new ParseQuery<WorldContentType>()
-                               where armor.ObjectId == q.Get<WorldContentType>("contentType").ObjectId
+            var query = await (from armor in ParseObject.GetQuery("WorldContentType")
+                               where armor.ObjectId == q.Get<ParseObject>("contentType").ObjectId
             select armor).FirstAsync();
 
             // Stop timing

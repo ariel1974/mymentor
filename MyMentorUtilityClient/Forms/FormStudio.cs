@@ -2401,8 +2401,6 @@ namespace MyMentor.Forms
 
         private async void comboCategory1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            string value_key = "value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
-
             if (comboCategory1.SelectedIndex >= 0)
             {
                 var list = (await ParseTables.GetCategory2((string)comboCategory1.SelectedValue)).Where(o => o.Keys.Count() == 4);
@@ -2412,7 +2410,8 @@ namespace MyMentor.Forms
                 this.comboCategory2.DataSource = list.Select(c => new Category
                 {
                     ObjectId = c.ObjectId,
-                    HebrewValue = c.ContainsKey(value_key) ? c.Get<string>(value_key) : string.Empty
+                    HebrewValue = c.ContainsKey("value_he_il") ? c.Get<string>("value_he_il") : string.Empty,
+                    EnglishValue = c.ContainsKey("value_en_us") ? c.Get<string>("value_en_us") : string.Empty
                 }).ToList(); ;
 
                 if (Clip.Current.Category2 != null)
@@ -4146,14 +4145,14 @@ namespace MyMentor.Forms
             bool doDirty = false;
 
             doDirty = !m_whileLoadingClip;
-            string value_key = "value_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
 
             this.comboCategory3.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
             this.comboCategory3.ValueMember = "ObjectId";
             this.comboCategory3.DataSource = (await ParseTables.GetCategory3(m_contentType.ObjectId, lessonType)).Select(c => new Category
             {
                 ObjectId = c.ObjectId,
-                HebrewValue = c.Get<string>(value_key),
+                HebrewValue = c.ContainsKey("value_he_il") ? c.Get<string>("value_he_il") : string.Empty,
+                EnglishValue = c.ContainsKey("value_en_us") ? c.Get<string>("value_en_us") : string.Empty,
                 MinPrice = (decimal)c.Get<float>("minPrice")
 
             }).ToList();

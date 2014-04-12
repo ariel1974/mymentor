@@ -757,8 +757,8 @@ namespace MyMentor.Forms
                 .SpecialReplace("[category4]", comboCategory4.GetEnglishText())
                 .SpecialReplace("[description]", Clip.Current.EnglishDescription)
                 .SpecialReplace("[remarks]", Clip.Current.RemarksEnglish)
-                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName") ? ParseTables.CurrentUser.Get<string>("firstName") : string.Empty)
-                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName") ? ParseTables.CurrentUser.Get<string>("lastName") : string.Empty)
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstNameEnglish") ? ParseTables.CurrentUser.Get<string>("firstNameEnglish") : string.Empty)
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastNameEnglish") ? ParseTables.CurrentUser.Get<string>("lastNameEnglish") : string.Empty)
                 .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence") ? ParseTables.CurrentUser.Get<string>("cityOfResidence") : string.Empty);
 
             if (MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il")
@@ -5237,6 +5237,12 @@ namespace MyMentor.Forms
         {
             mnuFile_Save_Click(null, new EventArgs());
 
+        }
+
+        private void tbClipRemarksEnglish_TextChanged(object sender, EventArgs e)
+        {
+            Clip.Current.RemarksEnglish = tbClipRemarksEnglish.Text;
+            RegenerateClipName(true);
         }
 
     }

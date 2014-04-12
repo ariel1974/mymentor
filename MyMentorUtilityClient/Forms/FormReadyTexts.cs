@@ -125,7 +125,15 @@ namespace MyMentor
                 foreach (var o in m_result)
                 {
                     ListViewItem lvi = listView1.Items.Add(o.ObjectId, o.Name, -1);
-                    lvi.SubItems.Add(o.Status.Get<string>("status_" + MyMentor.Properties.Settings.Default.CultureInfo.ToLower().Replace("-","_") ));
+                    if (MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il")
+                    {
+                        lvi.SubItems.Add(o.RemarksEnglish);
+                    }
+                    else
+                    {
+                        lvi.SubItems.Add(o.Remarks);
+                    }
+                    lvi.SubItems.Add(o.Status.Get<string>("status_" + MyMentor.Properties.Settings.Default.CultureInfo.ToLower().Replace("-", "_")));
                 }
 
             }

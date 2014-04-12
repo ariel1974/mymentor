@@ -142,6 +142,9 @@
   <data name="columnHeader1.Text" xml:space="preserve">
     <value>Clip title</value>
   </data>
+  <data name="columnHeader3.Text" xml:space="preserve">
+    <value>Addition hebrew</value>
+  </data>
   <data name="columnHeader2.Text" xml:space="preserve">
     <value>Status</value>
   </data>

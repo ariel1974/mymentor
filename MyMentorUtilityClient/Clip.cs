@@ -154,7 +154,7 @@ namespace MyMentor
         {
             try
             {
-                var text = this.Text;
+                var text = this.Text.TrimEnd('\r', '\n');
 
                 if (onlyNikud)
                 {

@@ -1684,6 +1684,7 @@
             // 
             resources.ApplyResources(this.tbClipRemarksEnglish, "tbClipRemarksEnglish");
             this.tbClipRemarksEnglish.Name = "tbClipRemarksEnglish";
+            this.tbClipRemarksEnglish.TextChanged += new System.EventHandler(this.tbClipRemarksEnglish_TextChanged);
             // 
             // comboCategory1
             // 

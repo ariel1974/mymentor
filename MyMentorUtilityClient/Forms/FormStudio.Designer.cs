@@ -46,8 +46,6 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.loginAsOtherUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gotoCharIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.anchorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
@@ -55,6 +53,13 @@
             this.clearSentensesAnchorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearSectionAnchorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearWordAnchorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.textToolstripSelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.textToolstripDeselect = new System.Windows.Forms.ToolStripMenuItem();
+            this.textToolstripCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.textToolstripPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.textToolstripCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.textToolstripDeleteSelection = new System.Windows.Forms.ToolStripMenuItem();
             this.audioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAudioLoad = new System.Windows.Forms.ToolStripMenuItem();
@@ -448,21 +453,15 @@
             // 
             resources.ApplyResources(this.textToolStripMenuItem, "textToolStripMenuItem");
             this.textToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gotoCharIndexToolStripMenuItem,
+            this.anchorsToolStripMenuItem,
             this.toolStripMenuItem4,
-            this.anchorsToolStripMenuItem});
+            this.textToolstripSelectAll,
+            this.textToolstripDeselect,
+            this.textToolstripCopy,
+            this.textToolstripPaste,
+            this.textToolstripCut,
+            this.textToolstripDeleteSelection});
             this.textToolStripMenuItem.Name = "textToolStripMenuItem";
-            // 
-            // gotoCharIndexToolStripMenuItem
-            // 
-            resources.ApplyResources(this.gotoCharIndexToolStripMenuItem, "gotoCharIndexToolStripMenuItem");
-            this.gotoCharIndexToolStripMenuItem.Name = "gotoCharIndexToolStripMenuItem";
-            this.gotoCharIndexToolStripMenuItem.Click += new System.EventHandler(this.gotoCharIndexToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem4
-            // 
-            resources.ApplyResources(this.toolStripMenuItem4, "toolStripMenuItem4");
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             // 
             // anchorsToolStripMenuItem
             // 
@@ -510,6 +509,47 @@
             resources.ApplyResources(this.clearWordAnchorsToolStripMenuItem, "clearWordAnchorsToolStripMenuItem");
             this.clearWordAnchorsToolStripMenuItem.Name = "clearWordAnchorsToolStripMenuItem";
             this.clearWordAnchorsToolStripMenuItem.Click += new System.EventHandler(this.clearWordAnchorsToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            resources.ApplyResources(this.toolStripMenuItem4, "toolStripMenuItem4");
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            // 
+            // textToolstripSelectAll
+            // 
+            resources.ApplyResources(this.textToolstripSelectAll, "textToolstripSelectAll");
+            this.textToolstripSelectAll.Name = "textToolstripSelectAll";
+            this.textToolstripSelectAll.Click += new System.EventHandler(this.textToolstripSelectAll_Click);
+            // 
+            // textToolstripDeselect
+            // 
+            resources.ApplyResources(this.textToolstripDeselect, "textToolstripDeselect");
+            this.textToolstripDeselect.Name = "textToolstripDeselect";
+            this.textToolstripDeselect.Click += new System.EventHandler(this.textToolstripDeselect_Click);
+            // 
+            // textToolstripCopy
+            // 
+            resources.ApplyResources(this.textToolstripCopy, "textToolstripCopy");
+            this.textToolstripCopy.Name = "textToolstripCopy";
+            this.textToolstripCopy.Click += new System.EventHandler(this.textToolstripCopy_Click);
+            // 
+            // textToolstripPaste
+            // 
+            resources.ApplyResources(this.textToolstripPaste, "textToolstripPaste");
+            this.textToolstripPaste.Name = "textToolstripPaste";
+            this.textToolstripPaste.Click += new System.EventHandler(this.textToolstripPaste_Click);
+            // 
+            // textToolstripCut
+            // 
+            resources.ApplyResources(this.textToolstripCut, "textToolstripCut");
+            this.textToolstripCut.Name = "textToolstripCut";
+            this.textToolstripCut.Click += new System.EventHandler(this.textToolstripCut_Click);
+            // 
+            // textToolstripDeleteSelection
+            // 
+            resources.ApplyResources(this.textToolstripDeleteSelection, "textToolstripDeleteSelection");
+            this.textToolstripDeleteSelection.Name = "textToolstripDeleteSelection";
+            this.textToolstripDeleteSelection.Click += new System.EventHandler(this.textToolstripDeleteSelection_Click);
             // 
             // audioToolStripMenuItem
             // 
@@ -2461,8 +2501,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem loginAsOtherUserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem textToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gotoCharIndexToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem anchorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
@@ -2707,5 +2745,12 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem textToolstripSelectAll;
+        private System.Windows.Forms.ToolStripMenuItem textToolstripCopy;
+        private System.Windows.Forms.ToolStripMenuItem textToolstripPaste;
+        private System.Windows.Forms.ToolStripMenuItem textToolstripCut;
+        private System.Windows.Forms.ToolStripMenuItem textToolstripDeleteSelection;
+        private System.Windows.Forms.ToolStripMenuItem textToolstripDeselect;
     }
 }

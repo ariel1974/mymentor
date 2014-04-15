@@ -38,5 +38,29 @@ namespace MyMentor
                 button1.Enabled = true;
             }
         }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+        }
+
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //Do something
+                button1_Click(null, new EventArgs());
+            }
+
+        }
+
+        private void textBox2_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //Do something
+                button1_Click(null, new EventArgs());
+            }
+
+        }
     }
 }

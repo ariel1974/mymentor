@@ -759,7 +759,7 @@ namespace MyMentor.Forms
                 .SpecialReplace("[remarks]", Clip.Current.RemarksEnglish)
                 .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstNameEnglish") ? ParseTables.CurrentUser.Get<string>("firstNameEnglish") : string.Empty)
                 .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastNameEnglish") ? ParseTables.CurrentUser.Get<string>("lastNameEnglish") : string.Empty)
-                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence") ? ParseTables.CurrentUser.Get<string>("cityOfResidence") : string.Empty);
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_en_us") ? ParseTables.CurrentUser.Get<string>("cityOfResidence_en_us") : string.Empty);
 
             if (MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il")
             {
@@ -5243,6 +5243,50 @@ namespace MyMentor.Forms
         {
             Clip.Current.RemarksEnglish = tbClipRemarksEnglish.Text;
             RegenerateClipName(true);
+        }
+
+        private void textToolstripSelectAll_Click(object sender, EventArgs e)
+        {
+            richTextBox1.SelectAll();
+        }
+
+        private void textToolstripCopy_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Copy();
+        }
+
+        private void textToolstripPaste_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                richTextBox1.Paste();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void textToolstripCut_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Cut();
+        }
+
+        private void textToolstripDeleteSelection_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                richTextBox1.SelectedText = string.Empty;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void textToolstripDeselect_Click(object sender, EventArgs e)
+        {
+            richTextBox1.DeselectAll();
         }
 
     }

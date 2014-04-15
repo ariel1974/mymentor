@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MyMentor")]
-[assembly: AssemblyDescription("MyMentor allow you to record audio and schedule text and upload It to a special mobile app. For more details please visit: http://www.mymentor.co.il")]
+[assembly: AssemblyDescription("MyMentor  allow you to record audio and schedule text and upload It to a special mobile app. For more details please visit: http://www.mymentor.co.il")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MyMentor Studio v2.0")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("9.0.4.8")]
-[assembly: AssemblyFileVersion("9.0.4.8")]
+[assembly: AssemblyVersion("9.0.4.9")]
+[assembly: AssemblyFileVersion("9.0.4.9")]

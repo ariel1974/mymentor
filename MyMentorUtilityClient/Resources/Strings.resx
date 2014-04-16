@@ -147,6 +147,9 @@
   <data name="LOGIN_AS" xml:space="preserve">
     <value>הנך מחובר כ -</value>
   </data>
+  <data name="LOGIN_ERROR" xml:space="preserve">
+    <value>שם המשתמש או הסיסמה אינם תואמים</value>
+  </data>
   <data name="LOGIN_OTHER_USER" xml:space="preserve">
     <value>יש להכנס מחדש למערכת אחרי הפעלה מחודשת</value>
   </data>

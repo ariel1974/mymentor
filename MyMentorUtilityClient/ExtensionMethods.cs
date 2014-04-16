@@ -15,7 +15,7 @@ namespace MyMentor
 {
     public static class ExtensionMethods
     {
-        public static string GetHebrewText(this ComboBox combo)
+        public static string GetHebrewPlaceholderText(this ComboBox combo)
         {
             if (combo.SelectedItem != null)
             {
@@ -34,7 +34,7 @@ namespace MyMentor
             }
         }
 
-        public static string GetEnglishText(this ComboBox combo)
+        public static string GetEnglishPlaceholderText(this ComboBox combo)
         {
             if (combo.SelectedItem != null)
             {
@@ -90,7 +90,8 @@ namespace MyMentor
 
         public static string SpecialReplace(this string text, string placeholder, string with)
         {
-            if (string.IsNullOrEmpty(with))
+            if (string.IsNullOrEmpty(with) || 
+                with == "__")
             {
                 //where the placeholder
                 int index = text.IndexOf(placeholder);
@@ -116,6 +117,11 @@ namespace MyMentor
                         start = index;
                         break;
                     }
+                    else if (c == '_')
+                    {
+                        start = index + 1;
+                        break;
+                    }
                     index = index - 1;
                 }
 
@@ -130,6 +136,12 @@ namespace MyMentor
                         end = index;
                         break;
                     }
+                    else if (c == '_')
+                    {
+                        end = index - 1;
+                        break;
+                    }
+
                     index = index + 1;
                 }
 

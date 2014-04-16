@@ -7,15 +7,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MyMentor.Resources;
 using Parse;
 
 namespace MyMentor
 {
     public partial class FormLogin : Form
     {
+        private MessageBoxOptions m_msgOptionsRtl;
+
         public FormLogin()
         {
             InitializeComponent();
+
+            if (MyMentor.Properties.Settings.Default.CultureInfo == "he-il")
+            {
+                m_msgOptionsRtl = MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading;
+
+            }
+            else
+            {
+                m_msgOptionsRtl = 0;
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -34,7 +48,7 @@ namespace MyMentor
             }
             catch
             {
-                MessageBox.Show("שם המשתמש או הסיסמה אינם תואמים, נסה שוב");
+                MessageBox.Show(ResourceHelper.GetLabel("LOGIN_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 button1.Enabled = true;
             }
         }
@@ -47,6 +61,7 @@ namespace MyMentor
         {
             if (e.KeyCode == Keys.Enter)
             {
+                e.Handled = e.SuppressKeyPress = true;
                 //Do something
                 button1_Click(null, new EventArgs());
             }
@@ -57,6 +72,7 @@ namespace MyMentor
         {
             if (e.KeyCode == Keys.Enter)
             {
+                e.Handled = e.SuppressKeyPress = true;
                 //Do something
                 button1_Click(null, new EventArgs());
             }

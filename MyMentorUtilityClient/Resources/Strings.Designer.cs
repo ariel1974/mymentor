@@ -151,6 +151,15 @@ namespace MyMentor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to שם המשתמש או הסיסמה אינם תואמים.
+        /// </summary>
+        internal static string LOGIN_ERROR {
+            get {
+                return ResourceManager.GetString("LOGIN_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to יש להכנס מחדש למערכת אחרי הפעלה מחודשת.
         /// </summary>
         internal static string LOGIN_OTHER_USER {

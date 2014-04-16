@@ -70,9 +70,7 @@ namespace MyMentor.Forms
         private ParseObject m_contentType;
         private MessageBoxOptions m_msgOptionsRtl;
         private short m_endLineUniqueId = -1;
-        private int m_targetStartFixInMs = 0;
 
-        private int sizeIndex = 3;
         private int[] sizes = { 9, 10, 12, 16, 32 };
 
         public IEnumerable<KeyValuePair<string, string>> Strings
@@ -728,10 +726,10 @@ namespace MyMentor.Forms
 
         private void RegenerateClipName(bool isDirty)
         {
-            if (m_loadingParse)
-            {
-                return;
-            }
+            //if (m_loadingParse)
+            //{
+            //    return;
+            //}
 
             var hebrewPattern = (string)comboClipType.SelectedValue == "enaWrne5xe" ? 
                 m_contentType.Get<string>("sourceTitlePattern_he_il") : 
@@ -741,25 +739,28 @@ namespace MyMentor.Forms
                 m_contentType.Get<string>("sourceTitlePattern_en_us") : 
                 m_contentType.Get<string>("clipTitlePattern_en_us");
 
-            var clipHebrewTitle = hebrewPattern.SpecialReplace("[category1]", comboCategory1.GetHebrewText())
-                .SpecialReplace("[category2]", comboCategory2.GetHebrewText())
-                .SpecialReplace("[category3]", comboCategory3.GetHebrewText())
-                .SpecialReplace("[category4]", comboCategory4.GetHebrewText())
-                .SpecialReplace("[description]", Clip.Current.Description)
-                .SpecialReplace("[remarks]", Clip.Current.Remarks)
-                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName") ? ParseTables.CurrentUser.Get<string>("firstName") : string.Empty)
-                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName") ? ParseTables.CurrentUser.Get<string>("lastName") : string.Empty)
-                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence") ? ParseTables.CurrentUser.Get<string>("cityOfResidence") : string.Empty);
+            var clipHebrewTitle = hebrewPattern.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[category2]", string.Concat("_", comboCategory2.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[category3]", string.Concat("_", comboCategory3.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[description]", string.Concat("_", Clip.Current.Description, "_"))
+                .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.Remarks, "_"))
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName") ?string.Concat("_",  ParseTables.CurrentUser.Get<string>("firstName"), "_") : string.Empty)
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName"), "_") : string.Empty)
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence"), "_") : string.Empty);
 
-            var clipEnglishTitle = englishPattern.SpecialReplace("[category1]", comboCategory1.GetEnglishText())
-                .SpecialReplace("[category2]", comboCategory2.GetEnglishText())
-                .SpecialReplace("[category3]", comboCategory3.GetEnglishText())
-                .SpecialReplace("[category4]", comboCategory4.GetEnglishText())
-                .SpecialReplace("[description]", Clip.Current.EnglishDescription)
-                .SpecialReplace("[remarks]", Clip.Current.RemarksEnglish)
-                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstNameEnglish") ? ParseTables.CurrentUser.Get<string>("firstNameEnglish") : string.Empty)
-                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastNameEnglish") ? ParseTables.CurrentUser.Get<string>("lastNameEnglish") : string.Empty)
-                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_en_us") ? ParseTables.CurrentUser.Get<string>("cityOfResidence_en_us") : string.Empty);
+            var clipEnglishTitle = englishPattern.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[category2]", string.Concat("_", comboCategory2.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[category3]", string.Concat("_", comboCategory3.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[description]", string.Concat("_", Clip.Current.EnglishDescription, "_"))
+                .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.RemarksEnglish, "_"))
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstNameEnglish") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstNameEnglish"), "_") : string.Empty)
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastNameEnglish") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastNameEnglish"), "_") : string.Empty)
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_en_us"), "_") : string.Empty);
+
+            clipHebrewTitle = clipHebrewTitle.Replace("_", "");
+            clipEnglishTitle = clipEnglishTitle.Replace("_", "");
 
             if (MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il")
             {
@@ -4739,35 +4740,39 @@ namespace MyMentor.Forms
             {
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_SOURCE_TEXT_ARE_YOU_SURE").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.Yes)
+                    if ( !string.IsNullOrEmpty(richTextBox1.Text.Trim()) &&
+                        MessageBox.Show(m_strings.Single(a => a.Key == "STD_SOURCE_TEXT_ARE_YOU_SURE").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.No)
                     {
-                        richTextBox1.Rtf = form.SelectedSource.Rtf;
-
-                        if (form.SelectedSource.Category1 != null)
-                        {
-                            comboCategory1.SelectedValue = form.SelectedSource.Category1.ObjectId;
-
-                            comboCategory1_SelectionChangeCommitted(null, new EventArgs());
-                        }
-
-                        if (form.SelectedSource.Category2 != null)
-                        {
-                            comboCategory2.SelectedValue = form.SelectedSource.Category2.ObjectId;
-                        }
-
-                        if (form.SelectedSource.Category3 != null)
-                        {
-                            comboCategory3.SelectedValue = form.SelectedSource.Category3.ObjectId;
-                        }
-
-                        tbClipDescription.Text = form.SelectedSource.Description;
-                        tbClipDescriptionEnglish.Text = form.SelectedSource.DescriptionEnglish;
-
-                        tbClipRemarks.Text = form.SelectedSource.Remarks;
-                        tbClipRemarksEnglish.Text = form.SelectedSource.RemarksEnglish;
-
-                        MessageBox.Show(m_strings.Single(a => a.Key == "STD_AFTER_SOURCE_SELECTION").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                        return;
                     }
+
+                    richTextBox1.Rtf = form.SelectedSource.Rtf;
+
+                    if (form.SelectedSource.Category1 != null)
+                    {
+                        comboCategory1.SelectedValue = form.SelectedSource.Category1.ObjectId;
+
+                        comboCategory1_SelectionChangeCommitted(null, new EventArgs());
+                    }
+
+                    if (form.SelectedSource.Category2 != null)
+                    {
+                        comboCategory2.SelectedValue = form.SelectedSource.Category2.ObjectId;
+                    }
+
+                    if (form.SelectedSource.Category3 != null)
+                    {
+                        comboCategory3.SelectedValue = form.SelectedSource.Category3.ObjectId;
+                    }
+
+                    tbClipDescription.Text = form.SelectedSource.Description;
+                    tbClipDescriptionEnglish.Text = form.SelectedSource.DescriptionEnglish;
+
+                    tbClipRemarks.Text = form.SelectedSource.Remarks;
+                    tbClipRemarksEnglish.Text = form.SelectedSource.RemarksEnglish;
+
+                    MessageBox.Show(m_strings.Single(a => a.Key == "STD_AFTER_SOURCE_SELECTION").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+
                 }
             }
 

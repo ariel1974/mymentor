@@ -147,6 +147,9 @@
   <data name="LOGIN_AS" xml:space="preserve">
     <value>Logged in as </value>
   </data>
+  <data name="LOGIN_ERROR" xml:space="preserve">
+    <value>Username and password are not match</value>
+  </data>
   <data name="LOGIN_OTHER_USER" xml:space="preserve">
     <value>Restart MyMentor is required to enter as other user</value>
   </data>

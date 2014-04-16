@@ -533,11 +533,11 @@ namespace MyMentor
         {
             return Task.Factory.StartNew(() =>
                         {
-
                             using (Mp3FileReader rdr = new Mp3FileReader(Path.ChangeExtension(this.FileName, ".mp3")))
                             {
                                 int count = 1;
                                 Mp3Frame objmp3Frame = rdr.ReadNextFrame();
+                                
                                 System.IO.FileStream _fs = new System.IO.FileStream(Path.ChangeExtension(this.FileName, "_preview.mp3"), System.IO.FileMode.Create, System.IO.FileAccess.Write);
 
                                 while (objmp3Frame != null)
@@ -549,10 +549,11 @@ namespace MyMentor
                                     count = count + 1;
                                     objmp3Frame = rdr.ReadNextFrame();
                                 }
-
+                                //_fs.SetLength( _fs.Length );
                                 _fs.Close();
                             }
 
+                            
                             return true;
                         });
         }

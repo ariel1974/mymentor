@@ -747,7 +747,7 @@ namespace MyMentor.Forms
                 .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.Remarks, "_"))
                 .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName") ?string.Concat("_",  ParseTables.CurrentUser.Get<string>("firstName"), "_") : string.Empty)
                 .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName"), "_") : string.Empty)
-                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence"), "_") : string.Empty);
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("CityOfResidence") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("CityOfResidence"), "_") : string.Empty);
 
             var clipEnglishTitle = englishPattern.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[category2]", string.Concat("_", comboCategory2.GetEnglishPlaceholderText(), "_"))
@@ -757,7 +757,7 @@ namespace MyMentor.Forms
                 .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.RemarksEnglish, "_"))
                 .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstNameEnglish") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstNameEnglish"), "_") : string.Empty)
                 .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastNameEnglish") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastNameEnglish"), "_") : string.Empty)
-                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_en_us"), "_") : string.Empty);
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("CityOfResidence_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("CityOfResidence_en_us"), "_") : string.Empty);
 
             clipHebrewTitle = clipHebrewTitle.Replace("_", "");
             clipEnglishTitle = clipEnglishTitle.Replace("_", "");

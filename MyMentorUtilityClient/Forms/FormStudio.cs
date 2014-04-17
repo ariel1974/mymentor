@@ -24,6 +24,7 @@ namespace MyMentor.Forms
     {
         private string m_currentFingerPrint = string.Empty;
         private bool m_bRecAppendMode;
+        private bool m_bInPublishProgress;
         private bool m_bContinueRecordingAfterPlayback;
         private short m_nRangeSelection = -1;
         private TimeSpan m_overwriteModeDeletePosition = TimeSpan.Zero;
@@ -3163,6 +3164,11 @@ namespace MyMentor.Forms
 
         private void audioSoundEditor1_SoundExportDone(object sender, SoundExportDoneEventArgs e)
         {
+            if (m_bInPublishProgress)
+            {
+                return;
+            }
+
             LabelStatus.Text = "Status: Idle";
             progressBar1.Visible = false;
 
@@ -3997,6 +4003,7 @@ namespace MyMentor.Forms
                 }
             }
 
+            m_bInPublishProgress = true;
             groupBox3.Enabled = false;
             pictureBox2.Visible = true;
             progressBar1.Visible = false;
@@ -4063,6 +4070,8 @@ namespace MyMentor.Forms
                 progressBar1.Visible = true;
                 buttonPublish.Enabled = true;
                 groupBox3.Enabled = true;
+                m_bInPublishProgress = false;
+
             }
 
         }
@@ -4173,11 +4182,10 @@ namespace MyMentor.Forms
 
         private void buttonAutoDevide_Click(object sender, EventArgs e)
         {
-            var parDelimiters = comboBoxAutoDevidePar.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Trim()).ToList<string>();
-            var senDelimiters = comboBoxAutoDevideSen.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Trim()).ToList<string>();
-            var worDelimiters = comboBoxAutoDevideWor.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w.Trim()).ToList<string>();
+            var parDelimiters = comboBoxAutoDevidePar.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w).ToList<string>();
+            var senDelimiters = comboBoxAutoDevideSen.Text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(w => w).ToList<string>();
 
-            if (parDelimiters.Count() == 0 && senDelimiters.Count() == 0 && worDelimiters.Count() == 0)
+            if (parDelimiters.Count() == 0 && senDelimiters.Count() == 0 && string.IsNullOrEmpty(comboBoxAutoDevideWor.Text))
             {
                 MessageBox.Show( ResourceHelper.GetLabel("SOURCE_NEED_TO_SELECT_OPTION") , "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
@@ -4377,20 +4385,35 @@ namespace MyMentor.Forms
                         continue;
                     }
 
-                    if ((richTextBox2.SelectedText == " " && worDelimiters.Exists(a => a == "רווח" || a == "SPACE") && charactersFromLastAnchor > 0)
-                        ||
-                        (worDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0))
-                    {
-                        AddAnchor(AnchorType.Word, index);
-                        anchors++;
-                        charactersFromLastAnchor = 0;
-                        index += 3;
-                        continue;
-                    }
+                    //if ((richTextBox2.SelectedText == " " && worDelimiters.Exists(a => a == "רווח" || a == "SPACE") && charactersFromLastAnchor > 0)
+                    //    ||
+                    //    (worDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0))
+                    //{
+                    //    AddAnchor(AnchorType.Word, index);
+                    //    anchors++;
+                    //    charactersFromLastAnchor = 0;
+                    //    index += 3;
+                    //    continue;
+                    //}
 
                     charactersFromLastAnchor++;
 
                 }
+
+                //replace words
+                if (!string.IsNullOrEmpty(comboBoxAutoDevideWor.Text))
+                {
+                    richTextBox2.SelectionStart = 0;
+                    int idx = richTextBox2.Find(comboBoxAutoDevideWor.Text, 0, RichTextBoxFinds.None);
+
+                    while (idx >= 0)
+                    {
+                        AddAnchor(AnchorType.Word, idx + comboBoxAutoDevideWor.Text.Length);
+                        idx = richTextBox2.Find(comboBoxAutoDevideWor.Text, idx + comboBoxAutoDevideWor.Text.Length + 3, RichTextBoxFinds.None);
+                    }
+                }
+
+
                 richTextBox1.Rtf = richTextBox2.Rtf;
             }
             catch
@@ -4423,6 +4446,18 @@ namespace MyMentor.Forms
             richTextBox2.SelectionLength = richTextBox2.TextLength - index;
             if (!string.IsNullOrEmpty(richTextBox2.SelectedText.ClearSpacesAndBreakLines()))
             {
+                if (index >= 3)
+                {
+                    richTextBox2.SelectionStart = index - 3;
+                    richTextBox2.SelectionLength = 3;
+                    
+                    if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")
+                    {
+                        richTextBox2.SelectedText = anchor;
+                        return;
+                    }
+                }
+
                 richTextBox2.SelectionStart = index;
                 richTextBox2.SelectionLength = 3;
 

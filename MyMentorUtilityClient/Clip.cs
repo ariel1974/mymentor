@@ -529,31 +529,13 @@ namespace MyMentor
             }
         }
 
-        private Task<bool> CutPreviewFile()
+        private Task<bool> CutPreviewFile(AudioSoundEditor.AudioSoundEditor editor)
         {
             return Task.Factory.StartNew(() =>
                         {
-                            using (Mp3FileReader rdr = new Mp3FileReader(Path.ChangeExtension(this.FileName, ".mp3")))
-                            {
-                                int count = 1;
-                                Mp3Frame objmp3Frame = rdr.ReadNextFrame();
-                                
-                                System.IO.FileStream _fs = new System.IO.FileStream(Path.ChangeExtension(this.FileName, "_preview.mp3"), System.IO.FileMode.Create, System.IO.FileAccess.Write);
-
-                                while (objmp3Frame != null)
-                                {
-                                    if (count > 500) //retrieve a sample of 500 frames
-                                        break;
-
-                                    _fs.Write(objmp3Frame.RawData, 0, objmp3Frame.RawData.Length);
-                                    count = count + 1;
-                                    objmp3Frame = rdr.ReadNextFrame();
-                                }
-                                //_fs.SetLength( _fs.Length );
-                                _fs.Close();
-                            }
-
-                            
+                            editor.UseThreadsInSyncMode(true);
+                            editor.ExportToFile(44100, 1, 0, 0, 10000, Path.ChangeExtension(this.FileName, "_preview.mp3"));
+                            editor.UseThreadsInSyncMode(false);
                             return true;
                         });
         }
@@ -589,11 +571,10 @@ namespace MyMentor
                 FileInfo info = new FileInfo(this.MmnFileName);
                 this.ClipSize = info.Length;
 
-
                 //cut for audio preview file
                 if (editor.GetSoundDuration() > 0)
                 {
-                    var processData = CutPreviewFile().ContinueWith((cut) =>
+                    var processData = CutPreviewFile(editor).ContinueWith((cut) =>
                     {
                         if (cut.Result)
                         {

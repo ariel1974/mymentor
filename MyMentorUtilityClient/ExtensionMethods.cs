@@ -217,7 +217,7 @@ namespace MyMentor
                 Debug.WriteLine(string.Format("{0}:{1} char:{2}", c.ToString(), CharUnicodeInfo.GetUnicodeCategory(c).ToString(), (int)c));
 
                 if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark
-                    || ((int)c >= 1423 && (int)c <= (1423 + 27)))
+                    || ((int)c >= 1423 && (int)c <= (1423 + 31)))
                     stringBuilder.Append(c);
             }
 
@@ -236,7 +236,7 @@ namespace MyMentor
                 Debug.WriteLine(string.Format("{0}:{1} char:{2}", c.ToString(), CharUnicodeInfo.GetUnicodeCategory(c).ToString(), (int)c));
 
                 if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark
-                    || ((int)c < 1423 || (int)c > (1423 + 27)))
+                    || ((int)c < 1423 || (int)c > (1423 + 31)))
                     stringBuilder.Append(c);
             }
 

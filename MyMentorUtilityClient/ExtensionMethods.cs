@@ -53,6 +53,7 @@ namespace MyMentor
             }
         }
 
+
         public static void RemoveAnchors(this RichTextBox myRtb)
         {
             string[] anchors = { "[3]", "[2]", "[1]", "[0]" };
@@ -241,6 +242,34 @@ namespace MyMentor
             }
 
             return stringBuilder.ToString();
+        }
+
+        public static String RemoveRtfTeamim(this String s)
+        {
+            var result = s;
+
+            //makaf meunach
+            result = result.Replace("\\'cd", string.Empty);
+
+            for (var i = 1423; i <= 1454; i++)
+            {
+                result = result.Replace(string.Format("\\u{0}?", i), string.Empty);
+            }
+
+            return result;
+        }
+
+        public static String RemoveRtfNikud(this String s)
+        {
+            var result = s;
+
+            for (var i = 192; i < 211; i++)
+            {
+                if (i == 206) continue;
+                result = result.Replace(string.Format("\\'{0}", i.ToString("X").ToLower()), string.Empty);
+            }
+
+            return result;
         } 
 
         public static string RemovePunctation(this string value, bool saveSectionSigns)

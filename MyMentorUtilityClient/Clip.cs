@@ -792,25 +792,23 @@ namespace MyMentor
                 {
                     System.Windows.Forms.RichTextBox rtb = new System.Windows.Forms.RichTextBox();
                     rtb.Rtf = this.RtfText;
-                    rtb.Text = this.Text.Replace("[3]", string.Empty).Replace("[2]", string.Empty).Replace("[1]", string.Empty).Replace("[0]", string.Empty);// MainForm.m_regexAll.Replace(rtb.Text, string.Empty);
-                    //rtb.Text = Paragraphs.Select(p => p.Content).Aggregate((a, b) => a + b);
+                    rtb.RemoveAnchors();
                     rtb.SaveFile(tempRtf);
 
                     //only nikud
-                    rtb.Text = this.Text.Replace("[3]", string.Empty).Replace("[2]", string.Empty).Replace("[1]", string.Empty).Replace("[0]", string.Empty)
-                        .RemoveTeamim();
+                    rtb.Rtf = this.RtfText.RemoveRtfTeamim();
+                    rtb.RemoveAnchors();
                     rtb.Refresh();
                     rtb.SaveFile(tempOnlyNikudRtf);
 
                     //only teamim
-                    rtb.Text = this.Text.Replace("[3]", string.Empty).Replace("[2]", string.Empty).Replace("[1]", string.Empty).Replace("[0]", string.Empty)
-                        .RemoveNikud();
+                    rtb.Rtf = this.RtfText.RemoveRtfNikud();
+                    rtb.RemoveAnchors();
                     rtb.Refresh();
                     rtb.SaveFile(tempOnlyTeamimRtf);
 
                     //only teamim
-                    rtb.Text = this.Text.Replace("[3]", string.Empty).Replace("[2]", string.Empty).Replace("[1]", string.Empty).Replace("[0]", string.Empty)
-                        .RemoveNikud().RemoveTeamim();
+                    rtb.Rtf = this.RtfText.RemoveRtfTeamim().RemoveRtfNikud();
                     rtb.Refresh();
                     rtb.SaveFile(tempClearTextRtf);
                 });

@@ -112,11 +112,11 @@ namespace MyMentor.Forms
                 toolStrip2.Items.Remove(tsbMoveStart);
                 toolStrip2.Items.Remove(tsbForward);
                 toolStrip2.Items.Remove(tsbMoveEnd);
-                toolStrip2.Items.Remove(tsbStop);
+                toolStrip2.Items.Remove(tsbPause);
 
                 toolStrip2.Items.Insert(10, tsbMoveStart);
                 toolStrip2.Items.Insert(11, tsbRewind);
-                toolStrip2.Items.Insert(12, tsbStop);
+                toolStrip2.Items.Insert(12, tsbPause);
 
                 toolStrip2.Items.Insert(14, tsbForward);
                 toolStrip2.Items.Insert(15, tsbMoveEnd);
@@ -449,7 +449,7 @@ namespace MyMentor.Forms
                 }
 
                 tsbPlay.Enabled = false;
-                tsbStop.Enabled = false;
+                tsbPause.Enabled = false;
 
                 if (m_bRecAppendMode && m_bContinueRecordingAfterPlayback)
                 {
@@ -493,13 +493,13 @@ namespace MyMentor.Forms
                     {
                         tsbContinueRecord.Enabled = true;
                         tsbPlay.Enabled = false;
-                        tsbStop.Enabled = false;
+                        tsbPause.Enabled = false;
                     }
                     else
                     {
                         tsbContinueRecord.Enabled = false;
                         tsbPlay.Enabled = true;
-                        tsbStop.Enabled = true;
+                        tsbPause.Enabled = true;
                     }
                 }
                 else
@@ -520,7 +520,7 @@ namespace MyMentor.Forms
                     tsbHammer.Enabled = false;
                     tsbStartRecordNew.Enabled = true;
                     tsbPlay.Enabled = true;
-                    tsbStop.Enabled = false;
+                    tsbPause.Enabled = false;
 
                     if (m_selectedGraphicItemSelected >= 0 && !tsbMoveAnchorForward.Enabled)
                     {
@@ -4645,7 +4645,8 @@ namespace MyMentor.Forms
         {
             if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
             {
-                audioDjStudio1.PauseSound(0);
+                audioDjStudio1.StopSound(0);
+                //audioDjStudio1.PauseSound(0);
                 
                 if (tabControl1.SelectedIndex == 2)
                 {
@@ -4655,7 +4656,7 @@ namespace MyMentor.Forms
             }
             else if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PAUSED)
             {
-                tsbPlay.Image = imageList1.Images[5];
+                tsbPlay.Image = imageList1.Images[7];
 
                 audioDjStudio1.ResumeSound(0);
 
@@ -4670,7 +4671,7 @@ namespace MyMentor.Forms
             {
                 m_bContinueRecordingAfterPlayback = false;
 
-                tsbPlay.Image = imageList1.Images[5];
+                tsbPlay.Image = imageList1.Images[7];
 
                 audioDjStudio1.LoadSoundFromEditingSession(0, audioSoundEditor1.Handle);
 
@@ -4727,10 +4728,15 @@ namespace MyMentor.Forms
 
         private void tsbStop_Click(object sender, EventArgs e)
         {
-            if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING
-                || audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PAUSED)
+            if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
             {
-                audioDjStudio1.StopSound(0);
+                audioDjStudio1.PauseSound(0);
+
+                if (tabControl1.SelectedIndex == 2)
+                {
+                    timerRecordIcon.Enabled = false;
+                    timerUpdateDuringSchedulingPlayback.Enabled = false;
+                }
             }
         }
 

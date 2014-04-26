@@ -71,11 +71,6 @@ namespace MyMentor
             myRtb.ReadOnly = true;
         }
 
-        public static string RemovePunctation(this string value)
-        {
-            return RemovePunctation(value, false);
-        }
-
         public static string RemoveAnchors(this string value)
         {
             return value.Replace("[3]", string.Empty).Replace("[2]", string.Empty).Replace("[1]", string.Empty).Replace("[0]", string.Empty);
@@ -265,55 +260,15 @@ namespace MyMentor
 
             for (var i = 192; i < 211; i++)
             {
-                if (i == 206) continue;
+                if (i == 206 ||
+                    i == 208) 
+                    continue;
+
                 result = result.Replace(string.Format("\\'{0}", i.ToString("X").ToLower()), string.Empty);
             }
 
             return result;
         } 
-
-        public static string RemovePunctation(this string value, bool saveSectionSigns)
-        {
-            char[] chars = value.ToCharArray();
-            StringBuilder sb = new StringBuilder();
-
-            foreach (char c in chars)
-            {
-                if ( (int)c >= 1488 && (int)c <= 1514 || //hebrew
-                    (int)c >= 65 && (int)c <= 90 || //english upper
-                    (int)c >= 97 && (int)c <= 122 || //english upper
-                    (int)c == 32 || // space
-                    (int)c == 58 || // :
-                    (int)c == 44 || // ,
-                    (int)c == 45 || // -
-                    (int)c == 1470 || // ־
-                    (int)c == 46 || // .
-                    (int)c == 59 || // ;
-                    (c == '}' && saveSectionSigns) ||
-                    (c == '{' && saveSectionSigns) ||
-                    (c == '(' && saveSectionSigns) ||
-                    (c == ')' && saveSectionSigns) ||
-                    (c == '<' && saveSectionSigns) ||
-                    (c == '>' && saveSectionSigns) ||
-                    (c == '[' && saveSectionSigns) ||
-                    (c == ']' && saveSectionSigns) 
-                    )
-                {
-                    sb = sb.Append(c);
-                }
-            }
-
-            return sb.ToString();
-        }
-
-
-        //public static IEnumerable<Word> FlattenWords(this IEnumerable<Paragraph> paragraphs)
-        //{
-        //    return paragraphs.SelectMany(p => p.Words)
-        //        .Concat(paragraphs.SelectMany(p => p.Sentences).SelectMany(s => s.Words))
-        //        .Concat(paragraphs.SelectMany(p => p.Sentences).SelectMany(s => s.Sections).SelectMany(se => se.Words))
-        //        .OrderBy(w => w.Index);
-        //}
 
         public static Word SeekForWord(this IEnumerable<Paragraph> paragraphs, int wordCharIndex)
         {

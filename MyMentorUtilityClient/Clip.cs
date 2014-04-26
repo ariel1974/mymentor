@@ -809,6 +809,7 @@ namespace MyMentor
 
                     //only teamim
                     rtb.Rtf = this.RtfText.RemoveRtfTeamim().RemoveRtfNikud();
+                    rtb.RemoveAnchors();
                     rtb.Refresh();
                     rtb.SaveFile(tempClearTextRtf);
                 });

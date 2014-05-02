@@ -346,6 +346,7 @@ namespace MyMentor
                                 {
                                     ex_word = stack[wordIndex];
                                     start = ex_word.StartTime;
+                                    duration = ex_word.Duration;
                                 }
                                 else if (this.Chapter != null &&
                                     this.Chapter.Paragraphs != null)

@@ -4944,6 +4944,125 @@ namespace MyMentor.Forms
             label1.Text = trackBarPitch1.Value.ToString();
         }
 
+        private void ClickAnchor(AnchorType type, int selectionIndex)
+        {
+            string selectedAnchor = string.Empty;
+            var othersAnchor = new List<string>();
+            Dictionary<int, Word> newAnchorsStack = new Dictionary<int, Word>();
+
+            switch (type)
+            {
+                case AnchorType.Paragraph:
+                    selectedAnchor = "[3]";
+                    othersAnchor.AddRange(new string[] { "[2]", "[1]", "[0]" });
+                    break;
+                case AnchorType.Sentence:
+                    selectedAnchor = "[2]";
+                    othersAnchor.AddRange(new string[] { "[3]", "[1]", "[0]" });
+                    break;
+                case AnchorType.Section:
+                    selectedAnchor = "[1]";
+                    othersAnchor.AddRange(new string[] { "[3]", "[2]", "[0]" });
+                    break;
+                case AnchorType.Word:
+                    selectedAnchor = "[0]";
+                    othersAnchor.AddRange(new string[] { "[3]", "[2]", "[1]" });
+                    break;
+
+            }
+
+            if (richTextBox2.SelectedText == selectedAnchor)
+            {
+                if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
+                {
+                    var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                        word.RealCharIndex <= selectionIndex).LastOrDefault();
+
+                    if (lastWord != null && lastWord.NextWord != null)
+                    {
+                        if (lastWord.GraphicItemUnique > 0)
+                        {
+                            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(lastWord.GraphicItemUnique);
+                            lastWord.GraphicItemUnique = -1;
+                        }
+
+                        lastWord.Index = -1;
+
+                        Word next = lastWord.NextWord;
+                        while (next != null)
+                        {
+                            next.Index = next.Index - 1;
+                            next = next.NextWord;
+                        }
+                    }
+                    else if (lastWord != null)
+                    {
+                        if (m_endLineUniqueId > 0 )
+                        {
+                            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_endLineUniqueId);
+                            m_endLineUniqueId = -1;
+                        }
+
+                        // add new anchor to the stack
+                        newAnchorsStack.Add(lastWord.Index - 1, new Word
+                        {
+                            StartTime = lastWord.PreviousWord.StartTime,
+                            Duration = lastWord.PreviousWord.Duration.Add(lastWord.Duration)
+                        });
+
+                        lastWord.Index = -1;
+
+                    }
+                }
+
+                richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
+                richTextBox1.SelectionLength = 3;
+                richTextBox1.SelectedText = "";
+
+                Clip.Current.Devide(newAnchorsStack);
+            }
+            else if (othersAnchor.Contains(  richTextBox2.SelectedText ))
+            {
+                richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
+                richTextBox1.SelectionLength = 3;
+                richTextBox1.SelectedText = selectedAnchor;
+            }
+            else
+            {
+                if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
+                {
+                    var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                        word.RealCharIndex < selectionIndex).LastOrDefault();
+
+                    if (lastWord != null && lastWord.NextWord != null)
+                    {
+                        Word next = lastWord.NextWord;
+                        while (next != null)
+                        {
+                            next.Index = next.Index + 1;
+                            next = next.NextWord;
+                        }
+
+                        // add new anchor to the stack
+                        newAnchorsStack.Add(lastWord.Index + 1, new Word
+                        {
+                            StartTime = lastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, (int)lastWord.Duration.TotalMilliseconds / 2)),
+                            NextWord = new Word()
+                        });
+
+                    }
+                }
+
+                richTextBox1.SelectionStart = selectionIndex;
+                richTextBox1.SelectionLength = 0;
+                richTextBox1.SelectedText = selectedAnchor;
+
+                Clip.Current.Devide(newAnchorsStack);
+            }
+
+            PaintGraphics();
+        }
+
         private void richTextBox1_Click(object sender, EventArgs e)
         {
             if (richTextBox1.SelectionStart == 0 || richTextBox1.TextLength == 0)
@@ -4952,7 +5071,7 @@ namespace MyMentor.Forms
             }
 
             richTextBox2.Rtf = richTextBox1.Rtf;
-
+                        
             string remember = richTextBox1.Text;
             var selectionIndex = richTextBox1.SelectionStart;
 
@@ -4978,210 +5097,22 @@ namespace MyMentor.Forms
 
             if (tbrParagraph.Checked)
             {
-                if (richTextBox2.SelectedText == "[3]")
-                {
-                    richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
-                    richTextBox1.SelectionLength = 3;
-                    richTextBox1.SelectedText = "";
-                    return;
-                }
-                else if (richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")
-                {
-                    richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
-                    richTextBox1.SelectionLength = 3;
-                    richTextBox1.SelectedText = "[3]";
-                }
-                else
-                {
-                    if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
-                    {
-                        Dictionary<int, Word> newAnchorsStack = new Dictionary<int, Word>();
-
-                        var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
-                            word.RealCharIndex < selectionIndex).LastOrDefault();
-
-                        if (lastWord != null && lastWord.NextWord != null)
-                        {
-                            Word next = lastWord.NextWord;
-                            while (next != null)
-                            {
-                                next.Index = next.Index + 1;
-                                next = next.NextWord;
-                            }
-
-                            // add new anchor to the stack
-                            newAnchorsStack.Add(lastWord.Index + 1, new Word
-                            {
-                                StartTime = lastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, (int)lastWord.Duration.TotalMilliseconds / 2))
-                            });
-
-                        }
-
-                        richTextBox1.SelectionStart = selectionIndex;
-                        richTextBox1.SelectionLength = 0;
-                        richTextBox1.SelectedText = "[3]";
-
-                        Clip.Current.Devide(newAnchorsStack);
-                    }
-                }
-
-                PaintGraphics();
+                ClickAnchor(AnchorType.Paragraph, selectionIndex);
             }
 
             if (tbrSentense.Checked)
             {
-                if (richTextBox2.SelectedText == "[2]")
-                {
-                    richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
-                    richTextBox1.SelectionLength = 3;
-                    richTextBox1.SelectedText = "";
-                    return;
-                }
-                else if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")
-                {
-                    richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
-                    richTextBox1.SelectionLength = 3;
-                    richTextBox1.SelectedText = "[2]";
-                }
-                else
-                {
-                    if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
-                    {
-                        Dictionary<int, Word> newAnchorsStack = new Dictionary<int, Word>();
-                        
-                        var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
-                            word.RealCharIndex < selectionIndex).LastOrDefault();
-
-                        if (lastWord != null && lastWord.NextWord != null)
-                        {
-                            Word next = lastWord.NextWord;
-                            while (next != null)
-                            {
-                                next.Index = next.Index + 1;
-                                next = next.NextWord;
-                            }
-
-                            // add new anchor to the stack
-                            newAnchorsStack.Add(lastWord.Index + 1, new Word
-                            {
-                                StartTime = lastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, (int)lastWord.Duration.TotalMilliseconds / 2))
-                            });
-
-                        }
-
-                        richTextBox1.SelectionStart = selectionIndex;
-                        richTextBox1.SelectionLength = 0;
-                        richTextBox1.SelectedText = "[2]";
-
-                        Clip.Current.Devide(newAnchorsStack);
-                    }
-                }
-
-                PaintGraphics();
+                ClickAnchor(AnchorType.Sentence, selectionIndex);
             }
 
             if (tbrSection.Checked)
             {
-                if (richTextBox2.SelectedText == "[1]")
-                {
-                    richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
-                    richTextBox1.SelectionLength = 3;
-                    richTextBox1.SelectedText = "";
-                    return;
-                }
-                else if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[0]")
-                {
-                    richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
-                    richTextBox1.SelectionLength = 3;
-                    richTextBox1.SelectedText = "[1]";
-                }
-                else
-                {
-                    if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
-                    {
-                        Dictionary<int, Word> newAnchorsStack = new Dictionary<int, Word>();
-
-                        var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
-                            word.RealCharIndex < selectionIndex).LastOrDefault();
-
-                        if (lastWord != null && lastWord.NextWord != null)
-                        {
-                            Word next = lastWord.NextWord;
-                            while (next != null)
-                            {
-                                next.Index = next.Index + 1;
-                                next = next.NextWord;
-                            }
-
-                            // add new anchor to the stack
-                            newAnchorsStack.Add(lastWord.Index + 1, new Word
-                            {
-                                StartTime = lastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, (int)lastWord.Duration.TotalMilliseconds / 2))
-                            });
-
-                        }
-
-                        richTextBox1.SelectionStart = selectionIndex;
-                        richTextBox1.SelectionLength = 0;
-                        richTextBox1.SelectedText = "[1]";
-
-                        Clip.Current.Devide(newAnchorsStack);
-                    }
-                }
-
-                PaintGraphics();
+                ClickAnchor(AnchorType.Section, selectionIndex);
             }
 
             if (tbrWord.Checked)
             {
-                if (richTextBox2.SelectedText == "[0]")
-                {
-                    richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
-                    richTextBox1.SelectionLength = 3;
-                    richTextBox1.SelectedText = "";
-                    return;
-                }
-                else if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]")
-                {
-                    richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
-                    richTextBox1.SelectionLength = 3;
-                    richTextBox1.SelectedText = "[0]";
-                }
-                else
-                {
-                    if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
-                    {
-                        Dictionary<int, Word> newAnchorsStack = new Dictionary<int, Word>();
-
-                        var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
-                            word.RealCharIndex < selectionIndex).LastOrDefault();
-
-                        if (lastWord != null && lastWord.NextWord != null)
-                        {
-                            Word next = lastWord.NextWord;
-                            while (next != null)
-                            {
-                                next.Index = next.Index + 1;
-                                next = next.NextWord;
-                            }
-
-                            // add new anchor to the stack
-                            newAnchorsStack.Add(lastWord.Index + 1, new Word
-                            {
-                                StartTime = lastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, (int)lastWord.Duration.TotalMilliseconds / 2))
-                            });
-
-                        }
-
-                        richTextBox1.SelectionStart = selectionIndex;
-                        richTextBox1.SelectionLength = 0;
-                        richTextBox1.SelectedText = "[0]";
-
-                        Clip.Current.Devide(newAnchorsStack);
-                    }
-                }
-
-                PaintGraphics();
+                ClickAnchor(AnchorType.Word, selectionIndex);
             }
         }
 

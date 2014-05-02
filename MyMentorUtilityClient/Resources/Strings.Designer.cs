@@ -88,6 +88,15 @@ namespace MyMentor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to קיים מעבר אחד או יותר בטווח שברצונך למחוק. פעולה זו תסיר את המעברים ואת העוגנים הקשורים. האם ברצונך להמשיך ?.
+        /// </summary>
+        internal static string CUT_DELETE_CLIP_WORDS_INRANGE_CONFIRM {
+            get {
+                return ResourceManager.GetString("CUT_DELETE_CLIP_WORDS_INRANGE_CONFIRM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [סוף].
         /// </summary>
         internal static string END_PAUSE_SECTION_ANCHOR {

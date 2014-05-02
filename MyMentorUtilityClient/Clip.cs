@@ -145,13 +145,23 @@ namespace MyMentor
 
         public void Devide()
         {
-            Devide(false, false);
+            Devide(false, false, null);
+        }
+
+        public void Devide(Dictionary<int, Word> stack)
+        {
+            Devide(false, false, stack);
+        }
+
+        private void Devide(bool onlyNikud, bool onlyTeamim)
+        {
+            Devide(onlyNikud, onlyTeamim, null);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private void Devide(bool onlyNikud, bool onlyTeamim)
+        private void Devide(bool onlyNikud, bool onlyTeamim, Dictionary<int, Word> stack)
         {
             try
             {
@@ -332,7 +342,12 @@ namespace MyMentor
 
                                 Word ex_word = null;
 
-                                if (this.Chapter != null &&
+                                if (stack != null && stack.ContainsKey(wordIndex))
+                                {
+                                    ex_word = stack[wordIndex];
+                                    start = ex_word.StartTime;
+                                }
+                                else if (this.Chapter != null &&
                                     this.Chapter.Paragraphs != null)
                                 {
                                     ex_word = this.Chapter.Paragraphs.SelectMany(s => s.Sentences).SelectMany(se => se.Sections).SelectMany(sc => sc.Words).FirstOrDefault(w => w.Index == wordIndex);

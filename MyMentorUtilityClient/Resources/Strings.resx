@@ -126,6 +126,9 @@
   <data name="CONTINUE" xml:space="preserve">
     <value>המשך</value>
   </data>
+  <data name="CUT_DELETE_CLIP_WORDS_INRANGE_CONFIRM" xml:space="preserve">
+    <value>קיים מעבר אחד או יותר בטווח שברצונך למחוק. פעולה זו תסיר את המעברים ואת העוגנים הקשורים. האם ברצונך להמשיך ?</value>
+  </data>
   <data name="END_PAUSE_SECTION_ANCHOR" xml:space="preserve">
     <value>[סוף]</value>
   </data>

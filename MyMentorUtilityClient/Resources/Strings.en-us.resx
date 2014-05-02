@@ -126,6 +126,9 @@
   <data name="CONTINUE" xml:space="preserve">
     <value>Continue</value>
   </data>
+  <data name="CUT_DELETE_CLIP_WORDS_INRANGE_CONFIRM" xml:space="preserve">
+    <value>There is one transition or more in the range you wish to delete. Are you sure to continue ?</value>
+  </data>
   <data name="END_PAUSE_SECTION_ANCHOR" xml:space="preserve">
     <value>[END]</value>
   </data>

@@ -134,7 +134,7 @@ namespace MyMentor.Forms
             // init controls
             audioSoundRecorder1.InitRecordingSystem();
             audioSoundRecorder1.SetInputDeviceChannelVolume(0, 0, 100);
-            
+
             audioSoundRecorder2.InitRecordingSystem();
             audioSoundRecorder2.SetInputDeviceChannelVolume(0, 0, 100);
 
@@ -462,9 +462,9 @@ namespace MyMentor.Forms
                     tsbStartRecordNew.Enabled = true;
                 }
             }
-            
+
                 // NOT RECORDING - AND THERE IS CLIP
-            else if ( audioSoundEditor1.GetSoundDuration() > 0 )
+            else if (audioSoundEditor1.GetSoundDuration() > 0)
             {
                 // IN PAUSE OR PLAY MODE
                 if (audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING
@@ -528,7 +528,7 @@ namespace MyMentor.Forms
                         tsbMoveAnchorRewind.Enabled = true;
                         tsbCheckAnchor.Enabled = true;
                     }
-                    else if (m_selectedGraphicItemSelected == -1 && 
+                    else if (m_selectedGraphicItemSelected == -1 &&
                         tsbMoveAnchorForward.Enabled)
                     {
                         tsbMoveAnchorForward.Enabled = false;
@@ -733,12 +733,12 @@ namespace MyMentor.Forms
             //    return;
             //}
 
-            var hebrewPattern = (string)comboClipType.SelectedValue == "enaWrne5xe" ? 
-                m_contentType.Get<string>("sourceTitlePattern_he_il") : 
+            var hebrewPattern = (string)comboClipType.SelectedValue == "enaWrne5xe" ?
+                m_contentType.Get<string>("sourceTitlePattern_he_il") :
                 m_contentType.Get<string>("clipTitlePattern_he_il");
 
-            var englishPattern = (string)comboClipType.SelectedValue == "enaWrne5xe" ? 
-                m_contentType.Get<string>("sourceTitlePattern_en_us") : 
+            var englishPattern = (string)comboClipType.SelectedValue == "enaWrne5xe" ?
+                m_contentType.Get<string>("sourceTitlePattern_en_us") :
                 m_contentType.Get<string>("clipTitlePattern_en_us");
 
             var clipHebrewTitle = hebrewPattern.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetHebrewPlaceholderText(), "_"))
@@ -747,7 +747,7 @@ namespace MyMentor.Forms
                 .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetHebrewPlaceholderText(), "_"))
                 .SpecialReplace("[description]", string.Concat("_", Clip.Current.Description, "_"))
                 .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.Remarks, "_"))
-                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName") ?string.Concat("_",  ParseTables.CurrentUser.Get<string>("firstName"), "_") : string.Empty)
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstName"), "_") : string.Empty)
                 .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName"), "_") : string.Empty)
                 .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("CityOfResidence") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("CityOfResidence"), "_") : string.Empty);
 
@@ -785,7 +785,7 @@ namespace MyMentor.Forms
         private void OpenClip(string file)
         {
             m_whileLoadingClip = true;
-            
+
             audioSoundRecorder1.RecordedSound.FreeMemory();
             audioSoundEditor1.CloseSound();
             audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
@@ -986,10 +986,10 @@ namespace MyMentor.Forms
 
             int width = Convert.ToInt32(rtbMainEditorGraphics.MeasureString(number, richTextBox2.SelectionFont).Width);
 
-            factor1 = (int)(richTextBox2.SelectionFont.Size *  0.98222);
-            factor2 = (int)(richTextBox2.SelectionFont.Size * - 0.48888);
+            factor1 = (int)(richTextBox2.SelectionFont.Size * 0.98222);
+            factor2 = (int)(richTextBox2.SelectionFont.Size * -0.48888);
             factor3 = (int)(richTextBox2.SelectionFont.Size * 0.78555);
-            factor4 = (int)(richTextBox2.SelectionFont.Size * - 0.19855);
+            factor4 = (int)(richTextBox2.SelectionFont.Size * -0.19855);
 
             // rectangle to specify which region to paint too
             Rectangle r1 = new Rectangle();
@@ -1950,12 +1950,99 @@ namespace MyMentor.Forms
                 // no selection
                 return;
 
-            // delete the selected range
-            audioSoundEditor1.DeleteRange(nBeginSelectionInMs, nEndSelectionInMs);
+            if (ConfirmRemoveSelectionRange(nBeginSelectionInMs, nEndSelectionInMs))
+            {
+                // delete the selected range
+                audioSoundEditor1.DeleteRange(nBeginSelectionInMs, nEndSelectionInMs);
 
-            // remove the actual selection
-            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(false, 0, 0);
+                // remove the actual selection
+                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(false, 0, 0);
+            }
 
+        }
+
+        private bool ConfirmRemoveSelectionRange(int nBeginSelectionInMs, int nEndSelectionInMs)
+        {
+            ////check if we delete some anchors
+            if (Clip.Current.Chapter.Paragraphs != null && Clip.Current.Chapter.FirstWord != null)
+            {
+                var inRangeWords = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                    word.StartTime != TimeSpan.Zero && word.StartTime.TotalMilliseconds > nBeginSelectionInMs && word.StartTime.TotalMilliseconds < nEndSelectionInMs);
+
+                if (inRangeWords.Count() > 0)
+                {
+                    if (MessageBox.Show(ResourceHelper.GetLabel("CUT_DELETE_CLIP_WORDS_INRANGE_CONFIRM"), "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.No)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        Word next = null;
+                        int index = 0;
+                        TimeSpan buffer = new TimeSpan(0, 0, 0, 0, nEndSelectionInMs - nBeginSelectionInMs);
+
+                        foreach (Word word in inRangeWords)
+                        {
+                            if (word.PreviousWord != null)
+                            {
+                                index += 3;
+                                richTextBox1.SelectionStart = word.RealCharIndex - index;
+                                richTextBox1.SelectionLength = 3;
+                                richTextBox1.SelectedText = "";
+                                word.Index = -1;
+
+                                //decreased index
+                                Word internal_next = word.NextWord;
+                                while (internal_next != null)
+                                {
+                                    internal_next.Index = internal_next.Index - 1;
+                                    internal_next = internal_next.NextWord;
+                                }
+                            }
+                            else
+                            {
+                                //set first one
+                                word.StartTime = new TimeSpan(0, 0, 0, 0, 100);
+                            }
+
+                            next = word;
+                        }
+
+                        while (next != null)
+                        {
+                            next.StartTime = next.StartTime.Subtract(buffer);
+                            next = next.NextWord;
+                        }
+
+                        Clip.Current.RtfText = richTextBox1.Rtf;
+                        Clip.Current.Text = richTextBox1.Text;
+                        Clip.Current.Devide();
+
+                        richTextBox2.Rtf = richTextBox1.Rtf;
+                        CheckAnchors();
+                        richTextBox1.Rtf = richTextBox2.Rtf;
+                        richTextBox5.Clear();
+                        richTextBox5.Rtf = richTextBox1.Rtf;
+                        richTextBox5.RemoveAnchors();
+                        richTextBox3.Clear();
+                        m_skipSelectionChange = true;
+                        richTextBox3.Rtf = richTextBox1.Rtf;
+
+                        //add end anchor
+                        richTextBox3.AppendText(END_PAUSE_SECTION_ANCHOR);
+
+                        //add start anchor
+                        richTextBox3.SelectionStart = 0;
+                        richTextBox3.SelectionLength = 0;
+                        richTextBox3.SelectedText = START_PAUSE_SECTION_ANCHOR;
+                        m_skipSelectionChange = false;
+
+                        PaintGraphics();
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void mnuAudioSelectedPart_Reduce_Click(object sender, EventArgs e)
@@ -2062,7 +2149,7 @@ namespace MyMentor.Forms
                     //remove graphics
                     RemoveWaveFormGraphics();
                     audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
-                    
+
                     m_endLineUniqueId = -1;
                     m_selectedGraphicItemSelected = -1;
 
@@ -2760,7 +2847,7 @@ namespace MyMentor.Forms
                     cbInterval.Visible = true;
                 }
                 audioSoundEditor1.DisplayWaveformAnalyzer.Move(Picture1.Left, Picture1.Top, panel1.Width, panel1.Height);
-                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);                
+                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 0, 0);
             }
 
             //check if we have to refresh display
@@ -2906,14 +2993,14 @@ namespace MyMentor.Forms
 
             var buffer = (nEndPosInMs - nBeginPosInMs) / 100;
 
-            if ((nBeginPosInMs > 0 || nEndPosInMs < soundDuration ) &&
+            if ((nBeginPosInMs > 0 || nEndPosInMs < soundDuration) &&
                 fPosition + buffer > nEndPosInMs)
             {
                 if ((int)nEndPosInMs + (nEndPosInMs - nBeginPosInMs) - buffer < soundDuration)
                 {
                     audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange((int)nEndPosInMs - buffer, (int)nEndPosInMs + (nEndPosInMs - nBeginPosInMs) - buffer);
                 }
-                else if ( nEndPosInMs < soundDuration )
+                else if (nEndPosInMs < soundDuration)
                 {
                     audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange((int)nBeginPosInMs, soundDuration);
                 }
@@ -2961,7 +3048,7 @@ namespace MyMentor.Forms
                     Clip.Current.Chapter.LastWord.Duration > TimeSpan.Zero)
                 {
                     Debug.WriteLine(string.Format("select end anchor cause position is bigger than start time + duration of last word {0}", audioSoundEditor1.FromMsToFormattedTime((long)(Clip.Current.Chapter.LastWord.StartTime + Clip.Current.Chapter.LastWord.Duration).TotalMilliseconds, false, true)));
-                    
+
                     if (!m_selectedEndAnchor)
                     {
                         richTextBox3.SelectionStart = richTextBox3.TextLength;
@@ -2974,7 +3061,7 @@ namespace MyMentor.Forms
                     var word = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections)
                         .SelectMany(sc => sc.Words).Where(w => w.StartTime > TimeSpan.Zero && w.StartTime < position).LastOrDefault();
 
-                    if (word != null && 
+                    if (word != null &&
                         richTextBox3.SelectionStart != word.RealCharIndex + START_PAUSE_SECTION_ANCHOR.Length)
                     {
                         Debug.WriteLine(string.Format("word selected '{0}' with start time of {1}", word.Content, audioSoundEditor1.FromMsToFormattedTime((long)word.StartTime.TotalMilliseconds, false, true)));
@@ -2987,7 +3074,7 @@ namespace MyMentor.Forms
             }
 
             if (m_bRecAppendMode && m_bContinueRecordingAfterPlayback &&
-                 soundDuration - fPosition <= 60 ) 
+                 soundDuration - fPosition <= 60)
             {
                 if (audioSoundRecorder1.Status != AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING &&
                     audioSoundRecorder1.Status != AudioSoundRecorder.enumRecorderStates.RECORD_STATUS_RECORDING_MEMORY)
@@ -3455,7 +3542,7 @@ namespace MyMentor.Forms
 
         private void audioSoundEditor1_WaveAnalyzerSelectionChange(object sender, WaveAnalyzerSelectionChangeEventArgs e)
         {
-            
+
         }
 
         private void audioDjStudio1_SoundClosed(object sender, AudioDjStudio.PlayerEventArgs e)
@@ -3563,11 +3650,11 @@ namespace MyMentor.Forms
             //    audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, m_LastSelections[0], m_LastSelections[1]);
             //    m_LastSelections.Clear();
 
-                if (m_nRangeSelection != -1)
-                {
-                    audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_nRangeSelection);
-                    m_nRangeSelection = -1;
-                }
+            if (m_nRangeSelection != -1)
+            {
+                audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_nRangeSelection);
+                m_nRangeSelection = -1;
+            }
             //}
             //unlock selection
             audioSoundEditor1.DisplayWaveformAnalyzer.MouseSelectionEnable(true);//
@@ -3625,7 +3712,7 @@ namespace MyMentor.Forms
             }
 
             // SELECTED START ANCHOR
-            if (selectionIndex == 0) 
+            if (selectionIndex == 0)
             {
                 m_skipSelectionChange = true;
                 richTextBox3.SelectionStart = 0;
@@ -3826,7 +3913,7 @@ namespace MyMentor.Forms
                         }
                         else
                         {
-                            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, 
+                            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true,
                                 (int)(m_selectedScheduledWord.StartTime.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds),
                                 (int)(m_selectedScheduledWord.StartTime.TotalMilliseconds + m_selectedScheduledWord.Duration.TotalMilliseconds));
                         }
@@ -4203,7 +4290,7 @@ namespace MyMentor.Forms
 
             if (parDelimiters.Count() == 0 && senDelimiters.Count() == 0 && string.IsNullOrEmpty(comboBoxAutoDevideWor.Text))
             {
-                MessageBox.Show( ResourceHelper.GetLabel("SOURCE_NEED_TO_SELECT_OPTION") , "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                MessageBox.Show(ResourceHelper.GetLabel("SOURCE_NEED_TO_SELECT_OPTION"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
             }
 
@@ -4466,7 +4553,7 @@ namespace MyMentor.Forms
                 {
                     richTextBox2.SelectionStart = index - 3;
                     richTextBox2.SelectionLength = 3;
-                    
+
                     if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")
                     {
                         richTextBox2.SelectedText = anchor;
@@ -4560,7 +4647,7 @@ namespace MyMentor.Forms
 
             if (nBeginSelectionInMs != nEndSelectionInMs)
             {
-                center = ((nEndSelectionInMs - nBeginSelectionInMs) / 2)  +  nBeginSelectionInMs; 
+                center = ((nEndSelectionInMs - nBeginSelectionInMs) / 2) + nBeginSelectionInMs;
             }
             else
             {
@@ -4663,7 +4750,7 @@ namespace MyMentor.Forms
             {
                 audioDjStudio1.StopSound(0);
                 //audioDjStudio1.PauseSound(0);
-                
+
                 if (tabControl1.SelectedIndex == 2)
                 {
                     timerRecordIcon.Enabled = false;
@@ -4707,12 +4794,12 @@ namespace MyMentor.Forms
                     if (nBeginSelectionInMs != nEndSelectionInMs)
                     {
                         m_nRangeSelection = audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemWaveRangeAdd("RANGE", "",
-                            nBeginSelectionInMs, nEndSelectionInMs, 
+                            nBeginSelectionInMs, nEndSelectionInMs,
                             new WANALYZER_WAVE_RANGE
                             {
                                 colorBack = Color.DarkSlateGray,
                                 colorWaveLinePeak = Color.Green,
-                               colorWaveLineCenter = Color.LimeGreen
+                                colorWaveLineCenter = Color.LimeGreen
                             });
                     }
 
@@ -4739,7 +4826,7 @@ namespace MyMentor.Forms
                     }
                 }
             }
-        
+
         }
 
         private void tsbStop_Click(object sender, EventArgs e)
@@ -4770,8 +4857,8 @@ namespace MyMentor.Forms
             Int32 nEndSelectionInMs = 0;
             audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
 
-            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, Math.Min( nBeginSelectionInMs + buffer, audioSoundEditor1.GetSoundDuration())  ,
-                Math.Min( nEndSelectionInMs + buffer, audioSoundEditor1.GetSoundDuration()));
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, Math.Min(nBeginSelectionInMs + buffer, audioSoundEditor1.GetSoundDuration()),
+                Math.Min(nEndSelectionInMs + buffer, audioSoundEditor1.GetSoundDuration()));
         }
 
         private void tsbRewind_Click(object sender, EventArgs e)
@@ -4788,7 +4875,7 @@ namespace MyMentor.Forms
             Int32 nEndSelectionInMs = 0;
             audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
 
-            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, Math.Max( nBeginSelectionInMs - buffer , 0), Math.Max(nEndSelectionInMs - buffer , 0));
+            audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, Math.Max(nBeginSelectionInMs - buffer, 0), Math.Max(nEndSelectionInMs - buffer, 0));
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -4797,7 +4884,7 @@ namespace MyMentor.Forms
             {
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    if ( !string.IsNullOrEmpty(richTextBox1.Text.Trim()) &&
+                    if (!string.IsNullOrEmpty(richTextBox1.Text.Trim()) &&
                         MessageBox.Show(m_strings.Single(a => a.Key == "STD_SOURCE_TEXT_ARE_YOU_SURE").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.No)
                     {
                         return;
@@ -4854,7 +4941,7 @@ namespace MyMentor.Forms
         private void trackBarPitch1_ValueChanged(object sender, EventArgs e)
         {
             audioDjStudio1.SetTempoPerc(0, (float)trackBarPitch1.Value);
-            label1.Text =trackBarPitch1.Value.ToString();
+            label1.Text = trackBarPitch1.Value.ToString();
         }
 
         private void richTextBox1_Click(object sender, EventArgs e)
@@ -4906,9 +4993,36 @@ namespace MyMentor.Forms
                 }
                 else
                 {
-                    richTextBox1.SelectionStart = selectionIndex;
-                    richTextBox1.SelectionLength = 0;
-                    richTextBox1.SelectedText = "[3]";
+                    if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
+                    {
+                        Dictionary<int, Word> newAnchorsStack = new Dictionary<int, Word>();
+
+                        var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                            word.RealCharIndex < selectionIndex).LastOrDefault();
+
+                        if (lastWord != null && lastWord.NextWord != null)
+                        {
+                            Word next = lastWord.NextWord;
+                            while (next != null)
+                            {
+                                next.Index = next.Index + 1;
+                                next = next.NextWord;
+                            }
+
+                            // add new anchor to the stack
+                            newAnchorsStack.Add(lastWord.Index + 1, new Word
+                            {
+                                StartTime = lastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, (int)lastWord.Duration.TotalMilliseconds / 2))
+                            });
+
+                        }
+
+                        richTextBox1.SelectionStart = selectionIndex;
+                        richTextBox1.SelectionLength = 0;
+                        richTextBox1.SelectedText = "[3]";
+
+                        Clip.Current.Devide(newAnchorsStack);
+                    }
                 }
 
                 PaintGraphics();
@@ -4931,9 +5045,36 @@ namespace MyMentor.Forms
                 }
                 else
                 {
-                    richTextBox1.SelectionStart = selectionIndex;
-                    richTextBox1.SelectionLength = 0;
-                    richTextBox1.SelectedText = "[2]";
+                    if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
+                    {
+                        Dictionary<int, Word> newAnchorsStack = new Dictionary<int, Word>();
+                        
+                        var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                            word.RealCharIndex < selectionIndex).LastOrDefault();
+
+                        if (lastWord != null && lastWord.NextWord != null)
+                        {
+                            Word next = lastWord.NextWord;
+                            while (next != null)
+                            {
+                                next.Index = next.Index + 1;
+                                next = next.NextWord;
+                            }
+
+                            // add new anchor to the stack
+                            newAnchorsStack.Add(lastWord.Index + 1, new Word
+                            {
+                                StartTime = lastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, (int)lastWord.Duration.TotalMilliseconds / 2))
+                            });
+
+                        }
+
+                        richTextBox1.SelectionStart = selectionIndex;
+                        richTextBox1.SelectionLength = 0;
+                        richTextBox1.SelectedText = "[2]";
+
+                        Clip.Current.Devide(newAnchorsStack);
+                    }
                 }
 
                 PaintGraphics();
@@ -4956,9 +5097,36 @@ namespace MyMentor.Forms
                 }
                 else
                 {
-                    richTextBox1.SelectionStart = selectionIndex;
-                    richTextBox1.SelectionLength = 0;
-                    richTextBox1.SelectedText = "[1]";
+                    if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
+                    {
+                        Dictionary<int, Word> newAnchorsStack = new Dictionary<int, Word>();
+
+                        var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                            word.RealCharIndex < selectionIndex).LastOrDefault();
+
+                        if (lastWord != null && lastWord.NextWord != null)
+                        {
+                            Word next = lastWord.NextWord;
+                            while (next != null)
+                            {
+                                next.Index = next.Index + 1;
+                                next = next.NextWord;
+                            }
+
+                            // add new anchor to the stack
+                            newAnchorsStack.Add(lastWord.Index + 1, new Word
+                            {
+                                StartTime = lastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, (int)lastWord.Duration.TotalMilliseconds / 2))
+                            });
+
+                        }
+
+                        richTextBox1.SelectionStart = selectionIndex;
+                        richTextBox1.SelectionLength = 0;
+                        richTextBox1.SelectedText = "[1]";
+
+                        Clip.Current.Devide(newAnchorsStack);
+                    }
                 }
 
                 PaintGraphics();
@@ -4981,9 +5149,36 @@ namespace MyMentor.Forms
                 }
                 else
                 {
-                    richTextBox1.SelectionStart = selectionIndex;
-                    richTextBox1.SelectionLength = 0;
-                    richTextBox1.SelectedText = "[0]";
+                    if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
+                    {
+                        Dictionary<int, Word> newAnchorsStack = new Dictionary<int, Word>();
+
+                        var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                            word.RealCharIndex < selectionIndex).LastOrDefault();
+
+                        if (lastWord != null && lastWord.NextWord != null)
+                        {
+                            Word next = lastWord.NextWord;
+                            while (next != null)
+                            {
+                                next.Index = next.Index + 1;
+                                next = next.NextWord;
+                            }
+
+                            // add new anchor to the stack
+                            newAnchorsStack.Add(lastWord.Index + 1, new Word
+                            {
+                                StartTime = lastWord.StartTime.Add(new TimeSpan(0, 0, 0, 0, (int)lastWord.Duration.TotalMilliseconds / 2))
+                            });
+
+                        }
+
+                        richTextBox1.SelectionStart = selectionIndex;
+                        richTextBox1.SelectionLength = 0;
+                        richTextBox1.SelectedText = "[0]";
+
+                        Clip.Current.Devide(newAnchorsStack);
+                    }
                 }
 
                 PaintGraphics();
@@ -5137,7 +5332,7 @@ namespace MyMentor.Forms
                                 (int)(word.StartTime + word.Duration).TotalMilliseconds);
                     }
                 }
-                    // end line
+                // end line
                 else if (m_selectedGraphicItemSelected == m_endLineUniqueId)
                 {
                     var last_word = Clip.Current.Chapter.LastWord;
@@ -5207,7 +5402,7 @@ namespace MyMentor.Forms
                 {
                     var last_word = Clip.Current.Chapter.LastWord;
 
-                    var min = new TimeSpan(0, 0, 0, 0, (int)last_word.StartTime.TotalMilliseconds).Add(new TimeSpan(0,0,0,0,500));
+                    var min = new TimeSpan(0, 0, 0, 0, (int)last_word.StartTime.TotalMilliseconds).Add(new TimeSpan(0, 0, 0, 0, 500));
 
                     if (last_word.StartTime.Subtract(new TimeSpan(0, 0, 0, 0, 500)).Add(last_word.Duration) > min)
                     {
@@ -5218,7 +5413,7 @@ namespace MyMentor.Forms
                     }
                 }
 
-            } 
+            }
 
         }
 
@@ -5349,6 +5544,15 @@ namespace MyMentor.Forms
         private void textToolstripDeselect_Click(object sender, EventArgs e)
         {
             richTextBox1.DeselectAll();
+        }
+
+        private void audioSoundEditor1_WaveAnalysisDone(object sender, WaveAnalysisDoneEventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 2)
+            {
+                PaintWaveFormGraphics();
+                audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
+            }
         }
 
     }

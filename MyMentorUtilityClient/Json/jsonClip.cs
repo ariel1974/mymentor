@@ -36,6 +36,7 @@ namespace MyMentor.Json
         public sections lockedSections { get; set; }
         public learningOptions defaultLearningOptions { get; set; }
         public learningOptions lockedLearningOptions { get; set; }
+        public string voicePrompts { get; set; }
         public string category1 { get; set; }
         public string category2 { get; set; }
         public string category3 { get; set; }

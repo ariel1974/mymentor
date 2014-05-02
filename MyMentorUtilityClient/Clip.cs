@@ -76,6 +76,7 @@ namespace MyMentor
         public string Remarks { get; set; }
         public string RemarksEnglish { get; set; }
         public string Version { get; set; }
+        public string VoicePrompts { get; set; }
         public string Category1 { get; set; }
         public string Category2 { get; set; }
         public string Category3 { get; set; }
@@ -450,7 +451,7 @@ namespace MyMentor
             using (var zip = Ionic.Zip.ZipFile.Read(fileName))
             {
                 zip.Password = "97359194";
-                zip[0].FileName = Path.ChangeExtension(info.Name , ".mmnt2");
+                zip[0].FileName = Path.ChangeExtension(info.Name, ".mmnt2");
                 zip[0].Extract(System.IO.Path.GetTempPath(), ExtractExistingFileAction.OverwriteSilently);
             }
 
@@ -522,7 +523,7 @@ namespace MyMentor
 
             this.IsDirty = false;
             this.IsNew = false;
-             
+
             if (editor != null && editor.GetSoundDuration() > 0 && !string.IsNullOrEmpty(this.FileName))
             {
                 editor.ExportToFile(44100, 1, 0, 0, -1, Path.ChangeExtension(this.FileName, ".mp3"));
@@ -544,7 +545,7 @@ namespace MyMentor
         {
             log("מכין קובץ להעלאה...");
 
-            var t1 = Task.Factory.StartNew(() =>    
+            var t1 = Task.Factory.StartNew(() =>
             {
                 string tempPath = System.IO.Path.GetTempPath();
 
@@ -600,7 +601,7 @@ namespace MyMentor
                             this.DemoClipSize = info2.Length;
 
                         }
-                    }); 
+                    });
 
 
 
@@ -658,7 +659,12 @@ namespace MyMentor
             clip["status"] = ParseObject.CreateWithoutData("ClipStatus", this.Status);
             clip["existsNikud"] = this.IsNikudIncluded;
             clip["existsTeamim"] = this.IsTeamimIncluded;
-            clip["contentType"] = ParseObject.CreateWithoutData("WorldContentType",this.ContentType);
+            clip["contentType"] = ParseObject.CreateWithoutData("WorldContentType", this.ContentType);
+
+            if (!string.IsNullOrEmpty(this.VoicePrompts))
+            {
+                clip["VoicePrompts"] = ParseObject.CreateWithoutData("VoicePrompts", this.VoicePrompts);
+            }
 
             if (!string.IsNullOrEmpty(this.Category1))
             {
@@ -697,7 +703,7 @@ namespace MyMentor
             //}
 
             clip["updatedByMyMentor"] = DateTime.Now;
-            clip["keywords"] = this.Keywords.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries);
+            clip["keywords"] = this.Keywords.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             clip["clipFile"] = mmnFile;
             clip["clipSize"] = this.ClipSize;
 
@@ -877,7 +883,7 @@ namespace MyMentor
             var htmlClearTextFileLocation = Path.Combine(tempPath, string.Format("{0}_clearText.html", this.ID.ToString()));
 
             log("אורז קבצים...");
-            
+
             var t5 = Task.Factory.StartNew(() =>
                         {
 
@@ -956,6 +962,7 @@ namespace MyMentor
             clip.lockedSections = this.LockedSections;
             clip.defaultLearningOptions = this.DefaultLearningOptions;
             clip.lockedLearningOptions = this.LockedLearningOptions;
+            clip.voicePrompts = this.VoicePrompts;
             clip.category1 = this.Category1;
             clip.category2 = this.Category2;
             clip.category3 = this.Category3;

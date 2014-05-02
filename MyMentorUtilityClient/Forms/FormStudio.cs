@@ -630,6 +630,7 @@ namespace MyMentor.Forms
             tbClipRemarksEnglish.Text = Clip.Current.RemarksEnglish;
             tbClipDescription.Text = Clip.Current.Description;
             tbClipDescriptionEnglish.Text = Clip.Current.EnglishDescription;
+            comboVoicePrompt.SelectedValue = Clip.Current.VoicePrompts ?? string.Empty;
             comboCategory1.SelectedValue = Clip.Current.Category1 ?? string.Empty;
             mtbVersion.Text = Clip.Current.Version;
             comboCategory3.SelectedValue = Clip.Current.Category3 ?? string.Empty;
@@ -1082,6 +1083,14 @@ namespace MyMentor.Forms
             {
                 m_strings = await ParseTables.GetStrings();
 
+                this.comboVoicePrompt.DisplayMember = "HebrewValue";
+                this.comboVoicePrompt.ValueMember = "ObjectId";
+                this.comboVoicePrompt.DataSource = (await ParseTables.GetVoicePrompts()).Select(c => new Category
+                {
+                    ObjectId = c.ObjectId,
+                    HebrewValue = c.ContainsKey("VoiceType") ? c.Get<string>("VoiceType") : string.Empty
+                }).ToList();
+
                 this.comboCategory1.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
                 this.comboCategory1.ValueMember = "ObjectId";
                 this.comboCategory1.DataSource = (await ParseTables.GetCategory1(contentType.ObjectId)).Select(c => new Category
@@ -1450,6 +1459,7 @@ namespace MyMentor.Forms
             }
 
             Clip.Current.Status = (string)comboStatus.SelectedValue;
+            Clip.Current.VoicePrompts = (string)comboVoicePrompt.SelectedValue;
             Clip.Current.Category1 = (string)comboCategory1.SelectedValue;
             Clip.Current.Category2 = (string)comboCategory2.SelectedValue;
             Clip.Current.Category3 = (string)comboCategory3.SelectedValue;
@@ -3969,6 +3979,12 @@ namespace MyMentor.Forms
                 }
 
                 if (comboCategory3.SelectedIndex < 0)
+                {
+                    MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                    return;
+                }
+
+                if (comboVoicePrompt.SelectedIndex < 0)
                 {
                     MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                     return;

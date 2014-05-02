@@ -108,6 +108,18 @@ namespace MyMentor
             return await query.FindAsync();
         }
 
+        public static async Task<IEnumerable<ParseObject>> GetVoicePrompts()
+        {
+            var query = from cat in ParseObject.GetQuery("VoicePrompts")
+                        where
+                        (cat["Teacher"] == ParseObject.CreateWithoutData("_User", ParseUser.CurrentUser.ObjectId) && !cat.Get<bool>("MyMentorVoice"))
+                        || cat.Get<bool>("MyMentorVoice")
+                        orderby cat.Get<int>("Sorting")
+                        select cat;
+
+            return await query.FindAsync();
+        }
+
         public static async Task<ParseObject> GetCategoryLabels(string contentType)
         {
 

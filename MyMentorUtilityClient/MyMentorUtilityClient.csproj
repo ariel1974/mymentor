@@ -204,6 +204,7 @@
     <Compile Include="Forms\FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="MessageApplyInsertion.cs" />
     <Compile Include="ParseObjects\Cat_Kria.cs" />
     <Compile Include="ParseObjects\ClipStatus.cs" />
     <Compile Include="ParseObjects\ClipsV2.cs" />

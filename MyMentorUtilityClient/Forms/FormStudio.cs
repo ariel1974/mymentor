@@ -22,6 +22,7 @@ namespace MyMentor.Forms
 {
     public partial class FormStudio : Form
     {
+        private MessageApplyInsertion m_messageInsertion = new MessageApplyInsertion();
         private string m_currentFingerPrint = string.Empty;
         private bool m_bRecAppendMode;
         private bool m_bInPublishProgress;
@@ -630,6 +631,8 @@ namespace MyMentor.Forms
             tbClipRemarksEnglish.Text = Clip.Current.RemarksEnglish;
             tbClipDescription.Text = Clip.Current.Description;
             tbClipDescriptionEnglish.Text = Clip.Current.EnglishDescription;
+            tbPerformer.Text = Clip.Current.Performer;
+            tbPerformerEnglish.Text = Clip.Current.EnglishPerformer;
             comboVoicePrompt.SelectedValue = Clip.Current.VoicePrompts ?? string.Empty;
             comboCategory1.SelectedValue = Clip.Current.Category1 ?? string.Empty;
             mtbVersion.Text = Clip.Current.Version;
@@ -1446,6 +1449,9 @@ namespace MyMentor.Forms
             //set properties
             Clip.Current.HebrewTitle = tbClipTitle.Text;
             Clip.Current.Description = tbClipDescription.Text;
+            Clip.Current.EnglishDescription = tbClipDescriptionEnglish.Text;
+            Clip.Current.Performer = tbPerformer.Text;
+            Clip.Current.EnglishPerformer = tbPerformerEnglish.Text;
             Clip.Current.Remarks = tbClipRemarks.Text;
             Clip.Current.RemarksEnglish = tbClipRemarksEnglish.Text;
 
@@ -1836,9 +1842,18 @@ namespace MyMentor.Forms
 
             // predispose the insert position
             if (bSelectionAvailable)
+            {
                 audioSoundEditor1.SetInsertPos(nBeginSelectionInMs);
+                m_messageInsertion.InsertLocation = nBeginSelectionInMs;
+            }
             else
+            {
                 audioSoundEditor1.SetInsertPos(0);
+                m_messageInsertion.InsertLocation = 0;
+            }
+
+            m_messageInsertion.Active = true;
+            m_messageInsertion.OldClipDuration = audioSoundEditor1.GetSoundDuration();
 
             // set insert mode and get sound data from the chosen file
             audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_INSERT);
@@ -1963,6 +1978,8 @@ namespace MyMentor.Forms
 
         private bool ConfirmRemoveSelectionRange(int nBeginSelectionInMs, int nEndSelectionInMs)
         {
+            TimeSpan buffer = new TimeSpan(0, 0, 0, 0, nEndSelectionInMs - nBeginSelectionInMs);
+
             ////check if we delete some anchors
             if (Clip.Current.Chapter.Paragraphs != null && Clip.Current.Chapter.FirstWord != null)
             {
@@ -1979,7 +1996,6 @@ namespace MyMentor.Forms
                     {
                         Word next = null;
                         int index = 0;
-                        TimeSpan buffer = new TimeSpan(0, 0, 0, 0, nEndSelectionInMs - nBeginSelectionInMs);
 
                         foreach (Word word in inRangeWords)
                         {
@@ -2039,6 +2055,20 @@ namespace MyMentor.Forms
 
                         PaintGraphics();
                     }
+                }
+
+                //position after selection beign removed
+                var afterRangeWords = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                    word.StartTime != TimeSpan.Zero && word.StartTime.TotalMilliseconds > nEndSelectionInMs);
+
+                if (afterRangeWords.Count() > 0)
+                {
+                    foreach (Word word in afterRangeWords)
+                    {
+                        word.StartTime = word.StartTime.Subtract(buffer);
+                    }
+
+                    Clip.Current.Devide();
                 }
             }
 
@@ -3331,6 +3361,28 @@ namespace MyMentor.Forms
                 audioSoundEditor1.OutputVolumeSet((short)trackBarVolume1.Value, enumVolumeScales.SCALE_LINEAR);
 
                 TimerReload.Enabled = true;
+
+                ////check if we delete some anchors
+                if (Clip.Current.Chapter.Paragraphs != null && Clip.Current.Chapter.FirstWord != null && m_messageInsertion.Active)
+                {
+                    // buffer
+                    TimeSpan buffer = new TimeSpan (0,0,0,0,audioSoundEditor1.GetSoundDuration() - m_messageInsertion.OldClipDuration);
+
+                    var inRangeWords = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                        word.StartTime != TimeSpan.Zero && word.StartTime.TotalMilliseconds > m_messageInsertion.InsertLocation);
+
+                    if (inRangeWords.Count() > 0)
+                    {
+                        foreach (Word word in inRangeWords)
+                        {
+                            word.StartTime = word.StartTime.Add(buffer);
+                        }
+
+                        Clip.Current.Devide();
+                    }
+                    m_messageInsertion.Active = false;
+                }
+
             }
             else
                 MessageBox.Show("Sound failed to load with the following error code: " + audioSoundEditor1.LastError.ToString());
@@ -5484,6 +5536,18 @@ namespace MyMentor.Forms
                 PaintWaveFormGraphics();
                 audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
             }
+        }
+
+        private void tbPerformer_TextChanged(object sender, EventArgs e)
+        {
+            Clip.Current.Performer = tbPerformer.Text;
+            RegenerateClipName(true);
+        }
+
+        private void tbPerformerEnglish_TextChanged(object sender, EventArgs e)
+        {
+            Clip.Current.EnglishPerformer = tbPerformerEnglish.Text;
+            RegenerateClipName(true);
         }
 
     }

@@ -73,6 +73,8 @@ namespace MyMentor
         public bool RightAlignment { get; set; }
         public string Description { get; set; }
         public string EnglishDescription { get; set; }
+        public string Performer { get; set; }
+        public string EnglishPerformer { get; set; }
         public string Remarks { get; set; }
         public string RemarksEnglish { get; set; }
         public string Version { get; set; }
@@ -665,6 +667,8 @@ namespace MyMentor
             clip["clipSourceText"] = this.Text;
             clip["description_he_il"] = this.Description;
             clip["description_en_us"] = this.EnglishDescription;
+            clip["performer"] = this.Performer;
+            clip["Performer_en_us"] = this.EnglishPerformer;
             clip["remarks_he_il"] = this.Remarks;
             clip["remarks_en_us"] = this.RemarksEnglish;
             clip["version"] = this.Version;
@@ -964,6 +968,8 @@ namespace MyMentor
             clip.id = this.ID.ToString();
             clip.name = this.HebrewTitle;
             clip.description = this.Description;
+            clip.performer = this.Performer;
+            clip.performerEnglish = this.EnglishPerformer;
             clip.remarks = this.Remarks;
             clip.clipVersion = this.Version;
             clip.chapter = this.Chapter;

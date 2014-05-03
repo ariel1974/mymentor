@@ -1726,6 +1726,26 @@ namespace MyMentor.Forms
             else
                 audioSoundEditor1.InsertSilence(0, frmSilence.m_nSilenceLengthInMs);
 
+            //fix scheduling
+            if (Clip.Current.Chapter.Paragraphs != null)
+            {
+                // buffer
+                TimeSpan buffer = new TimeSpan(0, 0, 0, 0, frmSilence.m_nSilenceLengthInMs);
+
+                var inRangeWords = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                    word.StartTime != TimeSpan.Zero && word.StartTime.TotalMilliseconds > nBeginSelectionInMs);
+
+                if (inRangeWords.Count() > 0)
+                {
+                    foreach (Word word in inRangeWords)
+                    {
+                        word.StartTime = word.StartTime.Add(buffer);
+                    }
+
+                    Clip.Current.Devide();
+                }
+            }
+
         }
 
         private void mnuAudioOptions_ApplyBackgroundSound_Click(object sender, EventArgs e)
@@ -2281,15 +2301,54 @@ namespace MyMentor.Forms
         {
             try
             {
-                if (richTextBox1.SelectionFont.Size > 8)
+                Dictionary<int, int> sizes = new Dictionary<int, int>() {
+                {3, 10}, {4, 11}, {5, 12}, {6, 14},
+                {7, 16}, {8, 18}, {9, 20}, {10, 22},
+                    {11, 24}, {12, 26}, {13, 28} , {14, 36}, {15, 44},
+                    {16, 48}, {17, 56}, {18, 72} };
+
+
+                string selRtf = richTextBox1.SelectedRtf;
+                int selectedStart = richTextBox1.SelectionStart;
+                int selectedLength = richTextBox1.SelectionLength;
+
+                if (string.IsNullOrEmpty(selRtf))
+                    return;
+
+                Regex r = new Regex(@"\\fs[0-9]+");
+                MatchCollection mc = r.Matches(selRtf);
+
+                for (int j = 0; j < mc.Count; j++)
                 {
-                    richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily, richTextBox1.SelectionFont.Size - 2);
+                    int size;
+                    bool getSize = int.TryParse(mc[j].Value.Replace("fs", string.Empty).Replace("\\", string.Empty), out size);
+
+                    if (getSize)
+                    {
+                        if (sizes.ContainsValue(size))
+                        {
+                            int key = sizes.Single(w => w.Value == size).Key;
+
+                            if (key > 3)
+                            {
+                                key -= 1;
+                                selRtf = selRtf.Remove(mc[j].Index, mc[j].Value.Length).Insert(mc[j].Index, "\\fs" + sizes[key].ToString());
+                            }
+                        }
+                    }
                 }
+
+                Debug.WriteLine(selRtf);
+
+                richTextBox1.SelectedRtf = selRtf;
+                richTextBox1.SelectionStart = selectedStart;
+                richTextBox1.SelectionLength = selectedLength;
             }
             catch
             {
 
             }
+
 
         }
 
@@ -2297,10 +2356,48 @@ namespace MyMentor.Forms
         {
             try
             {
-                if (richTextBox1.SelectionFont.Size < 32)
+                Dictionary<int, int> sizes = new Dictionary<int, int>() {
+                {3, 10}, {4, 11}, {5, 12}, {6, 14},
+                {7, 16}, {8, 18}, {9, 20}, {10, 22},
+                    {11, 24}, {12, 26}, {13, 28} , {14, 36}, {15, 44},
+                    {16, 48}, {17, 56}, {18, 72} };
+
+
+                string selRtf = richTextBox1.SelectedRtf;
+                int selectedStart = richTextBox1.SelectionStart;
+                int selectedLength = richTextBox1.SelectionLength;
+
+                if (string.IsNullOrEmpty(selRtf))
+                    return;
+
+                Regex r = new Regex(@"\\fs[0-9]+");
+                MatchCollection mc = r.Matches(selRtf);
+
+                for (int j = 0; j < mc.Count; j++)
                 {
-                    richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily, richTextBox1.SelectionFont.Size + 2);
+                    int size;
+                    bool getSize = int.TryParse(mc[j].Value.Replace("fs", string.Empty).Replace("\\", string.Empty), out size);
+
+                    if (getSize)
+                    {
+                        if (sizes.ContainsValue(size))
+                        {
+                            int key = sizes.Single(w => w.Value == size).Key;
+
+                            if (key < 18)
+                            {
+                                key += 1;
+                                selRtf = selRtf.Remove(mc[j].Index, mc[j].Value.Length).Insert(mc[j].Index, "\\fs" + sizes[key].ToString());
+                            }
+                        }
+                    }
                 }
+
+                Debug.WriteLine(selRtf);
+
+                richTextBox1.SelectedRtf = selRtf;
+                richTextBox1.SelectionStart = selectedStart;
+                richTextBox1.SelectionLength = selectedLength;
             }
             catch
             {

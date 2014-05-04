@@ -315,6 +315,16 @@ namespace MyMentor
             set;
         }
 
+        [JsonIgnore]
+        [XmlIgnore]
+        public IEnumerable<Word> Words
+        {
+            get
+            {
+                return Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words);
+            }
+        }
+
         [JsonProperty(PropertyName = "length", Order = 3)]
         public override int Length
         {

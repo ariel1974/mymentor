@@ -949,6 +949,8 @@ namespace MyMentor.Forms
 
         private void PaintAnchor(AnchorType type, int index)
         {
+
+
             Color c;
             Pen cp = new Pen(Color.Beige);
             string number = "";
@@ -993,6 +995,9 @@ namespace MyMentor.Forms
             factor2 = (int)(richTextBox2.SelectionFont.Size * -0.48888);
             factor3 = (int)(richTextBox2.SelectionFont.Size * 0.78555);
             factor4 = (int)(richTextBox2.SelectionFont.Size * -0.19855);
+
+            if (richTextBox1.SelectionFont == null)
+                return;
 
             // rectangle to specify which region to paint too
             Rectangle r1 = new Rectangle();
@@ -1732,7 +1737,7 @@ namespace MyMentor.Forms
                 // buffer
                 TimeSpan buffer = new TimeSpan(0, 0, 0, 0, frmSilence.m_nSilenceLengthInMs);
 
-                var inRangeWords = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                var inRangeWords = Clip.Current.Chapter.Words.Where(word =>
                     word.StartTime != TimeSpan.Zero && word.StartTime.TotalMilliseconds > nBeginSelectionInMs);
 
                 if (inRangeWords.Count() > 0)
@@ -1956,14 +1961,23 @@ namespace MyMentor.Forms
 
             // if a selection is available
             if (bSelectionAvailable)
+            {
                 // paste at the given position
                 audioSoundEditor1.SetInsertPos(nBeginSelectionInMs);
+                m_messageInsertion.InsertLocation = nBeginSelectionInMs;
+            }
             else
-                // paste at position 0
+            // paste at position 0
+            {
                 audioSoundEditor1.SetInsertPos(0);
+                m_messageInsertion.InsertLocation = 0;
+            }
 
             // set insert mode
             audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_INSERT);
+
+            m_messageInsertion.Active = true;
+            m_messageInsertion.OldClipDuration = audioSoundEditor1.GetSoundDuration();
 
             // paste clipboard contents
             if (audioSoundEditor1.LoadSoundFromClipboard() != enumErrorCodes.ERR_NOERROR)
@@ -2003,7 +2017,7 @@ namespace MyMentor.Forms
             ////check if we delete some anchors
             if (Clip.Current.Chapter.Paragraphs != null && Clip.Current.Chapter.FirstWord != null)
             {
-                var inRangeWords = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                var inRangeWords = Clip.Current.Chapter.Words.Where(word =>
                     word.StartTime != TimeSpan.Zero && word.StartTime.TotalMilliseconds > nBeginSelectionInMs && word.StartTime.TotalMilliseconds < nEndSelectionInMs);
 
                 if (inRangeWords.Count() > 0)
@@ -2078,7 +2092,7 @@ namespace MyMentor.Forms
                 }
 
                 //position after selection beign removed
-                var afterRangeWords = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                var afterRangeWords = Clip.Current.Chapter.Words.Where(word =>
                     word.StartTime != TimeSpan.Zero && word.StartTime.TotalMilliseconds > nEndSelectionInMs);
 
                 if (afterRangeWords.Count() > 0)
@@ -2188,7 +2202,7 @@ namespace MyMentor.Forms
                 {
                     Clip.Current.IsDirty = true;
 
-                    var words = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words);
+                    var words = Clip.Current.Chapter.Words;
 
                     foreach (var word in words)
                     {
@@ -2901,8 +2915,7 @@ namespace MyMentor.Forms
         /// </summary>
         private void RemoveWaveFormGraphics()
         {
-            foreach (Word word in Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(sc => sc.Sections)
-   .SelectMany(w => w.Words))
+            foreach (Word word in Clip.Current.Chapter.Words)
             {
                 if (word.GraphicItemUnique > -1)
                 {
@@ -3465,7 +3478,7 @@ namespace MyMentor.Forms
                     // buffer
                     TimeSpan buffer = new TimeSpan (0,0,0,0,audioSoundEditor1.GetSoundDuration() - m_messageInsertion.OldClipDuration);
 
-                    var inRangeWords = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                    var inRangeWords = Clip.Current.Chapter.Words.Where(word =>
                         word.StartTime != TimeSpan.Zero && word.StartTime.TotalMilliseconds > m_messageInsertion.InsertLocation);
 
                     if (inRangeWords.Count() > 0)
@@ -4003,8 +4016,7 @@ namespace MyMentor.Forms
                 var savePreviousWord = m_selectedScheduledWord;
 
                 //check for word selection
-                m_selectedScheduledWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(sc => sc.Sections)
-                    .SelectMany(w => w.Words).Where(ww => ww.RealCharIndex <= selectionIndex).LastOrDefault();
+                m_selectedScheduledWord = Clip.Current.Chapter.Words.Where(ww => ww.RealCharIndex <= selectionIndex).LastOrDefault();
 
                 if (m_selectedScheduledWord != null)
                 {
@@ -5124,16 +5136,12 @@ namespace MyMentor.Forms
             {
                 if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
                 {
-                    var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                    var lastWord = Clip.Current.Chapter.Words.Where(word =>
                         word.RealCharIndex <= selectionIndex).LastOrDefault();
 
                     if (lastWord != null && lastWord.NextWord != null)
                     {
-                        if (lastWord.GraphicItemUnique > 0)
-                        {
-                            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(lastWord.GraphicItemUnique);
-                            lastWord.GraphicItemUnique = -1;
-                        }
+                        RemoveWaveFormGraphics();
 
                         lastWord.Index = -1;
 
@@ -5143,14 +5151,12 @@ namespace MyMentor.Forms
                             next.Index = next.Index - 1;
                             next = next.NextWord;
                         }
+
+                        newAnchorsStack = null;
                     }
                     else if (lastWord != null)
                     {
-                        if (m_endLineUniqueId > 0 )
-                        {
-                            audioSoundEditor1.DisplayWaveformAnalyzer.GraphicItemRemove(m_endLineUniqueId);
-                            m_endLineUniqueId = -1;
-                        }
+                        RemoveWaveFormGraphics();
 
                         // add new anchor to the stack
                         newAnchorsStack.Add(lastWord.Index - 1, new Word
@@ -5180,7 +5186,7 @@ namespace MyMentor.Forms
             {
                 if (Clip.Current.Chapter.FirstWord != null && Clip.Current.Chapter.FirstWord.StartTime > TimeSpan.Zero)
                 {
-                    var lastWord = Clip.Current.Chapter.Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).Where(word =>
+                    var lastWord = Clip.Current.Chapter.Words.Where(word =>
                         word.RealCharIndex < selectionIndex).LastOrDefault();
 
                     if (lastWord != null && lastWord.NextWord != null)

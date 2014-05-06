@@ -306,6 +306,7 @@
             this.timerPlayerIcon = new System.Windows.Forms.Timer(this.components);
             this.timerPlayAnchorCheckPause = new System.Windows.Forms.Timer(this.components);
             this.audioSoundRecorder2 = new AudioSoundRecorder.AudioSoundRecorder();
+            this.timerDeviderBlink = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -2472,6 +2473,12 @@
             this.audioSoundRecorder2.SilenceThreshold = ((short)(0));
             this.audioSoundRecorder2.VUMeterValueChange += new AudioSoundRecorder.AudioSoundRecorder.VUMeterValueChangeEventHandler(this.audioSoundRecorder2_VUMeterValueChange);
             // 
+            // timerDeviderBlink
+            // 
+            this.timerDeviderBlink.Enabled = true;
+            this.timerDeviderBlink.Interval = 500;
+            this.timerDeviderBlink.Tick += new System.EventHandler(this.timerDeviderBlink_Tick);
+            // 
             // FormStudio
             // 
             resources.ApplyResources(this, "$this");
@@ -2827,5 +2834,6 @@
         private System.Windows.Forms.TextBox tbPerformerEnglish;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbPerformer;
+        private System.Windows.Forms.Timer timerDeviderBlink;
     }
 }

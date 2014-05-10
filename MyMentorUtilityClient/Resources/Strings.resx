@@ -159,6 +159,9 @@
   <data name="MANDATORY_FIELDS" xml:space="preserve">
     <value>יש למלא שדות חובה למאפייני השיעור</value>
   </data>
+  <data name="MANUALLY_ANCHORS_VALIDATION" xml:space="preserve">
+    <value>נוספו/נמחקו עוגנים ידנית ללא הוספת מעברים. אנא וודא שהנך מתזמן מעברים אלו מחדש</value>
+  </data>
   <data name="MENU_REMOVE_ANCHORS" xml:space="preserve">
     <value>מחק מעבר זה ואת הבאים אחריו</value>
   </data>
@@ -172,7 +175,7 @@
     <value>הדבק</value>
   </data>
   <data name="MNU_PASTE_APPEND_MODE" xml:space="preserve">
-    <value>הדבק במצב הוספה</value>
+    <value>הדבק בסוף</value>
   </data>
   <data name="NO_AUDIO_EXISTS" xml:space="preserve">
     <value>לא קיימת הקלטה לביצוע תזמון</value>

@@ -187,6 +187,15 @@ namespace MyMentor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to נוספו/נמחקו עוגנים ידנית ללא הוספת מעברים. אנא וודא שהנך מתזמן מעברים אלו מחדש.
+        /// </summary>
+        internal static string MANUALLY_ANCHORS_VALIDATION {
+            get {
+                return ResourceManager.GetString("MANUALLY_ANCHORS_VALIDATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to מחק מעבר זה ואת הבאים אחריו.
         /// </summary>
         internal static string MENU_REMOVE_ANCHORS {
@@ -223,7 +232,7 @@ namespace MyMentor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to הדבק במצב הוספה.
+        ///   Looks up a localized string similar to הדבק בסוף.
         /// </summary>
         internal static string MNU_PASTE_APPEND_MODE {
             get {

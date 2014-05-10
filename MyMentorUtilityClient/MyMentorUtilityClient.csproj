@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>1386994963_118644.ico</ApplicationIcon>
+    <ApplicationIcon>MyMentor.exe.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -341,6 +341,7 @@
     <None Include="Resources\bg331.png" />
     <None Include="Resources\bg332.png" />
     <None Include="Resources\1395486322_icon-locked.png" />
+    <Content Include="MyMentor.exe.ico" />
     <Content Include="Resources\word_anchor_off.png" />
     <Content Include="Resources\word_anchor_on.png" />
     <Content Include="sound_sample.mp3">
@@ -371,7 +372,6 @@
     <None Include="Resources\1386909293_auction_hammer_gavel.png" />
     <None Include="Resources\1386909646_519838-50_Cloud_Arrow_Up.png" />
     <None Include="Resources\1386947558_anchor.png" />
-    <Content Include="1386994963_118644.ico" />
     <None Include="Resources\1386908112_Record Button1.png" />
     <None Include="Resources\1388144426_arrow_sans_right.png" />
     <Content Include="Rtf2Html\Itenso.Rtf.Converter.Html.dll">

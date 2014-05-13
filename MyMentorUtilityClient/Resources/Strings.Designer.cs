@@ -187,7 +187,7 @@ namespace MyMentor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to נוספו/נמחקו עוגנים ידנית ללא הוספת מעברים. אנא וודא שהנך מתזמן מעברים אלו מחדש.
+        ///   Looks up a localized string similar to נוספו/נמחקו עוגנים ידנית ללא הוספת מעברים. יש להוסיף/למחוק עוגנים רק דרך סרגל הכלים והקלקה על המיקום המיועד להוספה/הסרה..
         /// </summary>
         internal static string MANUALLY_ANCHORS_VALIDATION {
             get {

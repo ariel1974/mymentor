@@ -46,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BootstrapperCore.config" />
+    <None Include="Resource\EULA.rtf" />
+    <None Include="Resource\logo.png" />
+    <None Include="Resource\MyMentor.exe.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resource" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

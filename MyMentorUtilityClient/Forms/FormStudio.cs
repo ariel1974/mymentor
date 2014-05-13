@@ -1257,9 +1257,6 @@ namespace MyMentor.Forms
                 Clip.Current.IsDirty = true;
             }
 
-            Clip.Current.RtfText = richTextBox1.Rtf;
-            Clip.Current.Text = richTextBox1.Text;
-
             if (Clip.Current.Chapter != null && Clip.Current.Chapter.Words.Count() > 0
                 && !m_skipManuallyAnchorsValidation && tabControl1.SelectedIndex == 0 )
             {
@@ -1278,10 +1275,17 @@ namespace MyMentor.Forms
 
                 if (Clip.Current.Chapter.Words.Count() != matches.Count())
                 {
-                    Clip.Current.Devide();
+                    //Clip.Current.Devide();
+                    richTextBox1.Rtf = Clip.Current.RtfText;
+
                     timerShowManuallyAnchorsValidationMessage.Enabled = true;
+                    return;
                 }
             }
+
+            Clip.Current.RtfText = richTextBox1.Rtf;
+            Clip.Current.Text = richTextBox1.Text;
+
         }
 
         private void richTextBox1_VScroll(object sender, EventArgs e)

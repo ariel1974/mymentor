@@ -160,7 +160,7 @@
     <value>You have to fill in all mandatory fields</value>
   </data>
   <data name="MANUALLY_ANCHORS_VALIDATION" xml:space="preserve">
-    <value>It seems like there some anchors that added/removed manually. You should make sure this anchors scheduled.</value>
+    <value>There some anchors that added/removed manually. You should remove/add anchors with the toolbar above</value>
   </data>
   <data name="MENU_REMOVE_ANCHORS" xml:space="preserve">
     <value>Remove this anchor and the following ones</value>

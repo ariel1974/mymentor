@@ -160,7 +160,7 @@
     <value>יש למלא שדות חובה למאפייני השיעור</value>
   </data>
   <data name="MANUALLY_ANCHORS_VALIDATION" xml:space="preserve">
-    <value>נוספו/נמחקו עוגנים ידנית ללא הוספת מעברים. אנא וודא שהנך מתזמן מעברים אלו מחדש</value>
+    <value>נוספו/נמחקו עוגנים ידנית ללא הוספת מעברים. יש להוסיף/למחוק עוגנים רק דרך סרגל הכלים והקלקה על המיקום המיועד להוספה/הסרה.</value>
   </data>
   <data name="MENU_REMOVE_ANCHORS" xml:space="preserve">
     <value>מחק מעבר זה ואת הבאים אחריו</value>

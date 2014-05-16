@@ -1275,7 +1275,6 @@ namespace MyMentor.Forms
 
                 if (Clip.Current.Chapter.Words.Count() != matches.Count())
                 {
-                    //Clip.Current.Devide();
                     richTextBox1.Rtf = Clip.Current.RtfText;
 
                     timerShowManuallyAnchorsValidationMessage.Enabled = true;
@@ -1599,6 +1598,7 @@ namespace MyMentor.Forms
 
         private void RemoveAnchor(AnchorType type)
         {
+            m_skipManuallyAnchorsValidation = true;
             string anchor = "";
 
             switch (type)
@@ -1634,6 +1634,7 @@ namespace MyMentor.Forms
                     break;
                 }
             }
+            m_skipManuallyAnchorsValidation = false;
         }
 
         private void mnuAudioLoad_Click(object sender, EventArgs e)
@@ -1972,7 +1973,7 @@ namespace MyMentor.Forms
             audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
 
             // if a selection is available
-            if (!bSelectionAvailable)
+            if (!bSelectionAvailable || nBeginSelectionInMs == nEndSelectionInMs)
                 // no selection
                 return;
 
@@ -5810,7 +5811,7 @@ namespace MyMentor.Forms
         {
             timerShowManuallyAnchorsValidationMessage.Enabled = false;
 
-            MessageBox.Show(ResourceHelper.GetLabel("MANUALLY_ANCHORS_VALIDATION"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+            MessageBox.Show(m_strings.Single(a => a.Key == "STD_MANUALLY_ANCHORS_VALIDATION").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
 
         }
 

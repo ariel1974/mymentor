@@ -128,8 +128,87 @@ namespace MyMentor.Forms
 
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            try
+            {
+                if (tabControl1.SelectedIndex == 0)
+                {
+                    if (keyData == (Keys.Delete))
+                    {
+                        richTextBox1.SelectedText = "";
+                        return true;
+                    }
+
+                    if (keyData == (Keys.Control | Keys.A))
+                    {
+                        textToolstripSelectAll_Click(null, new EventArgs());
+                        return true;
+                    }
+
+                    if (keyData == (Keys.Control | Keys.C))
+                    {
+                        textToolstripCopy_Click(null, new EventArgs());
+                        return true;
+                    }
+
+                    if (keyData == (Keys.Control | Keys.X))
+                    {
+                        textToolstripCut_Click(null, new EventArgs());
+                        return true;
+                    }
+
+                    if (keyData == (Keys.Control | Keys.V))
+                    {
+                        textToolstripPaste_Click(null, new EventArgs());
+                        return true;
+                    }
+                }
+                else if (tabControl1.SelectedIndex == 1 || tabControl1.SelectedIndex == 2)
+                {
+                    if (keyData == (Keys.Delete))
+                    {
+                        mnuAudioSelectedPart_Delete_Click(null, new EventArgs());
+                        return true;
+                    }
+
+                    if (keyData == (Keys.Control | Keys.A))
+                    {
+                        mnuAudioSelectedPart_SelectAll_Click(null, new EventArgs());
+                        return true;
+                    }
+
+                    if (keyData == (Keys.Control | Keys.C))
+                    {
+                        mnuAudioSelectedPart_Copy_Click(null, new EventArgs());
+                        return true;
+                    }
+
+                    if (keyData == (Keys.Control | Keys.X))
+                    {
+                        mnuAudioSelectedPart_Cut_Click(null, new EventArgs());
+                        return true;
+                    }
+
+                    if (keyData == (Keys.Control | Keys.V))
+                    {
+                        mnuAudioSelectedPart_Paste_Click(null, new EventArgs());
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         private void FormStudio_Load(object sender, EventArgs e)
         {
+            this.KeyPreview = true;
+
             START_PAUSE_SECTION_ANCHOR = ResourceHelper.GetLabel("START_PAUSE_SECTION_ANCHOR");
             END_PAUSE_SECTION_ANCHOR = ResourceHelper.GetLabel("END_PAUSE_SECTION_ANCHOR");
 
@@ -756,9 +835,9 @@ namespace MyMentor.Forms
                 .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetHebrewPlaceholderText(), "_"))
                 .SpecialReplace("[description]", string.Concat("_", Clip.Current.Description, "_"))
                 .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.Remarks, "_"))
-                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstName"), "_") : string.Empty)
-                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName"), "_") : string.Empty)
-                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("CityOfResidence") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("CityOfResidence"), "_") : string.Empty);
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName_he_il") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstName_he_il"), "_") : string.Empty)
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName_he_il") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName_he_il"), "_") : string.Empty)
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_he_il") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_he_il"), "_") : string.Empty);
 
             var clipEnglishTitle = englishPattern.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[category2]", string.Concat("_", comboCategory2.GetEnglishPlaceholderText(), "_"))
@@ -766,9 +845,9 @@ namespace MyMentor.Forms
                 .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[description]", string.Concat("_", Clip.Current.EnglishDescription, "_"))
                 .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.RemarksEnglish, "_"))
-                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstNameEnglish") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstNameEnglish"), "_") : string.Empty)
-                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastNameEnglish") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastNameEnglish"), "_") : string.Empty)
-                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("CityOfResidence_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("CityOfResidence_en_us"), "_") : string.Empty);
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstName_en_us"), "_") : string.Empty)
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName_en_us"), "_") : string.Empty)
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_en_us"), "_") : string.Empty);
 
             clipHebrewTitle = clipHebrewTitle.Replace("_", "");
             clipEnglishTitle = clipEnglishTitle.Replace("_", "");
@@ -1598,7 +1677,6 @@ namespace MyMentor.Forms
 
         private void RemoveAnchor(AnchorType type)
         {
-            m_skipManuallyAnchorsValidation = true;
             string anchor = "";
 
             switch (type)
@@ -1621,9 +1699,7 @@ namespace MyMentor.Forms
 
             while (index >= 0)
             {
-                richTextBox2.SelectionStart = index;
-                richTextBox2.SelectionLength = 3;
-                richTextBox2.SelectedText = "";
+                ClickAnchor(type, index + 3);
 
                 if (index + 3 < richTextBox2.TextLength)
                 {
@@ -1634,7 +1710,6 @@ namespace MyMentor.Forms
                     break;
                 }
             }
-            m_skipManuallyAnchorsValidation = false;
         }
 
         private void mnuAudioLoad_Click(object sender, EventArgs e)
@@ -2563,6 +2638,8 @@ namespace MyMentor.Forms
 
         private void tbrRemoveAnchors_Click(object sender, EventArgs e)
         {
+            m_skipManuallyAnchorsValidation = true;
+
             if (tbrParagraph.Checked)
             {
                 clearParagraphAnchorsToolStripMenuItem_Click(null, new EventArgs());
@@ -2582,6 +2659,7 @@ namespace MyMentor.Forms
             {
                 clearWordAnchorsToolStripMenuItem_Click(null, new EventArgs());
             }
+            m_skipManuallyAnchorsValidation = false;
 
         }
 
@@ -4547,6 +4625,7 @@ namespace MyMentor.Forms
             }
 
             richTextBox2.Rtf = richTextBox1.Rtf;
+            m_skipManuallyAnchorsValidation = true;
 
             try
             {
@@ -4728,31 +4807,28 @@ namespace MyMentor.Forms
                         continue;
                     }
 
-                    //if ((richTextBox2.SelectedText == " " && worDelimiters.Exists(a => a == "רווח" || a == "SPACE") && charactersFromLastAnchor > 0)
-                    //    ||
-                    //    (worDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0))
-                    //{
-                    //    AddAnchor(AnchorType.Word, index);
-                    //    anchors++;
-                    //    charactersFromLastAnchor = 0;
-                    //    index += 3;
-                    //    continue;
-                    //}
-
                     charactersFromLastAnchor++;
-
                 }
 
                 //replace words
                 if (!string.IsNullOrEmpty(comboBoxAutoDevideWor.Text))
                 {
+                    string textToFind = comboBoxAutoDevideWor.Text == "רווח" || comboBoxAutoDevideWor.Text == "SPACE" ? " " : comboBoxAutoDevideWor.Text;
                     richTextBox2.SelectionStart = 0;
-                    int idx = richTextBox2.Find(comboBoxAutoDevideWor.Text, 0, RichTextBoxFinds.None);
+                    int idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.None);
 
                     while (idx >= 0)
                     {
-                        AddAnchor(AnchorType.Word, idx + comboBoxAutoDevideWor.Text.Length);
-                        idx = richTextBox2.Find(comboBoxAutoDevideWor.Text, idx + comboBoxAutoDevideWor.Text.Length + 3, RichTextBoxFinds.None);
+                        AddAnchor(AnchorType.Word, idx + textToFind.Length);
+
+                        if (idx + textToFind.Length + 3 < richTextBox2.TextLength)
+                        {
+                            idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 3, RichTextBoxFinds.None);
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
 
@@ -4762,6 +4838,10 @@ namespace MyMentor.Forms
             catch
             {
 
+            }
+            finally
+            {
+                m_skipManuallyAnchorsValidation = false;
             }
         }
 
@@ -4792,6 +4872,18 @@ namespace MyMentor.Forms
                 if (index >= 3)
                 {
                     richTextBox2.SelectionStart = index - 3;
+                    richTextBox2.SelectionLength = 3;
+
+                    if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")
+                    {
+                        richTextBox2.SelectedText = anchor;
+                        return;
+                    }
+                }
+
+                if (index >= 4)
+                {
+                    richTextBox2.SelectionStart = index - 4;
                     richTextBox2.SelectionLength = 3;
 
                     if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")

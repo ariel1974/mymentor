@@ -325,6 +325,16 @@ namespace MyMentor
             }
         }
 
+        [JsonIgnore]
+        [XmlIgnore]
+        public Word LastScheduledWord
+        {
+            get
+            {
+                return Paragraphs.SelectMany(p => p.Sentences).SelectMany(se => se.Sections).SelectMany(w => w.Words).LastOrDefault( w => w.StartTime > TimeSpan.Zero);
+            }
+        }
+
         [JsonProperty(PropertyName = "length", Order = 3)]
         public override int Length
         {

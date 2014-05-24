@@ -727,16 +727,6 @@ namespace MyMentor.Forms
             tbKeywords.Text = Clip.Current.Keywords;
             comboStatus.SelectedValue = Clip.Current.Status ?? "3DYQsyGZIk"; //paeel
 
-            if (Clip.Current.Expired == null)
-            {
-                dateTimeExpired.Checked = false;
-            }
-            else
-            {
-                dateTimeExpired.Checked = true;
-                dateTimeExpired.Value = Clip.Current.Expired.Value;
-            }
-
             RegenerateDatesBox();
 
             numericPrice.Value = Clip.Current.Price;
@@ -1173,6 +1163,15 @@ namespace MyMentor.Forms
 
             m_contentType = contentType;
 
+            if (MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il")
+            {
+                lblWord.Text = string.Concat("עולם:", m_contentType.Get<string>("value_he_il"));
+            }
+            else
+            {
+                lblWord.Text = string.Concat("World:", m_contentType.Get<string>("value_en_us"));
+            }
+
             string he_il_value_key = "value_he_il";
             string en_us_value_key = "value_en_us";
             string status_key = "status_" + MyMentor.Properties.Settings.Default.CultureInfo.Replace("-", "_");
@@ -1260,6 +1259,37 @@ namespace MyMentor.Forms
             }
             catch (Exception ex)
             {
+
+            }
+            finally
+            {
+                if (comboCategory1.Items.Count == 0)
+                {
+                    comboCategory1.Visible = false;
+                    lblCategory1.Visible = false;
+                    lblAsterikCategory1.Visible = false;
+                }
+
+                if (comboCategory2.Items.Count == 0)
+                {
+                    comboCategory2.Visible = false;
+                    lblCategory2.Visible = false;
+                    lblAsterikCategory2.Visible = false;
+                }
+
+                if (comboCategory3.Items.Count == 0)
+                {
+                    comboCategory3.Visible = false;
+                    lblCategory3.Visible = false;
+                    lblAsterikCategory3.Visible = false;
+                }
+
+                if (comboCategory4.Items.Count == 0)
+                {
+                    comboCategory4.Visible = false;
+                    lblCategory4.Visible = false;
+                    lblAsterikCategory4.Visible = false;
+                }
 
             }
 
@@ -1514,16 +1544,6 @@ namespace MyMentor.Forms
             Clip.Current.EnglishPerformer = tbPerformerEnglish.Text;
             Clip.Current.Remarks = tbClipRemarks.Text;
             Clip.Current.RemarksEnglish = tbClipRemarksEnglish.Text;
-
-            if (dateTimeExpired.Checked)
-            {
-                Clip.Current.Expired = dateTimeExpired.Value;
-            }
-            else
-            {
-                Clip.Current.Expired = null;
-            }
-
             Clip.Current.Status = (string)comboStatus.SelectedValue;
             Clip.Current.VoicePrompts = (string)comboVoicePrompt.SelectedValue;
             Clip.Current.Category1 = (string)comboCategory1.SelectedValue;
@@ -1611,40 +1631,50 @@ namespace MyMentor.Forms
 
         private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            m_skipManuallyAnchorsValidation = true;
             richTextBox2.Rtf = richTextBox1.Rtf;
             RemoveAnchor(AnchorType.Paragraph);
             RemoveAnchor(AnchorType.Sentence);
             RemoveAnchor(AnchorType.Section);
             RemoveAnchor(AnchorType.Word);
             richTextBox1.Rtf = richTextBox2.Rtf;
+            m_skipManuallyAnchorsValidation = false;
         }
 
         private void clearParagraphAnchorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            m_skipManuallyAnchorsValidation = true;
             richTextBox2.Rtf = richTextBox1.Rtf;
             RemoveAnchor(AnchorType.Paragraph);
             richTextBox1.Rtf = richTextBox2.Rtf;
+            m_skipManuallyAnchorsValidation = false;
         }
 
         private void clearSentensesAnchorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            m_skipManuallyAnchorsValidation = true;
             richTextBox2.Rtf = richTextBox1.Rtf;
             RemoveAnchor(AnchorType.Sentence);
             richTextBox1.Rtf = richTextBox2.Rtf;
+            m_skipManuallyAnchorsValidation = false;
         }
 
         private void clearSectionAnchorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            m_skipManuallyAnchorsValidation = true;
             richTextBox2.Rtf = richTextBox1.Rtf;
             RemoveAnchor(AnchorType.Section);
             richTextBox1.Rtf = richTextBox2.Rtf;
+            m_skipManuallyAnchorsValidation = false;
         }
 
         private void clearWordAnchorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            m_skipManuallyAnchorsValidation = true;
             richTextBox2.Rtf = richTextBox1.Rtf;
             RemoveAnchor(AnchorType.Word);
             richTextBox1.Rtf = richTextBox2.Rtf;
+            m_skipManuallyAnchorsValidation = false;
         }
 
         private void CheckAnchors()
@@ -2372,7 +2402,7 @@ namespace MyMentor.Forms
                 {3, 10}, {4, 11}, {5, 12}, {6, 14},
                 {7, 16}, {8, 18}, {9, 20}, {10, 22},
                     {11, 24}, {12, 26}, {13, 28} , {14, 36}, {15, 44},
-                    {16, 48}, {17, 56}, {18, 72} };
+                    {16, 48}, {17, 56}, {18, 72}, {19, 96}, {20, 124} };
 
 
                 string selRtf = richTextBox1.SelectedRtf;
@@ -2427,7 +2457,7 @@ namespace MyMentor.Forms
                 {3, 10}, {4, 11}, {5, 12}, {6, 14},
                 {7, 16}, {8, 18}, {9, 20}, {10, 22},
                     {11, 24}, {12, 26}, {13, 28} , {14, 36}, {15, 44},
-                    {16, 48}, {17, 56}, {18, 72} };
+                    {16, 48}, {17, 56}, {18, 72}, {19, 96}, {20, 124} };
 
 
                 string selRtf = richTextBox1.SelectedRtf;
@@ -2507,6 +2537,8 @@ namespace MyMentor.Forms
                 richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
                 richTextBox1.Select(0, 0);
                 PaintGraphics();
+
+                Clip.Current.RightAlignment = true;
             }
             catch
             {
@@ -2523,6 +2555,8 @@ namespace MyMentor.Forms
                 richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
                 richTextBox1.Select(0, 0);
                 PaintGraphics();
+
+                Clip.Current.RightAlignment = false;
             }
             catch
             {
@@ -4377,13 +4411,7 @@ namespace MyMentor.Forms
             //clip type shiur
             if ((string)comboClipType.SelectedValue == "piL85bMGtR")
             {
-                if (dateTimeExpired.Checked && dateTimeExpired.Value <= DateTime.Today)
-                {
-                    MessageBox.Show(ResourceHelper.GetLabel("EXPIRED_DATE_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
-                    return;
-                }
-
-                if (comboCategory3.SelectedIndex < 0)
+                if (comboCategory3.Visible && comboCategory3.SelectedIndex < 0)
                 {
                     MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                     return;
@@ -4395,7 +4423,7 @@ namespace MyMentor.Forms
                     return;
                 }
 
-                if (((Category)comboCategory3.SelectedItem).MinPrice > numericPrice.Value)
+                if (comboCategory3.Visible && ((Category)comboCategory3.SelectedItem).MinPrice > numericPrice.Value)
                 {
                     MessageBox.Show(ResourceHelper.GetLabel("MIN_PRICE_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                     return;
@@ -4507,14 +4535,15 @@ namespace MyMentor.Forms
                 groupBox5.Visible = false;
                 groupBox6.Visible = false;
 
+                groupPerformer.Visible = false;
+                lblVoicePrompt.Visible = false;
+                lblAsterikVoicePrompt.Visible = false;
+                comboVoicePrompt.Visible = false;
+
                 lessonType = "0y8A4XTNeR"; //source
 
                 //tbClipDescription.Visible = false;
                 //lblDescription.Visible = false;
-
-                dateTimeExpired.Enabled = false;
-                dateTimeExpired.Checked = false;
-                dateTimeExpired.Visible = false;
 
                 btnAddDate.Visible = false;
                 btnRemoveDate.Visible = false;
@@ -4530,8 +4559,6 @@ namespace MyMentor.Forms
                 tbKeywords.Visible = false;
                 lblKeywords.Visible = false;
 
-                lblExpired.Visible = false;
-                dateTimeExpired.Visible = false;
                 dtpReadingDate.Visible = false;
                 lblReadingDates.Visible = false;
                 lblAsterikReadingDates.Visible = false;
@@ -4545,8 +4572,11 @@ namespace MyMentor.Forms
                 groupBox5.Visible = true;
                 groupBox6.Visible = true;
 
-                dateTimeExpired.Enabled = true;
-                dateTimeExpired.Visible = true;
+                groupPerformer.Visible = true;
+                lblVoicePrompt.Visible = true;
+                lblAsterikVoicePrompt.Visible = true;
+                comboVoicePrompt.Visible = true;
+
                 btnAddDate.Visible = true;
                 btnRemoveDate.Visible = true;
                 listBoxDates.Visible = true;
@@ -4564,13 +4594,14 @@ namespace MyMentor.Forms
                 tbKeywords.Visible = true;
                 lblKeywords.Visible = true;
 
-                lblExpired.Visible = true;
-                dateTimeExpired.Visible = true;
                 dtpReadingDate.Visible = true;
 
-                comboCategory4.Visible = true;
-                lblCategory4.Visible = true;
-                lblAsterikCategory4.Visible = true;
+                if (comboCategory4.Items.Count > 0)
+                {
+                    comboCategory4.Visible = true;
+                    lblCategory4.Visible = true;
+                    lblAsterikCategory4.Visible = true;
+                }
             }
 
             bool doDirty = false;
@@ -4819,7 +4850,7 @@ namespace MyMentor.Forms
 
                     while (idx >= 0)
                     {
-                        AddAnchor(AnchorType.Word, idx + textToFind.Length);
+                        AddAnchor(AnchorType.Word, idx + textToFind.Length, true);
 
                         if (idx + textToFind.Length + 3 < richTextBox2.TextLength)
                         {
@@ -4846,6 +4877,11 @@ namespace MyMentor.Forms
         }
 
         private void AddAnchor(AnchorType type, int index)
+        {
+            AddAnchor(type, index, false);
+        }
+
+        private void AddAnchor(AnchorType type, int index, bool isAutoDevide)
         {
             string anchor = "";
 
@@ -4876,6 +4912,11 @@ namespace MyMentor.Forms
 
                     if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")
                     {
+                        if (isAutoDevide && type == AnchorType.Word)
+                        {
+                            return;
+                        }
+
                         richTextBox2.SelectedText = anchor;
                         return;
                     }
@@ -4888,6 +4929,11 @@ namespace MyMentor.Forms
 
                     if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")
                     {
+                        if (isAutoDevide && type == AnchorType.Word)
+                        {
+                            return;
+                        }
+
                         richTextBox2.SelectedText = anchor;
                         return;
                     }
@@ -4898,6 +4944,11 @@ namespace MyMentor.Forms
 
                 if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")
                 {
+                    if (isAutoDevide && type == AnchorType.Word)
+                    {
+                        return;
+                    }
+
                     richTextBox2.SelectedText = anchor;
                 }
                 else
@@ -5334,6 +5385,11 @@ namespace MyMentor.Forms
                     {
                         RemoveWaveFormGraphics();
 
+                        if (lastWord.PreviousWord == Clip.Current.Chapter.FirstWord)
+                        {
+                            lastWord.PreviousWord.StartTime = TimeSpan.Zero;
+                        }
+
                         lastWord.Index = -1;
 
                         Word next = lastWord.NextWord;
@@ -5352,8 +5408,8 @@ namespace MyMentor.Forms
                         // add new anchor to the stack
                         newAnchorsStack.Add(lastWord.Index - 1, new Word
                         {
-                            StartTime = lastWord.PreviousWord.StartTime,
-                            Duration = lastWord.PreviousWord.Duration.Add(lastWord.Duration)
+                            StartTime = lastWord.PreviousWord.StartTime//,
+                            //Duration = lastWord.PreviousWord.Duration.Add(lastWord.Duration)
                         });
 
                         lastWord.Index = -1;

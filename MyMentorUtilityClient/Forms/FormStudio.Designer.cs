@@ -174,25 +174,23 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.buttonPublish = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupPerformer = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.tbPerformerEnglish = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tbPerformer = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblAsterikVoicePrompt = new System.Windows.Forms.Label();
+            this.lblVoicePrompt = new System.Windows.Forms.Label();
             this.comboVoicePrompt = new System.Windows.Forms.ComboBox();
             this.lblAsterikPrice = new System.Windows.Forms.Label();
             this.lblAsterikReadingDates = new System.Windows.Forms.Label();
             this.tbClipDescription = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.numericPriceSupport = new System.Windows.Forms.NumericUpDown();
-            this.dateTimeExpired = new System.Windows.Forms.DateTimePicker();
             this.label33 = new System.Windows.Forms.Label();
             this.numericPrice = new System.Windows.Forms.NumericUpDown();
-            this.lblExpired = new System.Windows.Forms.Label();
             this.lblMinValue = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lblPrice = new System.Windows.Forms.Label();
@@ -206,8 +204,8 @@
             this.dtpReadingDate = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblAsterikCategory4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblAsterikCategory1 = new System.Windows.Forms.Label();
+            this.lblAsterikCategory2 = new System.Windows.Forms.Label();
             this.comboCategory2 = new System.Windows.Forms.ComboBox();
             this.lblCategory3 = new System.Windows.Forms.Label();
             this.comboCategory3 = new System.Windows.Forms.ComboBox();
@@ -220,7 +218,7 @@
             this.lblClipRemarks = new System.Windows.Forms.Label();
             this.comboCategory4 = new System.Windows.Forms.ComboBox();
             this.tbClipRemarks = new System.Windows.Forms.TextBox();
-            this.label31 = new System.Windows.Forms.Label();
+            this.lblAsterikCategory3 = new System.Windows.Forms.Label();
             this.lblClipType = new System.Windows.Forms.Label();
             this.comboClipType = new System.Windows.Forms.ComboBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
@@ -309,6 +307,7 @@
             this.timerDeviderBlink = new System.Windows.Forms.Timer(this.components);
             this.timerSkipAnalyzerSelection = new System.Windows.Forms.Timer(this.components);
             this.timerShowManuallyAnchorsValidationMessage = new System.Windows.Forms.Timer(this.components);
+            this.lblWord = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -334,7 +333,7 @@
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.groupPerformer.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericPriceSupport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPrice)).BeginInit();
@@ -1488,10 +1487,11 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox3.Controls.Add(this.groupBox4);
+            this.groupBox3.Controls.Add(this.groupPerformer);
             this.groupBox3.Controls.Add(this.groupBox2);
             this.groupBox3.Controls.Add(this.groupBox1);
             this.groupBox3.Controls.Add(this.lblClipType);
+            this.groupBox3.Controls.Add(this.lblAsterikReadingDates);
             this.groupBox3.Controls.Add(this.comboClipType);
             this.groupBox3.Controls.Add(this.textBox7);
             this.groupBox3.Controls.Add(this.label12);
@@ -1503,20 +1503,23 @@
             this.groupBox3.Controls.Add(this.tbClipTitle);
             this.groupBox3.Controls.Add(this.mtbVersion);
             this.groupBox3.Controls.Add(this.label23);
+            this.groupBox3.Controls.Add(this.listBoxDates);
+            this.groupBox3.Controls.Add(this.lblReadingDates);
+            this.groupBox3.Controls.Add(this.btnRemoveDate);
             resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
-            // groupBox4
+            // groupPerformer
             // 
-            this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Controls.Add(this.tbPerformerEnglish);
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.tbPerformer);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.TabStop = false;
+            this.groupPerformer.Controls.Add(this.label8);
+            this.groupPerformer.Controls.Add(this.label7);
+            this.groupPerformer.Controls.Add(this.tbPerformerEnglish);
+            this.groupPerformer.Controls.Add(this.label6);
+            this.groupPerformer.Controls.Add(this.tbPerformer);
+            resources.ApplyResources(this.groupPerformer, "groupPerformer");
+            this.groupPerformer.Name = "groupPerformer";
+            this.groupPerformer.TabStop = false;
             // 
             // label8
             // 
@@ -1547,44 +1550,38 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.lblAsterikVoicePrompt);
+            this.groupBox2.Controls.Add(this.lblVoicePrompt);
             this.groupBox2.Controls.Add(this.comboVoicePrompt);
             this.groupBox2.Controls.Add(this.lblAsterikPrice);
-            this.groupBox2.Controls.Add(this.lblAsterikReadingDates);
             this.groupBox2.Controls.Add(this.tbClipDescription);
             this.groupBox2.Controls.Add(this.lblDescription);
             this.groupBox2.Controls.Add(this.numericPriceSupport);
-            this.groupBox2.Controls.Add(this.dateTimeExpired);
             this.groupBox2.Controls.Add(this.label33);
             this.groupBox2.Controls.Add(this.numericPrice);
-            this.groupBox2.Controls.Add(this.lblExpired);
             this.groupBox2.Controls.Add(this.lblMinValue);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.lblPrice);
             this.groupBox2.Controls.Add(this.tbClipDescriptionEnglish);
             this.groupBox2.Controls.Add(this.comboStatus);
             this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.lblReadingDates);
-            this.groupBox2.Controls.Add(this.listBoxDates);
             this.groupBox2.Controls.Add(this.btnAddDate);
-            this.groupBox2.Controls.Add(this.btnRemoveDate);
             this.groupBox2.Controls.Add(this.dtpReadingDate);
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
-            // label4
+            // lblAsterikVoicePrompt
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Name = "label4";
+            resources.ApplyResources(this.lblAsterikVoicePrompt, "lblAsterikVoicePrompt");
+            this.lblAsterikVoicePrompt.BackColor = System.Drawing.Color.Transparent;
+            this.lblAsterikVoicePrompt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblAsterikVoicePrompt.Name = "lblAsterikVoicePrompt";
             // 
-            // label5
+            // lblVoicePrompt
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.lblVoicePrompt, "lblVoicePrompt");
+            this.lblVoicePrompt.Name = "lblVoicePrompt";
             // 
             // comboVoicePrompt
             // 
@@ -1629,14 +1626,6 @@
             0});
             this.numericPriceSupport.Name = "numericPriceSupport";
             // 
-            // dateTimeExpired
-            // 
-            this.dateTimeExpired.Checked = false;
-            resources.ApplyResources(this.dateTimeExpired, "dateTimeExpired");
-            this.dateTimeExpired.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimeExpired.Name = "dateTimeExpired";
-            this.dateTimeExpired.ShowCheckBox = true;
-            // 
             // label33
             // 
             resources.ApplyResources(this.label33, "label33");
@@ -1652,11 +1641,6 @@
             0,
             0});
             this.numericPrice.Name = "numericPrice";
-            // 
-            // lblExpired
-            // 
-            resources.ApplyResources(this.lblExpired, "lblExpired");
-            this.lblExpired.Name = "lblExpired";
             // 
             // lblMinValue
             // 
@@ -1725,8 +1709,8 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lblAsterikCategory4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.lblAsterikCategory1);
+            this.groupBox1.Controls.Add(this.lblAsterikCategory2);
             this.groupBox1.Controls.Add(this.comboCategory2);
             this.groupBox1.Controls.Add(this.lblCategory3);
             this.groupBox1.Controls.Add(this.comboCategory3);
@@ -1739,7 +1723,7 @@
             this.groupBox1.Controls.Add(this.lblClipRemarks);
             this.groupBox1.Controls.Add(this.comboCategory4);
             this.groupBox1.Controls.Add(this.tbClipRemarks);
-            this.groupBox1.Controls.Add(this.label31);
+            this.groupBox1.Controls.Add(this.lblAsterikCategory3);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
@@ -1751,19 +1735,19 @@
             this.lblAsterikCategory4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblAsterikCategory4.Name = "lblAsterikCategory4";
             // 
-            // label3
+            // lblAsterikCategory1
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label3.Name = "label3";
+            resources.ApplyResources(this.lblAsterikCategory1, "lblAsterikCategory1");
+            this.lblAsterikCategory1.BackColor = System.Drawing.Color.Transparent;
+            this.lblAsterikCategory1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblAsterikCategory1.Name = "lblAsterikCategory1";
             // 
-            // label2
+            // lblAsterikCategory2
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.lblAsterikCategory2, "lblAsterikCategory2");
+            this.lblAsterikCategory2.BackColor = System.Drawing.Color.Transparent;
+            this.lblAsterikCategory2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblAsterikCategory2.Name = "lblAsterikCategory2";
             // 
             // comboCategory2
             // 
@@ -1839,12 +1823,12 @@
             this.tbClipRemarks.Name = "tbClipRemarks";
             this.tbClipRemarks.TextChanged += new System.EventHandler(this.tbClipRemarks_TextChanged);
             // 
-            // label31
+            // lblAsterikCategory3
             // 
-            resources.ApplyResources(this.label31, "label31");
-            this.label31.BackColor = System.Drawing.Color.Transparent;
-            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label31.Name = "label31";
+            resources.ApplyResources(this.lblAsterikCategory3, "lblAsterikCategory3");
+            this.lblAsterikCategory3.BackColor = System.Drawing.Color.Transparent;
+            this.lblAsterikCategory3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblAsterikCategory3.Name = "lblAsterikCategory3";
             // 
             // lblClipType
             // 
@@ -2081,6 +2065,7 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.lblWord);
             this.panel5.Controls.Add(this.label1);
             this.panel5.Controls.Add(this.lblLoginUser);
             resources.ApplyResources(this.panel5, "panel5");
@@ -2491,6 +2476,15 @@
             this.timerShowManuallyAnchorsValidationMessage.Interval = 1000;
             this.timerShowManuallyAnchorsValidationMessage.Tick += new System.EventHandler(this.timerShowManuallyAnchorsValidationMessage_Tick);
             // 
+            // lblWord
+            // 
+            this.lblWord.BackColor = System.Drawing.SystemColors.Control;
+            this.lblWord.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblWord.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.lblWord, "lblWord");
+            this.lblWord.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblWord.Name = "lblWord";
+            // 
             // FormStudio
             // 
             resources.ApplyResources(this, "$this");
@@ -2539,8 +2533,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.groupPerformer.ResumeLayout(false);
+            this.groupPerformer.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericPriceSupport)).EndInit();
@@ -2701,14 +2695,12 @@
         private System.Windows.Forms.TextBox tbClipDescriptionEnglish;
         private System.Windows.Forms.Label lblClipRemarksEnglish;
         private System.Windows.Forms.TextBox tbClipRemarksEnglish;
-        private System.Windows.Forms.DateTimePicker dateTimeExpired;
-        private System.Windows.Forms.Label lblExpired;
         private System.Windows.Forms.Label lblClipRemarks;
         private System.Windows.Forms.TextBox tbClipRemarks;
         private System.Windows.Forms.NumericUpDown numericPriceSupport;
         private System.Windows.Forms.NumericUpDown numericPrice;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label lblAsterikCategory3;
         private System.Windows.Forms.Label lblMinValue;
         private System.Windows.Forms.Label lblPrice;
         private System.Windows.Forms.Label lblClipType;
@@ -2825,8 +2817,8 @@
         private System.Windows.Forms.Label lblAsterikPrice;
         private System.Windows.Forms.Label lblAsterikReadingDates;
         private System.Windows.Forms.Label lblAsterikCategory4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblAsterikCategory1;
+        private System.Windows.Forms.Label lblAsterikCategory2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
@@ -2837,10 +2829,10 @@
         private System.Windows.Forms.ToolStripMenuItem textToolstripCut;
         private System.Windows.Forms.ToolStripMenuItem textToolstripDeleteSelection;
         private System.Windows.Forms.ToolStripMenuItem textToolstripDeselect;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblAsterikVoicePrompt;
+        private System.Windows.Forms.Label lblVoicePrompt;
         private System.Windows.Forms.ComboBox comboVoicePrompt;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupPerformer;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbPerformerEnglish;
@@ -2849,5 +2841,6 @@
         private System.Windows.Forms.Timer timerDeviderBlink;
         private System.Windows.Forms.Timer timerSkipAnalyzerSelection;
         private System.Windows.Forms.Timer timerShowManuallyAnchorsValidationMessage;
+        public System.Windows.Forms.Label lblWord;
     }
 }

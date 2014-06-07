@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrendanGrant.Helpers.FileAssociation;
+using log4net;
 using Microsoft.Win32;
 using MyMentor;
 using MyMentor.Forms;
@@ -16,6 +17,8 @@ namespace MyMentor
 {
     static class Program
     {
+        public static readonly ILog Logger = LogManager.GetLogger("MyMentor");
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -74,6 +77,10 @@ namespace MyMentor
             {
                 file = args[0];
             }
+            
+            //Load from App.Config file
+            log4net.Config.XmlConfigurator.Configure(); 
+
             if (!CheckForInternetConnection())
             {
                 MessageBox.Show("No internet connection, please try again later.", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -83,7 +90,6 @@ namespace MyMentor
             {
                 Application.Run(new FormStudio(file));
             }
-            //Application.Run(new FormMain(file));
         }
 
 
@@ -99,9 +105,10 @@ namespace MyMentor
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                return false;
+                Program.Logger.Error(ex);
+                return true;
             }
         }
     }

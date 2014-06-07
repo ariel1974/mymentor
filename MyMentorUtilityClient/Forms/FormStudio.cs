@@ -698,8 +698,10 @@ namespace MyMentor.Forms
             Clip.Current.Text = richTextBox1.Text;
             Clip.Current.Devide();
 
+            m_whileLoadingClip = true;
             SetClipProperties();
             RegenerateClipName();
+            m_whileLoadingClip = false;
 
             Clip.Current.IsDirty = false;
         }
@@ -726,6 +728,8 @@ namespace MyMentor.Forms
             comboClipType.SelectedValue = Clip.Current.ClipType ?? "piL85bMGtR";
             tbKeywords.Text = Clip.Current.Keywords;
             comboStatus.SelectedValue = Clip.Current.Status ?? "3DYQsyGZIk"; //paeel
+
+            tbLastPublished.Text = Clip.Current.LastPublishedOn.HasValue ? Clip.Current.LastPublishedOn.Value.ToString("f") : "-";
 
             RegenerateDatesBox();
 
@@ -768,12 +772,14 @@ namespace MyMentor.Forms
 
                     if (Clip.Current.Category2 != null)
                     {
+                        m_whileLoadingClip = true;
                         comboCategory2.SelectedValue = Clip.Current.Category2 ?? string.Empty;
+                        m_whileLoadingClip = false;
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
-
+                    Program.Logger.Error(ex);
                 }
             }
             else
@@ -898,11 +904,15 @@ namespace MyMentor.Forms
             }
             catch (ApplicationException ex)
             {
+                Program.Logger.Error(ex);
+
                 MessageBox.Show(ex.Message, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
             }
             catch (Exception ex)
             {
+                Program.Logger.Error(ex);
+
                 MessageBox.Show(ResourceHelper.GetLabel("CLIP_FILE_FORMAT_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 return;
             }
@@ -929,9 +939,16 @@ namespace MyMentor.Forms
                 }
             }
 
+            RegenerateClipName();
+
             m_whileLoadingClip = false;
             Clip.Current.IsDirty = false;
             Clip.Current.IsNew = false;
+
+            if (Clip.Current.ContentType != this.ContentType.ObjectId)
+            {
+                MessageBox.Show(m_strings.Single(a => a.Key == "STD_CONTENT_TYPE_NOT_MATCH").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+            }
 
         }
 
@@ -1125,6 +1142,7 @@ namespace MyMentor.Forms
         private async void FormStudio_Shown(object sender, EventArgs e)
         {
             this.Enabled = false;
+            m_whileLoadingClip = true;
 
             if (ParseUser.CurrentUser == null)
             {
@@ -1171,6 +1189,19 @@ namespace MyMentor.Forms
             {
                 lblWord.Text = string.Concat("World:", m_contentType.Get<string>("value_en_us"));
             }
+
+            bool readingDates = contentType.Get<bool>("readingDates");
+
+            if (!readingDates)
+            {
+                dtpReadingDate.Visible = false;
+                listBoxDates.Visible = false;
+                lblReadingDates.Visible = false;
+                lblAsterikReadingDates.Visible = false;
+                btnAddDate.Visible = false;
+                btnRemoveDate.Visible = false;
+            }
+            
 
             string he_il_value_key = "value_he_il";
             string en_us_value_key = "value_en_us";
@@ -1252,39 +1283,71 @@ namespace MyMentor.Forms
 
                 ParseObject labels = await ParseTables.GetCategoryLabels(contentType.ObjectId);
 
-                lblCategory1.Text = labels.Get<string>("category1");
-                lblCategory2.Text = labels.Get<string>("category2");
-                lblCategory3.Text = labels.Get<string>("category3");
-                lblCategory4.Text = labels.Get<string>("category4");
+                if (labels.ContainsKey("category1"))
+                {
+                    lblCategory1.Text = labels.Get<string>("category1");
+                }
+                else
+                {
+                    lblCategory1.Text = "";
+                }
+
+                if (labels.ContainsKey("category2"))
+                {
+                    lblCategory2.Text = labels.Get<string>("category2");
+                }
+                else
+                {
+                    lblCategory2.Text = "";
+                }
+
+                if (labels.ContainsKey("category3"))
+                {
+                    lblCategory3.Text = labels.Get<string>("category3");
+                }
+                else
+                {
+                    lblCategory3.Text = "";
+                }
+
+                if (labels.ContainsKey("category4"))
+                {
+                    lblCategory4.Text = labels.Get<string>("category4");
+                }
+                else
+                {
+                    lblCategory4.Text = "";
+                }
+
             }
             catch (Exception ex)
             {
-
+                Program.Logger.Error(ex);
             }
             finally
             {
-                if (comboCategory1.Items.Count == 0)
+                if ( string.IsNullOrEmpty(lblCategory1.Text))
                 {
                     comboCategory1.Visible = false;
                     lblCategory1.Visible = false;
                     lblAsterikCategory1.Visible = false;
                 }
 
-                if (comboCategory2.Items.Count == 0)
+                if (string.IsNullOrEmpty(lblCategory2.Text))
                 {
                     comboCategory2.Visible = false;
                     lblCategory2.Visible = false;
                     lblAsterikCategory2.Visible = false;
                 }
 
-                if (comboCategory3.Items.Count == 0)
+                if (string.IsNullOrEmpty(lblCategory3.Text))
                 {
                     comboCategory3.Visible = false;
                     lblCategory3.Visible = false;
                     lblAsterikCategory3.Visible = false;
                 }
 
-                if (comboCategory4.Items.Count == 0)
+                if (string.IsNullOrEmpty(lblCategory4.Text))
                 {
                     comboCategory4.Visible = false;
                     lblCategory4.Visible = false;
@@ -1294,7 +1357,6 @@ namespace MyMentor.Forms
             }
 
             m_loadingParse = false;
-            m_whileLoadingClip = true;
 
             SetClipProperties();
             RegenerateClipName();
@@ -1382,7 +1444,9 @@ namespace MyMentor.Forms
 
                 label1.Text = string.Concat(Clip.Current.Chapter.Words.Count().ToString(), "-", matches.Count().ToString());
 
-                if (Clip.Current.Chapter.Words.Count() != matches.Count())
+                if (Clip.Current.Chapter.Words.Count() != matches.Count() &&
+                    //for cases there is no anchors
+                    (matches.Count() > 0 && Clip.Current.Chapter.Words.Count() > 1))
                 {
                     richTextBox1.Rtf = Clip.Current.RtfText;
 
@@ -1436,10 +1500,15 @@ namespace MyMentor.Forms
 
         private void Save(bool isSaveAs)
         {
-            Save(isSaveAs, false);
+            Save(isSaveAs, false, null);
         }
 
         private void Save(bool isSaveAs, bool excludeClipFile)
+        {
+            Save(isSaveAs, excludeClipFile, null);
+        }
+
+        private void Save(bool isSaveAs, bool excludeClipFile, string suggestName)
         {
             SavePropertiesToClip();
 
@@ -1449,7 +1518,15 @@ namespace MyMentor.Forms
                 {
                     FileInfo fi = new FileInfo(Clip.Current.FileName);
                     saveFileDialog1.InitialDirectory = fi.DirectoryName;
-                    saveFileDialog1.FileName = fi.Name;//  .FullName;
+
+                    if (!string.IsNullOrEmpty(suggestName))
+                    {
+                        saveFileDialog1.FileName = suggestName;
+                    }
+                    else
+                    {
+                        saveFileDialog1.FileName = fi.Name;//  .FullName;
+                    }
                 }
                 else
                 {
@@ -1461,18 +1538,18 @@ namespace MyMentor.Forms
                     }
 
                     saveFileDialog1.InitialDirectory = di.FullName;
-                    string name = "";
-                    if (comboCategory1.SelectedItem != null)
+
+                    string name = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? Clip.Current.HebrewTitle : Clip.Current.EnglishTitle;
+
+                                //clip type makor
+                    if ((string)comboClipType.SelectedValue != "piL85bMGtR")
                     {
-                        name = ((Category)comboCategory1.SelectedItem).HebrewValue;
+                        name = string.Concat(MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "מקור " : "Source ", name);
                     }
-                    if (comboCategory2.SelectedItem != null)
+                   
+                    foreach (char c in System.IO.Path.GetInvalidFileNameChars())
                     {
-                        name += " " + ((Category)comboCategory2.SelectedItem).HebrewValue;
-                    }
-                    if (comboCategory3.SelectedItem != null)
-                    {
-                        name += " " + ((Category)comboCategory3.SelectedItem).HebrewValue;
+                        name = name.Replace(c, '_');
                     }
 
                     saveFileDialog1.FileName = name;
@@ -1484,17 +1561,33 @@ namespace MyMentor.Forms
 
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
+                    string oldFileName = string.Empty;
+
                     if (isSaveAs)
                     {
                         Clip.Current.ID = Guid.NewGuid();
+                        oldFileName = Clip.Current.FileName;
                     }
-
                     //Clip.Current.FontName = richTextBox1.Font.Name;
                     //Clip.Current.FontSize = float.Parse(toolStripComboBox1.Text.Replace("pt", string.Empty));
+
                     Clip.Current.Name = saveFileDialog1.FileName;
                     Clip.Current.FileName = saveFileDialog1.FileName;
                     Clip.Current.RtfText = richTextBox1.Rtf;
                     this.Text = "MyMentor - " + Clip.Current.Name;
+
+                    if (!string.IsNullOrEmpty(oldFileName) &&
+                        oldFileName != Clip.Current.FileName)
+                    {
+                        try
+                        {
+                            File.Delete(oldFileName);
+                        }
+                        catch(Exception ex)
+                        {
+                            Program.Logger.Error(ex);
+                        }
+                    }
 
                     Clip.Current.Save(audioSoundEditor1);
 
@@ -1638,6 +1731,7 @@ namespace MyMentor.Forms
             RemoveAnchor(AnchorType.Section);
             RemoveAnchor(AnchorType.Word);
             richTextBox1.Rtf = richTextBox2.Rtf;
+            tabControl1_SelectedIndexChanged(null, new EventArgs());
             m_skipManuallyAnchorsValidation = false;
         }
 
@@ -1647,6 +1741,7 @@ namespace MyMentor.Forms
             richTextBox2.Rtf = richTextBox1.Rtf;
             RemoveAnchor(AnchorType.Paragraph);
             richTextBox1.Rtf = richTextBox2.Rtf;
+            tabControl1_SelectedIndexChanged(null, new EventArgs());
             m_skipManuallyAnchorsValidation = false;
         }
 
@@ -1656,6 +1751,7 @@ namespace MyMentor.Forms
             richTextBox2.Rtf = richTextBox1.Rtf;
             RemoveAnchor(AnchorType.Sentence);
             richTextBox1.Rtf = richTextBox2.Rtf;
+            tabControl1_SelectedIndexChanged(null, new EventArgs());
             m_skipManuallyAnchorsValidation = false;
         }
 
@@ -1665,6 +1761,7 @@ namespace MyMentor.Forms
             richTextBox2.Rtf = richTextBox1.Rtf;
             RemoveAnchor(AnchorType.Section);
             richTextBox1.Rtf = richTextBox2.Rtf;
+            tabControl1_SelectedIndexChanged(null, new EventArgs());
             m_skipManuallyAnchorsValidation = false;
         }
 
@@ -1674,6 +1771,7 @@ namespace MyMentor.Forms
             richTextBox2.Rtf = richTextBox1.Rtf;
             RemoveAnchor(AnchorType.Word);
             richTextBox1.Rtf = richTextBox2.Rtf;
+            tabControl1_SelectedIndexChanged(null, new EventArgs());
             m_skipManuallyAnchorsValidation = false;
         }
 
@@ -2361,8 +2459,9 @@ namespace MyMentor.Forms
             {
                 richTextBox1.Cut();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Program.Logger.Error(ex);
                 MessageBox.Show("Unable to copy document content.", "RTE - Copy", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -2374,8 +2473,9 @@ namespace MyMentor.Forms
             {
                 richTextBox1.Copy();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Program.Logger.Error(ex);
                 MessageBox.Show("Unable to copy document content.", "RTE - Copy", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -2387,8 +2487,9 @@ namespace MyMentor.Forms
             {
                 richTextBox1.Paste();
             }
-            catch
+            catch(Exception ex)
             {
+                Program.Logger.Error(ex);
                 MessageBox.Show("Unable to copy clipboard content to document.", "RTE - Paste", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -2731,8 +2832,9 @@ namespace MyMentor.Forms
 
         private async void comboCategory1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if (comboCategory1.SelectedIndex >= 0)
+            if (comboCategory1.SelectedIndex >= 0 && comboCategory2.Visible)
             {
+                var remLoading = m_whileLoadingClip;
                 var list = (await ParseTables.GetCategory2((string)comboCategory1.SelectedValue)).Where(o => o.Keys.Count() == 4);
 
                 this.comboCategory2.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
@@ -2746,7 +2848,9 @@ namespace MyMentor.Forms
 
                 if (Clip.Current.Category2 != null)
                 {
+                    m_whileLoadingClip = true;
                     this.comboCategory2.SelectedValue = Clip.Current.Category2;
+                    m_whileLoadingClip = false;
                 }
             }
             else
@@ -3047,7 +3151,7 @@ namespace MyMentor.Forms
                 tableLayoutPanel4.RowStyles[1].Height = 0;
                 tableLayoutPanel4.RowStyles[2].Height = 0;
 
-                RegenerateClipName();
+            //    RegenerateClipName();
                 RemoveWaveFormGraphics();
                 m_waveFormTabIndex = -1;
             }
@@ -4395,13 +4499,6 @@ namespace MyMentor.Forms
                 return;
             }
 
-            if (Clip.Current.IsNew)
-            {
-                // ask the user if he wants to go on
-                MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NOT_SAVED").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
-                return;
-            }
-
             if ((string)comboClipType.SelectedValue != "piL85bMGtR" && !m_admin)
             {
                 MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NO_PERMISSIONS").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
@@ -4411,7 +4508,31 @@ namespace MyMentor.Forms
             //clip type shiur
             if ((string)comboClipType.SelectedValue == "piL85bMGtR")
             {
+                if (dtpReadingDate.Visible && listBoxDates.Items.Count == 0)
+                {
+                    MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                    return;
+                }
+                else if (dtpReadingDate.Visible)
+                {
+                    foreach (var d in Clip.Current.ReadingDates)
+                    {
+                        if (d < DateTime.Today)
+                        {
+                            MessageBox.Show(m_strings.Single(a => a.Key == "STD_READING_DATES_NOT_VALID").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                            return;
+                        }
+                    }
+
+                }
+
                 if (comboCategory3.Visible && comboCategory3.SelectedIndex < 0)
+                {
+                    MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                    return;
+                }
+
+                if (comboCategory4.Visible && comboCategory4.SelectedIndex < 0)
                 {
                     MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                     return;
@@ -4450,6 +4571,22 @@ namespace MyMentor.Forms
                 {
                     return;
                 }
+            }
+
+            if (Clip.Current.IsNew)
+            {
+                // ask the user if he wants to go on
+                MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NOT_SAVED").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                mnuFile_Save_Click(null, new EventArgs());
+                return;
+            }
+            else
+            {
+                if (!Clip.Current.IsNew && !m_whileLoadingClip && tabControl1.SelectedIndex == 3)
+                {
+                    Save(true, true, this.tbClipTitle.Text);
+                }
+
             }
 
             m_bInPublishProgress = true;
@@ -4494,9 +4631,9 @@ namespace MyMentor.Forms
 
                                 Save(false, true);
                             }
-                            catch
+                            catch(Exception ex)
                             {
-
+                                Program.Logger.Error(ex);
                             }
 
                             LabelStatus.Text = "Status: Idle";
@@ -4511,6 +4648,7 @@ namespace MyMentor.Forms
             }
             catch (Exception ex)
             {
+                Program.Logger.Error(ex);
                 MessageBox.Show(string.Format("Error :\n\n{0}", ex.ToString()), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
             }
             finally
@@ -4545,10 +4683,6 @@ namespace MyMentor.Forms
                 //tbClipDescription.Visible = false;
                 //lblDescription.Visible = false;
 
-                btnAddDate.Visible = false;
-                btnRemoveDate.Visible = false;
-                listBoxDates.Visible = false;
-
                 numericPrice.Enabled = false;
                 numericPrice.Value = 0;
                 lblPrice.Visible = false;
@@ -4562,6 +4696,9 @@ namespace MyMentor.Forms
                 dtpReadingDate.Visible = false;
                 lblReadingDates.Visible = false;
                 lblAsterikReadingDates.Visible = false;
+                btnAddDate.Visible = false;
+                btnRemoveDate.Visible = false;
+                listBoxDates.Visible = false;
 
                 comboCategory4.Visible = false;
                 lblCategory4.Visible = false;
@@ -4577,9 +4714,15 @@ namespace MyMentor.Forms
                 lblAsterikVoicePrompt.Visible = true;
                 comboVoicePrompt.Visible = true;
 
-                btnAddDate.Visible = true;
-                btnRemoveDate.Visible = true;
-                listBoxDates.Visible = true;
+                if (m_contentType.Get<bool>("readingDates"))
+                {
+                    btnAddDate.Visible = true;
+                    btnRemoveDate.Visible = true;
+                    listBoxDates.Visible = true;
+                    dtpReadingDate.Visible = true;
+                    lblAsterikReadingDates.Visible = true;
+                    lblReadingDates.Visible = true;
+                }
 
                 //tbClipDescription.Visible = true;
                 //lblDescription.Visible = true;
@@ -4588,13 +4731,9 @@ namespace MyMentor.Forms
                 lblAsterikPrice.Visible = false;
                 numericPrice.Visible = true;
                 lblMinValue.Visible = true;
-                lblReadingDates.Visible = true;
-                lblAsterikReadingDates.Visible = true;
 
                 tbKeywords.Visible = true;
                 lblKeywords.Visible = true;
-
-                dtpReadingDate.Visible = true;
 
                 if (comboCategory4.Items.Count > 0)
                 {
@@ -4660,186 +4799,122 @@ namespace MyMentor.Forms
 
             try
             {
-                int anchors = 0;
-                int index = 0;
-                int enterKeys = 0;
-                int sentenses = 0;
-                int charactersFromLastAnchor = 0;
+                int found = 0;
+                int devition = 0;
 
-                while (index < richTextBox2.TextLength)
+                //sentenses enter
+                if (!string.IsNullOrEmpty(comboBoxAutoDevideSen.Text))
                 {
-                    richTextBox2.SelectionStart = index;
-                    richTextBox2.SelectionLength = 1;
+                    found = 0;
+                    devition = 0;
 
-                    index++;
-
-
-                    //enter
-                    if (richTextBox2.SelectedText.ToCharArray()[0] == (char)10)
+                    if (parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES"))
                     {
-                        enterKeys++;
-
-                        if (parDelimiters.Exists(a => a == "ENTER") && charactersFromLastAnchor == 0 && anchors > 0)
-                        {
-                            //remove other anchor
-                            richTextBox2.SelectionStart = index - 4;
-                            richTextBox2.SelectionLength = 3;
-                            richTextBox2.SelectedText = "";
-
-                            AddAnchor(AnchorType.Paragraph, index - 4);
-                            anchors++;
-                            charactersFromLastAnchor = 0;
-                            index += 3;
-                            continue;
-                        }
-
-                        if (parDelimiters.Exists(a => a == "ENTER") && charactersFromLastAnchor > 0)
-                        {
-                            AddAnchor(AnchorType.Paragraph, index - 1);
-                            anchors++;
-                            charactersFromLastAnchor = 0;
-                            index += 3;
-                            continue;
-                        }
-
-                        if (parDelimiters.Exists(a => a == "שני ENTER" || a == "2th ENTER") && enterKeys % 2 == 0 && charactersFromLastAnchor > 0)
-                        {
-                            AddAnchor(AnchorType.Paragraph, index - 1);
-                            anchors++;
-                            charactersFromLastAnchor = 0;
-                            index += 3;
-                            continue;
-                        }
-
-                        if (senDelimiters.Exists(a => a == "ENTER"))
-                        {
-                            sentenses += 1;
-
-                            if (charactersFromLastAnchor > 0 && (sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES")) ||
-                                (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES")) ||
-                                (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES")))
-                            {
-                                AddAnchor(AnchorType.Paragraph, index - 1);
-                                anchors++;
-                                charactersFromLastAnchor = 0;
-                                index += 3;
-                                sentenses = 0;
-                                continue;
-                            }
-
-                            AddAnchor(AnchorType.Sentence, index - 1);
-                            anchors++;
-                            charactersFromLastAnchor = 0;
-                            index += 3;
-                            continue;
-                        }
-
-                        if (senDelimiters.Exists(a => a == "שני ENTER" || a == "2th ENTER") && enterKeys % 2 == 0 && charactersFromLastAnchor > 0)
-                        {
-                            sentenses += 1;
-
-                            if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES")) ||
-                                (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES")) ||
-                                (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES")))
-                            {
-                                AddAnchor(AnchorType.Paragraph, index - 1);
-                                anchors++;
-                                charactersFromLastAnchor = 0;
-                                index += 3;
-                                sentenses = 0;
-                                continue;
-                            }
-
-                            AddAnchor(AnchorType.Sentence, index - 1);
-                            anchors++;
-                            charactersFromLastAnchor = 0;
-                            index += 3;
-                            continue;
-                        }
+                        devition = 2;
+                    }
+                    else if (parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES"))
+                    {
+                        devition = 3;
+                    }
+                    else if (parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES"))
+                    {
+                        devition = 4;
                     }
 
+                    string textToFind = string.Empty;
 
-                    if (parDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0)
+                    switch (comboBoxAutoDevideSen.Text)
                     {
-                        AddAnchor(AnchorType.Paragraph, index);
-                        anchors++;
-                        charactersFromLastAnchor = 0;
-                        index += 3;
-                        continue;
+                        case "ENTER":
+                            textToFind = "\r";
+                            break;
+                        case "COLON (:)":
+                        case "נקודותיים (:)":
+                            textToFind = ":";
+                            break;
+                        case "DOT (.)":
+                        case "נקודה (.)":
+                            textToFind = ".";
+                            break;
+                        default:
+                            textToFind = comboBoxAutoDevideSen.Text;
+                            break;
                     }
 
-                    if ((richTextBox2.SelectedText == ":" || richTextBox2.SelectedText == "׃")
-                        && senDelimiters.Exists(a => a == "נקודותיים (:)" || a == "COLON (:)") && charactersFromLastAnchor > 0)
-                    {
-                        sentenses += 1;
+                    richTextBox2.SelectionStart = 0;
+                    int idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.None);
 
-                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES")) ||
-                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES")) ||
-                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES")))
+                    while (idx >= 0)
+                    {
+                        found++;
+
+                        if (devition > 0 && found % devition == 0)
                         {
-                            AddAnchor(AnchorType.Paragraph, index);
-                            anchors++;
-                            charactersFromLastAnchor = 0;
-                            index += 3;
-                            sentenses = 0;
-                            continue;
+                            AddAnchor(AnchorType.Paragraph, idx, true);
+                        }
+                        else
+                        {
+                            AddAnchor(AnchorType.Sentence, idx, true);
                         }
 
-                        AddAnchor(AnchorType.Sentence, index);
-                        anchors++;
-                        charactersFromLastAnchor = 0;
-                        index += 3;
-                        continue;
-                    }
-
-                    if (richTextBox2.SelectedText == "." && senDelimiters.Exists(a => a == "נקודה (.)" || a == "DOT (.)") && charactersFromLastAnchor > 0)
-                    {
-                        sentenses += 1;
-
-                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES")) ||
-                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES")) ||
-                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES")))
+                        if (idx + 3 + textToFind.Length < richTextBox2.TextLength)
                         {
-                            AddAnchor(AnchorType.Paragraph, index);
-                            anchors++;
-                            charactersFromLastAnchor = 0;
-                            index += 3;
-                            sentenses = 0;
-                            continue;
+                            idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 3, RichTextBoxFinds.None);
                         }
-
-                        AddAnchor(AnchorType.Sentence, index);
-                        anchors++;
-                        charactersFromLastAnchor = 0;
-                        index += 3;
-                        continue;
-                    }
-
-                    if (senDelimiters.Exists(a => a == richTextBox2.SelectedText) && charactersFromLastAnchor > 0)
-                    {
-                        sentenses += 1;
-
-                        if ((sentenses == 2 && parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES")) ||
-                            (sentenses == 3 && parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES")) ||
-                            (sentenses == 4 && parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES")))
+                        else
                         {
-                            AddAnchor(AnchorType.Paragraph, index);
-                            anchors++;
-                            charactersFromLastAnchor = 0;
-                            index += 3;
-                            sentenses = 0;
-                            continue;
+                            break;
                         }
-
-                        AddAnchor(AnchorType.Sentence, index);
-                        anchors++;
-                        charactersFromLastAnchor = 0;
-                        index += 3;
-                        continue;
                     }
-
-                    charactersFromLastAnchor++;
                 }
+
+                //paragraph enter
+                if (!string.IsNullOrEmpty(comboBoxAutoDevidePar.Text) &&
+                    !parDelimiters.Exists(a => a == "אחרי 2 משפטים" || a == "AFTER 2 SENTENCES") &&
+                    !parDelimiters.Exists(a => a == "אחרי 3 משפטים" || a == "AFTER 3 SENTENCES") &&
+                    !parDelimiters.Exists(a => a == "אחרי 4 משפטים" || a == "AFTER 4 SENTENCES"))
+                {
+                    found = 0;
+                    devition = (parDelimiters.Exists(a => a == "שני ENTER" || a == "2th ENTER")) ? 2 : 1;
+
+                    string textToFind = string.Empty;
+
+                    switch (comboBoxAutoDevidePar.Text)
+                    {
+                        case "ENTER":
+                        case "שני ENTER":
+                        case "2th ENTER":
+                            textToFind = "\r";
+                            break;
+                        default:
+                            textToFind = comboBoxAutoDevidePar.Text;
+                            break;
+                    }
+
+                    richTextBox2.SelectionStart = 0;
+                    int idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.None);
+
+                    while (idx >= 0)
+                    {
+                        found++;
+
+                        if (found % devition == 0)
+                        {
+                            AddAnchor(AnchorType.Paragraph, idx + (textToFind == "\r"  ? 0 : textToFind.Trim().Length), true);
+                        }
+
+                        if (idx + 3 + textToFind.Length < richTextBox2.TextLength)
+                        {
+                            idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 3, RichTextBoxFinds.None);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+
+         
 
                 //replace words
                 if (!string.IsNullOrEmpty(comboBoxAutoDevideWor.Text))
@@ -4866,9 +4941,9 @@ namespace MyMentor.Forms
 
                 richTextBox1.Rtf = richTextBox2.Rtf;
             }
-            catch
+            catch(Exception ex)
             {
-
+                Program.Logger.Error(ex);
             }
             finally
             {
@@ -4899,6 +4974,22 @@ namespace MyMentor.Forms
                 case AnchorType.Word:
                     anchor = Clip.WRD_SIGN;
                     break;
+            }
+
+            string remember = richTextBox2.Text;
+
+            while (index < remember.Length &&
+                remember.Substring(index, 1) != " " &&
+                remember.Substring(index, 1) != ":" &&
+                remember.Substring(index, 1) != "\n")
+            {
+                index++;
+
+                if (remember.Substring(index, 1) == "]")
+                {
+                    index = index + 3;
+                    break;
+                }
             }
 
             richTextBox2.SelectionStart = index;
@@ -5009,7 +5100,8 @@ namespace MyMentor.Forms
 
             if (Clip.Current.Chapter.Paragraphs != null)
             {
-                if (Clip.Current.Chapter.FirstWord.StartTime == TimeSpan.Zero)
+                if (Clip.Current.Chapter.FirstWord != null && 
+                    Clip.Current.Chapter.FirstWord.StartTime == TimeSpan.Zero)
                 {
                     tsbHammer_Click(null, new EventArgs());
                 }
@@ -5408,9 +5500,15 @@ namespace MyMentor.Forms
                         // add new anchor to the stack
                         newAnchorsStack.Add(lastWord.Index - 1, new Word
                         {
-                            StartTime = lastWord.PreviousWord.StartTime//,
-                            //Duration = lastWord.PreviousWord.Duration.Add(lastWord.Duration)
+                            StartTime = lastWord.PreviousWord.StartTime,
+                            //Duration = lastWord.Duration
                         });
+
+                        //if (lastWord == Clip.Current.Chapter.LastWord && 
+                        //    lastWord.Duration > TimeSpan.Zero)
+                        //{
+                        //    //newAnchorsStack[newAnchorsStack.Count() - 1].Duration = lastWord.Duration;
+                        //}
 
                         lastWord.Index = -1;
 

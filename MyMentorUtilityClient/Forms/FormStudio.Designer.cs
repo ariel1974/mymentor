@@ -174,6 +174,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.buttonPublish = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupPerformer = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -181,11 +182,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.tbPerformer = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblAsterikVoicePrompt = new System.Windows.Forms.Label();
             this.lblVoicePrompt = new System.Windows.Forms.Label();
+            this.lblAsterikVoicePrompt = new System.Windows.Forms.Label();
             this.comboVoicePrompt = new System.Windows.Forms.ComboBox();
             this.lblAsterikPrice = new System.Windows.Forms.Label();
-            this.lblAsterikReadingDates = new System.Windows.Forms.Label();
             this.tbClipDescription = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.numericPriceSupport = new System.Windows.Forms.NumericUpDown();
@@ -195,13 +195,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.lblPrice = new System.Windows.Forms.Label();
             this.tbClipDescriptionEnglish = new System.Windows.Forms.TextBox();
-            this.comboStatus = new System.Windows.Forms.ComboBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.lblReadingDates = new System.Windows.Forms.Label();
-            this.listBoxDates = new System.Windows.Forms.ListBox();
-            this.btnAddDate = new System.Windows.Forms.Button();
-            this.btnRemoveDate = new System.Windows.Forms.Button();
-            this.dtpReadingDate = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblAsterikCategory4 = new System.Windows.Forms.Label();
             this.lblAsterikCategory1 = new System.Windows.Forms.Label();
@@ -216,12 +209,15 @@
             this.lblCategory2 = new System.Windows.Forms.Label();
             this.lblCategory4 = new System.Windows.Forms.Label();
             this.lblClipRemarks = new System.Windows.Forms.Label();
+            this.comboStatus = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.comboCategory4 = new System.Windows.Forms.ComboBox();
             this.tbClipRemarks = new System.Windows.Forms.TextBox();
             this.lblAsterikCategory3 = new System.Windows.Forms.Label();
             this.lblClipType = new System.Windows.Forms.Label();
+            this.lblAsterikReadingDates = new System.Windows.Forms.Label();
             this.comboClipType = new System.Windows.Forms.ComboBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.tbLastPublished = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -248,11 +244,17 @@
             this.label22 = new System.Windows.Forms.Label();
             this.tbClipTitle = new System.Windows.Forms.TextBox();
             this.mtbVersion = new System.Windows.Forms.MaskedTextBox();
+            this.btnAddDate = new System.Windows.Forms.Button();
             this.label23 = new System.Windows.Forms.Label();
+            this.dtpReadingDate = new System.Windows.Forms.DateTimePicker();
+            this.listBoxDates = new System.Windows.Forms.ListBox();
+            this.lblReadingDates = new System.Windows.Forms.Label();
+            this.btnRemoveDate = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.LabelStatus = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.lblWord = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblLoginUser = new System.Windows.Forms.Label();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
@@ -307,7 +309,6 @@
             this.timerDeviderBlink = new System.Windows.Forms.Timer(this.components);
             this.timerSkipAnalyzerSelection = new System.Windows.Forms.Timer(this.components);
             this.timerShowManuallyAnchorsValidationMessage = new System.Windows.Forms.Timer(this.components);
-            this.lblWord = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -1487,13 +1488,14 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.groupPerformer);
             this.groupBox3.Controls.Add(this.groupBox2);
             this.groupBox3.Controls.Add(this.groupBox1);
             this.groupBox3.Controls.Add(this.lblClipType);
             this.groupBox3.Controls.Add(this.lblAsterikReadingDates);
             this.groupBox3.Controls.Add(this.comboClipType);
-            this.groupBox3.Controls.Add(this.textBox7);
+            this.groupBox3.Controls.Add(this.tbLastPublished);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Controls.Add(this.groupBox6);
@@ -1502,13 +1504,20 @@
             this.groupBox3.Controls.Add(this.label22);
             this.groupBox3.Controls.Add(this.tbClipTitle);
             this.groupBox3.Controls.Add(this.mtbVersion);
+            this.groupBox3.Controls.Add(this.btnAddDate);
             this.groupBox3.Controls.Add(this.label23);
+            this.groupBox3.Controls.Add(this.dtpReadingDate);
             this.groupBox3.Controls.Add(this.listBoxDates);
             this.groupBox3.Controls.Add(this.lblReadingDates);
             this.groupBox3.Controls.Add(this.btnRemoveDate);
             resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
             // 
             // groupPerformer
             // 
@@ -1550,8 +1559,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.lblAsterikVoicePrompt);
             this.groupBox2.Controls.Add(this.lblVoicePrompt);
+            this.groupBox2.Controls.Add(this.lblAsterikVoicePrompt);
             this.groupBox2.Controls.Add(this.comboVoicePrompt);
             this.groupBox2.Controls.Add(this.lblAsterikPrice);
             this.groupBox2.Controls.Add(this.tbClipDescription);
@@ -1563,13 +1572,14 @@
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.lblPrice);
             this.groupBox2.Controls.Add(this.tbClipDescriptionEnglish);
-            this.groupBox2.Controls.Add(this.comboStatus);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.btnAddDate);
-            this.groupBox2.Controls.Add(this.dtpReadingDate);
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // lblVoicePrompt
+            // 
+            resources.ApplyResources(this.lblVoicePrompt, "lblVoicePrompt");
+            this.lblVoicePrompt.Name = "lblVoicePrompt";
             // 
             // lblAsterikVoicePrompt
             // 
@@ -1577,11 +1587,6 @@
             this.lblAsterikVoicePrompt.BackColor = System.Drawing.Color.Transparent;
             this.lblAsterikVoicePrompt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblAsterikVoicePrompt.Name = "lblAsterikVoicePrompt";
-            // 
-            // lblVoicePrompt
-            // 
-            resources.ApplyResources(this.lblVoicePrompt, "lblVoicePrompt");
-            this.lblVoicePrompt.Name = "lblVoicePrompt";
             // 
             // comboVoicePrompt
             // 
@@ -1596,13 +1601,6 @@
             this.lblAsterikPrice.BackColor = System.Drawing.Color.Transparent;
             this.lblAsterikPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblAsterikPrice.Name = "lblAsterikPrice";
-            // 
-            // lblAsterikReadingDates
-            // 
-            resources.ApplyResources(this.lblAsterikReadingDates, "lblAsterikReadingDates");
-            this.lblAsterikReadingDates.BackColor = System.Drawing.Color.Transparent;
-            this.lblAsterikReadingDates.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblAsterikReadingDates.Name = "lblAsterikReadingDates";
             // 
             // tbClipDescription
             // 
@@ -1663,49 +1661,6 @@
             this.tbClipDescriptionEnglish.Name = "tbClipDescriptionEnglish";
             this.tbClipDescriptionEnglish.TextChanged += new System.EventHandler(this.tbClipDescriptionEnglish_TextChanged);
             // 
-            // comboStatus
-            // 
-            this.comboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboStatus.FormattingEnabled = true;
-            resources.ApplyResources(this.comboStatus, "comboStatus");
-            this.comboStatus.Name = "comboStatus";
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.Name = "label16";
-            // 
-            // lblReadingDates
-            // 
-            resources.ApplyResources(this.lblReadingDates, "lblReadingDates");
-            this.lblReadingDates.Name = "lblReadingDates";
-            // 
-            // listBoxDates
-            // 
-            this.listBoxDates.FormattingEnabled = true;
-            resources.ApplyResources(this.listBoxDates, "listBoxDates");
-            this.listBoxDates.Name = "listBoxDates";
-            // 
-            // btnAddDate
-            // 
-            resources.ApplyResources(this.btnAddDate, "btnAddDate");
-            this.btnAddDate.Name = "btnAddDate";
-            this.btnAddDate.UseVisualStyleBackColor = true;
-            this.btnAddDate.Click += new System.EventHandler(this.btnAddDate_Click);
-            // 
-            // btnRemoveDate
-            // 
-            resources.ApplyResources(this.btnRemoveDate, "btnRemoveDate");
-            this.btnRemoveDate.Name = "btnRemoveDate";
-            this.btnRemoveDate.UseVisualStyleBackColor = true;
-            this.btnRemoveDate.Click += new System.EventHandler(this.btnRemoveDate_Click);
-            // 
-            // dtpReadingDate
-            // 
-            resources.ApplyResources(this.dtpReadingDate, "dtpReadingDate");
-            this.dtpReadingDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpReadingDate.Name = "dtpReadingDate";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lblAsterikCategory4);
@@ -1721,6 +1676,8 @@
             this.groupBox1.Controls.Add(this.lblCategory2);
             this.groupBox1.Controls.Add(this.lblCategory4);
             this.groupBox1.Controls.Add(this.lblClipRemarks);
+            this.groupBox1.Controls.Add(this.comboStatus);
+            this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.comboCategory4);
             this.groupBox1.Controls.Add(this.tbClipRemarks);
             this.groupBox1.Controls.Add(this.lblAsterikCategory3);
@@ -1809,6 +1766,18 @@
             resources.ApplyResources(this.lblClipRemarks, "lblClipRemarks");
             this.lblClipRemarks.Name = "lblClipRemarks";
             // 
+            // comboStatus
+            // 
+            this.comboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboStatus.FormattingEnabled = true;
+            resources.ApplyResources(this.comboStatus, "comboStatus");
+            this.comboStatus.Name = "comboStatus";
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
             // comboCategory4
             // 
             this.comboCategory4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1835,6 +1804,13 @@
             resources.ApplyResources(this.lblClipType, "lblClipType");
             this.lblClipType.Name = "lblClipType";
             // 
+            // lblAsterikReadingDates
+            // 
+            resources.ApplyResources(this.lblAsterikReadingDates, "lblAsterikReadingDates");
+            this.lblAsterikReadingDates.BackColor = System.Drawing.Color.Transparent;
+            this.lblAsterikReadingDates.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblAsterikReadingDates.Name = "lblAsterikReadingDates";
+            // 
             // comboClipType
             // 
             this.comboClipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1843,11 +1819,11 @@
             this.comboClipType.Name = "comboClipType";
             this.comboClipType.SelectionChangeCommitted += new System.EventHandler(this.comboClipType_SelectionChangeCommitted);
             // 
-            // textBox7
+            // tbLastPublished
             // 
-            resources.ApplyResources(this.textBox7, "textBox7");
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
+            resources.ApplyResources(this.tbLastPublished, "tbLastPublished");
+            this.tbLastPublished.Name = "tbLastPublished";
+            this.tbLastPublished.ReadOnly = true;
             // 
             // label12
             // 
@@ -2038,10 +2014,41 @@
             this.mtbVersion.Name = "mtbVersion";
             this.mtbVersion.ReadOnly = true;
             // 
+            // btnAddDate
+            // 
+            resources.ApplyResources(this.btnAddDate, "btnAddDate");
+            this.btnAddDate.Name = "btnAddDate";
+            this.btnAddDate.UseVisualStyleBackColor = true;
+            this.btnAddDate.Click += new System.EventHandler(this.btnAddDate_Click);
+            // 
             // label23
             // 
             resources.ApplyResources(this.label23, "label23");
             this.label23.Name = "label23";
+            // 
+            // dtpReadingDate
+            // 
+            resources.ApplyResources(this.dtpReadingDate, "dtpReadingDate");
+            this.dtpReadingDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpReadingDate.Name = "dtpReadingDate";
+            // 
+            // listBoxDates
+            // 
+            this.listBoxDates.FormattingEnabled = true;
+            resources.ApplyResources(this.listBoxDates, "listBoxDates");
+            this.listBoxDates.Name = "listBoxDates";
+            // 
+            // lblReadingDates
+            // 
+            resources.ApplyResources(this.lblReadingDates, "lblReadingDates");
+            this.lblReadingDates.Name = "lblReadingDates";
+            // 
+            // btnRemoveDate
+            // 
+            resources.ApplyResources(this.btnRemoveDate, "btnRemoveDate");
+            this.btnRemoveDate.Name = "btnRemoveDate";
+            this.btnRemoveDate.UseVisualStyleBackColor = true;
+            this.btnRemoveDate.Click += new System.EventHandler(this.btnRemoveDate_Click);
             // 
             // panel3
             // 
@@ -2070,6 +2077,15 @@
             this.panel5.Controls.Add(this.lblLoginUser);
             resources.ApplyResources(this.panel5, "panel5");
             this.panel5.Name = "panel5";
+            // 
+            // lblWord
+            // 
+            this.lblWord.BackColor = System.Drawing.SystemColors.Control;
+            this.lblWord.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblWord.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.lblWord, "lblWord");
+            this.lblWord.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblWord.Name = "lblWord";
             // 
             // label1
             // 
@@ -2476,15 +2492,6 @@
             this.timerShowManuallyAnchorsValidationMessage.Interval = 1000;
             this.timerShowManuallyAnchorsValidationMessage.Tick += new System.EventHandler(this.timerShowManuallyAnchorsValidationMessage_Tick);
             // 
-            // lblWord
-            // 
-            this.lblWord.BackColor = System.Drawing.SystemColors.Control;
-            this.lblWord.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblWord.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.lblWord, "lblWord");
-            this.lblWord.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblWord.Name = "lblWord";
-            // 
             // FormStudio
             // 
             resources.ApplyResources(this, "$this");
@@ -2718,7 +2725,7 @@
         private System.Windows.Forms.Label lblCategory1;
         private System.Windows.Forms.ComboBox comboStatus;
         private System.Windows.Forms.ComboBox comboCategory3;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox tbLastPublished;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.CheckBox sop_teacher1l;
@@ -2842,5 +2849,6 @@
         private System.Windows.Forms.Timer timerSkipAnalyzerSelection;
         private System.Windows.Forms.Timer timerShowManuallyAnchorsValidationMessage;
         public System.Windows.Forms.Label lblWord;
+        private System.Windows.Forms.Label label2;
     }
 }

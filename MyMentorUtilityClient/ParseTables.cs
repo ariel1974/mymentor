@@ -27,8 +27,8 @@ namespace MyMentor
 
             ParseTables.CurrentUser = q;
 
-            Debug.WriteLine("current user: " + q.ObjectId);
-            Debug.WriteLine("current content type: " + q.Get<ParseObject>("contentType").ObjectId);
+            Program.Logger.Info("current user: " + q.ObjectId);
+            Program.Logger.Info("current content type: " + q.Get<ParseObject>("contentType").ObjectId);
 
             var query = await (from armor in ParseObject.GetQuery("WorldContentType")
                                where armor.ObjectId == q.Get<ParseObject>("contentType").ObjectId
@@ -38,7 +38,7 @@ namespace MyMentor
             stopwatch.Stop();
 
             // Write result
-            Debug.WriteLine("Time elapsed GetContentType: {0}",
+            Program.Logger.InfoFormat("Time elapsed GetContentType: {0}",
                 stopwatch.Elapsed);
 
             return query;
@@ -63,7 +63,7 @@ namespace MyMentor
             stopwatch.Stop();
 
             // Write result
-            Debug.WriteLine("Time elapsed GetCategory1: {0}",
+            Program.Logger.InfoFormat("Time elapsed GetCategory1: {0}",
                 stopwatch.Elapsed);
 
             return query;
@@ -87,7 +87,7 @@ namespace MyMentor
             stopwatch.Stop();
 
             // Write result
-            Debug.WriteLine("Time elapsed Strings: {0}",
+            Program.Logger.InfoFormat("Time elapsed Strings: {0}",
                 stopwatch.Elapsed);
 
             return query.Select(s => new KeyValuePair<string, string>(s.Get<string>("code"), s.Get<string>(MyMentor.Properties.Settings.Default.CultureInfo.Replace("-","_"))));

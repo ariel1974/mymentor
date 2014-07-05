@@ -204,6 +204,9 @@
   <data name="STOP" xml:space="preserve">
     <value>עצור</value>
   </data>
+  <data name="UNKNOWN_ERROR" xml:space="preserve">
+    <value>חלה שגיאה קריטית, נסה להכנס מאוחר יותר</value>
+  </data>
   <data name="UNTITLED_CLIP" xml:space="preserve">
     <value>שיעור ללא שם</value>
   </data>

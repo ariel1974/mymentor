@@ -132,7 +132,7 @@ namespace MyMentor.Forms
         {
             try
             {
-                if (tabControl1.SelectedIndex == 0)
+                if (tabControl1.SelectedIndex == 0 && richTextBox1.Focused)
                 {
                     if (keyData == (Keys.Delete))
                     {
@@ -1152,6 +1152,7 @@ namespace MyMentor.Forms
 
                 if (result == System.Windows.Forms.DialogResult.Cancel)
                 {
+                    Program.Logger.Info("User cancel login");
                     Application.Exit();
                 }
                 else
@@ -1323,6 +1324,8 @@ namespace MyMentor.Forms
             catch (Exception ex)
             {
                 Program.Logger.Error(ex);
+                MessageBox.Show(string.Concat(ResourceHelper.GetLabel("UNKNOWN_ERROR") , "\n\n" , ex.Message), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                Application.Exit();
             }
             finally
             {
@@ -1726,11 +1729,13 @@ namespace MyMentor.Forms
         {
             m_skipManuallyAnchorsValidation = true;
             richTextBox2.Rtf = richTextBox1.Rtf;
+            richTextBox1.Visible = false;
             RemoveAnchor(AnchorType.Paragraph);
             RemoveAnchor(AnchorType.Sentence);
             RemoveAnchor(AnchorType.Section);
             RemoveAnchor(AnchorType.Word);
             richTextBox1.Rtf = richTextBox2.Rtf;
+            richTextBox1.Visible = true;
             tabControl1_SelectedIndexChanged(null, new EventArgs());
             m_skipManuallyAnchorsValidation = false;
         }
@@ -4866,6 +4871,36 @@ namespace MyMentor.Forms
                             break;
                         }
                     }
+
+                    if (textToFind == ":")
+                    {
+                        textToFind = "׃";
+                        richTextBox2.SelectionStart = 0;
+                        idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.None);
+
+                        while (idx >= 0)
+                        {
+                            found++;
+
+                            if (devition > 0 && found % devition == 0)
+                            {
+                                AddAnchor(AnchorType.Paragraph, idx + 1, true);
+                            }
+                            else
+                            {
+                                AddAnchor(AnchorType.Sentence, idx + 1, true);
+                            }
+
+                            if (idx + 4 + textToFind.Length < richTextBox2.TextLength)
+                            {
+                                idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 4, RichTextBoxFinds.None);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
                 }
 
                 //paragraph enter
@@ -4951,6 +4986,36 @@ namespace MyMentor.Forms
             }
         }
 
+
+        private void SearchStringInText(string textToFind, ref int found, ref int devition)
+        {
+            richTextBox2.SelectionStart = 0;
+            int idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.None);
+
+            while (idx >= 0)
+            {
+                found++;
+
+                if (devition > 0 && found % devition == 0)
+                {
+                    AddAnchor(AnchorType.Paragraph, idx, true);
+                }
+                else
+                {
+                    AddAnchor(AnchorType.Sentence, idx, true);
+                }
+
+                if (idx + 3 + textToFind.Length < richTextBox2.TextLength)
+                {
+                    idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 3, RichTextBoxFinds.None);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
         private void AddAnchor(AnchorType type, int index)
         {
             AddAnchor(type, index, false);
@@ -4978,9 +5043,10 @@ namespace MyMentor.Forms
 
             string remember = richTextBox2.Text;
 
-            while (index < remember.Length &&
+            while (index < remember.Length - 1 &&
                 remember.Substring(index, 1) != " " &&
                 remember.Substring(index, 1) != ":" &&
+                remember.Substring(index, 1) != "׃" &&
                 remember.Substring(index, 1) != "\n")
             {
                 index++;
@@ -5441,6 +5507,11 @@ namespace MyMentor.Forms
 
         private void ClickAnchor(AnchorType type, int selectionIndex)
         {
+            ClickAnchor(type, selectionIndex, false);
+        }
+
+        private void ClickAnchor(AnchorType type, int selectionIndex, bool hideChanges)
+        {
             string selectedAnchor = string.Empty;
             var othersAnchor = new List<string>();
             Dictionary<int, Word> newAnchorsStack = new Dictionary<int, Word>();
@@ -5515,11 +5586,11 @@ namespace MyMentor.Forms
                     }
                 }
 
-                richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
-                richTextBox1.SelectionLength = 3;
-                richTextBox1.SelectedText = "";
+                    richTextBox1.SelectionStart = selectionIndex - 3 < 0 ? 0 : selectionIndex - 3;
+                    richTextBox1.SelectionLength = 3;
+                    richTextBox1.SelectedText = "";
+                    Clip.Current.Devide(newAnchorsStack);
 
-                Clip.Current.Devide(newAnchorsStack);
             }
             else if (othersAnchor.Contains(  richTextBox2.SelectedText ))
             {
@@ -5570,11 +5641,14 @@ namespace MyMentor.Forms
                     }
                 }
 
-                richTextBox1.SelectionStart = selectionIndex;
-                richTextBox1.SelectionLength = 0;
-                richTextBox1.SelectedText = selectedAnchor;
+                if (!hideChanges)
+                {
+                    richTextBox1.SelectionStart = selectionIndex;
+                    richTextBox1.SelectionLength = 0;
+                    richTextBox1.SelectedText = selectedAnchor;
 
-                Clip.Current.Devide(newAnchorsStack);
+                    Clip.Current.Devide(newAnchorsStack);
+                }
             }
 
             PaintGraphics();

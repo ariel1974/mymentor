@@ -322,6 +322,15 @@ namespace MyMentor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to חלה שגיאה קריטית, נסה להכנס מאוחר יותר.
+        /// </summary>
+        internal static string UNKNOWN_ERROR {
+            get {
+                return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to שיעור ללא שם.
         /// </summary>
         internal static string UNTITLED_CLIP {

@@ -134,12 +134,6 @@ namespace MyMentor.Forms
             {
                 if (tabControl1.SelectedIndex == 0 && richTextBox1.Focused)
                 {
-                    if (keyData == (Keys.Delete))
-                    {
-                        richTextBox1.SelectedText = "";
-                        return true;
-                    }
-
                     if (keyData == (Keys.Control | Keys.A))
                     {
                         textToolstripSelectAll_Click(null, new EventArgs());
@@ -192,7 +186,7 @@ namespace MyMentor.Forms
 
                     if (keyData == (Keys.Control | Keys.V))
                     {
-                        mnuAudioSelectedPart_Paste_Click(null, new EventArgs());
+                        mnuAudioSelectedPart_PasteInsertMode_Click(null, new EventArgs());
                         return true;
                     }
                 }
@@ -1584,7 +1578,21 @@ namespace MyMentor.Forms
                     {
                         try
                         {
-                            File.Delete(oldFileName);
+                            FileInfo oldFile = new FileInfo(oldFileName);
+
+                            foreach (FileInfo f in new DirectoryInfo(oldFile.DirectoryName).GetFiles(string.Concat(Path.GetFileNameWithoutExtension(oldFile.Name), ".*")))
+                            {
+                                if (f.Extension.ToLower() == ".mmnt")
+                                {
+                                    f.Delete();
+                                }
+                                else if (f.Extension.ToLower() == ".mp3")
+                                {
+                                    FileInfo newFile = new FileInfo(saveFileDialog1.FileName);
+                                    f.CopyTo(Path.Combine( newFile.DirectoryName, Path.GetFileNameWithoutExtension(newFile.Name)) + ".mp3");
+                                    f.Delete();
+                                }
+                            }
                         }
                         catch(Exception ex)
                         {
@@ -2504,54 +2512,16 @@ namespace MyMentor.Forms
         {
             try
             {
-                Dictionary<int, int> sizes = new Dictionary<int, int>() {
-                {3, 10}, {4, 11}, {5, 12}, {6, 14},
-                {7, 16}, {8, 18}, {9, 20}, {10, 22},
-                    {11, 24}, {12, 26}, {13, 28} , {14, 36}, {15, 44},
-                    {16, 48}, {17, 56}, {18, 72}, {19, 96}, {20, 124} };
+                Font font = richTextBox1.SelectionFont;
+                Font font2 = new System.Drawing.Font(font.FontFamily, font.Size - (float)1);
 
-
-                string selRtf = richTextBox1.SelectedRtf;
-                int selectedStart = richTextBox1.SelectionStart;
-                int selectedLength = richTextBox1.SelectionLength;
-
-                if (string.IsNullOrEmpty(selRtf))
-                    return;
-
-                Regex r = new Regex(@"\\fs[0-9]+");
-                MatchCollection mc = r.Matches(selRtf);
-
-                for (int j = 0; j < mc.Count; j++)
-                {
-                    int size;
-                    bool getSize = int.TryParse(mc[j].Value.Replace("fs", string.Empty).Replace("\\", string.Empty), out size);
-
-                    if (getSize)
-                    {
-                        if (sizes.ContainsValue(size))
-                        {
-                            int key = sizes.Single(w => w.Value == size).Key;
-
-                            if (key > 3)
-                            {
-                                key -= 1;
-                                selRtf = selRtf.Remove(mc[j].Index, mc[j].Value.Length).Insert(mc[j].Index, "\\fs" + sizes[key].ToString());
-                            }
-                        }
-                    }
-                }
-
-                Debug.WriteLine(selRtf);
-
-                richTextBox1.SelectedRtf = selRtf;
-                richTextBox1.SelectionStart = selectedStart;
-                richTextBox1.SelectionLength = selectedLength;
+                richTextBox1.SelectionFont = font2;
+                PaintGraphics();
             }
             catch
             {
 
             }
-
 
         }
 
@@ -2559,48 +2529,11 @@ namespace MyMentor.Forms
         {
             try
             {
-                Dictionary<int, int> sizes = new Dictionary<int, int>() {
-                {3, 10}, {4, 11}, {5, 12}, {6, 14},
-                {7, 16}, {8, 18}, {9, 20}, {10, 22},
-                    {11, 24}, {12, 26}, {13, 28} , {14, 36}, {15, 44},
-                    {16, 48}, {17, 56}, {18, 72}, {19, 96}, {20, 124} };
+                Font font = richTextBox1.SelectionFont;
+                Font font2 = new System.Drawing.Font(font.FontFamily, font.Size + (float)1);
 
-
-                string selRtf = richTextBox1.SelectedRtf;
-                int selectedStart = richTextBox1.SelectionStart;
-                int selectedLength = richTextBox1.SelectionLength;
-
-                if (string.IsNullOrEmpty(selRtf))
-                    return;
-
-                Regex r = new Regex(@"\\fs[0-9]+");
-                MatchCollection mc = r.Matches(selRtf);
-
-                for (int j = 0; j < mc.Count; j++)
-                {
-                    int size;
-                    bool getSize = int.TryParse(mc[j].Value.Replace("fs", string.Empty).Replace("\\", string.Empty), out size);
-
-                    if (getSize)
-                    {
-                        if (sizes.ContainsValue(size))
-                        {
-                            int key = sizes.Single(w => w.Value == size).Key;
-
-                            if (key < 18)
-                            {
-                                key += 1;
-                                selRtf = selRtf.Remove(mc[j].Index, mc[j].Value.Length).Insert(mc[j].Index, "\\fs" + sizes[key].ToString());
-                            }
-                        }
-                    }
-                }
-
-                Debug.WriteLine(selRtf);
-
-                richTextBox1.SelectedRtf = selRtf;
-                richTextBox1.SelectionStart = selectedStart;
-                richTextBox1.SelectionLength = selectedLength;
+                richTextBox1.SelectionFont = font2;
+                PaintGraphics();
             }
             catch
             {
@@ -2625,7 +2558,7 @@ namespace MyMentor.Forms
 
                 if (fontDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    richTextBox1.SelectionFont = fontDialog1.Font;
+                    richTextBox1.SelectionFont = new Font(fontDialog1.Font, FontStyle.Regular);
                 }
             }
             catch (Exception ex)
@@ -2639,9 +2572,9 @@ namespace MyMentor.Forms
         {
             try
             {
-                richTextBox1.SelectAll();
+                //richTextBox1.SelectAll();
                 richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
-                richTextBox1.Select(0, 0);
+                //richTextBox1.Select(0, 0);
                 PaintGraphics();
 
                 Clip.Current.RightAlignment = true;
@@ -2657,9 +2590,9 @@ namespace MyMentor.Forms
         {
             try
             {
-                richTextBox1.SelectAll();
+                //richTextBox1.SelectAll();
                 richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
-                richTextBox1.Select(0, 0);
+                //richTextBox1.Select(0, 0);
                 PaintGraphics();
 
                 Clip.Current.RightAlignment = false;
@@ -3138,6 +3071,11 @@ namespace MyMentor.Forms
             m_selectedScheduledWord = null;
             m_lastAnchorIndexSelected = -1;
             tsm_RemoveAnchor.Enabled = false;
+
+            tbrParagraph.Checked = false;
+            tbrSection.Checked = false;
+            tbrSentense.Checked = false;
+            tbrWord.Checked = false;
 
             if (m_nRangeSelection != -1)
             {
@@ -4765,7 +4703,7 @@ namespace MyMentor.Forms
 
             if (Clip.Current.Category3 != null)
             {
-                comboCategory3.SelectedItem = Clip.Current.Category3;
+                comboCategory3.SelectedValue = Clip.Current.Category3;
             }
             else
             {
@@ -4847,7 +4785,7 @@ namespace MyMentor.Forms
                     }
 
                     richTextBox2.SelectionStart = 0;
-                    int idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.None);
+                    int idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.MatchCase);
 
                     while (idx >= 0)
                     {
@@ -4855,16 +4793,16 @@ namespace MyMentor.Forms
 
                         if (devition > 0 && found % devition == 0)
                         {
-                            AddAnchor(AnchorType.Paragraph, idx, true);
+                            AddAnchor(AnchorType.Paragraph, idx + 1, true);
                         }
                         else
                         {
-                            AddAnchor(AnchorType.Sentence, idx, true);
+                            AddAnchor(AnchorType.Sentence, idx + 1, true);
                         }
 
-                        if (idx + 3 + textToFind.Length < richTextBox2.TextLength)
+                        if (idx + 4 + textToFind.Length < richTextBox2.TextLength)
                         {
-                            idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 3, RichTextBoxFinds.None);
+                            idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 4, RichTextBoxFinds.MatchCase);
                         }
                         else
                         {
@@ -4876,7 +4814,7 @@ namespace MyMentor.Forms
                     {
                         textToFind = "׃";
                         richTextBox2.SelectionStart = 0;
-                        idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.None);
+                        idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.MatchCase);
 
                         while (idx >= 0)
                         {
@@ -4893,7 +4831,7 @@ namespace MyMentor.Forms
 
                             if (idx + 4 + textToFind.Length < richTextBox2.TextLength)
                             {
-                                idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 4, RichTextBoxFinds.None);
+                                idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 4, RichTextBoxFinds.MatchCase);
                             }
                             else
                             {
@@ -4927,7 +4865,7 @@ namespace MyMentor.Forms
                     }
 
                     richTextBox2.SelectionStart = 0;
-                    int idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.None);
+                    int idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.MatchCase);
 
                     while (idx >= 0)
                     {
@@ -4940,7 +4878,7 @@ namespace MyMentor.Forms
 
                         if (idx + 3 + textToFind.Length < richTextBox2.TextLength)
                         {
-                            idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 3, RichTextBoxFinds.None);
+                            idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 3, RichTextBoxFinds.MatchCase);
                         }
                         else
                         {
@@ -4956,7 +4894,7 @@ namespace MyMentor.Forms
                 {
                     string textToFind = comboBoxAutoDevideWor.Text == "רווח" || comboBoxAutoDevideWor.Text == "SPACE" ? " " : comboBoxAutoDevideWor.Text;
                     richTextBox2.SelectionStart = 0;
-                    int idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.None);
+                    int idx = richTextBox2.Find(textToFind, 0, RichTextBoxFinds.MatchCase);
 
                     while (idx >= 0)
                     {
@@ -4964,7 +4902,7 @@ namespace MyMentor.Forms
 
                         if (idx + textToFind.Length + 3 < richTextBox2.TextLength)
                         {
-                            idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 3, RichTextBoxFinds.None);
+                            idx = richTextBox2.Find(textToFind, idx + textToFind.Length + 3, RichTextBoxFinds.MatchCase);
                         }
                         else
                         {
@@ -5082,6 +5020,23 @@ namespace MyMentor.Forms
                 if (index >= 4)
                 {
                     richTextBox2.SelectionStart = index - 4;
+                    richTextBox2.SelectionLength = 3;
+
+                    if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")
+                    {
+                        if (isAutoDevide && type == AnchorType.Word)
+                        {
+                            return;
+                        }
+
+                        richTextBox2.SelectedText = anchor;
+                        return;
+                    }
+                }
+
+                if (index >= 5)
+                {
+                    richTextBox2.SelectionStart = index - 5;
                     richTextBox2.SelectionLength = 3;
 
                     if (richTextBox2.SelectedText == "[3]" || richTextBox2.SelectedText == "[2]" || richTextBox2.SelectedText == "[1]" || richTextBox2.SelectedText == "[0]")

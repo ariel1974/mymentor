@@ -772,6 +772,15 @@ namespace MyMentor
             this.LastPublishedOn = DateTime.Now;
             this.Save();
 
+            try
+            {
+                File.Delete(Path.ChangeExtension(this.FileName, "_preview.mp3"));
+            }
+            catch
+            {
+
+            }
+
             return true;
         }
 

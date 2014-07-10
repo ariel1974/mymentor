@@ -69,6 +69,29 @@ namespace MyMentor
             return query;
         }
 
+        public static async Task<IEnumerable<ParseObject>> GetUsers()
+        {
+            // Create new stopwatch
+            Stopwatch stopwatch = new Stopwatch();
+
+            // Begin timing
+            stopwatch.Start();
+
+            //get category 1
+            var query = await (from user in ParseUser.Query
+                               where user.Get<string>("username") != null
+                               select user).FindAsync();
+
+            // Stop timing
+            stopwatch.Stop();
+
+            // Write result
+            Program.Logger.InfoFormat("Time elapsed GetCategory1: {0}",
+                stopwatch.Elapsed);
+
+            return query;
+        }
+
         public static async Task<IEnumerable<KeyValuePair<string, string>>> GetStrings()
         {
             // Create new stopwatch

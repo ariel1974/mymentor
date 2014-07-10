@@ -309,6 +309,8 @@
             this.timerDeviderBlink = new System.Windows.Forms.Timer(this.components);
             this.timerSkipAnalyzerSelection = new System.Windows.Forms.Timer(this.components);
             this.timerShowManuallyAnchorsValidationMessage = new System.Windows.Forms.Timer(this.components);
+            this.lblUsers = new System.Windows.Forms.Label();
+            this.comboUsers = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -1488,6 +1490,8 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.comboUsers);
+            this.groupBox3.Controls.Add(this.lblUsers);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.groupPerformer);
             this.groupBox3.Controls.Add(this.groupBox2);
@@ -2492,6 +2496,18 @@
             this.timerShowManuallyAnchorsValidationMessage.Interval = 1000;
             this.timerShowManuallyAnchorsValidationMessage.Tick += new System.EventHandler(this.timerShowManuallyAnchorsValidationMessage_Tick);
             // 
+            // lblUsers
+            // 
+            resources.ApplyResources(this.lblUsers, "lblUsers");
+            this.lblUsers.Name = "lblUsers";
+            // 
+            // comboUsers
+            // 
+            this.comboUsers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.comboUsers, "comboUsers");
+            this.comboUsers.FormattingEnabled = true;
+            this.comboUsers.Name = "comboUsers";
+            // 
             // FormStudio
             // 
             resources.ApplyResources(this, "$this");
@@ -2850,5 +2866,7 @@
         private System.Windows.Forms.Timer timerShowManuallyAnchorsValidationMessage;
         public System.Windows.Forms.Label lblWord;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblUsers;
+        private System.Windows.Forms.ComboBox comboUsers;
     }
 }

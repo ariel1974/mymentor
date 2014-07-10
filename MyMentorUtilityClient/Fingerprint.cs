@@ -15,12 +15,11 @@ namespace Security
         private static string fingerPrint = string.Empty;
         public static string Value(string user)
         {
-            if (string.IsNullOrEmpty(fingerPrint))
-            {
+            
                 fingerPrint = GetHash("nUSER >> "+
             user
                                      );
-            }
+            
             return fingerPrint;
         }
         private static string GetHash(string s)

@@ -662,7 +662,8 @@ namespace MyMentor.Forms
             Clip.Current.ID = Guid.NewGuid();
             Clip.Current.IsNew = true;
             Clip.Current.RightAlignment = true;
-            Clip.Current.FingerPrint = m_currentFingerPrint;
+            Clip.Current.User = (string)comboUsers.SelectedValue;
+            Clip.Current.FingerPrint = FingerPrint.Value(Clip.Current.User);
             Clip.Current.ClipType = "piL85bMGtR";
             Clip.Current.Expired = null;
             Clip.Current.ContentType = this.ContentType.ObjectId;
@@ -720,6 +721,7 @@ namespace MyMentor.Forms
             comboCategory3.SelectedValue = Clip.Current.Category3 ?? string.Empty;
             comboCategory4.SelectedValue = Clip.Current.Category4 ?? string.Empty;
             comboClipType.SelectedValue = Clip.Current.ClipType ?? "piL85bMGtR";
+            comboUsers.SelectedValue = Clip.Current.User;
             tbKeywords.Text = Clip.Current.Keywords;
             comboStatus.SelectedValue = Clip.Current.Status ?? "3DYQsyGZIk"; //paeel
 
@@ -889,7 +891,7 @@ namespace MyMentor.Forms
             {
                 Clip.Load(file);
 
-                if (Clip.Current.FingerPrint != m_currentFingerPrint)
+                if (Clip.Current.FingerPrint != m_currentFingerPrint && !m_admin)
                 {
                     NewClip();
                     MessageBox.Show(ResourceHelper.GetLabel("FINGERPRINT_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
@@ -1225,6 +1227,18 @@ namespace MyMentor.Forms
 
                 pleaseWaitFrm.Progress = 15;
 
+                this.comboUsers.DisplayMember = "EnglishValue";
+                this.comboUsers.ValueMember = "ObjectId";
+                this.comboUsers.DataSource = (await ParseTables.GetUsers()).Select(c => new Category
+                {
+                    ObjectId = c.ObjectId,
+                    EnglishValue = c.Get<string>("username")
+                }).ToList();
+
+                this.comboUsers.SelectedValue = ParseUser.CurrentUser.ObjectId;
+                Clip.Current.User = ParseUser.CurrentUser.ObjectId;
+                pleaseWaitFrm.Progress = 20;
+
                 this.comboCategory3.DisplayMember = MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il" ? "HebrewValue" : "EnglishValue";
                 this.comboCategory3.ValueMember = "ObjectId";
                 this.comboCategory3.DataSource = (await ParseTables.GetCategory3(contentType.ObjectId, "HPz65WBzhw")).Select(c => new Category
@@ -1368,6 +1382,12 @@ namespace MyMentor.Forms
 
                 comboClipType.Visible = true;
                 lblClipType.Visible = true;
+                comboUsers.Visible = true;
+                lblUsers.Visible = true;
+            }
+            else
+            {
+                showDebugDetailToolStripMenuItem.Visible = false;
             }
 
             pleaseWaitFrm.Progress = 100;
@@ -1656,6 +1676,8 @@ namespace MyMentor.Forms
             Clip.Current.Category4 = (string)comboCategory4.SelectedValue;
             Clip.Current.Keywords = tbKeywords.Text;
             Clip.Current.ClipType = comboClipType.SelectedValue != null ? (string)comboClipType.SelectedValue : "piL85bMGtR";
+            Clip.Current.User = (string)comboUsers.SelectedValue;
+            Clip.Current.FingerPrint = FingerPrint.Value(Clip.Current.User);
             Clip.Current.Price = numericPrice.Value;
             Clip.Current.PriceSupport = numericPriceSupport.Value;
 

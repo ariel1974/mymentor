@@ -51,7 +51,6 @@ namespace MyMentor
                     instance.DefaultLearningOptions = new learningOptions();
                     instance.LockedLearningOptions = new learningOptions();
                     instance.ReadingDates = new List<DateTime>();
-                    instance.User = ParseUser.CurrentUser.ObjectId;
                 }
 
                 return instance;

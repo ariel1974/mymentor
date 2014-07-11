@@ -27,8 +27,11 @@ namespace MyMentor
 
             ParseTables.CurrentUser = q;
 
-            Program.Logger.Info("current user: " + q.ObjectId);
-            Program.Logger.Info("current content type: " + q.Get<ParseObject>("contentType").ObjectId);
+            if (!q.ContainsKey("userStatus") || q.Get<ParseObject>("userStatus").ObjectId != "DqjwC081ju"
+                || !q.ContainsKey("userType") || q.Get<int>("userType") != 0)
+            {
+                throw new Exception("User not valid");
+            }
 
             var query = await (from armor in ParseObject.GetQuery("WorldContentType")
                                where armor.ObjectId == q.Get<ParseObject>("contentType").ObjectId

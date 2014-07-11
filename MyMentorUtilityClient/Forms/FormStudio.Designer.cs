@@ -174,6 +174,8 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.buttonPublish = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.comboUsers = new System.Windows.Forms.ComboBox();
+            this.lblUsers = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupPerformer = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -309,8 +311,6 @@
             this.timerDeviderBlink = new System.Windows.Forms.Timer(this.components);
             this.timerSkipAnalyzerSelection = new System.Windows.Forms.Timer(this.components);
             this.timerShowManuallyAnchorsValidationMessage = new System.Windows.Forms.Timer(this.components);
-            this.lblUsers = new System.Windows.Forms.Label();
-            this.comboUsers = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -1518,6 +1518,18 @@
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
+            // comboUsers
+            // 
+            this.comboUsers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.comboUsers, "comboUsers");
+            this.comboUsers.FormattingEnabled = true;
+            this.comboUsers.Name = "comboUsers";
+            // 
+            // lblUsers
+            // 
+            resources.ApplyResources(this.lblUsers, "lblUsers");
+            this.lblUsers.Name = "lblUsers";
+            // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
@@ -2496,18 +2508,6 @@
             this.timerShowManuallyAnchorsValidationMessage.Interval = 1000;
             this.timerShowManuallyAnchorsValidationMessage.Tick += new System.EventHandler(this.timerShowManuallyAnchorsValidationMessage_Tick);
             // 
-            // lblUsers
-            // 
-            resources.ApplyResources(this.lblUsers, "lblUsers");
-            this.lblUsers.Name = "lblUsers";
-            // 
-            // comboUsers
-            // 
-            this.comboUsers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.comboUsers, "comboUsers");
-            this.comboUsers.FormattingEnabled = true;
-            this.comboUsers.Name = "comboUsers";
-            // 
             // FormStudio
             // 
             resources.ApplyResources(this, "$this");
@@ -2518,12 +2518,15 @@
             this.Controls.Add(this.audioSoundEditor1);
             this.Controls.Add(this.audioSoundRecorder1);
             this.Controls.Add(this.menuStrip1);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormStudio";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormStudio_FormClosing);
             this.Load += new System.EventHandler(this.FormStudio_Load);
             this.Shown += new System.EventHandler(this.FormStudio_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormStudio_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormStudio_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormStudio_KeyUp);
             this.Resize += new System.EventHandler(this.FormStudio_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

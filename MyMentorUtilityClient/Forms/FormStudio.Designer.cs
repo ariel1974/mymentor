@@ -1447,6 +1447,7 @@
             this.richTextBox3.VScroll += new System.EventHandler(this.richTextBox3_VScroll);
             this.richTextBox3.TextChanged += new System.EventHandler(this.richTextBox3_TextChanged);
             this.richTextBox3.DoubleClick += new System.EventHandler(this.richTextBox3_DoubleClick);
+            this.richTextBox3.Enter += new System.EventHandler(this.richTextBox3_Enter);
             this.richTextBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBox3_KeyDown);
             this.richTextBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox3_KeyPress);
             this.richTextBox3.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox3_MouseDoubleClick);

@@ -69,6 +69,10 @@ namespace MyMentor
         public string Name { get; set; }
         public string HebrewTitle { get; set; }
         public string EnglishTitle { get; set; }
+        public string PortalHebrewTitlePart1 { get; set; }
+        public string PortalHebrewTitlePart2 { get; set; }
+        public string PortalEnglishTitlePart1 { get; set; }
+        public string PortalEnglishTitlePart2 { get; set; }
         public bool RightAlignment { get; set; }
         public string Description { get; set; }
         public string EnglishDescription { get; set; }
@@ -620,8 +624,6 @@ namespace MyMentor
                         }
                     });
 
-
-
                 }
 
             });
@@ -662,6 +664,12 @@ namespace MyMentor
 
             clip["name_he_il"] = this.HebrewTitle;
             clip["name_en_us"] = this.EnglishTitle;
+
+            clip["portalNamePart1_he_il"] = this.PortalHebrewTitlePart1;
+            clip["portalNamePart2_he_il"] = this.PortalHebrewTitlePart2;
+            clip["portalNamePart1_en_us"] = this.PortalEnglishTitlePart1;
+            clip["portalNamePart2_en_us"] = this.PortalEnglishTitlePart2;
+
             clip["clipSourceRtf"] = this.RtfText;
             clip["clipSourceText"] = this.Text;
             clip["description_he_il"] = this.Description;

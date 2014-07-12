@@ -827,11 +827,6 @@ namespace MyMentor.Forms
 
         private void RegenerateClipName(bool isDirty)
         {
-            //if (m_loadingParse)
-            //{
-            //    return;
-            //}
-
             var hebrewPattern = (string)comboClipType.SelectedValue == "enaWrne5xe" ?
                 m_contentType.Get<string>("sourceTitlePattern_he_il") :
                 m_contentType.Get<string>("clipTitlePattern_he_il");
@@ -839,6 +834,12 @@ namespace MyMentor.Forms
             var englishPattern = (string)comboClipType.SelectedValue == "enaWrne5xe" ?
                 m_contentType.Get<string>("sourceTitlePattern_en_us") :
                 m_contentType.Get<string>("clipTitlePattern_en_us");
+
+            var portalHebrewPatternPart1 = m_contentType.Get<string>("clipTitlePatternPart1_he_il");
+            var portalHebrewPatternPart2 = m_contentType.Get<string>("clipTitlePatternPart2_he_il");
+
+            var portalEnglishPatternPart1 = m_contentType.Get<string>("clipTitlePatternPart1_en_us");
+            var portalEnglishPatternPart2 = m_contentType.Get<string>("clipTitlePatternPart2_en_us");
 
             var clipHebrewTitle = hebrewPattern.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetHebrewPlaceholderText(), "_"))
                 .SpecialReplace("[category2]", string.Concat("_", comboCategory2.GetHebrewPlaceholderText(), "_"))
@@ -850,7 +851,47 @@ namespace MyMentor.Forms
                 .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName_he_il") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName_he_il"), "_") : string.Empty)
                 .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_he_il") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_he_il"), "_") : string.Empty);
 
+            var portalHebrewTitlePart1 = portalHebrewPatternPart1.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[category2]", string.Concat("_", comboCategory2.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[category3]", string.Concat("_", comboCategory3.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[description]", string.Concat("_", Clip.Current.Description, "_"))
+                .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.Remarks, "_"))
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName_he_il") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstName_he_il"), "_") : string.Empty)
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName_he_il") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName_he_il"), "_") : string.Empty)
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_he_il") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_he_il"), "_") : string.Empty);
+
+            var portalHebrewTitlePart2 = portalHebrewPatternPart2.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[category2]", string.Concat("_", comboCategory2.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[category3]", string.Concat("_", comboCategory3.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetHebrewPlaceholderText(), "_"))
+                .SpecialReplace("[description]", string.Concat("_", Clip.Current.Description, "_"))
+                .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.Remarks, "_"))
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName_he_il") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstName_he_il"), "_") : string.Empty)
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName_he_il") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName_he_il"), "_") : string.Empty)
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_he_il") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_he_il"), "_") : string.Empty);
+
             var clipEnglishTitle = englishPattern.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[category2]", string.Concat("_", comboCategory2.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[category3]", string.Concat("_", comboCategory3.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[description]", string.Concat("_", Clip.Current.EnglishDescription, "_"))
+                .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.RemarksEnglish, "_"))
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstName_en_us"), "_") : string.Empty)
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName_en_us"), "_") : string.Empty)
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_en_us"), "_") : string.Empty);
+
+            var portalEnglishTitlePart1 = portalEnglishPatternPart1.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[category2]", string.Concat("_", comboCategory2.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[category3]", string.Concat("_", comboCategory3.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetEnglishPlaceholderText(), "_"))
+                .SpecialReplace("[description]", string.Concat("_", Clip.Current.EnglishDescription, "_"))
+                .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.RemarksEnglish, "_"))
+                .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstName_en_us"), "_") : string.Empty)
+                .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName_en_us"), "_") : string.Empty)
+                .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_en_us"), "_") : string.Empty);
+
+            var portalEnglishTitlePart2 = portalEnglishPatternPart2.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[category2]", string.Concat("_", comboCategory2.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[category3]", string.Concat("_", comboCategory3.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetEnglishPlaceholderText(), "_"))
@@ -874,6 +915,11 @@ namespace MyMentor.Forms
 
             Clip.Current.HebrewTitle = clipHebrewTitle;
             Clip.Current.EnglishTitle = clipEnglishTitle;
+
+            Clip.Current.PortalHebrewTitlePart1 = portalHebrewTitlePart1;
+            Clip.Current.PortalHebrewTitlePart2 = portalHebrewTitlePart2;
+            Clip.Current.PortalEnglishTitlePart1 = portalEnglishTitlePart1;
+            Clip.Current.PortalEnglishTitlePart2 = portalEnglishTitlePart2;
         }
 
         private void OpenClip()
@@ -1368,6 +1414,7 @@ namespace MyMentor.Forms
             }
             catch (Exception ex)
             {
+                ParseUser.LogOut();
                 Program.Logger.Error(ex);
                 MessageBox.Show(string.Concat(ResourceHelper.GetLabel("UNKNOWN_ERROR") , "\n\n" , ex.Message), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 Application.Exit();
@@ -1619,7 +1666,7 @@ namespace MyMentor.Forms
 
                     if (isSaveAs)
                     {
-                        Clip.Current.ID = Guid.NewGuid();
+                        //Clip.Current.ID = Guid.NewGuid();
                         oldFileName = Clip.Current.FileName;
                     }
                     //Clip.Current.FontName = richTextBox1.Font.Name;
@@ -2939,6 +2986,7 @@ namespace MyMentor.Forms
             // check if we have simply selected a position (vertical dotted line)
             if (nBeginSelectionInMs != nEndSelectionInMs)
             {
+                timerSkipAnalyzerSelection.Enabled = true;
                 audioSoundEditor1.DisplayWaveformAnalyzer.ZoomToSelection(false);
 
                 int nWidthInMs = 0;
@@ -5951,6 +5999,11 @@ namespace MyMentor.Forms
             {
                 tsbHammer_Click(null, new EventArgs());
             }
+            else
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = false;
+            }
         }
 
         private void richTextBox3_KeyPress(object sender, KeyPressEventArgs e)
@@ -6136,8 +6189,14 @@ namespace MyMentor.Forms
             {
                 if (e.KeyData == Keys.H)
                 {
+                    e.SuppressKeyPress = false;
                     e.Handled = true;
                     HideShowWaveAnylazerSelection(true);
+
+                } else if (e.KeyData == Keys.Space && tabControl1.SelectedIndex == 2
+                    && audioDjStudio1.GetPlayerStatus(0) == AudioDjStudio.enumPlayerStatus.SOUND_PLAYING)
+                {
+                    tsbHammer_Click(null, new EventArgs());
                 }
             }
         }
@@ -6148,10 +6207,16 @@ namespace MyMentor.Forms
             {
                 if (e.KeyData == Keys.H)
                 {
+                    e.SuppressKeyPress = false;
                     e.Handled = true;
                     HideShowWaveAnylazerSelection(false);
                 }
             }
+        }
+
+        private void richTextBox3_Enter(object sender, EventArgs e)
+        {
+            toolStrip2.Focus();
         }
 
     }

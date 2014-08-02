@@ -46,6 +46,7 @@ namespace MyMentor.Json
         public string keywords { get; set; }
         public bool isNikudIncluded { get; set; }
         public bool isTeamimIncluded { get; set; }
+        public Dictionary<string, List<float>> fonts { get; set; }
         //[JsonIgnore]
         //public TimeSpan duration { get; set; }
 

@@ -172,7 +172,7 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.buttonPublish = new System.Windows.Forms.Button();
+            this.buttonPublishUpdate = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comboUsers = new System.Windows.Forms.ComboBox();
             this.lblUsers = new System.Windows.Forms.Label();
@@ -311,6 +311,7 @@
             this.timerDeviderBlink = new System.Windows.Forms.Timer(this.components);
             this.timerSkipAnalyzerSelection = new System.Windows.Forms.Timer(this.components);
             this.timerShowManuallyAnchorsValidationMessage = new System.Windows.Forms.Timer(this.components);
+            this.buttonPublishNew = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -1469,8 +1470,9 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.buttonPublishNew);
             this.panel4.Controls.Add(this.pictureBox2);
-            this.panel4.Controls.Add(this.buttonPublish);
+            this.panel4.Controls.Add(this.buttonPublishUpdate);
             resources.ApplyResources(this.panel4, "panel4");
             this.panel4.Name = "panel4";
             // 
@@ -1480,13 +1482,13 @@
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.TabStop = false;
             // 
-            // buttonPublish
+            // buttonPublishUpdate
             // 
-            this.buttonPublish.BackgroundImage = global::MyMentor.Properties.Resources._1386909646_519838_50_Cloud_Arrow_Up;
-            resources.ApplyResources(this.buttonPublish, "buttonPublish");
-            this.buttonPublish.Name = "buttonPublish";
-            this.buttonPublish.UseVisualStyleBackColor = true;
-            this.buttonPublish.Click += new System.EventHandler(this.buttonPublish_Click);
+            this.buttonPublishUpdate.BackgroundImage = global::MyMentor.Properties.Resources._1386909646_519838_50_Cloud_Arrow_Up;
+            resources.ApplyResources(this.buttonPublishUpdate, "buttonPublishUpdate");
+            this.buttonPublishUpdate.Name = "buttonPublishUpdate";
+            this.buttonPublishUpdate.UseVisualStyleBackColor = true;
+            this.buttonPublishUpdate.Click += new System.EventHandler(this.buttonPublish_Click);
             // 
             // groupBox3
             // 
@@ -2509,6 +2511,14 @@
             this.timerShowManuallyAnchorsValidationMessage.Interval = 1000;
             this.timerShowManuallyAnchorsValidationMessage.Tick += new System.EventHandler(this.timerShowManuallyAnchorsValidationMessage_Tick);
             // 
+            // buttonPublishNew
+            // 
+            this.buttonPublishNew.BackgroundImage = global::MyMentor.Properties.Resources._1386909646_519838_50_Cloud_Arrow_Up;
+            resources.ApplyResources(this.buttonPublishNew, "buttonPublishNew");
+            this.buttonPublishNew.Name = "buttonPublishNew";
+            this.buttonPublishNew.UseVisualStyleBackColor = true;
+            this.buttonPublishNew.Click += new System.EventHandler(this.buttonPublishNew_Click);
+            // 
             // FormStudio
             // 
             resources.ApplyResources(this, "$this");
@@ -2777,7 +2787,7 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Button buttonPublish;
+        private System.Windows.Forms.Button buttonPublishUpdate;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ProgressBar progressBar1;
         public System.Windows.Forms.Label LabelStatus;
@@ -2872,5 +2882,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblUsers;
         private System.Windows.Forms.ComboBox comboUsers;
+        private System.Windows.Forms.Button buttonPublishNew;
     }
 }

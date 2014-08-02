@@ -521,6 +521,37 @@ namespace MyMentor
             Save(null);
         }
 
+        private Dictionary<string, List<float>> ExtractFonts()
+        {
+            System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
+            rtBox.Rtf = instance.RtfText;
+
+            Dictionary<string, List<float>> dict = new Dictionary<string, List<float>>();
+
+            int index = 0;
+            while (index < rtBox.TextLength)
+            {
+                rtBox.SelectionStart = index;
+                rtBox.SelectionLength = 1;
+
+                if (!dict.ContainsKey(rtBox.SelectionFont.FontFamily.Name))
+                {
+                    dict.Add(rtBox.SelectionFont.FontFamily.Name, new List<float> { rtBox.SelectionFont.Size });
+                }
+                else
+                {
+                    if (!dict[rtBox.SelectionFont.FontFamily.Name].Any(d => d == rtBox.SelectionFont.Size))
+                    {
+                        dict[rtBox.SelectionFont.FontFamily.Name].Add(rtBox.SelectionFont.Size);
+                    }
+                }
+
+                index++;
+            }
+
+            return dict;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -981,8 +1012,10 @@ namespace MyMentor
             Devide(false, false);
 
             jsonClip clip = new jsonClip();
+            
             clip.id = this.ID.ToString();
             clip.name = this.HebrewTitle;
+            clip.fonts = ExtractFonts();
             clip.description = this.Description;
             clip.performer = this.Performer;
             clip.performerEnglish = this.EnglishPerformer;

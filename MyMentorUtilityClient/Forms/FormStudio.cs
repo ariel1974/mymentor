@@ -53,6 +53,7 @@ namespace MyMentor.Forms
         private string START_PAUSE_SECTION_ANCHOR;
         private string END_PAUSE_SECTION_ANCHOR;
         List<int> m_LastSelections = new List<int>();
+        List<int> m_LastRangeSelections = new List<int>();
         private int m_intRecordingDuration = 0;
         private TimeSpan m_rem_anchorFixRecording = TimeSpan.Zero;
 
@@ -694,6 +695,8 @@ namespace MyMentor.Forms
             Clip.Current.DefaultLearningOptions.teacherAndStudent = 1;
             Clip.Current.DefaultLearningOptions.teacher2 = 1;
             Clip.Current.DefaultLearningOptions.student = 1;
+            
+            buttonPublishUpdate.Enabled = false;
 
             tbrParagraph.Checked = false;
             tbrSection.Checked = false;
@@ -903,10 +906,24 @@ namespace MyMentor.Forms
 
             clipHebrewTitle = clipHebrewTitle.Replace("_", "");
             clipEnglishTitle = clipEnglishTitle.Replace("_", "");
+            portalHebrewTitlePart1 = portalHebrewTitlePart1.Replace("_", "");
+            portalHebrewTitlePart2 = portalHebrewTitlePart2.Replace("_", "");
+            portalEnglishTitlePart1 = portalEnglishTitlePart1.Replace("_", "");
+            portalEnglishTitlePart2 = portalEnglishTitlePart2.Replace("_", "");
+
+
 
             if (MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il")
             {
-                this.tbClipTitle.Text = clipHebrewTitle;
+                if ( (!string.IsNullOrEmpty(Clip.Current.Remarks) && Regex.IsMatch(Clip.Current.Remarks, "^[a-zA-Z0-9]"))
+                    || (!string.IsNullOrEmpty(Clip.Current.Description) && Regex.IsMatch(Clip.Current.Description, "^[a-zA-Z0-9]")))
+                {
+                    this.tbClipTitle.Text = clipEnglishTitle;
+                }
+                else
+                {
+                    this.tbClipTitle.Text = clipHebrewTitle;
+                }
             }
             else
             {
@@ -1006,8 +1023,11 @@ namespace MyMentor.Forms
             Clip.Current.IsDirty = false;
             Clip.Current.IsNew = false;
 
+            buttonPublishUpdate.Enabled = true;
+
             if (Clip.Current.ContentType != this.ContentType.ObjectId)
             {
+                Clip.Current.ContentType = this.ContentType.ObjectId;
                 MessageBox.Show(m_strings.Single(a => a.Key == "STD_CONTENT_TYPE_NOT_MATCH").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
             }
 
@@ -1704,7 +1724,14 @@ namespace MyMentor.Forms
                         }
                     }
 
-                    Clip.Current.Save(audioSoundEditor1);
+                    if (excludeClipFile)
+                    {
+                        Clip.Current.Save(null);
+                    }
+                    else
+                    {
+                        Clip.Current.Save(audioSoundEditor1);
+                    }
 
                     if (audioSoundEditor1.GetSoundDuration() <= 0 && !excludeClipFile)
                     {
@@ -2245,6 +2272,15 @@ namespace MyMentor.Forms
                 // set create new mode
                 audioSoundEditor1.SetLoadingMode(enumLoadingModes.LOAD_MODE_NEW);
 
+            int nStart = 0;
+            int nEnd = 0;
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nStart, ref nEnd);
+
+            m_LastRangeSelections.Clear();
+            m_LastRangeSelections.Add(nStart);
+            m_LastRangeSelections.Add(nEnd);
+
             // paste clipboard contents
             if (audioSoundEditor1.LoadSoundFromClipboard() != enumErrorCodes.ERR_NOERROR)
                 MessageBox.Show("Cannot load from system clipboard");
@@ -2258,6 +2294,19 @@ namespace MyMentor.Forms
             Int32 nBeginSelectionInMs = 0;
             Int32 nEndSelectionInMs = 0;
             audioSoundEditor1.DisplayWaveformAnalyzer.GetSelection(ref bSelectionAvailable, ref nBeginSelectionInMs, ref nEndSelectionInMs);
+
+            int nStart = 0;
+            int nEnd = 0;
+
+            audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nStart, ref nEnd);
+
+            m_LastRangeSelections.Clear();
+            m_LastRangeSelections.Add(nStart);
+            m_LastRangeSelections.Add(nEnd);
+
+            m_LastSelections.Clear();
+            m_LastSelections.Add(nBeginSelectionInMs);
+            m_LastSelections.Add(nEndSelectionInMs);
 
             // if a selection is available
             if (bSelectionAvailable)
@@ -2301,11 +2350,24 @@ namespace MyMentor.Forms
 
             if (ConfirmRemoveSelectionRange(nBeginSelectionInMs, nEndSelectionInMs))
             {
+                int nStart = 0;
+                int nEnd = 0;
+
+                audioSoundEditor1.DisplayWaveformAnalyzer.GetDisplayRange(ref nStart, ref nEnd);
+
+                m_LastRangeSelections.Clear();
+                m_LastRangeSelections.Add(nStart);
+                m_LastRangeSelections.Add(nEnd);
+
+                m_LastSelections.Clear();
+                m_LastSelections.Add(nBeginSelectionInMs);
+                m_LastSelections.Add(nEndSelectionInMs);
+
                 // delete the selected range
                 audioSoundEditor1.DeleteRange(nBeginSelectionInMs, nEndSelectionInMs);
 
                 // remove the actual selection
-                audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(false, 0, 0);
+                //audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(false, 0, 0);
             }
 
         }
@@ -3836,7 +3898,7 @@ namespace MyMentor.Forms
         private void audioSoundEditor1_WaveAnalysisStop(object sender, AudioSoundEditor.WaveAnalysisStopEventArgs e)
         {
             // force a refresh of the waveform analyzer
-            timerDisplayWaveform.Enabled = true;
+            //timerDisplayWaveform.Enabled = true;
 
             progressBar1.Visible = false;
             LabelStatus.Text = "Status: Idle";
@@ -4587,20 +4649,20 @@ namespace MyMentor.Forms
 
             }
 
-            if ((string)comboClipType.SelectedValue == "piL85bMGtR")
-            {
-                if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.No)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.No)
-                {
-                    return;
-                }
-            }
+            //if ((string)comboClipType.SelectedValue == "piL85bMGtR")
+            //{
+            //    if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.No)
+            //    {
+            //        return;
+            //    }
+            //}
+            //else
+            //{
+            //    if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.No)
+            //    {
+            //        return;
+            //    }
+            //}
 
             if (Clip.Current.IsNew)
             {
@@ -4618,11 +4680,17 @@ namespace MyMentor.Forms
 
             }
 
+            if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_UPDATE_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.No)
+            {
+                return;
+            }
+
             m_bInPublishProgress = true;
             groupBox3.Enabled = false;
             pictureBox2.Visible = true;
             progressBar1.Visible = false;
-            buttonPublish.Enabled = false;
+            buttonPublishUpdate.Enabled = false;
+            buttonPublishNew.Enabled = false;
             Application.DoEvents();
 
             SavePropertiesToClip();
@@ -4667,7 +4735,8 @@ namespace MyMentor.Forms
 
                             LabelStatus.Text = "Status: Idle";
                             progressBar1.Value = 0;
-                            buttonPublish.Enabled = true;
+                            buttonPublishUpdate.Enabled = true;
+                            buttonPublishNew.Enabled = true;
                             pictureBox2.Visible = false;
                             progressBar1.Visible = true;
                             MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_SUCCESFULLY").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
@@ -4684,7 +4753,7 @@ namespace MyMentor.Forms
             {
                 pictureBox2.Visible = false;
                 progressBar1.Visible = true;
-                buttonPublish.Enabled = true;
+                buttonPublishUpdate.Enabled = true;
                 groupBox3.Enabled = true;
                 m_bInPublishProgress = false;
 
@@ -6127,6 +6196,25 @@ namespace MyMentor.Forms
             {
                 PaintWaveFormGraphics();
                 audioSoundEditor1.DisplayWaveformAnalyzer.Refresh();
+
+            }
+
+            if (m_LastRangeSelections.Count() > 0)
+            {
+                audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange(m_LastRangeSelections[0], m_LastRangeSelections[1]);
+
+                if (m_LastSelections.Count() == 0)
+                {
+                    var center = m_LastRangeSelections[0] + ((m_LastRangeSelections[1] - m_LastRangeSelections[0]) / 2);
+                    audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, center, center);
+                }
+                else
+                {
+                    audioSoundEditor1.DisplayWaveformAnalyzer.SetSelection(true, m_LastSelections[0], m_LastSelections[1]);
+                    m_LastSelections.Clear();
+                }
+
+                m_LastRangeSelections.Clear();
             }
         }
 
@@ -6217,6 +6305,185 @@ namespace MyMentor.Forms
         private void richTextBox3_Enter(object sender, EventArgs e)
         {
             toolStrip2.Focus();
+        }
+
+        private async void buttonPublishNew_Click(object sender, EventArgs e)
+        {
+            if (!Clip.Current.IsNew)
+            {
+                FileInfo file = new FileInfo(Clip.Current.FileName);
+
+                if (Path.GetFileNameWithoutExtension(file.Name) == this.tbClipTitle.Text)
+                {
+                    MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NO_CHANGE").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                    return;
+                }
+                else
+                {
+                    Clip.Current.ID = Guid.NewGuid();
+                }
+            }
+
+            if (audioSoundEditor1.GetSoundDuration() <= 0 && !m_admin)
+            {
+                // ask the user if he wants to go on
+                MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NO_SCHEDULING_EXISTS").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                return;
+            }
+
+            if ((string)comboClipType.SelectedValue != "piL85bMGtR" && !m_admin)
+            {
+                MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NO_PERMISSIONS").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                return;
+            }
+
+            //clip type shiur
+            if ((string)comboClipType.SelectedValue == "piL85bMGtR")
+            {
+                if (dtpReadingDate.Visible && listBoxDates.Items.Count == 0)
+                {
+                    MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                    return;
+                }
+                else if (dtpReadingDate.Visible)
+                {
+                    foreach (var d in Clip.Current.ReadingDates)
+                    {
+                        if (d < DateTime.Today)
+                        {
+                            MessageBox.Show(m_strings.Single(a => a.Key == "STD_READING_DATES_NOT_VALID").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                            return;
+                        }
+                    }
+
+                }
+
+                if (comboCategory3.Visible && comboCategory3.SelectedIndex < 0)
+                {
+                    MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                    return;
+                }
+
+                if (comboCategory4.Visible && comboCategory4.SelectedIndex < 0)
+                {
+                    MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                    return;
+                }
+
+                if (comboVoicePrompt.SelectedIndex < 0)
+                {
+                    MessageBox.Show(ResourceHelper.GetLabel("MANDATORY_FIELDS"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                    return;
+                }
+
+                if (comboCategory3.Visible && ((Category)comboCategory3.SelectedItem).MinPrice > numericPrice.Value)
+                {
+                    MessageBox.Show(ResourceHelper.GetLabel("MIN_PRICE_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                    return;
+                }
+
+                //if (((Category)comboCategory3.SelectedItem).MinPrice > numericPriceSupport.Value)
+                //{
+                //    MessageBox.Show("מחיר השיעור כולל תמיכה קטן מהמינימום המותר לסוג זה", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                //    return;
+                //}
+
+            }
+
+            if (Clip.Current.IsNew)
+            {
+                // ask the user if he wants to go on
+                MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NOT_SAVED").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                mnuFile_Save_Click(null, new EventArgs());
+                return;
+            }
+            else
+            {
+                if (!Clip.Current.IsNew && !m_whileLoadingClip && tabControl1.SelectedIndex == 3)
+                {
+                    Save(true, true, this.tbClipTitle.Text);
+                }
+
+            }
+
+            if (MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_UPDATE_CONFIRM").Value, "MyMentor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, m_msgOptionsRtl) == System.Windows.Forms.DialogResult.No)
+            {
+                return;
+            }
+
+            m_bInPublishProgress = true;
+            groupBox3.Enabled = false;
+            pictureBox2.Visible = true;
+            progressBar1.Visible = false;
+            buttonPublishUpdate.Enabled = false;
+            buttonPublishNew.Enabled = false;
+            Application.DoEvents();
+
+            SavePropertiesToClip();
+            try
+            {
+                if (Clip.Current.SaveJson(Clip.Current.ExtractJson()) && Clip.Current.ExtractHtml((msg) =>
+                {
+                    LabelStatus.Invoke((MethodInvoker)(() =>
+                    {
+                        LabelStatus.Text = msg;
+                    }));
+                }))
+                {
+                    if (Clip.Current.Publish(audioSoundEditor1, (msg) =>
+                    {
+                        LabelStatus.Invoke((MethodInvoker)(() =>
+                        {
+                            LabelStatus.Text = msg;
+                        }));
+                    }))
+                    {
+                        LabelStatus.Text = "Uploading to cloud...please wait";
+
+                        bool result = await Clip.Current.UploadAsync(new Progress<ParseUploadProgressEventArgs>(ev =>
+                        {
+                            progressBar1.Value = Convert.ToInt32(ev.Progress * 100);
+                        }));
+
+                        if (result)
+                        {
+                            try
+                            {
+                                Clip.Current.Version = Convert.ToString(Convert.ToDouble(Clip.Current.Version) + 0.01);
+                                mtbVersion.Text = Clip.Current.Version;
+
+                                Save(false, true);
+                            }
+                            catch (Exception ex)
+                            {
+                                Program.Logger.Error(ex);
+                            }
+
+                            LabelStatus.Text = "Status: Idle";
+                            progressBar1.Value = 0;
+                            buttonPublishUpdate.Enabled = true;
+                            buttonPublishNew.Enabled = true;
+                            pictureBox2.Visible = false;
+                            progressBar1.Visible = true;
+                            MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_SUCCESFULLY").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Program.Logger.Error(ex);
+                MessageBox.Show(string.Format("Error :\n\n{0}", ex.ToString()), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+            }
+            finally
+            {
+                pictureBox2.Visible = false;
+                progressBar1.Visible = true;
+                buttonPublishUpdate.Enabled = true;
+                groupBox3.Enabled = true;
+                m_bInPublishProgress = false;
+
+            }
         }
 
     }

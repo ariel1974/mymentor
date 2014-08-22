@@ -147,6 +147,9 @@
   <data name="HEBREW_CHANGE_LANGUAGE" xml:space="preserve">
     <value>יש לצאת ולהכנס מהמערכת על מנת להחיל את השינויים</value>
   </data>
+  <data name="INVALID_USER" xml:space="preserve">
+    <value>Invalid user please make sure you have the right credential to enter MyMentor Studio</value>
+  </data>
   <data name="LOGIN_AS" xml:space="preserve">
     <value>Logged in as </value>
   </data>

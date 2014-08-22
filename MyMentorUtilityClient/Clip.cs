@@ -584,10 +584,21 @@ namespace MyMentor
 
         private Task<bool> CutPreviewFile(AudioSoundEditor.AudioSoundEditor editor)
         {
+            var length = (int)(editor.GetSoundDuration() * 0.15);
+
+            if (length < 10000)
+            {
+                length = 10000;
+            }
+            else if (length > 30000)
+            {
+                length = 30000;
+            }
+
             return Task.Factory.StartNew(() =>
                         {
                             editor.UseThreadsInSyncMode(true);
-                            editor.ExportToFile(44100, 1, 0, 0, 10000, Path.ChangeExtension(this.FileName, "_preview.mp3"));
+                            editor.ExportToFile(44100, 1, 0, 0, length, Path.ChangeExtension(this.FileName, "_preview.mp3"));
                             editor.UseThreadsInSyncMode(false);
                             return true;
                         });

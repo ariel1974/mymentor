@@ -151,6 +151,15 @@ namespace MyMentor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to אינך משתמש מורשה בסטודיו.
+        /// </summary>
+        internal static string INVALID_USER {
+            get {
+                return ResourceManager.GetString("INVALID_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to הנך מחובר כ -.
         /// </summary>
         internal static string LOGIN_AS {

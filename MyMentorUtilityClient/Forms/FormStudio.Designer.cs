@@ -171,6 +171,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.buttonPublishNew = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.buttonPublishUpdate = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -311,7 +312,6 @@
             this.timerDeviderBlink = new System.Windows.Forms.Timer(this.components);
             this.timerSkipAnalyzerSelection = new System.Windows.Forms.Timer(this.components);
             this.timerShowManuallyAnchorsValidationMessage = new System.Windows.Forms.Timer(this.components);
-            this.buttonPublishNew = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -1476,6 +1476,14 @@
             resources.ApplyResources(this.panel4, "panel4");
             this.panel4.Name = "panel4";
             // 
+            // buttonPublishNew
+            // 
+            this.buttonPublishNew.BackgroundImage = global::MyMentor.Properties.Resources._1386909646_519838_50_Cloud_Arrow_Up;
+            resources.ApplyResources(this.buttonPublishNew, "buttonPublishNew");
+            this.buttonPublishNew.Name = "buttonPublishNew";
+            this.buttonPublishNew.UseVisualStyleBackColor = true;
+            this.buttonPublishNew.Click += new System.EventHandler(this.buttonPublishNew_Click);
+            // 
             // pictureBox2
             // 
             resources.ApplyResources(this.pictureBox2, "pictureBox2");
@@ -2119,6 +2127,7 @@
             resources.ApplyResources(this.lblLoginUser, "lblLoginUser");
             this.lblLoginUser.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblLoginUser.Name = "lblLoginUser";
+            this.lblLoginUser.UseCompatibleTextRendering = true;
             // 
             // toolStrip2
             // 
@@ -2510,14 +2519,6 @@
             // 
             this.timerShowManuallyAnchorsValidationMessage.Interval = 1000;
             this.timerShowManuallyAnchorsValidationMessage.Tick += new System.EventHandler(this.timerShowManuallyAnchorsValidationMessage_Tick);
-            // 
-            // buttonPublishNew
-            // 
-            this.buttonPublishNew.BackgroundImage = global::MyMentor.Properties.Resources._1386909646_519838_50_Cloud_Arrow_Up;
-            resources.ApplyResources(this.buttonPublishNew, "buttonPublishNew");
-            this.buttonPublishNew.Name = "buttonPublishNew";
-            this.buttonPublishNew.UseVisualStyleBackColor = true;
-            this.buttonPublishNew.Click += new System.EventHandler(this.buttonPublishNew_Click);
             // 
             // FormStudio
             // 

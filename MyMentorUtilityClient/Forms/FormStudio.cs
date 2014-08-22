@@ -1267,7 +1267,7 @@ namespace MyMentor.Forms
             {
                 ParseUser.LogOut();
                 Program.Logger.Error(ex);
-                MessageBox.Show("Invalid user please make sure you have the right credential to enter MyMentor Studio", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                MessageBox.Show(ResourceHelper.GetLabel("INVALID_USER") , "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 Application.Exit();
                 return;
             }
@@ -1708,13 +1708,13 @@ namespace MyMentor.Forms
                             {
                                 if (f.Extension.ToLower() == ".mmnt")
                                 {
-                                    f.Delete();
+                                    //f.Delete();
                                 }
                                 else if (f.Extension.ToLower() == ".mp3")
                                 {
                                     FileInfo newFile = new FileInfo(saveFileDialog1.FileName);
                                     f.CopyTo(Path.Combine( newFile.DirectoryName, Path.GetFileNameWithoutExtension(newFile.Name)) + ".mp3");
-                                    f.Delete();
+                                    //f.Delete();
                                 }
                             }
                         }
@@ -2357,11 +2357,11 @@ namespace MyMentor.Forms
 
                 m_LastRangeSelections.Clear();
                 m_LastRangeSelections.Add(nStart);
-                m_LastRangeSelections.Add(nEnd);
+                m_LastRangeSelections.Add(nStart);
 
                 m_LastSelections.Clear();
                 m_LastSelections.Add(nBeginSelectionInMs);
-                m_LastSelections.Add(nEndSelectionInMs);
+                m_LastSelections.Add(nBeginSelectionInMs);
 
                 // delete the selected range
                 audioSoundEditor1.DeleteRange(nBeginSelectionInMs, nEndSelectionInMs);
@@ -6192,6 +6192,8 @@ namespace MyMentor.Forms
 
         private void audioSoundEditor1_WaveAnalysisDone(object sender, WaveAnalysisDoneEventArgs e)
         {
+            audioSoundEditor1.DisplayWaveformAnalyzer.ZoomToFullSound();
+
             if (tabControl1.SelectedIndex == 2)
             {
                 PaintWaveFormGraphics();
@@ -6201,7 +6203,10 @@ namespace MyMentor.Forms
 
             if (m_LastRangeSelections.Count() > 0)
             {
-                audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange(m_LastRangeSelections[0], m_LastRangeSelections[1]);
+                if (m_LastRangeSelections[0] != m_LastRangeSelections[1])
+                {
+                    audioSoundEditor1.DisplayWaveformAnalyzer.SetDisplayRange(m_LastRangeSelections[0], m_LastRangeSelections[1]);
+                }
 
                 if (m_LastSelections.Count() == 0)
                 {
@@ -6311,9 +6316,7 @@ namespace MyMentor.Forms
         {
             if (!Clip.Current.IsNew)
             {
-                FileInfo file = new FileInfo(Clip.Current.FileName);
-
-                if (Path.GetFileNameWithoutExtension(file.Name) == this.tbClipTitle.Text)
+                if (!Clip.Current.LastPublishedOn.HasValue)
                 {
                     MessageBox.Show(m_strings.Single(a => a.Key == "STD_PUBLISH_NO_CHANGE").Value, "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                     return;

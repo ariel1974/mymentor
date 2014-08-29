@@ -185,6 +185,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.tbPerformer = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblPriceSupportCurrency = new System.Windows.Forms.Label();
             this.lblVoicePrompt = new System.Windows.Forms.Label();
             this.lblAsterikVoicePrompt = new System.Windows.Forms.Label();
             this.comboVoicePrompt = new System.Windows.Forms.ComboBox();
@@ -192,7 +193,7 @@
             this.tbClipDescription = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.numericPriceSupport = new System.Windows.Forms.NumericUpDown();
-            this.label33 = new System.Windows.Forms.Label();
+            this.lblPriceSupport = new System.Windows.Forms.Label();
             this.numericPrice = new System.Windows.Forms.NumericUpDown();
             this.lblMinValue = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -1586,6 +1587,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblPriceSupportCurrency);
             this.groupBox2.Controls.Add(this.lblVoicePrompt);
             this.groupBox2.Controls.Add(this.lblAsterikVoicePrompt);
             this.groupBox2.Controls.Add(this.comboVoicePrompt);
@@ -1593,7 +1595,7 @@
             this.groupBox2.Controls.Add(this.tbClipDescription);
             this.groupBox2.Controls.Add(this.lblDescription);
             this.groupBox2.Controls.Add(this.numericPriceSupport);
-            this.groupBox2.Controls.Add(this.label33);
+            this.groupBox2.Controls.Add(this.lblPriceSupport);
             this.groupBox2.Controls.Add(this.numericPrice);
             this.groupBox2.Controls.Add(this.lblMinValue);
             this.groupBox2.Controls.Add(this.label13);
@@ -1602,6 +1604,11 @@
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // lblPriceSupportCurrency
+            // 
+            resources.ApplyResources(this.lblPriceSupportCurrency, "lblPriceSupportCurrency");
+            this.lblPriceSupportCurrency.Name = "lblPriceSupportCurrency";
             // 
             // lblVoicePrompt
             // 
@@ -1651,10 +1658,10 @@
             0});
             this.numericPriceSupport.Name = "numericPriceSupport";
             // 
-            // label33
+            // lblPriceSupport
             // 
-            resources.ApplyResources(this.label33, "label33");
-            this.label33.Name = "label33";
+            resources.ApplyResources(this.lblPriceSupport, "lblPriceSupport");
+            this.lblPriceSupport.Name = "lblPriceSupport";
             // 
             // numericPrice
             // 
@@ -2737,7 +2744,7 @@
         private System.Windows.Forms.TextBox tbClipRemarks;
         private System.Windows.Forms.NumericUpDown numericPriceSupport;
         private System.Windows.Forms.NumericUpDown numericPrice;
-        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label lblPriceSupport;
         private System.Windows.Forms.Label lblAsterikCategory3;
         private System.Windows.Forms.Label lblMinValue;
         private System.Windows.Forms.Label lblPrice;
@@ -2884,5 +2891,6 @@
         private System.Windows.Forms.Label lblUsers;
         private System.Windows.Forms.ComboBox comboUsers;
         private System.Windows.Forms.Button buttonPublishNew;
+        private System.Windows.Forms.Label lblPriceSupportCurrency;
     }
 }

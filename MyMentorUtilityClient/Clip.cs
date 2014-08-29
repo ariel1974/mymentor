@@ -64,7 +64,7 @@ namespace MyMentor
         public string FileName { get; set; }
         public Guid ID { get; set; }
         public decimal Price { get; set; }
-        public decimal PriceSupport { get; set; }
+        public Nullable<decimal> PriceSupport { get; set; }
         public string User { get; set; }
         public string Name { get; set; }
         public string HebrewTitle { get; set; }
@@ -92,6 +92,7 @@ namespace MyMentor
         public string ContentType { get; set; }
         public string AudioFileName { get; set; }
         public long ClipSize { get; set; }
+        public string ClipDuration { get; set; }
         public long DemoClipSize { get; set; }
         public string ClipType { get; set; }
         public Nullable<DateTime> Expired { get; set; }
@@ -638,6 +639,8 @@ namespace MyMentor
                 //cut for audio preview file
                 if (editor.GetSoundDuration() > 0)
                 {
+                    this.ClipDuration = editor.GetFormattedTime(editor.GetSoundDuration(), true, true);
+
                     var processData = CutPreviewFile(editor).ContinueWith((cut) =>
                     {
                         if (cut.Result)
@@ -724,7 +727,16 @@ namespace MyMentor
             clip["fingerPrint"] = this.FingerPrint;
             clip["clipType"] = ParseObject.CreateWithoutData("ClipType", this.ClipType);
             clip["price"] = (float)this.Price;
-            clip["priceWithSupport"] = (float)this.PriceSupport;
+
+            if (this.PriceSupport.HasValue)
+            {
+                clip["priceWithSupport"] = (float)this.PriceSupport.Value;
+            }
+            else
+            {
+                clip["priceWithSupport"] = null;
+            }
+
             clip["status"] = ParseObject.CreateWithoutData("ClipStatus", this.Status);
             clip["existsNikud"] = this.IsNikudIncluded;
             clip["existsTeamim"] = this.IsTeamimIncluded;
@@ -775,6 +787,7 @@ namespace MyMentor
             clip["keywords"] = this.Keywords.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             clip["clipFile"] = mmnFile;
             clip["clipSize"] = this.ClipSize;
+            clip["clipDuration"] = this.ClipDuration;
 
             if (!string.IsNullOrEmpty(this.MmnDemoFileName))
             {
@@ -814,6 +827,7 @@ namespace MyMentor
                 PublicReadAccess = true,
                 PublicWriteAccess = false
             };
+            ACL.SetRoleWriteAccess("Administrators", true);
             clip.ACL = ACL;
 
             await clip.SaveAsync();

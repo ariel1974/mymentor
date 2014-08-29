@@ -232,6 +232,15 @@ namespace MyMentor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to מחיר שיעור עם תמיכה קטן מהמינימום המותר לסוג זה.
+        /// </summary>
+        internal static string MIN_PRICE_SUPPORT_ERROR {
+            get {
+                return ResourceManager.GetString("MIN_PRICE_SUPPORT_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to הדבק.
         /// </summary>
         internal static string MNU_PASTE {

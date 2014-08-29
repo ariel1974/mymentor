@@ -169,10 +169,13 @@
     <value>Remove this anchor and the following ones</value>
   </data>
   <data name="MIN_PRICE" xml:space="preserve">
-    <value>min. price</value>
+    <value>Price is lower than minimum for this type of clip</value>
   </data>
   <data name="MIN_PRICE_ERROR" xml:space="preserve">
     <value>Price has to be bigger than minimum</value>
+  </data>
+  <data name="MIN_PRICE_SUPPORT_ERROR" xml:space="preserve">
+    <value>Price for support is lower than minimum for this type of clip</value>
   </data>
   <data name="MNU_PASTE" xml:space="preserve">
     <value>Paste</value>

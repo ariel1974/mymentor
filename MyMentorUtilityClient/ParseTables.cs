@@ -72,6 +72,30 @@ namespace MyMentor
             return query;
         }
 
+        public static async Task<IEnumerable<ParseObject>> GetCurrencies()
+        {
+            // Create new stopwatch
+            Stopwatch stopwatch = new Stopwatch();
+
+            // Begin timing
+            stopwatch.Start();
+
+            //get curremnies 1
+            var query = await (from cat in ParseObject.GetQuery("Currency")
+                               where
+                               cat["currencySymbol"] != null
+                               select cat).FindAsync();
+
+            // Stop timing
+            stopwatch.Stop();
+
+            // Write result
+            Program.Logger.InfoFormat("Time elapsed Currencies: {0}",
+                stopwatch.Elapsed);
+
+            return query;
+        }
+
         public static async Task<IEnumerable<ParseObject>> GetUsers()
         {
             // Create new stopwatch

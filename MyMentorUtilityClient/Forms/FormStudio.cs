@@ -50,6 +50,7 @@ namespace MyMentor.Forms
         private bool m_whileLoadingClip = false;
         private Stopwatch m_stopWatch = new Stopwatch();
         private IEnumerable<KeyValuePair<string, string>> m_strings;
+        private List<Currency> m_currencies;
         private string START_PAUSE_SECTION_ANCHOR;
         private string END_PAUSE_SECTION_ANCHOR;
         List<int> m_LastSelections = new List<int>();
@@ -752,7 +753,15 @@ namespace MyMentor.Forms
             RegenerateDatesBox();
 
             numericPrice.Value = Clip.Current.Price;
-            numericPriceSupport.Value = Clip.Current.PriceSupport;
+
+            if (Clip.Current.PriceSupport.HasValue)
+            {
+                numericPriceSupport.Value = Clip.Current.PriceSupport.Value;
+            }
+            else
+            {
+                numericPriceSupport.ResetText();
+            }
 
             def_par.Checked = Clip.Current.DefaultSections.paragraph == 1;
             def_sen.Checked = Clip.Current.DefaultSections.sentence == 1;
@@ -884,12 +893,20 @@ namespace MyMentor.Forms
                 .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName_en_us"), "_") : string.Empty)
                 .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_en_us"), "_") : string.Empty);
 
+            bool englishRemarkInHebrewTextBox = false;
+
+            if ((!string.IsNullOrEmpty(Clip.Current.Remarks) && Regex.IsMatch(Clip.Current.Remarks, "^[a-zA-Z0-9]"))
+                    || (!string.IsNullOrEmpty(Clip.Current.Description) && Regex.IsMatch(Clip.Current.Description, "^[a-zA-Z0-9]")))
+            {
+                englishRemarkInHebrewTextBox = true;
+            }
+
             var portalEnglishTitlePart1 = portalEnglishPatternPart1.SpecialReplace("[category1]", string.Concat("_", comboCategory1.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[category2]", string.Concat("_", comboCategory2.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[category3]", string.Concat("_", comboCategory3.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[description]", string.Concat("_", Clip.Current.EnglishDescription, "_"))
-                .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.RemarksEnglish, "_"))
+                .SpecialReplace("[remarks]", string.Concat("_", englishRemarkInHebrewTextBox ? Clip.Current.Remarks : Clip.Current.RemarksEnglish, "_"))
                 .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstName_en_us"), "_") : string.Empty)
                 .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName_en_us"), "_") : string.Empty)
                 .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_en_us"), "_") : string.Empty);
@@ -899,7 +916,7 @@ namespace MyMentor.Forms
                 .SpecialReplace("[category3]", string.Concat("_", comboCategory3.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[category4]", string.Concat("_", comboCategory4.GetEnglishPlaceholderText(), "_"))
                 .SpecialReplace("[description]", string.Concat("_", Clip.Current.EnglishDescription, "_"))
-                .SpecialReplace("[remarks]", string.Concat("_", Clip.Current.RemarksEnglish, "_"))
+                .SpecialReplace("[remarks]", string.Concat("_", englishRemarkInHebrewTextBox ? Clip.Current.Remarks : Clip.Current.RemarksEnglish, "_"))
                 .SpecialReplace("[firstName]", ParseTables.CurrentUser.ContainsKey("firstName_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("firstName_en_us"), "_") : string.Empty)
                 .SpecialReplace("[lastName]", ParseTables.CurrentUser.ContainsKey("lastName_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("lastName_en_us"), "_") : string.Empty)
                 .SpecialReplace("[cityOfResidence]", ParseTables.CurrentUser.ContainsKey("cityOfResidence_en_us") ? string.Concat("_", ParseTables.CurrentUser.Get<string>("cityOfResidence_en_us"), "_") : string.Empty);
@@ -915,8 +932,7 @@ namespace MyMentor.Forms
 
             if (MyMentor.Properties.Settings.Default.CultureInfo.ToLower() == "he-il")
             {
-                if ( (!string.IsNullOrEmpty(Clip.Current.Remarks) && Regex.IsMatch(Clip.Current.Remarks, "^[a-zA-Z0-9]"))
-                    || (!string.IsNullOrEmpty(Clip.Current.Description) && Regex.IsMatch(Clip.Current.Description, "^[a-zA-Z0-9]")))
+                if (englishRemarkInHebrewTextBox)
                 {
                     this.tbClipTitle.Text = clipEnglishTitle;
                 }
@@ -1310,6 +1326,24 @@ namespace MyMentor.Forms
             try
             {
                 m_strings = await ParseTables.GetStrings();
+
+                m_currencies = (await ParseTables.GetCurrencies()).Select(c => new Currency
+                {
+                    ObjectId = c.ObjectId,
+                    Symbol = c.Get<string>("currencySymbol")
+                }).ToList();
+
+                pleaseWaitFrm.Progress = 10;
+
+                if (ParseTables.CurrentUser.ContainsKey("lessonCostCurrency"))
+                {
+                    var costCurrencyId = ParseTables.CurrentUser.Get<ParseObject>("lessonCostCurrency").ObjectId;
+
+                    if (!string.IsNullOrEmpty(costCurrencyId))
+                    {
+                        lblPriceSupportCurrency.Text = m_currencies.FirstOrDefault(c => c.ObjectId == costCurrencyId).Symbol;
+                    }
+                }
 
                 this.comboVoicePrompt.DisplayMember = "HebrewValue";
                 this.comboVoicePrompt.ValueMember = "ObjectId";
@@ -1790,7 +1824,15 @@ namespace MyMentor.Forms
             Clip.Current.User = (string)comboUsers.SelectedValue;
             Clip.Current.FingerPrint = FingerPrint.Value(Clip.Current.User);
             Clip.Current.Price = numericPrice.Value;
-            Clip.Current.PriceSupport = numericPriceSupport.Value;
+
+            if (numericPriceSupport.Value > 0)
+            {
+                Clip.Current.PriceSupport = numericPriceSupport.Value;
+            }
+            else
+            {
+                Clip.Current.PriceSupport = null;
+            }
 
             Clip.Current.DefaultSections.paragraph = def_par.Checked ? 1 : 0;
             Clip.Current.DefaultSections.sentence = def_sen.Checked ? 1 : 0;
@@ -4643,7 +4685,7 @@ namespace MyMentor.Forms
 
                 //if (((Category)comboCategory3.SelectedItem).MinPrice > numericPriceSupport.Value)
                 //{
-                //    MessageBox.Show("מחיר השיעור כולל תמיכה קטן מהמינימום המותר לסוג זה", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                //    MessageBox.Show(ResourceHelper.GetLabel("MIN_PRICE_SUPPORT_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 //    return;
                 //}
 
@@ -4784,8 +4826,11 @@ namespace MyMentor.Forms
                 numericPrice.Enabled = false;
                 numericPrice.Value = 0;
                 lblPrice.Visible = false;
+                lblPriceSupport.Visible = false;
+                lblPriceSupportCurrency.Visible = false;
                 lblAsterikPrice.Visible = false;
                 numericPrice.Visible = false;
+                numericPriceSupport.Visible = false;
                 lblMinValue.Visible = false;
 
                 tbKeywords.Visible = false;
@@ -4826,8 +4871,11 @@ namespace MyMentor.Forms
                 //lblDescription.Visible = true;
                 numericPrice.Enabled = true;
                 lblPrice.Visible = true;
+                lblPriceSupport.Visible = true;
+                lblPriceSupportCurrency.Visible = true;
                 lblAsterikPrice.Visible = false;
                 numericPrice.Visible = true;
+                numericPriceSupport.Visible = true;
                 lblMinValue.Visible = true;
 
                 tbKeywords.Visible = true;
@@ -6387,7 +6435,7 @@ namespace MyMentor.Forms
 
                 //if (((Category)comboCategory3.SelectedItem).MinPrice > numericPriceSupport.Value)
                 //{
-                //    MessageBox.Show("מחיר השיעור כולל תמיכה קטן מהמינימום המותר לסוג זה", "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
+                //    MessageBox.Show(ResourceHelper.GetLabel("MIN_PRICE_SUPPORT_ERROR"), "MyMentor", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, m_msgOptionsRtl);
                 //    return;
                 //}
 
